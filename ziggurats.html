@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziggurat-Like Structures Worldwide</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .expandable { max-width: 200px; height: auto; display: block; margin: 0 auto; cursor: pointer; border: 1px solid #ddd; border-radius: 4px; transition: transform 0.2s; }
+        .expandable:hover { transform: scale(1.05); }
+        .region { font-weight: bold; background-color: #f9f9f9; }
+        /* Modal styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
+        .modal-content { margin: auto; display: block; width: 90%; max-width: 1200px; max-height: 90%; object-fit: contain; padding-top: 50px; }
+        .close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 1001; }
+        .close:hover { color: #ccc; }
+        #map { height: 600px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Ziggurat-Like Structures Worldwide</h1>
+    Made by Grok.
+    <table>
+        <thead>
+            <tr>
+                <th>Region/Continent</th>
+                <th>Location/Site</th>
+                <th>Structure Name(s)</th>
+                <th>Brief Description</th>
+                <th>GPS Coordinates</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="region"><td>Middle East (Mesopotamia & Persia)</td><td>Ur, Iraq</td><td>Great Ziggurat of Ur</td><td>Massive 21st-century BCE Sumerian temple platform (64x46m base, ~30m high) dedicated to moon god Nanna; three terraces, partially restored.</td><td>30.9628° N, 46.1031° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/9/93/Ancient_ziggurat_at_Ali_Air_Base_Iraq_2005.jpg" alt="Great Ziggurat of Ur"></td></tr>
+            <tr><td></td><td>Babylon, Iraq</td><td>Etemenanki</td><td>6th-century BCE Babylonian ziggurat (~91m tall, seven terraces) for god Marduk; inspired the Tower of Babel legend.</td><td>32.5352° N, 44.4192° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/8/83/Etemenanki_drawing.gif" alt="Etemenanki"></td></tr>
+            <tr><td></td><td>Aqar Quf, Iraq</td><td>Ziggurat of Aqar Quf</td><td>3rd-millennium BCE Kassite structure near Baghdad; eroded but shows classic stepped form.</td><td>33.0500° N, 44.3500° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/d/de/The_ziggurat_at_Aqar_Quf.jpg" alt="Ziggurat of Aqar Quf"></td></tr>
+            <tr><td></td><td>Khūzestān, Iran</td><td>Chogha Zanbil</td><td>~1250 BCE Elamite ziggurat (five towers of varying heights) honoring god Inshushinak; UNESCO site, well-preserved despite damage.</td><td>32.0044° N, 48.5197° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Choqha_Zanbil.JPG" alt="Chogha Zanbil"></td></tr>
+            <tr><td></td><td>Kashan, Iran</td><td>Tepe Sialk</td><td>Neolithic to Bronze Age stepped platforms; early precursor to ziggurats.</td><td>33.9685° N, 51.4039° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/2/24/Ziggurat_on_the_southern_hill_of_Tepe_Sialk%2C_3rd_millennium_BC%2C_Iran_-_50546005573.jpg" alt="Tepe Sialk"></td></tr>
+            <tr class="region"><td>Africa</td><td>Saqqara, Egypt</td><td>Step Pyramid of Djoser</td><td>~27th-century BCE Old Kingdom prototype (~62m tall, six steps); first pyramid, designed by Imhotep as a royal tomb evolution from mastabas.</td><td>29.8711° N, 31.2167° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Step_Pyramid_-_El_Haram_El_Medarraga.jpg" alt="Step Pyramid of Djoser"></td></tr>
+            <tr><td></td><td>Meroë, Sudan</td><td>Nubian Pyramids</td><td>~800 BCE–350 CE Kushite kingdom's smaller stepped tombs (over 200 total); steeper angles than Egyptian, some with chapels.</td><td>16.9386° N, 33.7492° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/6/66/A_wonderful_picture_of_the_pyramids_of_Meroe_in_Sudan.png" alt="Nubian Pyramids"></td></tr>
+            <tr><td></td><td>Tenerife, Canary Islands (Spain)</td><td>Pyramids of Güímar</td><td>19th-century discovered volcanic rock steps (six structures); possibly pre-Hispanic Guanche ritual sites, debated as natural vs. man-made.</td><td>28.3208° N, 16.4138° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Ansichten_der_Pyramiden_von_G%C3%BCimar_Juli_2018_%281%29.jpg" alt="Pyramids of Güímar"></td></tr>
+            <tr class="region"><td>Mesoamerica (Central America)</td><td>Teotihuacan, Mexico</td><td>Pyramid of the Sun & Moon</td><td>~100 CE massive stepped bases (~65m & ~43m tall); part of urban complex, used for astronomy and rituals.</td><td>19.6930° N, 98.8440° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Teotihuacan%2C_Pyramid_of_the_Sun_%2820498681808%29.jpg" alt="Pyramid of the Sun & Moon"></td></tr>
+            <tr><td></td><td>Chichen Itza, Mexico</td><td>El Castillo (Kukulkan Pyramid)</td><td>~9th-century CE Maya stepped pyramid (24m tall, 365 steps total); aligned with equinox shadows.</td><td>20.6830° N, 88.5686° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Chichen_Itza-El_Castillo.jpg" alt="El Castillo"></td></tr>
+            <tr><td></td><td>Uxmal, Mexico</td><td>Pyramid of the Magician</td><td>~6th–10th century CE Maya oval-based steps (35m tall); five phases of construction.</td><td>20.3594° N, 89.7717° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Uxmal_Pyramid_of_the_Magician.jpg" alt="Pyramid of the Magician"></td></tr>
+            <tr><td></td><td>Tikal, Guatemala</td><td>Temple-Pyramids I–IV</td><td>~200–900 CE Maya city with towering stepped temples (up to 72m); largest ancient Maya site.</td><td>17.2222° N, 89.6233° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Tikal_Temple_I.jpg" alt="Tikal Temple I"></td></tr>
+            <tr><td></td><td>Palenque, Mexico</td><td>Temple of the Inscriptions</td><td>~7th-century CE Maya funerary stepped pyramid; contains Pakal the Great's tomb.</td><td>17.4833° N, 92.0464° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Palenque_temple_of_the_inscriptions.jpg" alt="Temple of the Inscriptions"></td></tr>
+            <tr><td></td><td>Calakmul, Mexico</td><td>Great Pyramid</td><td>~7th-century CE Maya stepped structure (~55m tall) in dense jungle; expanded from older temple.</td><td>18.1039° N, 89.8125° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Calakmul%2C_Structure_I_%2814386283483%29.jpg" alt="Great Pyramid Calakmul"></td></tr>
+            <tr><td></td><td>El Tajín, Mexico</td><td>Pyramid of the Niches</td><td>~600–900 CE Veracruz culture; seven steps with 365 niches, likely for calendar rituals.</td><td>20.4472° N, 97.3789° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/6/69/El_Tajin%2C_Pyramid_of_the_Niches_%2820064136414%29.jpg" alt="Pyramid of the Niches"></td></tr>
+            <tr><td></td><td>Monte Albán, Mexico</td><td>Pyramid Mounds</td><td>~500 BCE–800 CE Zapotec hilltop terraces and stepped platforms; ceremonial center.</td><td>17.0431° N, 96.9225° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Monte_Alban%2C_Piramides%2C_Oaxaca.jpg" alt="Monte Albán Pyramid Mounds"></td></tr>
+            <tr><td></td><td>Tenochtitlan (Mexico City), Mexico</td><td>Templo Mayor</td><td>14th–16th century CE Aztec dual stepped pyramid (~60m base); dedicated to gods Huitzilopochtli and Tlaloc, destroyed by Spanish.</td><td>19.4333° N, 99.1328° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Templo_Mayor_2015_001.jpg" alt="Templo Mayor"></td></tr>
+            <tr><td></td><td>Caracol, Belize</td><td>Caana Pyramid</td><td>~650 CE Maya tallest in Belize (~43m); part of major city with 150,000 inhabitants.</td><td>16.7597° N, 89.1179° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Caracolcaana.jpg" alt="Caana Pyramid"></td></tr>
+            <tr><td></td><td>Yaxhá, Guatemala</td><td>North Acropolis Pyramids</td><td>~200 BCE–900 CE Maya stepped temples overlooking lakes; less touristy site.</td><td>17.0697° N, 89.4083° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Pyramid_of_the_North_Acropolis_%28Yaxha%29.jpg" alt="North Acropolis Pyramids"></td></tr>
+            <tr><td></td><td>Calixtlahuaca, Mexico</td><td>Pyramid Temples</td><td>~100 BCE–1500 CE Matlatzinca stepped bases; circular and square forms.</td><td>19.6364° N, 99.3567° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Calixthlahuaca_pyramids_%285361394431%29.jpg" alt="Pyramid Temples Calixtlahuaca"></td></tr>
+            <tr class="region"><td>South America</td><td>Lima, Peru</td><td>Huaca Pucllana</td><td>~200–700 CE Lima culture adobe stepped pyramid (~22m tall); urban ritual center.</td><td>12.1111° S, 77.0339° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Huaca_Pucllana_-_access_to_pyramid.jpg" alt="Huaca Pucllana"></td></tr>
+            <tr><td></td><td>Nazca, Peru</td><td>Cahuachi Pyramids</td><td>~100 BCE–700 CE Nazca adobe platforms (multiple stepped mounds); ceremonial pilgrimage site.</td><td>14.8667° S, 75.1167° W</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Cahuachi.jpg" alt="Cahuachi Pyramids"></td></tr>
+            <tr class="region"><td>Asia</td><td>Ji’an, China</td><td>Tomb of the General (Pyramid of the East)</td><td>~5th-century CE Goguryeo stepped tomb (31m base, 13m high); for King Jangsu, part of UNESCO tombs.</td><td>41.1459° N, 126.1969° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/6/67/Tomb_of_the_General%2C_Ji%27an%2C_Jilin_province%2C_China_%28from_a_book_published_in_1915%29.png" alt="Tomb of the General"></td></tr>
+            <tr><td></td><td>Central Java, Indonesia</td><td>Candi Sukuh</td><td>15th-century CE Hindu-Buddhist stepped temple; Maya-like reliefs on fertility and liberation themes.</td><td>7.5653° S, 111.0592° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Candi_Sukuh_Java_399.jpg" alt="Candi Sukuh"></td></tr>
+            <tr class="region"><td>Indian Ocean</td><td>Mauritius</td><td>Mauritian Pyramid</td><td>19th-century discovered stepped structure of basalt blocks; possibly 5th-century CE Austronesian or earlier, function unknown.</td><td>20.3500° S, 57.5000° E</td><td><img class="expandable" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Mauritius-Pyramiden-5-4-3.jpg" alt="Mauritian Pyramid"></td></tr>
+        </tbody>
+    </table>
+    <p>This is a single-page web app displaying the table with embedded images and GPS coordinates. Click any image to expand it in a modal for zooming. Scroll down for an interactive world map with labeled markers.</p>
+
+    <!-- Map -->
+    <h2>Interactive World Map of Ziggurat-Like Structures</h2>
+    <div id="map"></div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Modal functionality
+        var modal = document.getElementById("modal");
+        var modalImg = document.getElementById("modalImg");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        var expandableImgs = document.getElementsByClassName("expandable");
+        for (var i = 0; i < expandableImgs.length; i++) {
+            var img = expandableImgs[i];
+            img.onclick = function(evt) {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Map functionality
+        var map = L.map('map').setView([20, 0], 2);
+
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        }).addTo(map);
+
+        var sites = [
+            {name: 'Great Ziggurat of Ur', lat: 30.9628, lng: 46.1031, image: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Ancient_ziggurat_at_Ali_Air_Base_Iraq_2005.jpg'},
+            {name: 'Etemenanki', lat: 32.5352, lng: 44.4192, image: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Etemenanki_drawing.gif'},
+            {name: 'Ziggurat of Aqar Quf', lat: 33.0500, lng: 44.3500, image: 'https://upload.wikimedia.org/wikipedia/commons/d/de/The_ziggurat_at_Aqar_Quf.jpg'},
+            {name: 'Chogha Zanbil', lat: 32.0044, lng: 48.5197, image: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Choqha_Zanbil.JPG'},
+            {name: 'Tepe Sialk', lat: 33.9685, lng: 51.4039, image: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Ziggurat_on_the_southern_hill_of_Tepe_Sialk%2C_3rd_millennium_BC%2C_Iran_-_50546005573.jpg'},
+            {name: 'Step Pyramid of Djoser', lat: 29.8711, lng: 31.2167, image: 'https://upload.wikimedia.org/wikipedia/commons/5/52/Step_Pyramid_-_El_Haram_El_Medarraga.jpg'},
+            {name: 'Nubian Pyramids Meroë', lat: 16.9386, lng: 33.7492, image: 'https://upload.wikimedia.org/wikipedia/commons/6/66/A_wonderful_picture_of_the_pyramids_of_Meroe_in_Sudan.png'},
+            {name: 'Pyramids of Güímar', lat: 28.3208, lng: -16.4138, image: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Ansichten_der_Pyramiden_von_G%C3%BCimar_Juli_2018_%281%29.jpg'},
+            {name: 'Pyramid of the Sun & Moon', lat: 19.6930, lng: -98.8440, image: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Teotihuacan%2C_Pyramid_of_the_Sun_%2820498681808%29.jpg'},
+            {name: 'El Castillo', lat: 20.6830, lng: -88.5686, image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chichen_Itza-El_Castillo.jpg'},
+            {name: 'Pyramid of the Magician', lat: 20.3594, lng: -89.7717, image: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Uxmal_Pyramid_of_the_Magician.jpg'},
+            {name: 'Tikal Temple I', lat: 17.2222, lng: -89.6233, image: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Tikal_Temple_I.jpg'},
+            {name: 'Temple of the Inscriptions', lat: 17.4833, lng: -92.0464, image: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Palenque_temple_of_the_inscriptions.jpg'},
+            {name: 'Great Pyramid Calakmul', lat: 18.1039, lng: -89.8125, image: 'https://upload.wikimedia.org/wikipedia/commons/4/48/Calakmul%2C_Structure_I_%2814386283483%29.jpg'},
+            {name: 'Pyramid of the Niches', lat: 20.4472, lng: -97.3789, image: 'https://upload.wikimedia.org/wikipedia/commons/6/69/El_Tajin%2C_Pyramid_of_the_Niches_%2820064136414%29.jpg'},
+            {name: 'Pyramid Mounds Monte Albán', lat: 17.0431, lng: -96.9225, image: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Monte_Alban%2C_Piramides%2C_Oaxaca.jpg'},
+            {name: 'Templo Mayor', lat: 19.4333, lng: -99.1328, image: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Templo_Mayor_2015_001.jpg'},
+            {name: 'Caana Pyramid', lat: 16.7597, lng: -89.1179, image: 'https://upload.wikimedia.org/wikipedia/commons/0/0f/Caracolcaana.jpg'},
+            {name: 'North Acropolis Pyramids Yaxhá', lat: 17.0697, lng: -89.4083, image: 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Pyramid_of_the_North_Acropolis_%28Yaxha%29.jpg'},
+            {name: 'Pyramid Temples Calixtlahuaca', lat: 19.6364, lng: -99.3567, image: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Calixthlahuaca_pyramids_%285361394431%29.jpg'},
+            {name: 'Huaca Pucllana', lat: -12.1111, lng: -77.0339, image: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Huaca_Pucllana_-_access_to_pyramid.jpg'},
+            {name: 'Cahuachi Pyramids', lat: -14.8667, lng: -75.1167, image: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Cahuachi.jpg'},
+            {name: 'Tomb of the General', lat: 41.1459, lng: 126.1969, image: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Tomb_of_the_General%2C_Ji%27an%2C_Jilin_province%2C_China_%28from_a_book_published_in_1915%29.png'},
+            {name: 'Candi Sukuh', lat: -7.5653, lng: 111.0592, image: 'https://upload.wikimedia.org/wikipedia/commons/7/7d/Candi_Sukuh_Java_399.jpg'},
+            {name: 'Mauritian Pyramid', lat: -20.3500, lng: 57.5000, image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Mauritius-Pyramiden-5-4-3.jpg'}
+        ];
+
+        sites.forEach(function(site) {
+            L.marker([site.lat, site.lng]).addTo(map)
+                .bindTooltip('<b>' + site.name + '</b><br><img src="' + site.image + '" width="150" height="100">', {
+                    permanent: false,
+                    direction: 'auto',
+                    className: 'custom-tooltip'
+                })
+                .bindPopup(site.name);
+        });
+    </script>
+</body>
+</html>
