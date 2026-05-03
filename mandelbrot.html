@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fractals - v3.1.1</title>
+    <title>Fractals - v3.1.2</title>
     <script type="importmap">
     {
         "imports": {
@@ -253,7 +253,8 @@
             letter-spacing: 0.02em;
         }
 
-        .field input {
+        .field input,
+        .field select {
             border: 1px solid #bfc9db;
             border-radius: 10px;
             padding: 10px 12px;
@@ -664,6 +665,35 @@
             min-height: 520px;
         }
 
+        .plot-card:fullscreen,
+        .plot-card:-webkit-full-screen {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 16px;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            background: var(--bg);
+        }
+
+        .plot-card:fullscreen .plot-controls,
+        .plot-card:fullscreen .button-row,
+        .plot-card:-webkit-full-screen .plot-controls,
+        .plot-card:-webkit-full-screen .button-row {
+            margin-bottom: 0;
+            flex: 0 0 auto;
+        }
+
+        .plot-card:fullscreen .plot-frame,
+        .plot-card:-webkit-full-screen .plot-frame {
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
         .plot-frame canvas {
             position: absolute;
             inset: 0;
@@ -696,7 +726,25 @@
             z-index: 1;
         }
 
+        .plot-viewport-actions {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
         .tree-viewport-actions button {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.94);
+            border-color: rgba(37, 99, 235, 0.22);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+            backdrop-filter: blur(4px);
+        }
+        .plot-viewport-actions button {
             pointer-events: auto;
             background: rgba(255, 255, 255, 0.94);
             border-color: rgba(37, 99, 235, 0.22);
@@ -1743,9 +1791,27 @@
                             <label for="plot-iterations-input">Iteration cap</label>
                             <input id="plot-iterations-input" type="number" min="10" max="500" step="10" value="80">
                         </div>
+                        <div class="field">
+                            <label for="plot-color-scheme-select">Color scheme</label>
+                            <select id="plot-color-scheme-select">
+                                <option value="blue">Blue</option>
+                                <option value="annie">Annie</option>
+                                <option value="sunset">Sunset</option>
+                                <option value="fire">Fire</option>
+                                <option value="viridis">Viridis</option>
+                                <option value="hsv-cycle">HSV Cycle</option>
+                            </select>
+                        </div>
                         <button id="plot-reset">Reset graph</button>
                         <button id="plot-reset-view">Reset zoom</button>
                         <button id="plot-densify" class="button-primary">Compute Grid</button>
+                        <label class="toggle-field" for="plot-auto-densify-toggle">
+                            <span class="toggle-field-label">Auto compute grid</span>
+                            <span class="toggle-switch">
+                                <input id="plot-auto-densify-toggle" type="checkbox" role="switch" aria-label="Automatically compute a new grid after zooming or panning">
+                                <span class="toggle-switch-slider" aria-hidden="true"></span>
+                            </span>
+                        </label>
                         <label class="toggle-field" for="plot-mesh-toggle">
                             <span class="toggle-field-label">Smooth mesh</span>
                             <span class="toggle-switch">
@@ -1766,6 +1832,9 @@
                     <div class="plot-frame" id="plot-frame">
                         <canvas id="mandelbrot-gl" class="plot-gl"></canvas>
                         <canvas id="mandelbrot-overlay" class="plot-overlay"></canvas>
+                        <div class="plot-viewport-actions">
+                            <button id="plot-fullscreen-toggle" type="button" aria-pressed="false">Fullscreen</button>
+                        </div>
                         <div class="plot-hud">
                             <span id="plot-center-pill" class="hud-pill">Center: -0.5000 + 0.0000i</span>
                             <span id="plot-scale-pill" class="hud-pill">Width: 4.2000</span>
@@ -1828,8 +1897,13 @@
             const ESCAPE_RADIUS = 2;
             const ESCAPE_RADIUS_SQUARED = ESCAPE_RADIUS * ESCAPE_RADIUS;
             const DEFAULT_VIEW_HALF_WIDTH = 2.1;
+            const MIN_PLOT_VIEW_HALF_WIDTH = 0.000005;
+            const MAX_PLOT_VIEW_HALF_WIDTH = 3.5;
+            const BASE_PLOT_VIEW_SIGNATURE_STEP = 0.0001;
+            const PLOT_VIEW_SIGNATURE_PIXEL_FRACTION = 0.25;
             const DENSITY_COLUMNS_BY_LEVEL = [32, 64, 128, 256, 512, 576, 640, 704, 768, 832];
             const MAX_DENSITY_LEVEL = DENSITY_COLUMNS_BY_LEVEL.length;
+            const AUTO_PLOT_DENSIFY_DEBOUNCE_MS = 200;
             const DISPLAY_CAP = 16;
             const REAL_POINT_COUNT = 12;
             const COMPLEX_PREVIEW_POINT_COUNT = 10;
@@ -1841,13 +1915,91 @@
             const COMPLEX_PLANE_EDGE_MARGIN = 0.02;
             const MAX_TREE_GENERATION = 7;
             const EMPTY_FLOAT32 = new Float32Array(0);
-            const MANDELBROT_INTERIOR_RGB = [17, 24, 39];
-            const MANDELBROT_ESCAPE_BLUE_RGB = [59, 130, 246];
-            const MANDELBROT_PLOT_GRADIENT_START_RGB = [244, 249, 255];
-            const MANDELBROT_PLOT_GRADIENT_END_RGB = [59, 130, 246];
-            const MANDELBROT_INTERIOR_FLOAT_RGB = [17 / 255, 24 / 255, 39 / 255];
-            const MANDELBROT_PLOT_GRADIENT_START_FLOAT_RGB = [244 / 255, 249 / 255, 255 / 255];
-            const MANDELBROT_PLOT_GRADIENT_END_FLOAT_RGB = [59 / 255, 130 / 255, 246 / 255];
+            const DEFAULT_MANDELBROT_COLOR_SCHEME_KEY = 'blue';
+            const MANDELBROT_COLOR_SCHEMES = {
+                blue: {
+                    label: 'Blue',
+                    interiorRgb: [17, 24, 39],
+                    representativeEscapeRgb: [59, 130, 246],
+                    escapedPalette: {
+                        type: 'stops',
+                        stops: [
+                            { at: 0, rgb: [244, 249, 255] },
+                            { at: 1, rgb: [59, 130, 246] }
+                        ]
+                    }
+                },
+                annie: {
+                    label: 'Annie',
+                    interiorRgb: [255, 57, 162],
+                    representativeEscapeRgb: [178, 2, 205],
+                    escapedPalette: {
+                        type: 'stops',
+                        stops: [
+                            { at: 0, rgb: [178, 2, 205] },
+                            { at: 1, rgb: [0, 0, 0] }
+                        ]
+                    }
+                },
+                sunset: {
+                    label: 'Sunset',
+                    interiorRgb: [24, 18, 52],
+                    representativeEscapeRgb: [242, 116, 84],
+                    escapedPalette: {
+                        type: 'stops',
+                        stops: [
+                            { at: 0, rgb: [255, 244, 214] },
+                            { at: 0.22, rgb: [255, 191, 105] },
+                            { at: 0.48, rgb: [242, 116, 84] },
+                            { at: 0.72, rgb: [181, 69, 142] },
+                            { at: 1, rgb: [34, 26, 86] }
+                        ]
+                    }
+                },
+                fire: {
+                    label: 'Fire',
+                    interiorRgb: [18, 4, 4],
+                    representativeEscapeRgb: [255, 140, 44],
+                    escapedPalette: {
+                        type: 'stops',
+                        stops: [
+                            { at: 0, rgb: [255, 247, 236] },
+                            { at: 0.18, rgb: [255, 210, 115] },
+                            { at: 0.42, rgb: [255, 140, 44] },
+                            { at: 0.72, rgb: [200, 36, 23] },
+                            { at: 1, rgb: [0, 0, 0] }
+                        ]
+                    }
+                },
+                viridis: {
+                    label: 'Viridis',
+                    interiorRgb: [16, 22, 39],
+                    representativeEscapeRgb: [33, 145, 140],
+                    escapedPalette: {
+                        type: 'stops',
+                        stops: [
+                            { at: 0, rgb: [253, 231, 37] },
+                            { at: 0.25, rgb: [94, 201, 98] },
+                            { at: 0.5, rgb: [33, 145, 140] },
+                            { at: 0.75, rgb: [59, 82, 139] },
+                            { at: 1, rgb: [68, 1, 84] }
+                        ]
+                    }
+                },
+                'hsv-cycle': {
+                    label: 'HSV Cycle',
+                    interiorRgb: [0, 0, 0],
+                    representativeEscapeRgb: [92, 90, 255],
+                    escapedPalette: {
+                        type: 'hsv-cycle',
+                        cycles: 4.8,
+                        hueOffset: 250,
+                        saturation: 0.82,
+                        minValue: 0.22,
+                        maxValue: 1
+                    }
+                }
+            };
 
             const realInput = document.getElementById('real-c-input');
             const realSummary = document.getElementById('real-summary');
@@ -1874,16 +2026,20 @@
             const complexGrowthCanvas = document.getElementById('complex-growth-canvas');
 
             const plotIterationsInput = document.getElementById('plot-iterations-input');
+            const plotColorSchemeSelect = document.getElementById('plot-color-scheme-select');
             const plotStatus = document.getElementById('plot-status');
             const plotCenterPill = document.getElementById('plot-center-pill');
             const plotScalePill = document.getElementById('plot-scale-pill');
             const plotDensityPill = document.getElementById('plot-density-pill');
             const plotHoverTrackToggle = document.getElementById('plot-hover-track-toggle');
             const plotDensifyButton = document.getElementById('plot-densify');
+            const plotAutoDensifyToggle = document.getElementById('plot-auto-densify-toggle');
             const plotMeshToggle = document.getElementById('plot-mesh-toggle');
             const plotResetButton = document.getElementById('plot-reset');
             const plotResetViewButton = document.getElementById('plot-reset-view');
+            const plotFullscreenButton = document.getElementById('plot-fullscreen-toggle');
             const plotFrame = document.getElementById('plot-frame');
+            const plotFullscreenTarget = plotFrame ? plotFrame.closest('.plot-card') : null;
             const glCanvas = document.getElementById('mandelbrot-gl');
             const overlayCanvas = document.getElementById('mandelbrot-overlay');
 
@@ -1977,6 +2133,92 @@
                     return 'rgba(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ', ' + alpha.toFixed(3) + ')';
                 }
                 return 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')';
+            }
+
+            function rgbToFloatRgb(rgb) {
+                return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255];
+            }
+
+            function getMandelbrotColorScheme(colorSchemeKey) {
+                if (colorSchemeKey && MANDELBROT_COLOR_SCHEMES[colorSchemeKey]) {
+                    return MANDELBROT_COLOR_SCHEMES[colorSchemeKey];
+                }
+                return MANDELBROT_COLOR_SCHEMES[DEFAULT_MANDELBROT_COLOR_SCHEME_KEY];
+            }
+
+            function sampleRgbStops(stops, t) {
+                const clampedT = clamp(t, 0, 1);
+                if (!stops || !stops.length) {
+                    return [0, 0, 0];
+                }
+                if (clampedT <= stops[0].at) {
+                    return stops[0].rgb.slice();
+                }
+                for (let index = 1; index < stops.length; index += 1) {
+                    const previous = stops[index - 1];
+                    const next = stops[index];
+                    if (clampedT <= next.at) {
+                        const span = next.at - previous.at;
+                        const localT = span <= 0 ? 0 : (clampedT - previous.at) / span;
+                        return mixRgb(previous.rgb, next.rgb, localT);
+                    }
+                }
+                return stops[stops.length - 1].rgb.slice();
+            }
+
+            function hsvToRgb(hue, saturation, value) {
+                const normalizedHue = ((hue % 360) + 360) % 360;
+                const chroma = value * saturation;
+                const huePrime = normalizedHue / 60;
+                const x = chroma * (1 - Math.abs(huePrime % 2 - 1));
+                let red = 0;
+                let green = 0;
+                let blue = 0;
+
+                if (huePrime < 1) {
+                    red = chroma;
+                    green = x;
+                } else if (huePrime < 2) {
+                    red = x;
+                    green = chroma;
+                } else if (huePrime < 3) {
+                    green = chroma;
+                    blue = x;
+                } else if (huePrime < 4) {
+                    green = x;
+                    blue = chroma;
+                } else if (huePrime < 5) {
+                    red = x;
+                    blue = chroma;
+                } else {
+                    red = chroma;
+                    blue = x;
+                }
+
+                const match = value - chroma;
+                return [
+                    Math.round((red + match) * 255),
+                    Math.round((green + match) * 255),
+                    Math.round((blue + match) * 255)
+                ];
+            }
+
+            function sampleEscapePaletteRgb(colorScheme, smoothEscape, maxIterations, escapeMix) {
+                const palette = colorScheme && colorScheme.escapedPalette ? colorScheme.escapedPalette : null;
+                if (!palette) {
+                    return [0, 0, 0];
+                }
+                if (palette.type === 'hsv-cycle') {
+                    const normalized = clamp((smoothEscape == null ? 0 : smoothEscape / Math.max(1, maxIterations)), 0, 1);
+                    const hue = (palette.hueOffset || 0) + Math.pow(normalized, 0.82) * palette.cycles * 360;
+                    const value = lerp(
+                        palette.minValue == null ? 0.25 : palette.minValue,
+                        palette.maxValue == null ? 1 : palette.maxValue,
+                        Math.pow(normalized, 0.6)
+                    );
+                    return hsvToRgb(hue, palette.saturation == null ? 0.82 : palette.saturation, value);
+                }
+                return sampleRgbStops(palette.stops, escapeMix);
             }
 
             function disposeThreeMaterial(material) {
@@ -2094,20 +2336,21 @@
                 return clamp(1 - smoothEscape / Math.max(1, maxIterations), 0, 1);
             }
 
-            function buildMandelbrotAppearance(stayedSmall, smoothEscape, maxIterations, paletteMode) {
+            function buildMandelbrotAppearance(stayedSmall, smoothEscape, maxIterations, paletteMode, colorSchemeKey) {
+                const colorScheme = getMandelbrotColorScheme(colorSchemeKey);
                 if (stayedSmall) {
                     return {
                         className: 'black',
                         mix: 0,
-                        rgb: MANDELBROT_INTERIOR_RGB,
-                        css: rgbToCss(MANDELBROT_INTERIOR_RGB),
-                        backgroundCss: 'rgba(15, 23, 42, 0.04)',
-                        borderCss: 'rgba(15, 23, 42, 0.08)'
+                        rgb: colorScheme.interiorRgb,
+                        css: rgbToCss(colorScheme.interiorRgb),
+                        backgroundCss: rgbToCss(colorScheme.interiorRgb, 0.12),
+                        borderCss: rgbToCss(colorScheme.interiorRgb, 0.28)
                     };
                 }
+                const mix = getEscapeMix(smoothEscape, maxIterations);
                 if (paletteMode === 'gradient') {
-                    const mix = getEscapeMix(smoothEscape, maxIterations);
-                    const rgb = mixRgb(MANDELBROT_PLOT_GRADIENT_START_RGB, MANDELBROT_PLOT_GRADIENT_END_RGB, mix);
+                    const rgb = sampleEscapePaletteRgb(colorScheme, smoothEscape, maxIterations, mix);
                     return {
                         className: 'red',
                         mix: mix,
@@ -2119,20 +2362,20 @@
                 }
                 return {
                     className: 'red',
-                    mix: 1,
-                    rgb: MANDELBROT_ESCAPE_BLUE_RGB,
-                    css: rgbToCss(MANDELBROT_ESCAPE_BLUE_RGB),
-                    backgroundCss: rgbToCss(MANDELBROT_ESCAPE_BLUE_RGB, 0.12),
-                    borderCss: rgbToCss(MANDELBROT_ESCAPE_BLUE_RGB, 0.28)
+                    mix: mix,
+                    rgb: colorScheme.representativeEscapeRgb,
+                    css: rgbToCss(colorScheme.representativeEscapeRgb),
+                    backgroundCss: rgbToCss(colorScheme.representativeEscapeRgb, 0.12),
+                    borderCss: rgbToCss(colorScheme.representativeEscapeRgb, 0.28)
                 };
             }
 
-            function buildEscapeClassification(stayedSmall, escapedAt, escapedMagnitude, maxIterations, paletteMode, escapeRadius) {
+            function buildEscapeClassification(stayedSmall, escapedAt, escapedMagnitude, maxIterations, paletteMode, escapeRadius, colorSchemeKey) {
                 const limit = escapeRadius == null ? ESCAPE_RADIUS : escapeRadius;
                 const smoothEscape = stayedSmall || escapedAt == null
                     ? null
                     : getSmoothEscapeIteration(escapedAt, escapedMagnitude, limit);
-                const appearance = buildMandelbrotAppearance(stayedSmall, smoothEscape, maxIterations, paletteMode);
+                const appearance = buildMandelbrotAppearance(stayedSmall, smoothEscape, maxIterations, paletteMode, colorSchemeKey);
                 return {
                     stayedSmall: stayedSmall,
                     escapedAt: escapedAt,
@@ -2167,8 +2410,6 @@
             function markPlotGridDataStale() {
                 plotState.densityLevel = 0;
                 plotState.densifySignature = '';
-                plotState.lastGridSamples = null;
-                clearPlotMeshData();
             }
 
             function setPlotGridData(positions, colors) {
@@ -2192,15 +2433,47 @@
                     }
                 }
             }
-            function getPlotPointColorFloats(real, imag, maxIterations) {
+
+            function hasCurrentPlotGridForView() {
+                return plotState.densityLevel > 0 && densifySignature() === plotState.densifySignature;
+            }
+
+            function getPlotTargetDensityLevel() {
+                return clamp(plotState.targetDensityLevel || 1, 1, MAX_DENSITY_LEVEL);
+            }
+
+            function hasReachedPlotTargetDensityForView() {
+                return hasCurrentPlotGridForView() && plotState.densityLevel >= getPlotTargetDensityLevel();
+            }
+
+            function cancelPlotAutoDensify() {
+                if (plotState.autoDensifyTimeoutId == null) {
+                    return;
+                }
+                clearTimeout(plotState.autoDensifyTimeoutId);
+                plotState.autoDensifyTimeoutId = null;
+            }
+
+            function schedulePlotAutoDensify(delayMs) {
+                if (!plotState.autoDensifyEnabled || !plotState.supported || !isPlotSectionActive() || hasReachedPlotTargetDensityForView()) {
+                    return;
+                }
+                cancelPlotAutoDensify();
+                const delay = Number.isFinite(delayMs) ? Math.max(0, delayMs) : AUTO_PLOT_DENSIFY_DEBOUNCE_MS;
+                plotState.autoDensifyTimeoutId = window.setTimeout(function() {
+                    plotState.autoDensifyTimeoutId = null;
+                    if (!plotState.autoDensifyEnabled || !plotState.supported || !isPlotSectionActive() || plotState.drag || hasReachedPlotTargetDensityForView()) {
+                        return;
+                    }
+                    densifyCurrentView({ mode: 'auto' });
+                }, delay);
+            }
+            function getPlotPointColorFloats(real, imag, maxIterations, colorSchemeKey) {
+                const colorScheme = getMandelbrotColorScheme(colorSchemeKey);
                 const xMinusQuarter = real - 0.25;
                 const q = xMinusQuarter * xMinusQuarter + imag * imag;
                 if (q * (q + xMinusQuarter) <= 0.25 * imag * imag || (real + 1) * (real + 1) + imag * imag <= 0.0625) {
-                    return [
-                        MANDELBROT_INTERIOR_FLOAT_RGB[0],
-                        MANDELBROT_INTERIOR_FLOAT_RGB[1],
-                        MANDELBROT_INTERIOR_FLOAT_RGB[2]
-                    ];
+                    return rgbToFloatRgb(colorScheme.interiorRgb);
                 }
 
                 let zr = 0;
@@ -2212,23 +2485,16 @@
                     zi = nextImag;
                     const magnitudeSquared = zr * zr + zi * zi;
                     if (magnitudeSquared > ESCAPE_RADIUS_SQUARED) {
-                        const mix = getEscapeMix(getSmoothEscapeIteration(step, Math.sqrt(magnitudeSquared)), maxIterations);
-                        return [
-                            lerp(MANDELBROT_PLOT_GRADIENT_START_FLOAT_RGB[0], MANDELBROT_PLOT_GRADIENT_END_FLOAT_RGB[0], mix),
-                            lerp(MANDELBROT_PLOT_GRADIENT_START_FLOAT_RGB[1], MANDELBROT_PLOT_GRADIENT_END_FLOAT_RGB[1], mix),
-                            lerp(MANDELBROT_PLOT_GRADIENT_START_FLOAT_RGB[2], MANDELBROT_PLOT_GRADIENT_END_FLOAT_RGB[2], mix)
-                        ];
+                        const smoothEscape = getSmoothEscapeIteration(step, Math.sqrt(magnitudeSquared));
+                        const mix = getEscapeMix(smoothEscape, maxIterations);
+                        return rgbToFloatRgb(sampleEscapePaletteRgb(colorScheme, smoothEscape, maxIterations, mix));
                     }
                 }
-                return [
-                    MANDELBROT_INTERIOR_FLOAT_RGB[0],
-                    MANDELBROT_INTERIOR_FLOAT_RGB[1],
-                    MANDELBROT_INTERIOR_FLOAT_RGB[2]
-                ];
+                return rgbToFloatRgb(colorScheme.interiorRgb);
             }
 
-            function classifyAndAddPlotPoint(real, imag, maxIterations) {
-                return getPlotPointColorFloats(real, imag, maxIterations);
+            function classifyAndAddPlotPoint(real, imag, maxIterations, colorSchemeKey) {
+                return getPlotPointColorFloats(real, imag, maxIterations, colorSchemeKey);
             }
 
             function getStatusPillMarkup(label, classification) {
@@ -2332,7 +2598,7 @@
                 return realText + ' ' + sign + ' ' + imagAbs + 'i';
             }
 
-            function evaluateRealSequence(c, pointCount, paletteMode, escapeRadius) {
+            function evaluateRealSequence(c, pointCount, paletteMode, escapeRadius, colorSchemeKey) {
                 const limit = escapeRadius == null ? ESCAPE_RADIUS : escapeRadius;
                 const entries = [];
                 let current = 0;
@@ -2359,11 +2625,12 @@
                     escapedAt === null ? null : entries[escapedAt].magnitude,
                     pointCount,
                     paletteMode,
-                    limit
+                    limit,
+                    colorSchemeKey
                 ));
             }
 
-            function evaluateComplexSequence(cReal, cImag, pointCount, paletteMode, escapeRadius) {
+            function evaluateComplexSequence(cReal, cImag, pointCount, paletteMode, escapeRadius, colorSchemeKey) {
                 const limit = escapeRadius == null ? ESCAPE_RADIUS : escapeRadius;
                 const entries = [];
                 let zr = 0;
@@ -2401,20 +2668,21 @@
                     escapedAt === null ? null : entries[escapedAt].magnitude,
                     pointCount,
                     paletteMode,
-                    limit
+                    limit,
+                    colorSchemeKey
                 ));
             }
 
-            function classifyPoint(cReal, cImag, maxIterations, escapeRadius) {
+            function classifyPoint(cReal, cImag, maxIterations, escapeRadius, colorSchemeKey) {
                 const limit = escapeRadius == null ? ESCAPE_RADIUS : escapeRadius;
                 const limitSquared = limit * limit;
                 const xMinusQuarter = cReal - 0.25;
                 const q = xMinusQuarter * xMinusQuarter + cImag * cImag;
                 if (q * (q + xMinusQuarter) <= 0.25 * cImag * cImag) {
-                    return buildEscapeClassification(true, null, null, maxIterations, undefined, limit);
+                    return buildEscapeClassification(true, null, null, maxIterations, undefined, limit, colorSchemeKey);
                 }
                 if ((cReal + 1) * (cReal + 1) + cImag * cImag <= 0.0625) {
-                    return buildEscapeClassification(true, null, null, maxIterations, undefined, limit);
+                    return buildEscapeClassification(true, null, null, maxIterations, undefined, limit, colorSchemeKey);
                 }
                 let zr = 0;
                 let zi = 0;
@@ -2424,10 +2692,10 @@
                     zr = nextReal;
                     zi = nextImag;
                     if (zr * zr + zi * zi > limitSquared) {
-                        return buildEscapeClassification(false, step, Math.hypot(zr, zi), maxIterations, undefined, limit);
+                        return buildEscapeClassification(false, step, Math.hypot(zr, zi), maxIterations, undefined, limit, colorSchemeKey);
                     }
                 }
-                return buildEscapeClassification(true, null, null, maxIterations, undefined, limit);
+                return buildEscapeClassification(true, null, null, maxIterations, undefined, limit, colorSchemeKey);
             }
 
             function setStatusPill(element, classificationOrStayedSmall, text) {
@@ -3776,13 +4044,17 @@
                 centerY: 0,
                 halfWidth: DEFAULT_VIEW_HALF_WIDTH,
                 halfHeight: DEFAULT_VIEW_HALF_WIDTH,
+                colorSchemeKey: DEFAULT_MANDELBROT_COLOR_SCHEME_KEY,
                 points: EMPTY_FLOAT32,
                 colors: EMPTY_FLOAT32,
                 manualPoints: [],
                 manualColors: [],
                 selectedPoint: null,
                 densityLevel: 0,
+                targetDensityLevel: 1,
                 densifySignature: '',
+                autoDensifyEnabled: !!(plotAutoDensifyToggle ? plotAutoDensifyToggle.checked : true),
+                autoDensifyTimeoutId: null,
                 densifyInProgress: false,
                 densifyFrameId: null,
                 activeDensifyJobId: 0,
@@ -3790,6 +4062,7 @@
                 manualPendingUpload: false,
                 drawScheduled: false,
                 drag: null,
+                dragChangedView: false,
                 positionBuffer: null,
                 colorBuffer: null,
                 manualPositionBuffer: null,
@@ -3857,6 +4130,164 @@
 
             function getActiveComplexResult() {
                 return complexPlaneState.displayedResult || lastComplexResult;
+            }
+
+            function getActivePlotColorSchemeKey() {
+                return MANDELBROT_COLOR_SCHEMES[plotState.colorSchemeKey]
+                    ? plotState.colorSchemeKey
+                    : DEFAULT_MANDELBROT_COLOR_SCHEME_KEY;
+            }
+
+            function rebuildManualPlotColors(maxIterations, colorSchemeKey) {
+                plotState.manualColors = [];
+                for (let index = 0; index < plotState.manualPoints.length; index += 2) {
+                    const rgb = getPlotPointColorFloats(
+                        plotState.manualPoints[index],
+                        plotState.manualPoints[index + 1],
+                        maxIterations,
+                        colorSchemeKey
+                    );
+                    plotState.manualColors.push(rgb[0], rgb[1], rgb[2]);
+                }
+                plotState.manualPendingUpload = true;
+            }
+
+            function recolorStoredPlotGrid(maxIterations, colorSchemeKey) {
+                if (!plotState.lastGridSamples || !plotState.lastGridSamples.positions) {
+                    return;
+                }
+                const positions = plotState.lastGridSamples.positions;
+                const colors = new Float32Array((positions.length / 2) * 3);
+                const sampleCount = positions.length / 2;
+                for (let sampleIndex = 0; sampleIndex < sampleCount; sampleIndex += 1) {
+                    const rgb = getPlotPointColorFloats(
+                        positions[sampleIndex * 2],
+                        positions[sampleIndex * 2 + 1],
+                        maxIterations,
+                        colorSchemeKey
+                    );
+                    colors[sampleIndex * 3] = rgb[0];
+                    colors[sampleIndex * 3 + 1] = rgb[1];
+                    colors[sampleIndex * 3 + 2] = rgb[2];
+                }
+                plotState.lastGridSamples.colors = colors;
+                setPlotGridData(positions, colors);
+                if (plotState.meshEnabled) {
+                    buildPlotMeshFromSamples(plotState.lastGridSamples);
+                } else {
+                    clearPlotMeshData();
+                }
+            }
+
+            function refreshPlotColors() {
+                const maxIterations = clamp(Math.round(safeNumber(plotIterationsInput.value, 80)), 10, 500);
+                const colorSchemeKey = getActivePlotColorSchemeKey();
+                rebuildManualPlotColors(maxIterations, colorSchemeKey);
+                recolorStoredPlotGrid(maxIterations, colorSchemeKey);
+                if (plotState.selectedPoint) {
+                    const selectedPointResult = evaluateComplexSequence(
+                        plotState.selectedPoint.real,
+                        plotState.selectedPoint.imag,
+                        maxIterations + 1,
+                        'gradient',
+                        undefined,
+                        colorSchemeKey
+                    );
+                    plotState.selectedPoint.stayedSmall = selectedPointResult.stayedSmall;
+                    plotState.selectedPoint.pointColorCss = selectedPointResult.pointColorCss;
+                    if (plotStatus && /Last tested point/.test(plotStatus.textContent || '')) {
+                        setStatusPill(
+                            plotStatus,
+                            selectedPointResult,
+                            selectedPointResult.stayedSmall ? 'Last tested point stayed small' : 'Last tested point escaped'
+                        );
+                    }
+                }
+                if (plotState.hoverTrackerResult) {
+                    plotState.hoverTrackerResult = buildPlotHoverSequenceResult(
+                        plotState.hoverTrackerResult.cReal,
+                        plotState.hoverTrackerResult.cImag
+                    );
+                }
+                requestPlotDraw();
+            }
+
+            function getFullscreenElement() {
+                return document.fullscreenElement || document.webkitFullscreenElement || null;
+            }
+
+            function getPlotFullscreenTarget() {
+                return plotFullscreenTarget || plotFrame || null;
+            }
+
+            function isPlotFrameFullscreen() {
+                const fullscreenTarget = getPlotFullscreenTarget();
+                return !!(fullscreenTarget && getFullscreenElement() === fullscreenTarget);
+            }
+            function plotFullscreenSupported() {
+                const fullscreenTarget = getPlotFullscreenTarget();
+                return !!(fullscreenTarget && (
+                    typeof fullscreenTarget.requestFullscreen === 'function' ||
+                    typeof fullscreenTarget.webkitRequestFullscreen === 'function'
+                ));
+            }
+
+            function updatePlotFullscreenButton() {
+                if (!plotFullscreenButton) {
+                    return;
+                }
+                plotFullscreenButton.disabled = !plotFullscreenSupported();
+                const fullscreen = isPlotFrameFullscreen();
+                plotFullscreenButton.textContent = fullscreen ? 'Exit Fullscreen' : 'Fullscreen';
+                plotFullscreenButton.setAttribute('aria-pressed', fullscreen ? 'true' : 'false');
+            }
+
+            function requestPlotFullscreen() {
+                const fullscreenTarget = getPlotFullscreenTarget();
+                if (!fullscreenTarget) {
+                    return Promise.resolve();
+                }
+                if (typeof fullscreenTarget.requestFullscreen === 'function') {
+                    const requestResult = fullscreenTarget.requestFullscreen();
+                    return requestResult && typeof requestResult.then === 'function'
+                        ? requestResult
+                        : Promise.resolve();
+                }
+                if (typeof fullscreenTarget.webkitRequestFullscreen === 'function') {
+                    fullscreenTarget.webkitRequestFullscreen();
+                }
+                return Promise.resolve();
+            }
+
+            function exitPlotFullscreen() {
+                if (typeof document.exitFullscreen === 'function') {
+                    const exitResult = document.exitFullscreen();
+                    return exitResult && typeof exitResult.then === 'function'
+                        ? exitResult
+                        : Promise.resolve();
+                }
+                if (typeof document.webkitExitFullscreen === 'function') {
+                    document.webkitExitFullscreen();
+                }
+                return Promise.resolve();
+            }
+
+            function togglePlotFullscreen() {
+                if (!getPlotFullscreenTarget()) {
+                    return;
+                }
+                if (isPlotFrameFullscreen()) {
+                    exitPlotFullscreen().catch(function() {});
+                    return;
+                }
+                requestPlotFullscreen().catch(function() {});
+            }
+
+            function handlePlotFullscreenChange() {
+                updatePlotFullscreenButton();
+                requestAnimationFrame(function() {
+                    requestPlotDraw();
+                });
             }
 
             function updateComplexCPill(cReal, cImag, isHoverPreview) {
@@ -4167,12 +4598,55 @@
                 }
             }
 
+            function getPlotViewportCssSize() {
+                if (!glCanvas) {
+                    return { width: 1, height: 1 };
+                }
+                const rect = glCanvas.getBoundingClientRect();
+                let width = rect.width;
+                let height = rect.height;
+                if (!(width > 0) || !(height > 0)) {
+                    const dpr = window.devicePixelRatio || 1;
+                    width = glCanvas.width > 0 ? glCanvas.width / dpr : 1;
+                    height = glCanvas.height > 0 ? glCanvas.height / dpr : 1;
+                }
+                return {
+                    width: Math.max(1, width),
+                    height: Math.max(1, height)
+                };
+            }
+
+            function getPlotViewSignatureSteps() {
+                const viewportSize = getPlotViewportCssSize();
+                return {
+                    x: Math.max(
+                        Number.EPSILON,
+                        Math.min(
+                            BASE_PLOT_VIEW_SIGNATURE_STEP,
+                            ((plotState.halfWidth * 2) / viewportSize.width) * PLOT_VIEW_SIGNATURE_PIXEL_FRACTION
+                        )
+                    ),
+                    y: Math.max(
+                        Number.EPSILON,
+                        Math.min(
+                            BASE_PLOT_VIEW_SIGNATURE_STEP,
+                            ((plotState.halfHeight * 2) / viewportSize.height) * PLOT_VIEW_SIGNATURE_PIXEL_FRACTION
+                        )
+                    )
+                };
+            }
+
+            function quantizePlotViewSignatureValue(value, step) {
+                return (Math.round(value / step) * step).toExponential(12);
+            }
+
             function densifySignature() {
+                const signatureSteps = getPlotViewSignatureSteps();
                 return [
-                    plotState.centerX.toFixed(4),
-                    plotState.centerY.toFixed(4),
-                    plotState.halfWidth.toFixed(4),
-                    plotState.halfHeight.toFixed(4)
+                    quantizePlotViewSignatureValue(plotState.centerX, signatureSteps.x),
+                    quantizePlotViewSignatureValue(plotState.centerY, signatureSteps.y),
+                    quantizePlotViewSignatureValue(plotState.halfWidth, signatureSteps.x),
+                    quantizePlotViewSignatureValue(plotState.halfHeight, signatureSteps.y)
                 ].join('|');
             }
 
@@ -4361,7 +4835,14 @@
             }
 
             function buildPlotHoverSequenceResult(real, imag) {
-                return evaluateComplexSequence(real, imag, COMPLEX_PREVIEW_POINT_COUNT, 'gradient');
+                return evaluateComplexSequence(
+                    real,
+                    imag,
+                    COMPLEX_PREVIEW_POINT_COUNT,
+                    'gradient',
+                    undefined,
+                    getActivePlotColorSchemeKey()
+                );
             }
 
             function requestPlotHoverSequence(point) {
@@ -4604,9 +5085,7 @@
             }
 
             function hasRenderablePlotMesh() {
-                return plotState.meshEnabled &&
-                    plotState.meshVertexCount > 0 &&
-                    plotState.meshSignature === densifySignature();
+                return plotState.meshEnabled && plotState.meshVertexCount > 0;
             }
 
             function drawPlotPoints(positionBuffer, colorBuffer, vertexCount, pointSize) {
@@ -4698,9 +5177,10 @@
             }
 
             function addPlotPoint(real, imag, classification) {
+                const colorScheme = getMandelbrotColorScheme(getActivePlotColorSchemeKey());
                 const rgb = classification && classification.pointColorRgb
                     ? classification.pointColorRgb
-                    : MANDELBROT_INTERIOR_RGB;
+                    : colorScheme.interiorRgb;
                 addManualPlotPointWithFloats(
                     real,
                     imag,
@@ -4719,7 +5199,14 @@
 
             function selectPlotPoint(real, imag) {
                 const iterations = clamp(Math.round(safeNumber(plotIterationsInput.value, 80)), 10, 500);
-                const result = evaluateComplexSequence(real, imag, iterations + 1, 'gradient');
+                const result = evaluateComplexSequence(
+                    real,
+                    imag,
+                    iterations + 1,
+                    'gradient',
+                    undefined,
+                    getActivePlotColorSchemeKey()
+                );
                 addPlotPoint(real, imag, result);
                 plotState.selectedPoint = {
                     real: real,
@@ -4759,6 +5246,7 @@
             }
 
             function resetPlot() {
+                cancelPlotAutoDensify();
                 plotState.centerX = -0.5;
                 plotState.centerY = 0;
                 plotState.halfWidth = DEFAULT_VIEW_HALF_WIDTH;
@@ -4776,6 +5264,7 @@
             }
 
             function resetPlotViewport() {
+                cancelPlotAutoDensify();
                 cancelPlotDensify('Sampling canceled');
                 invalidatePlotGridData();
                 plotState.centerX = -0.5;
@@ -4787,10 +5276,17 @@
                 requestPlotDraw();
             }
 
-            function densifyCurrentView() {
+            function densifyCurrentView(options) {
+                options = options || {};
+                cancelPlotAutoDensify();
                 const signature = densifySignature();
                 if (signature !== plotState.densifySignature) {
                     markPlotGridDataStale();
+                }
+                if (options.mode === 'auto' && plotState.densityLevel >= getPlotTargetDensityLevel()) {
+                    updateDensifyButtonLabel();
+                    requestPlotDraw();
+                    return;
                 }
                 if (plotState.densifyInProgress || plotState.densityLevel >= MAX_DENSITY_LEVEL) {
                     updateDensifyButtonLabel();
@@ -4806,6 +5302,7 @@
                 const minImag = plotState.centerY - plotState.halfHeight;
                 const maxImag = plotState.centerY + plotState.halfHeight;
                 const maxIterations = clamp(Math.round(safeNumber(plotIterationsInput.value, 80)), 10, 500);
+                const colorSchemeKey = getActivePlotColorSchemeKey();
                 const realStep = (maxReal - minReal) / Math.max(1, columns);
                 const imagStep = (maxImag - minImag) / Math.max(1, rows);
                 const totalPoints = (rows + 1) * (columns + 1);
@@ -4831,7 +5328,7 @@
                     while (sampled < totalPoints && performance.now() - start < 12) {
                         const real = minReal + xIndex * realStep;
                         const imag = minImag + yIndex * imagStep;
-                        const rgb = classifyAndAddPlotPoint(real, imag, maxIterations);
+                        const rgb = classifyAndAddPlotPoint(real, imag, maxIterations, colorSchemeKey);
                         gridPositions[sampled * 2] = real;
                         gridPositions[sampled * 2 + 1] = imag;
                         gridColors[sampled * 3] = rgb[0];
@@ -4872,6 +5369,9 @@
                         plotState.densifyFrameId = null;
                         updateDensifyButtonLabel();
                         setStatusPill(plotStatus, true, 'Sampled ' + sampled + ' points at grid level ' + plotState.densityLevel);
+                        if (plotState.autoDensifyEnabled && plotState.densityLevel < getPlotTargetDensityLevel()) {
+                            schedulePlotAutoDensify(0);
+                        }
                         requestPlotDraw();
                     }
                 }
@@ -4885,7 +5385,7 @@
                 const normalizedX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
                 const normalizedY = 1 - ((event.clientY - rect.top) / rect.height) * 2;
                 const zoomFactor = Math.exp(getNormalizedWheelDeltaY(event) * 0.0015);
-                plotState.halfWidth = clamp(plotState.halfWidth * zoomFactor, 0.00002, 3.5);
+                plotState.halfWidth = clamp(plotState.halfWidth * zoomFactor, MIN_PLOT_VIEW_HALF_WIDTH, MAX_PLOT_VIEW_HALF_WIDTH);
                 updateAspectDependentScale();
                 plotState.centerX = world.real - normalizedX * plotState.halfWidth;
                 plotState.centerY = world.imag - normalizedY * plotState.halfHeight;
@@ -4894,17 +5394,20 @@
                     markPlotGridDataStale();
                 }
                 updateDensifyButtonLabel();
+                schedulePlotAutoDensify();
                 requestPlotHoverSequence(world);
                 requestPlotDraw();
             }
 
             function handlePointerDown(event) {
+                cancelPlotAutoDensify();
                 plotState.drag = {
                     startX: event.clientX,
                     startY: event.clientY,
                     centerX: plotState.centerX,
                     centerY: plotState.centerY
                 };
+                plotState.dragChangedView = false;
                 clearPlotHoverTracker();
                 glCanvas.classList.add('dragging');
                 glCanvas.setPointerCapture(event.pointerId);
@@ -4924,18 +5427,25 @@
                 if (plotState.densityLevel !== 0 || plotState.densifySignature || plotState.lastGridSamples) {
                     markPlotGridDataStale();
                 }
+                plotState.dragChangedView = true;
                 updateDensifyButtonLabel();
+                schedulePlotAutoDensify();
                 requestPlotDraw();
             }
 
             function handlePointerUp(event) {
+                const shouldScheduleAutoDensify = plotState.dragChangedView;
                 if (plotState.drag) {
                     glCanvas.releasePointerCapture(event.pointerId);
                 }
                 glCanvas.classList.remove('dragging');
                 plotState.drag = null;
+                plotState.dragChangedView = false;
                 if (plotState.hoverTrackerEnabled && event && Number.isFinite(event.clientX) && Number.isFinite(event.clientY)) {
                     requestPlotHoverSequence(screenToWorld(event.clientX, event.clientY));
+                }
+                if (shouldScheduleAutoDensify) {
+                    schedulePlotAutoDensify();
                 }
             }
 
@@ -4977,8 +5487,23 @@
             });
 
             plotDensifyButton.addEventListener('click', function() {
-                densifyCurrentView();
+                if (densifySignature() === plotState.densifySignature && plotState.densityLevel >= getPlotTargetDensityLevel()) {
+                    plotState.targetDensityLevel = Math.min(MAX_DENSITY_LEVEL, getPlotTargetDensityLevel() + 1);
+                }
+                densifyCurrentView({ mode: 'manual' });
             });
+            if (plotColorSchemeSelect) {
+                plotColorSchemeSelect.value = plotState.colorSchemeKey;
+                plotColorSchemeSelect.addEventListener('change', function() {
+                    if (!MANDELBROT_COLOR_SCHEMES[plotColorSchemeSelect.value]) {
+                        plotColorSchemeSelect.value = plotState.colorSchemeKey;
+                        return;
+                    }
+                    plotState.colorSchemeKey = plotColorSchemeSelect.value;
+                    cancelPlotDensify();
+                    refreshPlotColors();
+                });
+            }
 
             if (plotMeshToggle) {
                 plotMeshToggle.addEventListener('change', function() {
@@ -4987,6 +5512,20 @@
                         ensurePlotMeshReady();
                     }
                     requestPlotDraw();
+                });
+            }
+
+            if (plotAutoDensifyToggle) {
+                plotAutoDensifyToggle.checked = plotState.autoDensifyEnabled;
+                plotAutoDensifyToggle.addEventListener('change', function() {
+                    plotState.autoDensifyEnabled = !!plotAutoDensifyToggle.checked;
+                    if (plotState.autoDensifyEnabled) {
+                        if (!hasReachedPlotTargetDensityForView()) {
+                            schedulePlotAutoDensify();
+                        }
+                    } else {
+                        cancelPlotAutoDensify();
+                    }
                 });
             }
 
@@ -5004,6 +5543,15 @@
                 plotIterationsInput.value = clamp(Math.round(safeNumber(plotIterationsInput.value, 80)), 10, 500);
                 resetPlot();
             });
+
+            if (plotFullscreenButton) {
+                plotFullscreenButton.addEventListener('click', function() {
+                    togglePlotFullscreen();
+                });
+            }
+
+            document.addEventListener('fullscreenchange', handlePlotFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handlePlotFullscreenChange);
 
             function getCardioidGeometry(angle) {
                 const radius = 0.25;
@@ -7000,6 +7548,7 @@
                     updateDensifyButtonLabel();
                     requestPlotDraw();
                 } else {
+                    cancelPlotAutoDensify();
                     cancelPlotDensify();
                     clearPlotHoverTracker();
                 }
@@ -7089,6 +7638,7 @@
                 setupWebGL();
                 initializePlotInteractions();
                 updatePlotHoverTrackerButton();
+                updatePlotFullscreenButton();
                 resetPlot();
             } else if (plotFrame) {
                 plotFrame.innerHTML = '<div style="padding:24px;color:#5f6b84;line-height:1.6;">WebGL is not available in this browser, so the Mandelbrot plotter cannot run here.</div>';
@@ -7097,6 +7647,12 @@
                 plotResetViewButton.disabled = true;
                 if (plotMeshToggle) {
                     plotMeshToggle.disabled = true;
+                }
+                if (plotAutoDensifyToggle) {
+                    plotAutoDensifyToggle.disabled = true;
+                }
+                if (plotColorSchemeSelect) {
+                    plotColorSchemeSelect.disabled = true;
                 }
                 if (plotHoverTrackToggle) {
                     plotHoverTrackToggle.disabled = true;
