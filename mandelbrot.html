@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fractals - v1.1.5</title>
+    <title>Fractals - v3.1.1</title>
     <script type="importmap">
     {
         "imports": {
@@ -1595,19 +1595,15 @@
                 <div class="wide-tool-card">
                     <div class="controls">
                         <div class="field">
-                            <label for="real-c-input">Choose c</label>
+                            <label for="real-c-input">Choose start</label>
                             <input id="real-c-input" type="number" step="0.01" value="-1">
                         </div>
-                        <div class="field">
-                            <label for="real-iterations-input">Points to show</label>
-                            <input id="real-iterations-input" type="number" min="1" max="40" step="1" value="12">
-                        </div>
-                        <button id="run-real" class="button-primary">Evaluate real sequence</button>
+                        <button id="run-real" class="button-primary">Calculate</button>
                     </div>
                     <div class="button-row">
-                        <button type="button" class="real-preset" data-c="1">Escapes: c = 1</button>
-                        <button type="button" class="real-preset" data-c="-1">Stays small: c = -1</button>
-                        <button type="button" class="real-preset" data-c="0.25">Try c = 0.25</button>
+                        <button type="button" class="real-preset" data-start="1">Escapes: start = 1</button>
+                        <button type="button" class="real-preset" data-start="-1">Stays small: start = -1</button>
+                        <button type="button" class="real-preset" data-start="0.25">Try start = 0.25</button>
                     </div>
                     <p id="real-summary" class="summary"></p>
                     <div class="viz-grid-two">
@@ -1682,9 +1678,9 @@
                     <div class="complex-layout">
                         <div class="complex-controls-stack">
                             <div>
-                                <label class="complex-expression-label" for="complex-real-input">Choose c</label>
+                                <label class="complex-expression-label" for="complex-real-input">Choose start</label>
                                 <div class="complex-expression">
-                                    <span class="complex-expression-token">c =</span>
+                                    <span class="complex-expression-token">start =</span>
                                     <input id="complex-real-input" class="complex-number-input" type="number" step="0.01" value="-1" aria-label="Real part">
                                     <span class="complex-expression-token">+</span>
                                     <input id="complex-imag-input" class="complex-number-input" type="number" step="0.01" value="0" aria-label="Imaginary part">
@@ -1701,8 +1697,8 @@
                             <div class="canvas-shell square complex-plane-shell">
                                 <div id="complex-plane-stage" class="complex-plane-stage" aria-hidden="true"></div>
                                 <div class="complex-plane-hud">
-                                    <span id="complex-c-pill" class="hud-pill">c = -1 + 0i</span>
-                                    <span class="hud-pill">Move cursor to sample c</span>
+                                    <span id="complex-c-pill" class="hud-pill">start = -1 + 0i</span>
+                                    <span class="hud-pill">Move cursor to sample start</span>
                                 </div>
                             </div>
                         </div>
@@ -1835,6 +1831,7 @@
             const DENSITY_COLUMNS_BY_LEVEL = [32, 64, 128, 256, 512, 576, 640, 704, 768, 832];
             const MAX_DENSITY_LEVEL = DENSITY_COLUMNS_BY_LEVEL.length;
             const DISPLAY_CAP = 16;
+            const REAL_POINT_COUNT = 12;
             const COMPLEX_PREVIEW_POINT_COUNT = 10;
             const COMPLEX_PREVIEW_ESCAPE_RADIUS = 3;
             const COMPLEX_PLANE_HALF_SPAN = 4;
@@ -1843,6 +1840,7 @@
             const COMPLEX_STORY_STEP_TOTAL = 5;
             const COMPLEX_PLANE_EDGE_MARGIN = 0.02;
             const MAX_TREE_GENERATION = 7;
+            const EMPTY_FLOAT32 = new Float32Array(0);
             const MANDELBROT_INTERIOR_RGB = [17, 24, 39];
             const MANDELBROT_ESCAPE_BLUE_RGB = [59, 130, 246];
             const MANDELBROT_PLOT_GRADIENT_START_RGB = [244, 249, 255];
@@ -1852,7 +1850,6 @@
             const MANDELBROT_PLOT_GRADIENT_END_FLOAT_RGB = [59 / 255, 130 / 255, 246 / 255];
 
             const realInput = document.getElementById('real-c-input');
-            const realIterationsInput = document.getElementById('real-iterations-input');
             const realSummary = document.getElementById('real-summary');
             const realBody = document.getElementById('real-sequence-body');
             const realCanvas = document.getElementById('real-sequence-canvas');
@@ -1908,6 +1905,14 @@
             const treeLeafSizeInput = document.getElementById('tree-leaf-size');
             const exampleTabButtons = Array.from(document.querySelectorAll('[data-example-tab-button]'));
             const exampleTabPanels = Array.from(document.querySelectorAll('[data-example-tab-panel]'));
+            const treePanel = document.getElementById('example-panel-tree');
+            const kochPanel = document.getElementById('example-panel-snowflake');
+            const barnsleyPanel = document.getElementById('example-panel-fern');
+            const exampleSection = treePanel ? treePanel.closest('.presentation-section') : null;
+            const complexStorySection = complexStoryCanvas ? complexStoryCanvas.closest('.presentation-section') : null;
+            const complexSection = complexPlaneStage ? complexPlaneStage.closest('.presentation-section') : null;
+            const plotSection = plotFrame ? plotFrame.closest('.presentation-section') : null;
+            const cardioidSection = cardioidCanvas ? cardioidCanvas.closest('.presentation-section') : null;
 
             const kochSnowflakeStage = document.getElementById('koch-snowflake-stage');
             const kochSnowflakePrevButton = document.getElementById('koch-snowflake-prev');
@@ -1972,6 +1977,85 @@
                     return 'rgba(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ', ' + alpha.toFixed(3) + ')';
                 }
                 return 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')';
+            }
+
+            function disposeThreeMaterial(material) {
+                if (!material) {
+                    return;
+                }
+                if (Array.isArray(material)) {
+                    material.forEach(disposeThreeMaterial);
+                    return;
+                }
+                material.dispose();
+            }
+
+            function disposeThreeGraph(root) {
+                if (!root || typeof root.traverse !== 'function') {
+                    return;
+                }
+                const geometries = new Set();
+                const materials = new Set();
+                root.traverse(function(object) {
+                    if (object.geometry && typeof object.geometry.dispose === 'function') {
+                        geometries.add(object.geometry);
+                    }
+                    if (object.material) {
+                        if (Array.isArray(object.material)) {
+                            object.material.forEach(function(material) {
+                                materials.add(material);
+                            });
+                        } else {
+                            materials.add(object.material);
+                        }
+                    }
+                });
+                geometries.forEach(function(geometry) {
+                    geometry.dispose();
+                });
+                materials.forEach(function(material) {
+                    disposeThreeMaterial(material);
+                });
+            }
+
+            function removeDomNode(node) {
+                if (node && node.parentNode) {
+                    node.parentNode.removeChild(node);
+                }
+            }
+
+            function isSectionOpen(section) {
+                return !!(section && section.open);
+            }
+
+            function isExampleTabActive(tabName) {
+                if (!isSectionOpen(exampleSection)) {
+                    return false;
+                }
+                const panel = tabName === 'tree'
+                    ? treePanel
+                    : tabName === 'snowflake'
+                        ? kochPanel
+                        : tabName === 'fern'
+                            ? barnsleyPanel
+                            : null;
+                return !!(panel && !panel.hidden);
+            }
+
+            function isComplexStorySectionActive() {
+                return isSectionOpen(complexStorySection);
+            }
+
+            function isComplexSectionActive() {
+                return isSectionOpen(complexSection);
+            }
+
+            function isCardioidSectionActive() {
+                return isSectionOpen(cardioidSection);
+            }
+
+            function isPlotSectionActive() {
+                return isSectionOpen(plotSection);
             }
 
             function queueMathTypeset(elements) {
@@ -2063,10 +2147,50 @@
                 };
             }
 
-            function addPlotPointWithFloats(real, imag, red, green, blue) {
-                plotState.points.push(real, imag);
-                plotState.colors.push(red, green, blue);
+            function clearPlotMeshData() {
+                plotState.meshPositions = null;
+                plotState.meshColors = null;
+                plotState.meshStrips = [];
+                plotState.meshVertexCount = 0;
+                plotState.meshSignature = '';
+                plotState.meshPendingUpload = false;
+            }
+
+            function invalidatePlotGridData() {
+                plotState.densityLevel = 0;
+                plotState.densifySignature = '';
+                plotState.lastGridSamples = null;
+                setPlotGridData(EMPTY_FLOAT32, EMPTY_FLOAT32);
+                clearPlotMeshData();
+            }
+
+            function markPlotGridDataStale() {
+                plotState.densityLevel = 0;
+                plotState.densifySignature = '';
+                plotState.lastGridSamples = null;
+                clearPlotMeshData();
+            }
+
+            function setPlotGridData(positions, colors) {
+                plotState.points = positions || EMPTY_FLOAT32;
+                plotState.colors = colors || EMPTY_FLOAT32;
                 plotState.pendingUpload = true;
+            }
+
+            function cancelPlotDensify(statusText) {
+                const wasInProgress = plotState.densifyInProgress;
+                plotState.activeDensifyJobId += 1;
+                if (plotState.densifyFrameId != null) {
+                    cancelAnimationFrame(plotState.densifyFrameId);
+                    plotState.densifyFrameId = null;
+                }
+                plotState.densifyInProgress = false;
+                if (wasInProgress) {
+                    updateDensifyButtonLabel();
+                    if (statusText) {
+                        setStatusPill(plotStatus, true, statusText);
+                    }
+                }
             }
             function getPlotPointColorFloats(real, imag, maxIterations) {
                 const xMinusQuarter = real - 0.25;
@@ -2104,16 +2228,7 @@
             }
 
             function classifyAndAddPlotPoint(real, imag, maxIterations) {
-                const rgb = getPlotPointColorFloats(real, imag, maxIterations);
-
-                addPlotPointWithFloats(
-                    real,
-                    imag,
-                    rgb[0],
-                    rgb[1],
-                    rgb[2]
-                );
-                return rgb;
+                return getPlotPointColorFloats(real, imag, maxIterations);
             }
 
             function getStatusPillMarkup(label, classification) {
@@ -2145,7 +2260,11 @@
                     panel.hidden = panel.dataset.exampleTabPanel !== tabName;
                 });
 
-                if (foundActiveTab && shouldRedraw !== false) {
+                if (!foundActiveTab) {
+                    return;
+                }
+                syncSectionLifecycles();
+                if (shouldRedraw !== false) {
                     requestAnimationFrame(redrawAllCanvases);
                 }
             }
@@ -2532,11 +2651,11 @@
             }
 
             function drawComplexPlaneSequence(result) {
-                if (!complexPlaneStage || !complexPlaneState.renderer) {
-                    return;
-                }
                 if (result) {
                     complexPlaneState.displayedResult = result;
+                }
+                if (!complexPlaneStage || !complexPlaneState.renderer || !isComplexSectionActive()) {
+                    return;
                 }
                 resizeComplexPlaneScene();
                 updateComplexPlanePath(result);
@@ -2560,22 +2679,21 @@
             }
 
 
-            function renderRealTool(cValue) {
-                const c = safeNumber(cValue != null ? cValue : realInput.value, -1);
-                const pointCount = clamp(Math.round(safeNumber(realIterationsInput.value, 12)), 1, 40);
-                realInput.value = c;
-                realIterationsInput.value = pointCount;
-                const result = evaluateRealSequence(c, pointCount);
+            function renderRealTool(startValue) {
+                const start = safeNumber(startValue != null ? startValue : realInput.value, -1);
+                const pointCount = REAL_POINT_COUNT;
+                realInput.value = start;
+                const result = evaluateRealSequence(start, pointCount);
                 lastRealResult = result;
                 renderRealTable(result);
                 drawRealSequence(result);
                 if (result.stayedSmall) {
                     realSummary.innerHTML = getStatusPillMarkup('Black example', result) + ' ' +
-                        'Using <code>c = ' + formatNumber(c) + '</code>, all ' + pointCount +
+                        'Using <code>start = ' + formatNumber(start) + '</code>, all ' + pointCount +
                         ' shown points stayed within <code>|x| ≤ 2</code>.';
                 } else {
                     realSummary.innerHTML = getStatusPillMarkup('Escaping example', result) + ' ' +
-                        'Using <code>c = ' + formatNumber(c) + '</code>, the first point above 2 appeared at point ' +
+                        'Using <code>start = ' + formatNumber(start) + '</code>, the first point above 2 appeared at point ' +
                         result.escapedAt + ', and the full ' + pointCount + '-point sequence remains visible after that.';
                 }
             }
@@ -3615,7 +3733,7 @@
 
             Array.prototype.forEach.call(document.querySelectorAll('.real-preset'), function(button) {
                 button.addEventListener('click', function() {
-                    renderRealTool(Number(button.getAttribute('data-c')));
+                    renderRealTool(Number(button.getAttribute('data-start')));
                 });
             });
 
@@ -3658,14 +3776,16 @@
                 centerY: 0,
                 halfWidth: DEFAULT_VIEW_HALF_WIDTH,
                 halfHeight: DEFAULT_VIEW_HALF_WIDTH,
-                points: [],
-                colors: [],
+                points: EMPTY_FLOAT32,
+                colors: EMPTY_FLOAT32,
                 manualPoints: [],
                 manualColors: [],
                 selectedPoint: null,
                 densityLevel: 0,
                 densifySignature: '',
                 densifyInProgress: false,
+                densifyFrameId: null,
+                activeDensifyJobId: 0,
                 pendingUpload: false,
                 manualPendingUpload: false,
                 drawScheduled: false,
@@ -3696,6 +3816,7 @@
                 hoverFrameId: null
             };
             const complexPlaneState = {
+                initialized: false,
                 renderer: null,
                 scene: null,
                 camera: null,
@@ -3726,6 +3847,7 @@
             };
 
             const cardioidState = {
+                initialized: false,
                 angle: 0,
                 playing: true,
                 lastTimestamp: null,
@@ -3741,7 +3863,7 @@
                 if (!complexCPill) {
                     return;
                 }
-                complexCPill.textContent = (isHoverPreview ? 'hover c = ' : 'c = ') + formatComplex(cReal, cImag);
+                complexCPill.textContent = (isHoverPreview ? 'hover start = ' : 'start = ') + formatComplex(cReal, cImag);
             }
 
             function createComplexPlaneMarker(size, color) {
@@ -3904,6 +4026,9 @@
             }
 
             function requestComplexPlaneHover(point) {
+                if (!complexPlaneState.initialized || !isComplexSectionActive()) {
+                    return;
+                }
                 complexPlaneState.pendingHoverSample = point;
                 if (complexPlaneState.hoverFrameId != null) {
                     return;
@@ -3939,13 +4064,13 @@
             }
 
             function setupComplexPlaneScene() {
-                if (!complexPlaneStage) {
+                if (!complexPlaneStage || complexPlaneState.initialized) {
                     return;
                 }
                 try {
                     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
                     renderer.setClearColor(0x000000, 0);
-                    complexPlaneStage.appendChild(renderer.domElement);
+                    complexPlaneStage.replaceChildren(renderer.domElement);
 
                     const scene = new THREE.Scene();
                     const camera = new THREE.OrthographicCamera(-COMPLEX_PLANE_HALF_SPAN, COMPLEX_PLANE_HALF_SPAN, COMPLEX_PLANE_HALF_SPAN, -COMPLEX_PLANE_HALF_SPAN, 0.1, 20);
@@ -4022,6 +4147,7 @@
                     complexPlaneState.pointsObject = pointsObject;
                     complexPlaneState.sampleOuterMarker = sampleOuterMarker;
                     complexPlaneState.sampleInnerMarker = sampleInnerMarker;
+                    complexPlaneState.initialized = true;
 
                     resizeComplexPlaneScene();
                     renderComplexPlaneScene();
@@ -4079,6 +4205,8 @@
                 if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
                     throw new Error(gl.getProgramInfoLog(program) || 'Program link failed');
                 }
+                gl.deleteShader(vertexShader);
+                gl.deleteShader(fragmentShader);
                 return program;
             }
 
@@ -4168,9 +4296,9 @@
                     return;
                 }
                 gl.bindBuffer(gl.ARRAY_BUFFER, plotState.positionBuffer);
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(plotState.points), gl.DYNAMIC_DRAW);
+                gl.bufferData(gl.ARRAY_BUFFER, plotState.points, gl.DYNAMIC_DRAW);
                 gl.bindBuffer(gl.ARRAY_BUFFER, plotState.colorBuffer);
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(plotState.colors), gl.DYNAMIC_DRAW);
+                gl.bufferData(gl.ARRAY_BUFFER, plotState.colors, gl.DYNAMIC_DRAW);
                 plotState.pendingUpload = false;
             }
 
@@ -4237,7 +4365,7 @@
             }
 
             function requestPlotHoverSequence(point) {
-                if (!plotState.hoverTrackerEnabled) {
+                if (!plotState.hoverTrackerEnabled || !isPlotSectionActive()) {
                     return;
                 }
                 plotState.pendingHoverPoint = point;
@@ -4523,7 +4651,7 @@
             }
 
             function drawPlot() {
-                if (!gl || !plotState.supported) {
+                if (!gl || !plotState.supported || !isPlotSectionActive()) {
                     return;
                 }
                 const glSize = resizeCanvasToDisplaySize(glCanvas);
@@ -4613,6 +4741,16 @@
                 };
             }
 
+            function getNormalizedWheelDeltaY(event) {
+                let deltaY = event.deltaY;
+                if (event.deltaMode === 1) {
+                    deltaY *= 16;
+                } else if (event.deltaMode === 2) {
+                    deltaY *= Math.max(window.innerHeight, 1);
+                }
+                return clamp(deltaY, -240, 240);
+            }
+
             function updateDensifyButtonLabel() {
                 const sameView = densifySignature() === plotState.densifySignature;
                 const levelForView = sameView ? plotState.densityLevel : 0;
@@ -4625,23 +4763,12 @@
                 plotState.centerY = 0;
                 plotState.halfWidth = DEFAULT_VIEW_HALF_WIDTH;
                 updateAspectDependentScale();
-                plotState.points = [];
-                plotState.colors = [];
+                cancelPlotDensify();
+                invalidatePlotGridData();
                 plotState.manualPoints = [];
                 plotState.manualColors = [];
                 plotState.selectedPoint = null;
-                plotState.densityLevel = 0;
-                plotState.densifySignature = '';
-                plotState.densifyInProgress = false;
-                plotState.pendingUpload = true;
                 plotState.manualPendingUpload = true;
-                plotState.lastGridSamples = null;
-                plotState.meshPositions = null;
-                plotState.meshColors = null;
-                plotState.meshStrips = [];
-                plotState.meshVertexCount = 0;
-                plotState.meshSignature = '';
-                plotState.meshPendingUpload = false;
                 clearPlotHoverTracker();
                 setStatusPill(plotStatus, true, 'No points yet');
                 updateDensifyButtonLabel();
@@ -4649,6 +4776,8 @@
             }
 
             function resetPlotViewport() {
+                cancelPlotDensify('Sampling canceled');
+                invalidatePlotGridData();
                 plotState.centerX = -0.5;
                 plotState.centerY = 0;
                 plotState.halfWidth = DEFAULT_VIEW_HALF_WIDTH;
@@ -4661,15 +4790,7 @@
             function densifyCurrentView() {
                 const signature = densifySignature();
                 if (signature !== plotState.densifySignature) {
-                    plotState.densityLevel = 0;
-                    plotState.densifySignature = signature;
-                    plotState.lastGridSamples = null;
-                    plotState.meshPositions = null;
-                    plotState.meshColors = null;
-                    plotState.meshStrips = [];
-                    plotState.meshVertexCount = 0;
-                    plotState.meshSignature = '';
-                    plotState.meshPendingUpload = false;
+                    markPlotGridDataStale();
                 }
                 if (plotState.densifyInProgress || plotState.densityLevel >= MAX_DENSITY_LEVEL) {
                     updateDensifyButtonLabel();
@@ -4690,8 +4811,11 @@
                 const totalPoints = (rows + 1) * (columns + 1);
                 const gridPositions = new Float32Array(totalPoints * 2);
                 const gridColors = new Float32Array(totalPoints * 3);
+                const jobId = plotState.activeDensifyJobId + 1;
+                plotState.activeDensifyJobId = jobId;
 
                 plotState.densifyInProgress = true;
+                plotState.densifyFrameId = null;
                 updateDensifyButtonLabel();
                 setStatusPill(plotStatus, true, 'Sampling ' + totalPoints + ' points in the current view...');
 
@@ -4700,6 +4824,9 @@
                 let yIndex = 0;
 
                 function processChunk() {
+                    if (plotState.activeDensifyJobId !== jobId) {
+                        return;
+                    }
                     const start = performance.now();
                     while (sampled < totalPoints && performance.now() - start < 12) {
                         const real = minReal + xIndex * realStep;
@@ -4721,8 +4848,12 @@
                     requestPlotDraw();
 
                     if (sampled < totalPoints) {
-                        requestAnimationFrame(processChunk);
+                        plotState.densifyFrameId = requestAnimationFrame(processChunk);
                     } else {
+                        if (plotState.activeDensifyJobId !== jobId) {
+                            return;
+                        }
+                        setPlotGridData(gridPositions, gridColors);
                         plotState.lastGridSamples = {
                             signature: signature,
                             columns: columns,
@@ -4732,16 +4863,19 @@
                         };
                         if (plotState.meshEnabled) {
                             buildPlotMeshFromSamples(plotState.lastGridSamples);
+                        } else {
+                            clearPlotMeshData();
                         }
-                        plotState.densityLevel = Math.min(MAX_DENSITY_LEVEL, plotState.densityLevel + 1);
+                        plotState.densifySignature = signature;
+                        plotState.densityLevel = Math.min(MAX_DENSITY_LEVEL, level + 1);
                         plotState.densifyInProgress = false;
+                        plotState.densifyFrameId = null;
                         updateDensifyButtonLabel();
                         setStatusPill(plotStatus, true, 'Sampled ' + sampled + ' points at grid level ' + plotState.densityLevel);
                         requestPlotDraw();
                     }
                 }
-
-                requestAnimationFrame(processChunk);
+                plotState.densifyFrameId = requestAnimationFrame(processChunk);
             }
 
             function handleWheel(event) {
@@ -4750,11 +4884,15 @@
                 const rect = glCanvas.getBoundingClientRect();
                 const normalizedX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
                 const normalizedY = 1 - ((event.clientY - rect.top) / rect.height) * 2;
-                const zoomFactor = event.deltaY < 0 ? 0.88 : 1.14;
+                const zoomFactor = Math.exp(getNormalizedWheelDeltaY(event) * 0.0015);
                 plotState.halfWidth = clamp(plotState.halfWidth * zoomFactor, 0.00002, 3.5);
                 updateAspectDependentScale();
                 plotState.centerX = world.real - normalizedX * plotState.halfWidth;
                 plotState.centerY = world.imag - normalizedY * plotState.halfHeight;
+                cancelPlotDensify('Sampling canceled');
+                if (plotState.densityLevel !== 0 || plotState.densifySignature || plotState.lastGridSamples) {
+                    markPlotGridDataStale();
+                }
                 updateDensifyButtonLabel();
                 requestPlotHoverSequence(world);
                 requestPlotDraw();
@@ -4782,6 +4920,10 @@
                 const dy = event.clientY - plotState.drag.startY;
                 plotState.centerX = plotState.drag.centerX - (dx / rect.width) * plotState.halfWidth * 2;
                 plotState.centerY = plotState.drag.centerY + (dy / rect.height) * plotState.halfHeight * 2;
+                cancelPlotDensify('Sampling canceled');
+                if (plotState.densityLevel !== 0 || plotState.densifySignature || plotState.lastGridSamples) {
+                    markPlotGridDataStale();
+                }
                 updateDensifyButtonLabel();
                 requestPlotDraw();
             }
@@ -5019,8 +5161,25 @@
                 cardioidState.animationFrameId = null;
             }
 
+            function startCardioidAnimation() {
+                if (!cardioidState.initialized || !cardioidState.playing || cardioidState.animationFrameId != null || cardioidState.angle >= Math.PI * 2 || !isCardioidSectionActive()) {
+                    return;
+                }
+                cardioidState.lastTimestamp = null;
+                cardioidState.animationFrameId = requestAnimationFrame(stepCardioidAnimation);
+            }
+
+            function ensureCardioidAnimationInitialized() {
+                if (cardioidState.initialized || !cardioidCanvas) {
+                    return;
+                }
+                resetCardioidAnimation(cardioidState.playing);
+            }
+
             function stepCardioidAnimation(timestamp) {
-                if (!cardioidState.playing) {
+                cardioidState.animationFrameId = null;
+                if (!cardioidState.playing || !isCardioidSectionActive()) {
+                    cardioidState.lastTimestamp = null;
                     return;
                 }
                 if (cardioidState.lastTimestamp == null) {
@@ -5036,7 +5195,6 @@
                     cardioidState.playing = false;
                     cardioidState.lastTimestamp = null;
                     updateCardioidButton();
-                    cardioidState.animationFrameId = null;
                     return;
                 }
 
@@ -5045,6 +5203,7 @@
 
             function resetCardioidAnimation(autoplay) {
                 stopCardioidAnimation();
+                cardioidState.initialized = true;
                 cardioidState.angle = 0;
                 cardioidState.lastTimestamp = null;
                 cardioidState.playing = autoplay;
@@ -5052,9 +5211,7 @@
                 appendCardioidTracePoint();
                 drawCardioidScene();
                 updateCardioidButton();
-                if (autoplay) {
-                    cardioidState.animationFrameId = requestAnimationFrame(stepCardioidAnimation);
-                }
+                startCardioidAnimation();
             }
 
             if (cardioidPlayButton) {
@@ -5069,9 +5226,8 @@
                         resetCardioidAnimation(true);
                     } else {
                         cardioidState.playing = true;
-                        cardioidState.lastTimestamp = null;
                         updateCardioidButton();
-                        cardioidState.animationFrameId = requestAnimationFrame(stepCardioidAnimation);
+                        startCardioidAnimation();
                     }
                 });
             }
@@ -5148,6 +5304,8 @@
             const KOCH_ROTATION_SIN = Math.sqrt(3) / 2;
 
             const kochSnowflakeState = {
+                initialized: false,
+                running: false,
                 canvas: null,
                 ctx: null,
                 elapsedMs: 0,
@@ -5668,6 +5826,11 @@
             }
 
             function animateKochSnowflake(timestamp) {
+                if (!kochSnowflakeState.running) {
+                    kochSnowflakeState.animationFrameId = null;
+                    kochSnowflakeState.lastTimestamp = null;
+                    return;
+                }
                 kochSnowflakeState.animationFrameId = requestAnimationFrame(animateKochSnowflake);
                 if (kochSnowflakeState.lastTimestamp == null) {
                     kochSnowflakeState.lastTimestamp = timestamp;
@@ -5687,8 +5850,30 @@
                 renderKochSnowflakeFrame();
             }
 
+            function stopKochSnowflakeDemo() {
+                kochSnowflakeState.running = false;
+                kochSnowflakeState.lastTimestamp = null;
+                if (kochSnowflakeState.animationFrameId != null) {
+                    cancelAnimationFrame(kochSnowflakeState.animationFrameId);
+                    kochSnowflakeState.animationFrameId = null;
+                }
+            }
+
+            function startKochSnowflakeDemo() {
+                if (!kochSnowflakeState.initialized) {
+                    setupKochSnowflakeDemo();
+                }
+                if (!kochSnowflakeState.canvas || kochSnowflakeState.running) {
+                    return;
+                }
+                kochSnowflakeState.running = true;
+                kochSnowflakeState.lastTimestamp = null;
+                renderKochSnowflakeFrame();
+                kochSnowflakeState.animationFrameId = requestAnimationFrame(animateKochSnowflake);
+            }
+
             function setupKochSnowflakeDemo() {
-                if (!kochSnowflakeStage) {
+                if (!kochSnowflakeStage || kochSnowflakeState.initialized) {
                     return;
                 }
                 const canvas = document.createElement('canvas');
@@ -5711,9 +5896,10 @@
                 kochSnowflakeState.ctx = ctx;
                 kochSnowflakeState.polylines = polylines;
                 kochSnowflakeState.bounds = computePolylineBounds(polylines[polylines.length - 1]);
+                kochSnowflakeState.initialized = true;
+                kochSnowflakeState.running = false;
 
                 renderKochSnowflakeFrame();
-                kochSnowflakeState.animationFrameId = requestAnimationFrame(animateKochSnowflake);
                 if (kochSnowflakePrevButton) {
                     kochSnowflakePrevButton.addEventListener('click', function() {
                         nudgeKochSnowflakeStep(-1);
@@ -5742,6 +5928,9 @@
             const BARNSLEY_MAX_DEPTH = BARNSLEY_POINT_COUNTS_BY_STEP.length - 1;
 
             const barnsleyFernState = {
+                initialized: false,
+                running: false,
+                controlsBound: false,
                 renderer: null,
                 scene: null,
                 camera: null,
@@ -6104,6 +6293,33 @@
                 setBarnsleyFernStep(0);
             }
 
+            function bindBarnsleyFernControls() {
+                if (barnsleyFernState.controlsBound) {
+                    return;
+                }
+                if (barnsleyFernPrevButton) {
+                    barnsleyFernPrevButton.addEventListener('click', function() {
+                        nudgeBarnsleyFernStep(-1);
+                    });
+                }
+                if (barnsleyFernPlayButton) {
+                    barnsleyFernPlayButton.addEventListener('click', function() {
+                        toggleBarnsleyFernPlayback();
+                    });
+                }
+                if (barnsleyFernNextButton) {
+                    barnsleyFernNextButton.addEventListener('click', function() {
+                        nudgeBarnsleyFernStep(1);
+                    });
+                }
+                if (barnsleyFernResetButton) {
+                    barnsleyFernResetButton.addEventListener('click', function() {
+                        resetBarnsleyFern();
+                    });
+                }
+                barnsleyFernState.controlsBound = true;
+            }
+
             function getBarnsleyFernViewForBounds(bounds) {
                 if (!barnsleyFernStage) {
                     return null;
@@ -6180,6 +6396,11 @@
             }
 
             function animateBarnsleyFern(timestamp) {
+                if (!barnsleyFernState.running) {
+                    barnsleyFernState.animationFrameId = null;
+                    barnsleyFernState.lastTimestamp = null;
+                    return;
+                }
                 barnsleyFernState.animationFrameId = requestAnimationFrame(animateBarnsleyFern);
                 if (!barnsleyFernState.renderer) {
                     return;
@@ -6202,14 +6423,63 @@
                 renderBarnsleyFernFrame();
             }
 
+            function stopBarnsleyFernDemo() {
+                barnsleyFernState.running = false;
+                barnsleyFernState.lastTimestamp = null;
+                if (barnsleyFernState.animationFrameId != null) {
+                    cancelAnimationFrame(barnsleyFernState.animationFrameId);
+                    barnsleyFernState.animationFrameId = null;
+                }
+            }
+
+            function startBarnsleyFernDemo() {
+                if (!barnsleyFernState.initialized) {
+                    setupBarnsleyFernDemo();
+                }
+                if (!barnsleyFernState.renderer || barnsleyFernState.running) {
+                    return;
+                }
+                barnsleyFernState.running = true;
+                barnsleyFernState.lastTimestamp = null;
+                resizeBarnsleyFernScene();
+                renderBarnsleyFernFrame();
+                barnsleyFernState.animationFrameId = requestAnimationFrame(animateBarnsleyFern);
+            }
+
+            function disposeBarnsleyFernDemo() {
+                stopBarnsleyFernDemo();
+                if (!barnsleyFernState.initialized) {
+                    return;
+                }
+                disposeThreeGraph(barnsleyFernState.scene);
+                if (barnsleyFernState.renderer) {
+                    if (typeof barnsleyFernState.renderer.dispose === 'function') {
+                        barnsleyFernState.renderer.dispose();
+                    }
+                    if (typeof barnsleyFernState.renderer.forceContextLoss === 'function') {
+                        barnsleyFernState.renderer.forceContextLoss();
+                    }
+                }
+                if (barnsleyFernStage) {
+                    barnsleyFernStage.replaceChildren();
+                }
+                barnsleyFernState.initialized = false;
+                barnsleyFernState.renderer = null;
+                barnsleyFernState.scene = null;
+                barnsleyFernState.camera = null;
+                barnsleyFernState.geometry = null;
+                barnsleyFernState.overlayPoints = null;
+                barnsleyFernState.bounds = null;
+            }
+
             function setupBarnsleyFernDemo() {
-                if (!barnsleyFernStage) {
+                if (!barnsleyFernStage || barnsleyFernState.initialized) {
                     return;
                 }
                 try {
                     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
                     renderer.setClearColor(0x000000, 0);
-                    barnsleyFernStage.appendChild(renderer.domElement);
+                    barnsleyFernStage.replaceChildren(renderer.domElement);
 
                     const scene = new THREE.Scene();
                     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 20);
@@ -6246,10 +6516,12 @@
                     barnsleyFernState.geometry = fernData.geometry;
                     barnsleyFernState.overlayPoints = overlayPoints;
                     barnsleyFernState.bounds = fernData.bounds;
+                    barnsleyFernState.initialized = true;
+                    barnsleyFernState.running = false;
+                    bindBarnsleyFernControls();
 
                     resizeBarnsleyFernScene();
                     renderBarnsleyFernFrame();
-                    barnsleyFernState.animationFrameId = requestAnimationFrame(animateBarnsleyFern);
                 } catch (error) {
                     barnsleyFernStage.innerHTML = '<div style="padding:20px;color:#5f6b84;line-height:1.6;">The Barnsley fern animation could not start in this browser.</div>';
                     [barnsleyFernPrevButton, barnsleyFernPlayButton, barnsleyFernNextButton, barnsleyFernResetButton].forEach(function(button) {
@@ -6262,29 +6534,11 @@
                     }
                     return;
                 }
-                if (barnsleyFernPrevButton) {
-                    barnsleyFernPrevButton.addEventListener('click', function() {
-                        nudgeBarnsleyFernStep(-1);
-                    });
-                }
-                if (barnsleyFernPlayButton) {
-                    barnsleyFernPlayButton.addEventListener('click', function() {
-                        toggleBarnsleyFernPlayback();
-                    });
-                }
-                if (barnsleyFernNextButton) {
-                    barnsleyFernNextButton.addEventListener('click', function() {
-                        nudgeBarnsleyFernStep(1);
-                    });
-                }
-                if (barnsleyFernResetButton) {
-                    barnsleyFernResetButton.addEventListener('click', function() {
-                        resetBarnsleyFern();
-                    });
-                }
             }
 
             const treeState = {
+                initialized: false,
+                running: false,
                 renderer: null,
                 scene: null,
                 camera: null,
@@ -6484,8 +6738,21 @@
                 treeState.camera.aspect = width / height;
                 treeState.camera.updateProjectionMatrix();
             }
+            function renderTreeFrame() {
+                if (!treeState.renderer || !treeState.scene || !treeState.camera) {
+                    return;
+                }
+                if (treeState.controls) {
+                    treeState.controls.update();
+                }
+                treeState.renderer.render(treeState.scene, treeState.camera);
+            }
 
             function animateTree(timestamp) {
+                if (!treeState.running) {
+                    treeState.animationFrameId = null;
+                    return;
+                }
                 treeState.animationFrameId = requestAnimationFrame(animateTree);
                 if (!treeState.renderer || !treeState.scene || !treeState.camera) {
                     return;
@@ -6499,19 +6766,72 @@
                         treeState.warmLight.position.set(Math.sin(t * 0.7) * 5, 4.5, Math.cos(t * 0.7) * 5);
                     }
                 }
-                treeState.controls.update();
-                treeState.renderer.render(treeState.scene, treeState.camera);
+                renderTreeFrame();
+            }
+
+            function stopTreeDemo() {
+                treeState.running = false;
+                if (treeState.animationFrameId != null) {
+                    cancelAnimationFrame(treeState.animationFrameId);
+                    treeState.animationFrameId = null;
+                }
+            }
+
+            function startTreeDemo() {
+                if (!treeState.initialized) {
+                    setupTreeScene();
+                }
+                if (!treeState.renderer || treeState.running) {
+                    return;
+                }
+                treeState.running = true;
+                resizeTreeScene();
+                renderTreeFrame();
+                treeState.animationFrameId = requestAnimationFrame(animateTree);
+            }
+
+            function disposeTreeScene() {
+                stopTreeDemo();
+                if (!treeState.initialized) {
+                    return;
+                }
+                if (treeState.controls && typeof treeState.controls.dispose === 'function') {
+                    treeState.controls.dispose();
+                }
+                disposeThreeGraph(treeState.scene);
+                if (treeState.renderer) {
+                    if (typeof treeState.renderer.dispose === 'function') {
+                        treeState.renderer.dispose();
+                    }
+                    if (typeof treeState.renderer.forceContextLoss === 'function') {
+                        treeState.renderer.forceContextLoss();
+                    }
+                }
+                if (treeStage) {
+                    treeStage.replaceChildren();
+                }
+                treeState.initialized = false;
+                treeState.renderer = null;
+                treeState.scene = null;
+                treeState.camera = null;
+                treeState.controls = null;
+                treeState.group = null;
+                treeState.rimLight = null;
+                treeState.warmLight = null;
+                treeState.branchMaterial = null;
+                treeState.leafMaterial = null;
+                treeState.leafGeometry = null;
             }
 
             function setupTreeScene() {
-                if (!treeStage) {
+                if (!treeStage || treeState.initialized) {
                     return;
                 }
                 try {
                     const renderer = new THREE.WebGLRenderer({ antialias: true });
                     renderer.shadowMap.enabled = true;
                     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-                    treeStage.appendChild(renderer.domElement);
+                    treeStage.replaceChildren(renderer.domElement);
 
                     const scene = new THREE.Scene();
                     scene.background = new THREE.Color(0xeaf3ff);
@@ -6578,11 +6898,13 @@
                     treeState.branchMaterial = new THREE.MeshStandardMaterial({ color: 0x7a5432, roughness: 0.9, metalness: 0.04 });
                     treeState.leafMaterial = new THREE.MeshStandardMaterial({ color: 0x2d8d46, roughness: 0.76, metalness: 0.03, flatShading: true });
                     treeState.leafGeometry = new THREE.IcosahedronGeometry(1, 0);
+                    treeState.initialized = true;
+                    treeState.running = false;
 
                     resetTreeCamera();
                     resizeTreeScene();
                     rebuildTree();
-                    animateTree(0);
+                    renderTreeFrame();
                 } catch (error) {
                     treeStage.innerHTML = '<div style="padding:24px;color:#5f6b84;line-height:1.6;">The 3D tree grower could not start in this browser.</div>';
                     treeGrowButton.disabled = true;
@@ -6641,33 +6963,127 @@
                     rebuildTree();
                 });
             });
+            function syncExampleDemoLifecycle() {
+                if (isExampleTabActive('snowflake')) {
+                    startKochSnowflakeDemo();
+                } else {
+                    stopKochSnowflakeDemo();
+                }
+
+                if (isExampleTabActive('fern')) {
+                    startBarnsleyFernDemo();
+                } else {
+                    disposeBarnsleyFernDemo();
+                }
+
+                if (isExampleTabActive('tree')) {
+                    startTreeDemo();
+                } else {
+                    disposeTreeScene();
+                }
+            }
+
+            function syncComplexPlaneLifecycle() {
+                if (isComplexSectionActive()) {
+                    setupComplexPlaneScene();
+                    drawComplexPlaneSequence(getActiveComplexResult());
+                } else {
+                    restorePinnedComplexPlaneResult();
+                }
+            }
+
+            function syncPlotLifecycle() {
+                if (!plotState.supported) {
+                    return;
+                }
+                if (isPlotSectionActive()) {
+                    updateDensifyButtonLabel();
+                    requestPlotDraw();
+                } else {
+                    cancelPlotDensify();
+                    clearPlotHoverTracker();
+                }
+            }
+
+            function syncCardioidLifecycle() {
+                if (isCardioidSectionActive()) {
+                    ensureCardioidAnimationInitialized();
+                    drawCardioidScene();
+                    startCardioidAnimation();
+                } else {
+                    stopCardioidAnimation();
+                    cardioidState.lastTimestamp = null;
+                }
+            }
+
+            function syncSectionLifecycles() {
+                syncExampleDemoLifecycle();
+                syncComplexPlaneLifecycle();
+                syncPlotLifecycle();
+                syncCardioidLifecycle();
+            }
 
             function redrawAllCanvases() {
                 drawRealSequence(lastRealResult);
-                requestComplexStoryDraw();
-                drawComplexPlaneSequence(getActiveComplexResult());
-                drawComplexGrowthChart(getActiveComplexResult());
-                drawCardioidScene();
-                renderKochSnowflakeFrame();
-                resizeBarnsleyFernScene();
-                renderBarnsleyFernFrame();
+                if (isComplexStorySectionActive()) {
+                    requestComplexStoryDraw();
+                }
+                if (isComplexSectionActive()) {
+                    const activeComplexResult = getActiveComplexResult();
+                    drawComplexPlaneSequence(activeComplexResult);
+                    drawComplexGrowthChart(activeComplexResult);
+                }
+                if (isCardioidSectionActive()) {
+                    drawCardioidScene();
+                }
+                if (isExampleTabActive('snowflake') && kochSnowflakeState.initialized) {
+                    renderKochSnowflakeFrame();
+                }
+                if (isExampleTabActive('fern') && barnsleyFernState.initialized) {
+                    resizeBarnsleyFernScene();
+                    renderBarnsleyFernFrame();
+                }
                 updateDensifyButtonLabel();
-                requestPlotDraw();
-                resizeTreeScene();
+                if (isPlotSectionActive()) {
+                    requestPlotDraw();
+                }
+                if (isExampleTabActive('tree') && treeState.initialized) {
+                    resizeTreeScene();
+                    renderTreeFrame();
+                }
             }
 
             Array.prototype.forEach.call(document.querySelectorAll('.presentation-section'), function(section) {
+                const sectionBody = section.querySelector('.section-body');
                 section.addEventListener('toggle', function() {
                     if (!section.open) {
+                        syncSectionLifecycles();
                         return;
                     }
                     requestAnimationFrame(function() {
+                        syncSectionLifecycles();
                         redrawAllCanvases();
                     });
                 });
+                if (sectionBody) {
+                    sectionBody.addEventListener('click', function(event) {
+                        if (!section.open || event.target !== sectionBody) {
+                            return;
+                        }
+                        const bodyRect = sectionBody.getBoundingClientRect();
+                        const paddingBottom = parseFloat(window.getComputedStyle(sectionBody).paddingBottom) || 0;
+                        const closeZoneHeight = Math.max(paddingBottom, 24);
+                        if (event.clientY >= bodyRect.bottom - closeZoneHeight) {
+                            section.open = false;
+                        }
+                    });
+                }
             });
 
-            window.addEventListener('resize', redrawAllCanvases);
+            window.addEventListener('resize', function() {
+                syncSectionLifecycles();
+                redrawAllCanvases();
+            });
 
             if (gl) {
                 setupWebGL();
@@ -6687,16 +7103,13 @@
                 }
             }
 
-            setupKochSnowflakeDemo();
-            setupBarnsleyFernDemo();
             setupFractalMedia();
-            setupTreeScene();
             initializeComplexStory();
-            setupComplexPlaneScene();
             setupExampleTabs();
             renderRealTool(-1);
             renderComplexTool(-1, 0);
-            resetCardioidAnimation(true);
+            updateCardioidButton();
+            syncSectionLifecycles();
             requestAnimationFrame(redrawAllCanvases);
         })();
     </script>
