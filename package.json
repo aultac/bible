@@ -2,6 +2,15 @@
   "name": "bible",
   "version": "3.1.2",
   "private": true,
-  "scripts": {},
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  "scripts": {
+    "build": "node mandelbrot/build.mjs",
+    "build:mandelbrot": "node mandelbrot/build.mjs",
+    "build:mandelbrot:watch": "node mandelbrot/build.mjs --watch",
+    "serve": "concurrently -k -n BUILD,SERVE -c yellow,cyan \"yarn build:mandelbrot:watch\" \"yarn live-server --ignore=mandelbrot/src,.git,.yarn,.pnp.* --wait=150 --open=mandelbrot.html\""
+  },
+  "packageManager": "yarn@4.14.1+sha512.64df448055b2d37ba269d7db535a469b8da93f8ef1140c25fd7a83c00a8fbaacb214ca0e02553b92a2c54cef78bb67d0b4817fab02001df0e24fac0faccc3b42",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "live-server": "^1.2.2"
+  }
 }
