@@ -333,11 +333,15 @@
             }
 
             function setSunflowerStep(step) {
+                const previousStep = sunflowerState.outerStep;
                 sunflowerState.playing = false;
                 sunflowerState.introTransition = null;
                 sunflowerState.seedTransition = null;
                 sunflowerState.spiralTransition = null;
                 sunflowerState.outerStep = clamp(Math.round(step), 0, SUNFLOWER_STEP_TOTAL - 1);
+                if (sunflowerState.outerStep === 1 && previousStep !== 1) {
+                    sunflowerState.seedsPlaced = 0;
+                }
                 if (sunflowerState.outerStep >= 2 && sunflowerState.seedsPlaced < SUNFLOWER_MAX_SEEDS) {
                     sunflowerState.seedsPlaced = SUNFLOWER_MAX_SEEDS;
                 }
