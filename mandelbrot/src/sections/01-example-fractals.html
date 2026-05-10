@@ -210,19 +210,19 @@
                                     <button type="button" class="media-step-button play-button" id="sunflower-play">Play</button>
                                     <button type="button" class="media-step-button" id="sunflower-next" aria-label="Next sunflower step">→</button>
                                     <button type="button" class="media-step-button" id="sunflower-reset">Reset</button>
+                                    <span id="sunflower-stage-count" class="nautilus-step-counter" aria-label="Sunflower stage progress" aria-live="polite">1/4</span>
                                 </div>
                                 <div class="fractal-media-shell">
-                                    <span class="media-badge">Golden angle → sunflower seeds</span>
+                                    <span class="media-badge">Golden Angle</span>
                                     <div class="fractal-motion" data-motion-kind="sunflower-canvas" id="sunflower-motion">
                                         <div id="sunflower-stage" class="sunflower-stage" aria-hidden="true">
                                             <canvas id="sunflower-canvas" class="plot-2d"></canvas>
+                                            <div id="sunflower-viewport-actions" class="sunflower-viewport-actions" hidden>
+                                                <button id="sunflower-toggle-red" class="sunflower-family-toggle" data-family="red" type="button" aria-pressed="true">Red spirals: On</button>
+                                                <button id="sunflower-toggle-blue" class="sunflower-family-toggle" data-family="blue" type="button" aria-pressed="true">Blue spirals: On</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="fractal-story-copy">
-                                    <h3 id="sunflower-step-title">Split the circle into golden arcs</h3>
-                                    <p id="sunflower-step-copy" class="summary">If a circle is split so that the long arc and short arc follow the golden ratio, the short sweep is about 137.5°, the golden angle used in many seed heads.</p>
-                                    <div id="sunflower-step-metrics" class="fractal-step-metrics" aria-live="polite"></div>
                                 </div>
                             </article>
                         </section>

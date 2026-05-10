@@ -7,11 +7,40 @@
                 lastTimestamp: null,
                 ambientElapsedMs: 0,
                 playing: false,
-                currentStep: 0,
-                transition: null,
-                stepDurationMs: 1500,
-                manualStepDurationMs: 720
+                outerStep: 0,
+                introReveal: 0,
+                introTransition: null,
+                seedsPlaced: 0,
+                seedTransition: null,
+                redSpiralReveal: 0,
+                blueSpiralReveal: 0,
+                redSpiralVisible: true,
+                blueSpiralVisible: true,
+                spiralTransition: null,
+                realImage: null,
+                realImageLoaded: false,
+                introDurationMs: 900,
+                placementManualDurationMs: 320,
+                placementAutoDurationMs: 68,
+                spiralFamilyDurationMs: 1900
             };
+
+            function loadSunflowerRealImage() {
+                if (!SUNFLOWER_REAL_IMAGE_ASSET || sunflowerState.realImage) {
+                    return;
+                }
+                const image = new Image();
+                image.decoding = 'async';
+                image.addEventListener('load', function() {
+                    sunflowerState.realImageLoaded = true;
+                    renderSunflowerFrame();
+                });
+                image.addEventListener('error', function() {
+                    sunflowerState.realImageLoaded = false;
+                });
+                image.src = SUNFLOWER_REAL_IMAGE_ASSET;
+                sunflowerState.realImage = image;
+            }
 
             function bindSunflowerControls() {
                 if (sunflowerState.controlsBound) {
@@ -37,84 +66,350 @@
                         resetSunflowerDemo();
                     });
                 }
+                if (sunflowerStage) {
+                    sunflowerStage.addEventListener('click', function() {
+                        handleSunflowerStageClick();
+                    });
+                }
+                if (sunflowerToggleRedButton) {
+                    sunflowerToggleRedButton.addEventListener('click', function(event) {
+                        event.stopPropagation();
+                        toggleSunflowerSpiralVisibility('red');
+                    });
+                }
+                if (sunflowerToggleBlueButton) {
+                    sunflowerToggleBlueButton.addEventListener('click', function(event) {
+                        event.stopPropagation();
+                        toggleSunflowerSpiralVisibility('blue');
+                    });
+                }
                 sunflowerState.controlsBound = true;
             }
 
-            function updateSunflowerControls() {
-                const displayedStep = sunflowerState.transition ? sunflowerState.transition.toStep : sunflowerState.currentStep;
-                const isTransitioning = !!sunflowerState.transition;
-                if (sunflowerPlayButton) {
-                    sunflowerPlayButton.textContent = sunflowerState.playing ? 'Pause' : 'Play';
-                }
-                if (sunflowerPrevButton) {
-                    sunflowerPrevButton.disabled = isTransitioning || displayedStep <= 0;
-                }
-                if (sunflowerNextButton) {
-                    sunflowerNextButton.disabled = isTransitioning || displayedStep >= SUNFLOWER_STEP_TOTAL - 1;
-                }
+            function resetSunflowerSpiralVisibility() {
+                sunflowerState.redSpiralVisible = true;
+                sunflowerState.blueSpiralVisible = true;
             }
 
-            function createSunflowerTransition(fromStep, toStep, durationMs) {
-                return {
-                    fromStep: fromStep,
-                    toStep: toStep,
-                    elapsedMs: 0,
-                    durationMs: durationMs
-                };
+            function isSunflowerSpiralVisibilityEnabled() {
+                return sunflowerState.outerStep === 2 && isSunflowerParastichyComplete();
             }
 
-            function beginSunflowerAutoTransition() {
-                if (!sunflowerState.playing || sunflowerState.transition || sunflowerState.currentStep >= SUNFLOWER_STEP_TOTAL - 1) {
-                    if (sunflowerState.currentStep >= SUNFLOWER_STEP_TOTAL - 1) {
-                        sunflowerState.playing = false;
+            function isSunflowerSpiralFamilyVisible(family) {
+                return family === 'red'
+                    ? sunflowerState.redSpiralVisible
+                    : sunflowerState.blueSpiralVisible;
+            }
+
+            function toggleSunflowerSpiralVisibility(family) {
+                if (!isSunflowerSpiralVisibilityEnabled()) {
+                    return;
+                }
+                if (family === 'red') {
+                    sunflowerState.redSpiralVisible = !sunflowerState.redSpiralVisible;
+                } else if (family === 'blue') {
+                    sunflowerState.blueSpiralVisible = !sunflowerState.blueSpiralVisible;
+                } else {
+                    return;
+                }
+                updateSunflowerControls();
+                renderSunflowerFrame();
+            }
+            function getSunflowerIntroRenderProgress() {
+                if (!sunflowerState.introTransition) {
+                    return sunflowerState.introReveal;
+                }
+                const progress = easeInOutCubic(clamp(
+                    sunflowerState.introTransition.elapsedMs / sunflowerState.introTransition.durationMs,
+                    0,
+                    1
+                ));
+                return lerp(
+                    sunflowerState.introTransition.fromProgress,
+                    sunflowerState.introTransition.toProgress,
+                    progress
+                );
+            }
+
+            function getSunflowerSpiralReveal(family) {
+                const baseReveal = family === 'red'
+                    ? sunflowerState.redSpiralReveal
+                    : sunflowerState.blueSpiralReveal;
+                if (!sunflowerState.spiralTransition || sunflowerState.spiralTransition.family !== family) {
+                    return baseReveal;
+                }
+                const progress = easeInOutCubic(clamp(
+                    sunflowerState.spiralTransition.elapsedMs / sunflowerState.spiralTransition.durationMs,
+                    0,
+                    1
+                ));
+                return lerp(
+                    sunflowerState.spiralTransition.fromProgress,
+                    sunflowerState.spiralTransition.toProgress,
+                    progress
+                );
+            }
+
+            function handleSunflowerStageClick() {
+                if (sunflowerState.outerStep === 0) {
+                    if (startSunflowerIntroTransition()) {
+                        sunflowerState.lastTimestamp = null;
+                        renderSunflowerFrame();
                     }
                     return;
                 }
-                sunflowerState.transition = createSunflowerTransition(
-                    sunflowerState.currentStep,
-                    sunflowerState.currentStep + 1,
-                    sunflowerState.stepDurationMs
+                if (sunflowerState.outerStep === 1) {
+                    if (sunflowerState.playing || sunflowerState.seedTransition || isSunflowerPlacementComplete()) {
+                        return;
+                    }
+                    if (startSunflowerSeedTransition(sunflowerState.placementManualDurationMs)) {
+                        sunflowerState.lastTimestamp = null;
+                        renderSunflowerFrame();
+                    }
+                    return;
+                }
+                if (sunflowerState.outerStep === 2) {
+                    if (sunflowerState.playing || sunflowerState.spiralTransition) {
+                        return;
+                    }
+                    const pendingFamily = getPendingSunflowerSpiralFamily();
+                    if (startSunflowerSpiralAnimation(pendingFamily)) {
+                        sunflowerState.lastTimestamp = null;
+                        renderSunflowerFrame();
+                    }
+                }
+            }
+            function isSunflowerIntroComplete() {
+                return sunflowerState.introReveal >= 0.999;
+            }
+
+            function isSunflowerPlacementComplete() {
+                return sunflowerState.seedsPlaced >= SUNFLOWER_MAX_SEEDS;
+            }
+
+            function isSunflowerParastichyComplete() {
+                return sunflowerState.redSpiralReveal >= 0.999 && sunflowerState.blueSpiralReveal >= 0.999;
+            }
+
+            function getPendingSunflowerSpiralFamily() {
+                if (sunflowerState.redSpiralReveal < 0.999) {
+                    return 'red';
+                }
+                if (sunflowerState.blueSpiralReveal < 0.999) {
+                    return 'blue';
+                }
+                return null;
+            }
+
+            function createSunflowerIntroTransition(durationMs) {
+                return {
+                    fromProgress: sunflowerState.introReveal,
+                    toProgress: 1,
+                    elapsedMs: 0,
+                    durationMs: Math.max(1, durationMs)
+                };
+            }
+
+            function startSunflowerIntroTransition() {
+                if (sunflowerState.outerStep !== 0 || sunflowerState.introTransition || isSunflowerIntroComplete()) {
+                    return false;
+                }
+                sunflowerState.introTransition = createSunflowerIntroTransition(
+                    sunflowerState.introDurationMs * Math.max(0.18, 1 - sunflowerState.introReveal)
                 );
+                return true;
+            }
+
+            function finishSunflowerIntroTransition() {
+                if (!sunflowerState.introTransition) {
+                    return;
+                }
+                sunflowerState.introReveal = sunflowerState.introTransition.toProgress;
+                sunflowerState.introTransition = null;
+            }
+
+            function createSunflowerSeedTransition(durationMs) {
+                return {
+                    fromCount: sunflowerState.seedsPlaced,
+                    toCount: Math.min(SUNFLOWER_MAX_SEEDS, sunflowerState.seedsPlaced + 1),
+                    elapsedMs: 0,
+                    durationMs: Math.max(1, durationMs)
+                };
+            }
+
+            function startSunflowerSeedTransition(durationMs) {
+                if (sunflowerState.outerStep !== 1 || sunflowerState.seedTransition || isSunflowerPlacementComplete()) {
+                    return false;
+                }
+                sunflowerState.seedTransition = createSunflowerSeedTransition(durationMs);
+                return true;
+            }
+
+            function finishSunflowerSeedTransition() {
+                if (!sunflowerState.seedTransition) {
+                    return;
+                }
+                sunflowerState.seedsPlaced = sunflowerState.seedTransition.toCount;
+                sunflowerState.seedTransition = null;
+                if (sunflowerState.playing && isSunflowerPlacementComplete()) {
+                    sunflowerState.playing = false;
+                }
+            }
+
+            function snapSunflowerPlacementComplete() {
+                sunflowerState.seedTransition = null;
+                sunflowerState.seedsPlaced = SUNFLOWER_MAX_SEEDS;
+            }
+
+            function createSunflowerSpiralTransition(family, fromProgress, durationMs) {
+                return {
+                    family: family,
+                    fromProgress: clamp(fromProgress, 0, 1),
+                    toProgress: 1,
+                    elapsedMs: 0,
+                    durationMs: Math.max(1, durationMs)
+                };
+            }
+
+            function startSunflowerSpiralAnimation(family) {
+                if (sunflowerState.outerStep !== 2 || sunflowerState.spiralTransition || !family) {
+                    return false;
+                }
+                const fromProgress = family === 'red'
+                    ? sunflowerState.redSpiralReveal
+                    : sunflowerState.blueSpiralReveal;
+                if (fromProgress >= 0.999) {
+                    return false;
+                }
+                sunflowerState.spiralTransition = createSunflowerSpiralTransition(
+                    family,
+                    fromProgress,
+                    sunflowerState.spiralFamilyDurationMs * Math.max(0.14, 1 - fromProgress)
+                );
+                return true;
+            }
+
+            function captureSunflowerSpiralProgress() {
+                if (!sunflowerState.spiralTransition) {
+                    return;
+                }
+                const progress = easeInOutCubic(clamp(
+                    sunflowerState.spiralTransition.elapsedMs / sunflowerState.spiralTransition.durationMs,
+                    0,
+                    1
+                ));
+                const reveal = lerp(
+                    sunflowerState.spiralTransition.fromProgress,
+                    sunflowerState.spiralTransition.toProgress,
+                    progress
+                );
+                if (sunflowerState.spiralTransition.family === 'red') {
+                    sunflowerState.redSpiralReveal = reveal;
+                } else {
+                    sunflowerState.blueSpiralReveal = reveal;
+                }
+                sunflowerState.spiralTransition = null;
+            }
+
+            function finishSunflowerSpiralTransition() {
+                if (!sunflowerState.spiralTransition) {
+                    return;
+                }
+                if (sunflowerState.spiralTransition.family === 'red') {
+                    sunflowerState.redSpiralReveal = sunflowerState.spiralTransition.toProgress;
+                } else {
+                    sunflowerState.blueSpiralReveal = sunflowerState.spiralTransition.toProgress;
+                }
+                sunflowerState.spiralTransition = null;
+                if (sunflowerState.playing && !getPendingSunflowerSpiralFamily()) {
+                    sunflowerState.playing = false;
+                }
+            }
+
+            function snapSunflowerParastichyComplete() {
+                sunflowerState.spiralTransition = null;
+                sunflowerState.redSpiralReveal = 1;
+                sunflowerState.blueSpiralReveal = 1;
             }
 
             function setSunflowerStep(step) {
                 sunflowerState.playing = false;
-                sunflowerState.transition = null;
-                sunflowerState.currentStep = clamp(Math.round(step), 0, SUNFLOWER_STEP_TOTAL - 1);
+                sunflowerState.introTransition = null;
+                sunflowerState.seedTransition = null;
+                sunflowerState.spiralTransition = null;
+                sunflowerState.outerStep = clamp(Math.round(step), 0, SUNFLOWER_STEP_TOTAL - 1);
+                if (sunflowerState.outerStep >= 2 && sunflowerState.seedsPlaced < SUNFLOWER_MAX_SEEDS) {
+                    sunflowerState.seedsPlaced = SUNFLOWER_MAX_SEEDS;
+                }
+                if (sunflowerState.outerStep !== 2) {
+                    resetSunflowerSpiralVisibility();
+                }
+                if (sunflowerState.outerStep === 3) {
+                    sunflowerState.redSpiralReveal = 1;
+                    sunflowerState.blueSpiralReveal = 1;
+                }
                 sunflowerState.lastTimestamp = null;
                 updateSunflowerControls();
                 renderSunflowerFrame();
             }
 
             function nudgeSunflowerStep(direction) {
-                if (sunflowerState.transition) {
+                if (sunflowerState.introTransition || sunflowerState.seedTransition || sunflowerState.spiralTransition) {
                     return;
                 }
-                const startStep = sunflowerState.currentStep;
+                const startStep = sunflowerState.outerStep;
                 const targetStep = clamp(startStep + direction, 0, SUNFLOWER_STEP_TOTAL - 1);
                 if (targetStep === startStep) {
                     return;
                 }
-                sunflowerState.playing = false;
-                sunflowerState.transition = createSunflowerTransition(startStep, targetStep, sunflowerState.manualStepDurationMs);
-                sunflowerState.lastTimestamp = null;
-                updateSunflowerControls();
-                renderSunflowerFrame();
+                if (direction > 0) {
+                    if (startStep === 1) {
+                        snapSunflowerPlacementComplete();
+                    }
+                    if (startStep === 2) {
+                        snapSunflowerParastichyComplete();
+                    }
+                }
+                setSunflowerStep(targetStep);
             }
 
             function toggleSunflowerPlayback() {
-                if (sunflowerState.playing) {
-                    sunflowerState.playing = false;
-                    if (sunflowerState.transition) {
-                        sunflowerState.currentStep = sunflowerState.transition.toStep;
-                        sunflowerState.transition = null;
+                if (sunflowerState.outerStep === 1) {
+                    if (sunflowerState.playing) {
+                        sunflowerState.playing = false;
+                        finishSunflowerSeedTransition();
+                    } else {
+                        if (isSunflowerPlacementComplete()) {
+                            sunflowerState.seedsPlaced = 0;
+                            sunflowerState.seedTransition = null;
+                        }
+                        sunflowerState.playing = true;
+                        if (!startSunflowerSeedTransition(sunflowerState.placementAutoDurationMs) && isSunflowerPlacementComplete()) {
+                            sunflowerState.playing = false;
+                        }
+                    }
+                } else if (sunflowerState.outerStep === 2) {
+                    if (sunflowerState.playing) {
+                        sunflowerState.playing = false;
+                        captureSunflowerSpiralProgress();
+                    } else {
+                        if (isSunflowerParastichyComplete()) {
+                            sunflowerState.redSpiralReveal = 0;
+                            sunflowerState.blueSpiralReveal = 0;
+                            resetSunflowerSpiralVisibility();
+                            sunflowerState.spiralTransition = null;
+                        }
+                        const pendingFamily = getPendingSunflowerSpiralFamily();
+                        if (!pendingFamily) {
+                            return;
+                        }
+                        sunflowerState.playing = true;
+                        if (!startSunflowerSpiralAnimation(pendingFamily) && isSunflowerParastichyComplete()) {
+                            sunflowerState.playing = false;
+                        }
                     }
                 } else {
-                    if (sunflowerState.currentStep >= SUNFLOWER_STEP_TOTAL - 1) {
-                        sunflowerState.currentStep = 0;
-                    }
-                    sunflowerState.playing = true;
-                    beginSunflowerAutoTransition();
+                    return;
                 }
                 sunflowerState.lastTimestamp = null;
                 updateSunflowerControls();
@@ -122,398 +417,740 @@
             }
 
             function resetSunflowerDemo() {
-                setSunflowerStep(0);
+                sunflowerState.playing = false;
+                sunflowerState.outerStep = 0;
+                sunflowerState.introReveal = 0;
+                sunflowerState.introTransition = null;
+                sunflowerState.seedsPlaced = 0;
+                sunflowerState.seedTransition = null;
+                sunflowerState.redSpiralReveal = 0;
+                sunflowerState.blueSpiralReveal = 0;
+                resetSunflowerSpiralVisibility();
+                sunflowerState.spiralTransition = null;
+                sunflowerState.lastTimestamp = null;
+                updateSunflowerControls();
+                renderSunflowerFrame();
             }
 
-            function getSunflowerVisualForStep(step) {
-                if (step <= 0) {
-                    return {
-                        circleAlpha: 1,
-                        splitAlpha: 1,
-                        angleSweep: 0,
-                        referenceLineAlpha: 1,
-                        seedCount: 0,
-                        seedAlpha: 0,
-                        currentSpokeAlpha: 0,
-                        parastichyAlpha: 0,
-                        overlayAlpha: 0,
-                        petalAlpha: 0,
-                        labelAlpha: 1
-                    };
+            function updateSunflowerControls() {
+                const isBusy = !!(sunflowerState.introTransition || sunflowerState.seedTransition || sunflowerState.spiralTransition);
+                if (sunflowerStageCount) {
+                    sunflowerStageCount.textContent = (sunflowerState.outerStep + 1) + '/' + SUNFLOWER_STEP_TOTAL;
                 }
-                if (step === 1) {
-                    return {
-                        circleAlpha: 1,
-                        splitAlpha: 1,
-                        angleSweep: 1,
-                        referenceLineAlpha: 1,
-                        seedCount: 0,
-                        seedAlpha: 0,
-                        currentSpokeAlpha: 1,
-                        parastichyAlpha: 0,
-                        overlayAlpha: 0,
-                        petalAlpha: 0,
-                        labelAlpha: 1
-                    };
+                if (sunflowerPlayButton) {
+                    let label = sunflowerState.playing ? 'Pause' : 'Play';
+                    if (!sunflowerState.playing && sunflowerState.outerStep === 1 && isSunflowerPlacementComplete()) {
+                        label = 'Replay';
+                    }
+                    if (!sunflowerState.playing && sunflowerState.outerStep === 2 && isSunflowerParastichyComplete()) {
+                        label = 'Replay';
+                    }
+                    sunflowerPlayButton.textContent = label;
+                    sunflowerPlayButton.disabled = sunflowerState.outerStep === 0 || sunflowerState.outerStep === 3 || (!sunflowerState.playing && isBusy);
                 }
-                if (step === 2) {
-                    return {
-                        circleAlpha: 0.42,
-                        splitAlpha: 0.38,
-                        angleSweep: 1,
-                        referenceLineAlpha: 0.44,
-                        seedCount: 233,
-                        seedAlpha: 1,
-                        currentSpokeAlpha: 1,
-                        parastichyAlpha: 0,
-                        overlayAlpha: 0,
-                        petalAlpha: 0,
-                        labelAlpha: 1
-                    };
+                if (sunflowerPrevButton) {
+                    sunflowerPrevButton.disabled = isBusy || sunflowerState.outerStep <= 0;
                 }
-                if (step === 3) {
-                    return {
-                        circleAlpha: 0.14,
-                        splitAlpha: 0.12,
-                        angleSweep: 1,
-                        referenceLineAlpha: 0.18,
-                        seedCount: SUNFLOWER_MAX_SEEDS,
-                        seedAlpha: 1,
-                        currentSpokeAlpha: 0.34,
-                        parastichyAlpha: 1,
-                        overlayAlpha: 0.18,
-                        petalAlpha: 0.2,
-                        labelAlpha: 1
-                    };
+                if (sunflowerNextButton) {
+                    sunflowerNextButton.disabled = isBusy || sunflowerState.outerStep >= SUNFLOWER_STEP_TOTAL - 1;
                 }
+                if (sunflowerViewportActions) {
+                    sunflowerViewportActions.hidden = !isSunflowerSpiralVisibilityEnabled();
+                }
+                if (sunflowerToggleRedButton) {
+                    sunflowerToggleRedButton.textContent = 'Red spirals: ' + (sunflowerState.redSpiralVisible ? 'On' : 'Off');
+                    sunflowerToggleRedButton.setAttribute('aria-pressed', sunflowerState.redSpiralVisible ? 'true' : 'false');
+                }
+                if (sunflowerToggleBlueButton) {
+                    sunflowerToggleBlueButton.textContent = 'Blue spirals: ' + (sunflowerState.blueSpiralVisible ? 'On' : 'Off');
+                    sunflowerToggleBlueButton.setAttribute('aria-pressed', sunflowerState.blueSpiralVisible ? 'true' : 'false');
+                }
+                if (sunflowerStage) {
+                    const canRevealIntro = sunflowerState.outerStep === 0 && !sunflowerState.introTransition && !isSunflowerIntroComplete();
+                    const canPlaceSeed = sunflowerState.outerStep === 1 && !sunflowerState.playing && !sunflowerState.seedTransition && !isSunflowerPlacementComplete();
+                    const canTraceSpirals = sunflowerState.outerStep === 2 && !sunflowerState.playing && !sunflowerState.spiralTransition && !!getPendingSunflowerSpiralFamily();
+                    sunflowerStage.style.cursor = canRevealIntro || canPlaceSeed || canTraceSpirals
+                        ? 'pointer'
+                        : 'default';
+                }
+            }
+
+            function getSunflowerPlacementAngleForSeed(seedIndex, angleOffsetRadians) {
+                const angleOffset = angleOffsetRadians || 0;
+                return -Math.PI / 2 + angleOffset + (seedIndex + 1) * GOLDEN_ANGLE_RADIANS;
+            }
+
+            function getSunflowerLineAngleForCount(count, angleOffsetRadians) {
+                const angleOffset = angleOffsetRadians || 0;
+                return -Math.PI / 2 + angleOffset + count * GOLDEN_ANGLE_RADIANS;
+            }
+
+            function getSunflowerPlacementRadiusForSeed(seedIndex, maxRadius) {
+                if (SUNFLOWER_MAX_SEEDS <= 1) {
+                    return 0;
+                }
+                const clampedIndex = clamp(Math.round(seedIndex), 0, SUNFLOWER_MAX_SEEDS - 1);
+                const radialScale = maxRadius / Math.sqrt(Math.max(1, SUNFLOWER_MAX_SEEDS - 1));
+                return radialScale * Math.sqrt(Math.max(0, SUNFLOWER_MAX_SEEDS - 1 - clampedIndex));
+            }
+
+            function getSunflowerLineRadiusForCount(count, maxRadius) {
+                if (count <= 0) {
+                    return getSunflowerPlacementRadiusForSeed(0, maxRadius);
+                }
+                return getSunflowerPlacementRadiusForSeed(Math.min(SUNFLOWER_MAX_SEEDS - 1, count - 1), maxRadius);
+            }
+
+            function getSunflowerSeedPoint(seedIndex, centerX, centerY, maxRadius, angleOffsetRadians) {
+                const radius = getSunflowerPlacementRadiusForSeed(seedIndex, maxRadius);
+                const angle = getSunflowerPlacementAngleForSeed(seedIndex, angleOffsetRadians);
                 return {
-                    circleAlpha: 0.08,
-                    splitAlpha: 0.08,
-                    angleSweep: 1,
-                    referenceLineAlpha: 0.12,
-                    seedCount: SUNFLOWER_MAX_SEEDS,
-                    seedAlpha: 1,
-                    currentSpokeAlpha: 0.16,
-                    parastichyAlpha: 0.82,
-                    overlayAlpha: 1,
-                    petalAlpha: 1,
-                    labelAlpha: 1
+                    index: seedIndex,
+                    radius: radius,
+                    angle: angle,
+                    x: centerX + Math.cos(angle) * radius,
+                    y: centerY + Math.sin(angle) * radius
                 };
             }
 
-            function interpolateSunflowerVisual(start, end, t) {
-                return {
-                    circleAlpha: lerp(start.circleAlpha, end.circleAlpha, t),
-                    splitAlpha: lerp(start.splitAlpha, end.splitAlpha, t),
-                    angleSweep: lerp(start.angleSweep, end.angleSweep, t),
-                    referenceLineAlpha: lerp(start.referenceLineAlpha, end.referenceLineAlpha, t),
-                    seedCount: lerp(start.seedCount, end.seedCount, t),
-                    seedAlpha: lerp(start.seedAlpha, end.seedAlpha, t),
-                    currentSpokeAlpha: lerp(start.currentSpokeAlpha, end.currentSpokeAlpha, t),
-                    parastichyAlpha: lerp(start.parastichyAlpha, end.parastichyAlpha, t),
-                    overlayAlpha: lerp(start.overlayAlpha, end.overlayAlpha, t),
-                    petalAlpha: lerp(start.petalAlpha, end.petalAlpha, t),
-                    labelAlpha: lerp(start.labelAlpha, end.labelAlpha, t)
-                };
-            }
-
-            function getCurrentSunflowerFrame() {
-                if (!sunflowerState.transition) {
-                    return {
-                        stepIndex: sunflowerState.currentStep,
-                        visual: getSunflowerVisualForStep(sunflowerState.currentStep)
-                    };
-                }
-                const progress = getInterpolatedTransitionStep(sunflowerState.transition);
-                const eased = easeInOutCubic(progress);
-                return {
-                    stepIndex: sunflowerState.transition.toStep,
-                    visual: interpolateSunflowerVisual(
-                        getSunflowerVisualForStep(sunflowerState.transition.fromStep),
-                        getSunflowerVisualForStep(sunflowerState.transition.toStep),
-                        eased
-                    )
-                };
-            }
-
-            function getSunflowerSeeds(count, centerX, centerY, maxRadius) {
+            function getSunflowerSeeds(count, centerX, centerY, maxRadius, angleOffsetRadians) {
                 const seeds = [];
-                const radialScale = maxRadius / Math.sqrt(SUNFLOWER_MAX_SEEDS + 1);
-                for (let index = 0; index < count; index += 1) {
-                    const radius = radialScale * Math.sqrt(index + 0.5);
-                    const angle = -Math.PI / 2 + index * GOLDEN_ANGLE_RADIANS;
-                    seeds.push({
-                        index: index,
-                        radius: radius,
-                        angle: angle,
-                        x: centerX + Math.cos(angle) * radius,
-                        y: centerY + Math.sin(angle) * radius
-                    });
+                const total = clamp(Math.round(count), 0, SUNFLOWER_MAX_SEEDS);
+                for (let index = 0; index < total; index += 1) {
+                    seeds.push(getSunflowerSeedPoint(index, centerX, centerY, maxRadius, angleOffsetRadians));
                 }
                 return seeds;
             }
 
-            function drawSunflowerOverlay(ctx, centerX, centerY, outerRadius, visual, dpr) {
-                if (visual.overlayAlpha <= 0.01) {
-                    return;
+            function getSunflowerPlacementFrame(centerX, centerY, maxRadius) {
+                const placedSeeds = getSunflowerSeeds(sunflowerState.seedsPlaced, centerX, centerY, maxRadius);
+                const lineAngle = getSunflowerLineAngleForCount(sunflowerState.seedsPlaced);
+                const lineRadius = getSunflowerLineRadiusForCount(sunflowerState.seedsPlaced, maxRadius);
+                const frame = {
+                    seeds: placedSeeds,
+                    lineAngle: lineAngle,
+                    lineRadius: lineRadius,
+                    sweepStartAngle: lineAngle,
+                    transitionProgress: 0,
+                    emission: null
+                };
+                if (!sunflowerState.seedTransition) {
+                    return frame;
                 }
-                ctx.save();
-                ctx.globalAlpha = visual.overlayAlpha;
-
-                for (let index = 0; index < 26; index += 1) {
-                    const angle = (index / 26) * Math.PI * 2;
-                    const petalX = centerX + Math.cos(angle) * outerRadius * 0.9;
-                    const petalY = centerY + Math.sin(angle) * outerRadius * 0.9;
-                    ctx.save();
-                    ctx.translate(petalX, petalY);
-                    ctx.rotate(angle);
-                    const petalGradient = ctx.createLinearGradient(0, -outerRadius * 0.48, 0, outerRadius * 0.2);
-                    petalGradient.addColorStop(0, 'rgba(255, 252, 189, 0.94)');
-                    petalGradient.addColorStop(1, 'rgba(240, 166, 27, 0.95)');
-                    ctx.beginPath();
-                    ctx.moveTo(0, -outerRadius * 0.18);
-                    ctx.quadraticCurveTo(outerRadius * 0.22, -outerRadius * 0.45, 0, -outerRadius * 0.74);
-                    ctx.quadraticCurveTo(-outerRadius * 0.22, -outerRadius * 0.45, 0, -outerRadius * 0.18);
-                    ctx.closePath();
-                    ctx.fillStyle = petalGradient;
-                    ctx.fill();
-                    ctx.restore();
+                const progress = easeInOutCubic(clamp(
+                    sunflowerState.seedTransition.elapsedMs / sunflowerState.seedTransition.durationMs,
+                    0,
+                    1
+                ));
+                const targetIndex = sunflowerState.seedTransition.toCount - 1;
+                const startAngle = getSunflowerLineAngleForCount(sunflowerState.seedTransition.fromCount);
+                const endAngle = getSunflowerPlacementAngleForSeed(targetIndex);
+                const startRadius = getSunflowerLineRadiusForCount(sunflowerState.seedTransition.fromCount, maxRadius);
+                const endRadius = getSunflowerPlacementRadiusForSeed(targetIndex, maxRadius);
+                frame.lineAngle = lerp(startAngle, endAngle, progress);
+                frame.lineRadius = lerp(startRadius, endRadius, progress);
+                frame.sweepStartAngle = startAngle;
+                frame.transitionProgress = progress;
+                const emissionProgress = clamp((progress - 0.48) / 0.52, 0, 1);
+                if (emissionProgress > 0) {
+                    frame.emission = {
+                        x: centerX + Math.cos(frame.lineAngle) * frame.lineRadius * emissionProgress,
+                        y: centerY + Math.sin(frame.lineAngle) * frame.lineRadius * emissionProgress,
+                        alpha: 0.45 + emissionProgress * 0.55
+                    };
                 }
-
-                const diskGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, outerRadius * 0.9);
-                diskGradient.addColorStop(0, 'rgba(126, 78, 24, 0.82)');
-                diskGradient.addColorStop(0.55, 'rgba(98, 58, 14, 0.86)');
-                diskGradient.addColorStop(1, 'rgba(64, 34, 10, 0.92)');
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, outerRadius * 0.88, 0, Math.PI * 2);
-                ctx.fillStyle = diskGradient;
-                ctx.fill();
-                ctx.restore();
+                return frame;
             }
 
-            function drawSunflowerSplitCircle(ctx, centerX, centerY, radius, visual, dpr) {
-                if (visual.circleAlpha <= 0.01) {
-                    return;
-                }
-                const startAngle = -Math.PI / 2;
-                const shortAngle = GOLDEN_ANGLE_RADIANS * visual.angleSweep;
-                const endAngle = startAngle + shortAngle;
-                const longAngleEnd = startAngle + Math.PI * 2;
 
+            function drawSunflowerBackdrop(ctx, size, centerX, centerY, outerRadius) {
+                ctx.clearRect(0, 0, size.width, size.height);
+                ctx.fillStyle = '#fffdf7';
+                ctx.fillRect(0, 0, size.width, size.height);
+
+                const pulse = 0.16 + 0.04 * (0.5 + 0.5 * Math.sin(sunflowerState.ambientElapsedMs * 0.0011));
+                const glow = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, outerRadius * 1.45);
+                glow.addColorStop(0, 'rgba(254, 249, 195, ' + (pulse + 0.24).toFixed(3) + ')');
+                glow.addColorStop(0.55, 'rgba(250, 204, 21, ' + pulse.toFixed(3) + ')');
+                glow.addColorStop(1, 'rgba(250, 204, 21, 0)');
+                ctx.fillStyle = glow;
+                ctx.fillRect(0, 0, size.width, size.height);
+            }
+
+            function drawSunflowerOuterGuide(ctx, centerX, centerY, radius, dpr, alpha) {
                 ctx.save();
-                ctx.globalAlpha = visual.circleAlpha;
-                ctx.strokeStyle = 'rgba(71, 85, 105, 0.55)';
-                ctx.lineWidth = 2 * dpr;
+                ctx.globalAlpha = alpha;
+                ctx.strokeStyle = 'rgba(71, 85, 105, 0.82)';
+                ctx.lineWidth = 1.9 * dpr;
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
                 ctx.stroke();
                 ctx.restore();
+            }
 
-                if (visual.splitAlpha <= 0.01) {
-                    return;
-                }
-
+            function drawSunflowerCenterDot(ctx, centerX, centerY, dpr) {
                 ctx.save();
-                ctx.globalAlpha = visual.splitAlpha;
-                ctx.lineWidth = 8 * dpr;
-                ctx.strokeStyle = 'rgba(37, 99, 235, 0.7)';
+                ctx.fillStyle = 'rgba(51, 65, 85, 0.92)';
                 ctx.beginPath();
-                ctx.arc(centerX, centerY, radius, endAngle, longAngleEnd - 0.02, false);
-                ctx.stroke();
+                ctx.arc(centerX, centerY, 3.6 * dpr, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 1.35 * dpr, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
 
-                ctx.strokeStyle = 'rgba(217, 119, 6, 0.82)';
+            function drawSunflowerReferenceLine(ctx, centerX, centerY, angle, length, dpr, options) {
+                options = options || {};
+                ctx.save();
+                ctx.globalAlpha = options.alpha == null ? 1 : options.alpha;
+                ctx.strokeStyle = options.color || 'rgba(71, 85, 105, 0.82)';
+                ctx.lineWidth = (options.lineWidth || 2) * dpr;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(centerX + Math.cos(angle) * length, centerY + Math.sin(angle) * length);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function drawSunflowerGoldenAngleSector(ctx, centerX, centerY, startAngle, endAngle, radius, dpr, options) {
+                options = options || {};
+                ctx.save();
+                ctx.globalAlpha = options.alpha == null ? 1 : options.alpha;
+                ctx.fillStyle = options.fillStyle || 'rgba(251, 191, 36, 0.28)';
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle, false);
+                ctx.closePath();
+                ctx.fill();
+                ctx.strokeStyle = options.strokeStyle || 'rgba(217, 119, 6, 0.92)';
+                ctx.lineWidth = (options.lineWidth || 2.1) * dpr;
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius, startAngle, endAngle, false);
                 ctx.stroke();
                 ctx.restore();
-
-                const longLabelAngle = startAngle + GOLDEN_ANGLE_RADIANS + (Math.PI * 2 - GOLDEN_ANGLE_RADIANS) * 0.56;
-                const shortLabelAngle = startAngle + shortAngle * 0.5;
-                drawCanvasChip(ctx, 'a', centerX + Math.cos(longLabelAngle) * radius * 1.12, centerY + Math.sin(longLabelAngle) * radius * 1.12, {
-                    dpr: dpr,
-                    align: 'center',
-                    verticalAlign: 'middle',
-                    background: 'rgba(255, 255, 255, 0.92)'
-                });
-                drawCanvasChip(ctx, 'b', centerX + Math.cos(shortLabelAngle) * radius * 1.13, centerY + Math.sin(shortLabelAngle) * radius * 1.13, {
-                    dpr: dpr,
-                    align: 'center',
-                    verticalAlign: 'middle',
-                    background: 'rgba(255, 255, 255, 0.92)'
-                });
             }
 
-            function drawSunflowerSpokes(ctx, centerX, centerY, radius, visual, dpr) {
+            function drawSunflowerIntroStage(ctx, centerX, centerY, outerRadius, dpr) {
+                const progress = getSunflowerIntroRenderProgress();
+                const circleRadius = outerRadius * 0.84;
                 const startAngle = -Math.PI / 2;
-                const currentAngle = startAngle + GOLDEN_ANGLE_RADIANS * visual.angleSweep;
-                if (visual.referenceLineAlpha > 0.01) {
-                    ctx.save();
-                    ctx.globalAlpha = visual.referenceLineAlpha;
-                    ctx.strokeStyle = 'rgba(71, 85, 105, 0.8)';
-                    ctx.lineWidth = 2 * dpr;
-                    ctx.beginPath();
-                    ctx.moveTo(centerX, centerY);
-                    ctx.lineTo(centerX + Math.cos(startAngle) * radius, centerY + Math.sin(startAngle) * radius);
-                    ctx.stroke();
-                    ctx.restore();
-                }
+                const endAngle = startAngle + GOLDEN_ANGLE_RADIANS * progress;
 
-                if (visual.currentSpokeAlpha > 0.01) {
-                    ctx.save();
-                    ctx.globalAlpha = visual.currentSpokeAlpha;
-                    ctx.strokeStyle = 'rgba(217, 119, 6, 0.86)';
-                    ctx.lineWidth = 2.3 * dpr;
-                    ctx.beginPath();
-                    ctx.moveTo(centerX, centerY);
-                    ctx.lineTo(centerX + Math.cos(currentAngle) * radius, centerY + Math.sin(currentAngle) * radius);
-                    ctx.stroke();
-                    ctx.fillStyle = 'rgba(217, 119, 6, 0.9)';
-                    ctx.beginPath();
-                    ctx.arc(centerX, centerY, 4.2 * dpr, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                }
-
-                if (visual.angleSweep > 0.05) {
-                    const wedgeRadius = radius * 0.28;
-                    ctx.save();
-                    ctx.globalAlpha = Math.max(visual.currentSpokeAlpha, visual.splitAlpha) * 0.42;
-                    ctx.fillStyle = 'rgba(250, 204, 21, 0.55)';
-                    ctx.beginPath();
-                    ctx.moveTo(centerX, centerY);
-                    ctx.arc(centerX, centerY, wedgeRadius, startAngle, currentAngle);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.restore();
-                }
-            }
-
-            function drawSunflowerSeeds(ctx, seeds, visual, outerRadius, dpr) {
-                if (visual.seedAlpha <= 0.01 || !seeds.length) {
+                drawSunflowerOuterGuide(ctx, centerX, centerY, circleRadius, dpr, 0.58);
+                drawSunflowerReferenceLine(ctx, centerX, centerY, startAngle, circleRadius, dpr, {
+                    alpha: 0.9,
+                    color: 'rgba(71, 85, 105, 0.86)',
+                    lineWidth: 2.05
+                });
+                if (progress <= 0.001) {
                     return;
                 }
+
+                drawSunflowerReferenceLine(ctx, centerX, centerY, endAngle, circleRadius, dpr, {
+                    alpha: 0.28 + progress * 0.72,
+                    color: 'rgba(217, 119, 6, 0.96)',
+                    lineWidth: 2.3
+                });
+
                 ctx.save();
-                ctx.globalAlpha = visual.seedAlpha;
+                ctx.globalAlpha = progress;
+                ctx.lineCap = 'round';
+                ctx.lineWidth = 8 * dpr;
+                ctx.strokeStyle = 'rgba(217, 119, 6, 0.94)';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, circleRadius, startAngle, endAngle, false);
+                ctx.stroke();
+                ctx.strokeStyle = 'rgba(37, 99, 235, 0.76)';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, circleRadius, endAngle, startAngle + Math.PI * 2 - 0.018, false);
+                ctx.stroke();
+                ctx.restore();
+
+                drawSunflowerGoldenAngleSector(ctx, centerX, centerY, startAngle, endAngle, circleRadius * 0.31, dpr, {
+                    alpha: progress,
+                    fillStyle: 'rgba(251, 191, 36, 0.28)',
+                    strokeStyle: 'rgba(217, 119, 6, 0.96)',
+                    lineWidth: 2.1
+                });
+                drawSunflowerCenterDot(ctx, centerX, centerY, dpr);
+
+                const labelAlpha = clamp((progress - 0.12) / 0.88, 0, 1);
+                const shortMidAngle = (startAngle + endAngle) * 0.5;
+                const longMidAngle = endAngle + (Math.PI * 2 - (endAngle - startAngle)) * 0.56;
+                ctx.save();
+                ctx.globalAlpha = labelAlpha;
+                const goldenAngleLabelY = centerY + Math.sin(shortMidAngle) * circleRadius * 0.34;
+                drawCanvasChip(ctx, 'a', centerX + Math.cos(longMidAngle) * circleRadius * 1.12, centerY + Math.sin(longMidAngle) * circleRadius * 1.12, {
+                    dpr: dpr,
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    background: 'rgba(255, 255, 255, 0.96)'
+                });
+                drawCanvasChip(ctx, 'b', centerX + Math.cos(shortMidAngle) * circleRadius * 1.15, centerY + Math.sin(shortMidAngle) * circleRadius * 1.15, {
+                    dpr: dpr,
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    background: 'rgba(255, 255, 255, 0.98)',
+                    borderColor: 'rgba(217, 119, 6, 0.26)',
+                    textColor: '#9a3412',
+                    fontSize: 12
+                });
+                drawCanvasChip(ctx, 'a / b = golden ratio (φ)', centerX + circleRadius * 0.12, centerY - circleRadius * 0.72, {
+                    dpr: dpr,
+                    align: 'left',
+                    verticalAlign: 'middle',
+                    background: 'rgba(255, 247, 237, 0.98)',
+                    borderColor: 'rgba(217, 119, 6, 0.28)',
+                    textColor: '#9a3412',
+                    fontSize: 14
+                });
+                drawCanvasChip(ctx, 'Golden Angle = ' + GOLDEN_ANGLE_DEGREES.toFixed(5) + '...', 18 * dpr, 52 * dpr, {
+                    dpr: dpr,
+                    fontSize: 13
+                });
+                drawCanvasChip(ctx, 'golden angle', centerX + Math.cos(shortMidAngle) * circleRadius * 0.3, goldenAngleLabelY + 12 * dpr, {
+                    dpr: dpr,
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    background: 'rgba(255, 247, 237, 0.98)',
+                    borderColor: 'rgba(217, 119, 6, 0.32)',
+                    textColor: '#9a3412',
+                    fontSize: 12
+                });
+                ctx.restore();
+            }
+
+            function getSunflowerSeedStyle() {
+                return {
+                    majorRadius: 7.1,
+                    minorRadius: 4.15,
+                    fill: 'rgba(122, 74, 18, 0.98)',
+                    stroke: 'rgba(92, 56, 14, 0.88)',
+                    highlight: 'rgba(255, 248, 237, 0.26)'
+                };
+            }
+
+            function traceSunflowerSeedPath(ctx, majorRadius, minorRadius) {
+                ctx.beginPath();
+                ctx.moveTo(0, -majorRadius);
+                ctx.quadraticCurveTo(minorRadius * 0.92, -majorRadius * 0.18, minorRadius, 0);
+                ctx.quadraticCurveTo(minorRadius * 0.92, majorRadius * 0.18, 0, majorRadius);
+                ctx.quadraticCurveTo(-minorRadius * 0.92, majorRadius * 0.18, -minorRadius, 0);
+                ctx.quadraticCurveTo(-minorRadius * 0.92, -majorRadius * 0.18, 0, -majorRadius);
+                ctx.closePath();
+            }
+
+            function drawSunflowerSeedGlyphAt(ctx, x, y, angle, dpr, alpha) {
+                if (alpha <= 0.001) {
+                    return;
+                }
+                const style = getSunflowerSeedStyle();
+                const majorRadius = style.majorRadius * dpr;
+                const minorRadius = style.minorRadius * dpr;
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.translate(x, y);
+                ctx.rotate(angle);
+                traceSunflowerSeedPath(ctx, majorRadius, minorRadius);
+                ctx.fillStyle = style.fill;
+                ctx.strokeStyle = style.stroke;
+                ctx.lineWidth = 0.95 * dpr;
+                ctx.fill();
+                ctx.stroke();
+                traceSunflowerSeedPath(ctx, majorRadius * 0.6, minorRadius * 0.36);
+                ctx.fillStyle = style.highlight;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function drawSunflowerSeedDots(ctx, seeds, dpr, alpha) {
+                if (!seeds.length || alpha <= 0.001) {
+                    return;
+                }
                 seeds.forEach(function(seed) {
-                    const radiusMix = seed.radius / Math.max(1, outerRadius * 0.86);
-                    const size = (4.2 - radiusMix * 1.7) * dpr;
-                    const red = Math.round(97 + radiusMix * 54);
-                    const green = Math.round(58 + radiusMix * 36);
-                    const blue = Math.round(16 + radiusMix * 18);
-                    ctx.beginPath();
-                    ctx.arc(seed.x, seed.y, size, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
-                    ctx.fill();
+                    drawSunflowerSeedGlyphAt(ctx, seed.x, seed.y, seed.angle + Math.PI / 2, dpr, alpha);
                 });
-                ctx.restore();
             }
 
-            function drawSunflowerParastichies(ctx, seeds, visual, dpr) {
-                if (visual.parastichyAlpha <= 0.01 || seeds.length < 30) {
-                    return;
+            function drawSunflowerPlacementStage(ctx, centerX, centerY, outerRadius, dpr) {
+                const seedFieldRadius = outerRadius * 0.81;
+                const startAngle = -Math.PI / 2;
+                const placement = getSunflowerPlacementFrame(centerX, centerY, seedFieldRadius);
+
+                drawSunflowerOuterGuide(ctx, centerX, centerY, seedFieldRadius, dpr, 0.4);
+                drawSunflowerReferenceLine(ctx, centerX, centerY, startAngle, seedFieldRadius, dpr, {
+                    alpha: 0.38,
+                    color: 'rgba(71, 85, 105, 0.82)',
+                    lineWidth: 1.8
+                });
+                if (placement.transitionProgress > 0.001) {
+                    drawSunflowerGoldenAngleSector(ctx, centerX, centerY, placement.sweepStartAngle, placement.lineAngle, seedFieldRadius * 0.25, dpr, {
+                        alpha: 0.96,
+                        fillStyle: 'rgba(251, 191, 36, 0.3)',
+                        strokeStyle: 'rgba(217, 119, 6, 0.94)',
+                        lineWidth: 2.05
+                    });
                 }
-                const familyColors = [
-                    'rgba(37, 99, 235, ' + (0.15 * visual.parastichyAlpha).toFixed(3) + ')',
-                    'rgba(185, 28, 28, ' + (0.13 * visual.parastichyAlpha).toFixed(3) + ')'
-                ];
-                SUNFLOWER_PARASTICHY_COUNTS.forEach(function(stride, strideIndex) {
+                drawSunflowerSeedDots(ctx, placement.seeds, dpr, 0.98);
+                drawSunflowerReferenceLine(ctx, centerX, centerY, placement.lineAngle, placement.lineRadius, dpr, {
+                    alpha: 0.98,
+                    color: 'rgba(217, 119, 6, 0.96)',
+                    lineWidth: 2.45
+                });
+                if (placement.emission) {
+                    drawSunflowerSeedGlyphAt(
+                        ctx,
+                        placement.emission.x,
+                        placement.emission.y,
+                        placement.lineAngle + Math.PI / 2,
+                        dpr,
+                        placement.emission.alpha
+                    );
+                }
+                const lastPlacedSeed = placement.seeds[placement.seeds.length - 1];
+                if (lastPlacedSeed) {
                     ctx.save();
-                    ctx.strokeStyle = familyColors[strideIndex];
-                    ctx.lineWidth = (strideIndex === 0 ? 1.4 : 1.2) * dpr;
-                    for (let offset = 0; offset < stride; offset += Math.max(1, Math.floor(stride / 12))) {
-                        ctx.beginPath();
-                        let started = false;
-                        for (let index = offset; index < seeds.length; index += stride) {
-                            const seed = seeds[index];
-                            if (!started) {
-                                ctx.moveTo(seed.x, seed.y);
-                                started = true;
-                            } else {
-                                ctx.lineTo(seed.x, seed.y);
-                            }
-                        }
-                        if (started) {
-                            ctx.stroke();
-                        }
-                    }
+                    ctx.translate(lastPlacedSeed.x, lastPlacedSeed.y);
+                    ctx.rotate(lastPlacedSeed.angle + Math.PI / 2);
+                    traceSunflowerSeedPath(ctx, 8.2 * dpr, 4.85 * dpr);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.lineWidth = 1.2 * dpr;
+                    ctx.stroke();
                     ctx.restore();
+                }
+                drawSunflowerCenterDot(ctx, centerX, centerY, dpr);
+
+                drawCanvasChip(ctx, 'Golden Angle = ' + GOLDEN_ANGLE_DEGREES.toFixed(5) + '...', 18 * dpr, 52 * dpr, {
+                    dpr: dpr,
+                    fontSize: 13
+                });
+                drawCanvasChip(
+                    ctx,
+                    isSunflowerPlacementComplete()
+                        ? 'seed head complete'
+                        : sunflowerState.playing
+                            ? 'planting seeds automatically'
+                            : 'click in the circle to place the next seed',
+                    18 * dpr,
+                    86 * dpr,
+                    {
+                        dpr: dpr
+                    }
+                );
+                drawCanvasChip(ctx, placement.seeds.length + ' / ' + SUNFLOWER_MAX_SEEDS + ' seeds placed', 18 * dpr, 120 * dpr, {
+                    dpr: dpr
+                });
+                if (placement.transitionProgress > 0.001 || !placement.seeds.length) {
+                    drawCanvasChip(ctx, 'golden angle', centerX + Math.cos(startAngle + GOLDEN_ANGLE_RADIANS * 0.5) * seedFieldRadius * 0.39, centerY + Math.sin(startAngle + GOLDEN_ANGLE_RADIANS * 0.5) * seedFieldRadius * 0.39, {
+                        dpr: dpr,
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        background: 'rgba(255, 247, 237, 0.96)',
+                        borderColor: 'rgba(217, 119, 6, 0.32)',
+                        textColor: '#9a3412'
+                    });
+                }
+            }
+
+            function getSunflowerParastichyFamilyConfig(family) {
+                if (family === 'red') {
+                    return {
+                        stride: SUNFLOWER_RED_REPRESENTATIVE_STRIDE,
+                        strokeStyle: 'rgba(220, 38, 38, 0.88)',
+                        lineWidth: 6.6,
+                        endpointPhase: 0,
+                        chip: {
+                            background: 'rgba(254, 242, 242, 0.98)',
+                            borderColor: 'rgba(220, 38, 38, 0.22)',
+                            textColor: '#b91c1c'
+                        }
+                    };
+                }
+                return {
+                    stride: SUNFLOWER_PARASTICHY_COUNTS[0],
+                    strokeStyle: 'rgba(37, 99, 235, 0.86)',
+                    lineWidth: 7.4,
+                    endpointPhase: 1,
+                    chip: {
+                        background: 'rgba(239, 246, 255, 0.98)',
+                        borderColor: 'rgba(37, 99, 235, 0.24)',
+                        textColor: '#1d4ed8'
+                    }
+                };
+            }
+
+
+            function buildSunflowerStridePaths(seeds, stride) {
+                if (!seeds.length || stride <= 0) {
+                    return [];
+                }
+                const centerSeed = seeds[seeds.length - 1];
+                const paths = [];
+                for (let offset = 1; offset <= stride; offset += 1) {
+                    const startIndex = centerSeed.index - offset;
+                    if (startIndex < 0) {
+                        continue;
+                    }
+                    const path = [centerSeed];
+                    for (let index = startIndex; index >= 0; index -= stride) {
+                        path.push(seeds[index]);
+                    }
+                    if (path.length > 1) {
+                        paths.push(path);
+                    }
+                }
+                return paths;
+            }
+
+            function buildSunflowerParastichyPaths(seeds, stride, family) {
+                return buildSunflowerStridePaths(seeds, stride);
+            }
+
+            function getSunflowerPathEndpointAngle(path) {
+                const endpoint = path[path.length - 1];
+                const fullTurn = Math.PI * 2;
+                return ((endpoint.angle % fullTurn) + fullTurn) % fullTurn;
+            }
+
+            function filterSunflowerParastichyPaths(paths, config) {
+                if (config.endpointPhase == null) {
+                    return paths;
+                }
+                return paths
+                    .slice()
+                    .sort(function(pathA, pathB) {
+                        return getSunflowerPathEndpointAngle(pathA) - getSunflowerPathEndpointAngle(pathB);
+                    })
+                    .filter(function(path, index) {
+                        return index % 2 === config.endpointPhase;
+                    });
+            }
+
+            function sampleSunflowerParastichyPath(points, samplesPerSegment) {
+                if (points.length <= 2) {
+                    return points.map(function(point) {
+                        return { x: point.x, y: point.y };
+                    });
+                }
+                const samples = [{ x: points[0].x, y: points[0].y }];
+                const steps = Math.max(3, samplesPerSegment || 8);
+                for (let index = 0; index < points.length - 1; index += 1) {
+                    const p0 = points[Math.max(0, index - 1)];
+                    const p1 = points[index];
+                    const p2 = points[index + 1];
+                    const p3 = points[Math.min(points.length - 1, index + 2)];
+                    for (let step = 1; step <= steps; step += 1) {
+                        const t = step / steps;
+                        const t2 = t * t;
+                        const t3 = t2 * t;
+                        samples.push({
+                            x: 0.5 * (
+                                (2 * p1.x) +
+                                (-p0.x + p2.x) * t +
+                                (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+                                (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3
+                            ),
+                            y: 0.5 * (
+                                (2 * p1.y) +
+                                (-p0.y + p2.y) * t +
+                                (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+                                (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3
+                            )
+                        });
+                    }
+                }
+                return samples;
+            }
+
+            function drawRevealedSunflowerPath(ctx, points, reveal) {
+                if (!points.length || reveal <= 0.001) {
+                    return;
+                }
+                const clampedReveal = clamp(reveal, 0, 1);
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                if (clampedReveal >= 0.999) {
+                    for (let index = 1; index < points.length; index += 1) {
+                        ctx.lineTo(points[index].x, points[index].y);
+                    }
+                    ctx.stroke();
+                    return;
+                }
+
+                let totalLength = 0;
+                const segmentLengths = [];
+                for (let index = 1; index < points.length; index += 1) {
+                    const length = Math.hypot(points[index].x - points[index - 1].x, points[index].y - points[index - 1].y);
+                    segmentLengths.push(length);
+                    totalLength += length;
+                }
+                if (totalLength <= 0.0001) {
+                    return;
+                }
+
+                let remaining = totalLength * clampedReveal;
+                for (let index = 1; index < points.length; index += 1) {
+                    const startPoint = points[index - 1];
+                    const endPoint = points[index];
+                    const segmentLength = segmentLengths[index - 1];
+                    if (remaining >= segmentLength) {
+                        ctx.lineTo(endPoint.x, endPoint.y);
+                        remaining -= segmentLength;
+                        continue;
+                    }
+                    if (remaining > 0 && segmentLength > 0.0001) {
+                        const localProgress = remaining / segmentLength;
+                        ctx.lineTo(
+                            lerp(startPoint.x, endPoint.x, localProgress),
+                            lerp(startPoint.y, endPoint.y, localProgress)
+                        );
+                    }
+                    break;
+                }
+                ctx.stroke();
+            }
+
+            function drawSunflowerParastichyFamily(ctx, seeds, family, reveal, dpr, options) {
+                if (!seeds.length || reveal <= 0.001) {
+                    return;
+                }
+                options = options || {};
+                const config = getSunflowerParastichyFamilyConfig(family);
+                const paths = filterSunflowerParastichyPaths(
+                    buildSunflowerParastichyPaths(seeds, config.stride, family),
+                    config
+                );
+                ctx.save();
+                ctx.globalAlpha = options.alphaScale == null ? 1 : options.alphaScale;
+                ctx.strokeStyle = config.strokeStyle;
+                ctx.lineWidth = config.lineWidth * (options.lineWidthScale == null ? 1 : options.lineWidthScale) * dpr;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                paths.forEach(function(path) {
+                    drawRevealedSunflowerPath(ctx, sampleSunflowerParastichyPath(path, 8), reveal);
+                });
+                ctx.restore();
+            }
+
+            function drawSunflowerParastichyStage(ctx, centerX, centerY, outerRadius, dpr) {
+                const seedFieldRadius = outerRadius * 0.81;
+                const seeds = getSunflowerSeeds(SUNFLOWER_MAX_SEEDS, centerX, centerY, seedFieldRadius);
+                const redReveal = getSunflowerSpiralReveal('red');
+                const blueReveal = getSunflowerSpiralReveal('blue');
+                const redConfig = getSunflowerParastichyFamilyConfig('red');
+
+                drawSunflowerOuterGuide(ctx, centerX, centerY, seedFieldRadius, dpr, 0.22);
+                drawSunflowerSeedDots(ctx, seeds, dpr, 0.98);
+                if (sunflowerState.redSpiralVisible) {
+                    drawSunflowerParastichyFamily(ctx, seeds, 'red', redReveal, dpr, {
+                        alphaScale: 0.98,
+                        lineWidthScale: 1
+                    });
+                }
+                if (sunflowerState.blueSpiralVisible) {
+                    drawSunflowerParastichyFamily(ctx, seeds, 'blue', blueReveal, dpr, {
+                        alphaScale: 0.96,
+                        lineWidthScale: 1
+                    });
+                }
+                drawSunflowerCenterDot(ctx, centerX, centerY, dpr);
+
+                drawCanvasChip(ctx, 'red spirals', 18 * dpr, 18 * dpr, {
+                    dpr: dpr,
+                    background: redConfig.chip.background,
+                    borderColor: redConfig.chip.borderColor,
+                    textColor: redConfig.chip.textColor
                 });
             }
 
-            function drawSunflowerLabels(ctx, centerX, centerY, outerRadius, visual, dpr) {
-                if (visual.labelAlpha <= 0.01) {
-                    return;
-                }
+            function drawSunflowerPhotoDisk(ctx, centerX, centerY, radius, dpr) {
                 ctx.save();
-                ctx.globalAlpha = visual.labelAlpha;
-                if (visual.splitAlpha > 0.08) {
-                    drawCanvasChip(ctx, 'a : b = φ : 1', 18 * dpr, 18 * dpr, {
-                        dpr: dpr
-                    });
-                }
-                if (visual.currentSpokeAlpha > 0.08) {
-                    drawCanvasChip(ctx, 'b ≈ 137.5°', 18 * dpr, 52 * dpr, {
-                        dpr: dpr
-                    });
-                }
-                if (visual.seedCount > 0) {
-                    drawCanvasChip(ctx, 'θₙ = n · 137.5°', 18 * dpr, 86 * dpr, {
-                        dpr: dpr
-                    });
-                    drawCanvasChip(ctx, 'rₙ ∝ √n', 18 * dpr, 120 * dpr, {
-                        dpr: dpr
-                    });
-                }
-                if (visual.parastichyAlpha > 0.08) {
-                    drawCanvasChip(ctx, '34', centerX - outerRadius * 0.86, centerY + outerRadius * 0.78, {
-                        dpr: dpr,
-                        align: 'center',
-                        verticalAlign: 'middle',
-                        background: 'rgba(239, 246, 255, 0.94)',
-                        borderColor: 'rgba(37, 99, 235, 0.34)',
-                        textColor: '#1d4ed8'
-                    });
-                    drawCanvasChip(ctx, '55', centerX + outerRadius * 0.84, centerY + outerRadius * 0.62, {
-                        dpr: dpr,
-                        align: 'center',
-                        verticalAlign: 'middle',
-                        background: 'rgba(254, 242, 242, 0.94)',
-                        borderColor: 'rgba(185, 28, 28, 0.28)',
-                        textColor: '#b91c1c'
-                    });
+                ctx.shadowColor = 'rgba(15, 23, 42, 0.18)';
+                ctx.shadowBlur = 20 * dpr;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.98)';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.clip();
+                if (sunflowerState.realImageLoaded && sunflowerState.realImage && sunflowerState.realImage.naturalWidth) {
+                    const image = sunflowerState.realImage;
+                    const diameter = radius * 2;
+                    const scale = Math.max(diameter / image.naturalWidth, diameter / image.naturalHeight);
+                    const drawWidth = image.naturalWidth * scale;
+                    const drawHeight = image.naturalHeight * scale;
+                    ctx.drawImage(image, centerX - drawWidth / 2, centerY - drawHeight / 2, drawWidth, drawHeight);
+                } else {
+                    const fallback = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+                    fallback.addColorStop(0, 'rgba(196, 219, 104, 0.94)');
+                    fallback.addColorStop(0.62, 'rgba(173, 142, 36, 0.9)');
+                    fallback.addColorStop(1, 'rgba(119, 92, 22, 0.92)');
+                    ctx.fillStyle = fallback;
+                    ctx.fillRect(centerX - radius, centerY - radius, radius * 2, radius * 2);
                 }
                 ctx.restore();
+
+                ctx.save();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.96)';
+                ctx.lineWidth = 4 * dpr;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.strokeStyle = 'rgba(148, 163, 184, 0.34)';
+                ctx.lineWidth = 1.2 * dpr;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function drawSunflowerPhotoStage(ctx, centerX, centerY, outerRadius, dpr) {
+                const photoRadius = outerRadius * 1.02;
+                drawSunflowerPhotoDisk(ctx, centerX, centerY, photoRadius, dpr);
+                if (!sunflowerState.realImageLoaded) {
+                    drawCanvasChip(ctx, 'loading sunflower photo...', centerX, centerY + photoRadius + 18 * dpr, {
+                        dpr: dpr,
+                        align: 'center',
+                        verticalAlign: 'middle'
+                    });
+                }
             }
 
             function renderSunflowerFrame() {
                 if (!sunflowerCanvas || !sunflowerState.ctx) {
                     return;
                 }
-                const frame = getCurrentSunflowerFrame();
                 const ctx = sunflowerState.ctx;
                 const size = resizeCanvasToDisplaySize(sunflowerCanvas);
                 const centerX = size.width * 0.5;
                 const centerY = size.height * 0.5;
-                const outerRadius = Math.min(size.width, size.height) * 0.37;
-                const seedCount = Math.max(0, Math.round(frame.visual.seedCount));
-                const seeds = getSunflowerSeeds(seedCount, centerX, centerY, outerRadius * 0.86);
+                const outerRadius = Math.min(size.width, size.height) * 0.36;
 
-                ctx.clearRect(0, 0, size.width, size.height);
-                const glow = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, outerRadius * 1.28);
-                glow.addColorStop(0, 'rgba(255, 255, 255, 0.24)');
-                glow.addColorStop(0.6, 'rgba(255, 234, 166, 0.08)');
-                glow.addColorStop(1, 'rgba(255, 234, 166, 0)');
-                ctx.fillStyle = glow;
-                ctx.fillRect(0, 0, size.width, size.height);
+                drawSunflowerBackdrop(ctx, size, centerX, centerY, outerRadius);
+                if (sunflowerState.outerStep === 0) {
+                    drawSunflowerIntroStage(ctx, centerX, centerY, outerRadius, size.dpr);
+                } else if (sunflowerState.outerStep === 1) {
+                    drawSunflowerPlacementStage(ctx, centerX, centerY, outerRadius, size.dpr);
+                } else if (sunflowerState.outerStep === 2) {
+                    drawSunflowerParastichyStage(ctx, centerX, centerY, outerRadius, size.dpr);
+                } else {
+                    drawSunflowerPhotoStage(ctx, centerX, centerY, outerRadius, size.dpr);
+                }
 
-                drawSunflowerOverlay(ctx, centerX, centerY, outerRadius, frame.visual, size.dpr);
-                drawSunflowerSplitCircle(ctx, centerX, centerY, outerRadius, frame.visual, size.dpr);
-                drawSunflowerSpokes(ctx, centerX, centerY, outerRadius, frame.visual, size.dpr);
-                drawSunflowerParastichies(ctx, seeds, frame.visual, size.dpr);
-                drawSunflowerSeeds(ctx, seeds, frame.visual, outerRadius, size.dpr);
-                drawSunflowerLabels(ctx, centerX, centerY, outerRadius, frame.visual, size.dpr);
-
-                updateStoryStepCopy(sunflowerStepTitle, sunflowerStepCopy, sunflowerStepMetrics, SUNFLOWER_STEP_DESCRIPTORS, frame.stepIndex);
+                updateStoryStepCopy(
+                    sunflowerStepTitle,
+                    sunflowerStepCopy,
+                    sunflowerStepMetrics,
+                    SUNFLOWER_STEP_DESCRIPTORS,
+                    sunflowerState.outerStep
+                );
                 updateSunflowerControls();
             }
 
@@ -531,16 +1168,36 @@
                 sunflowerState.lastTimestamp = timestamp;
                 sunflowerState.ambientElapsedMs += delta;
 
-                if (sunflowerState.transition) {
-                    sunflowerState.transition.elapsedMs += delta;
-                    if (sunflowerState.transition.elapsedMs >= sunflowerState.transition.durationMs) {
-                        sunflowerState.currentStep = sunflowerState.transition.toStep;
-                        sunflowerState.transition = null;
+                if (sunflowerState.introTransition) {
+                    sunflowerState.introTransition.elapsedMs += delta;
+                    if (sunflowerState.introTransition.elapsedMs >= sunflowerState.introTransition.durationMs) {
+                        finishSunflowerIntroTransition();
                     }
                 }
-                if (sunflowerState.playing) {
-                    beginSunflowerAutoTransition();
+
+                if (sunflowerState.seedTransition) {
+                    sunflowerState.seedTransition.elapsedMs += delta;
+                    if (sunflowerState.seedTransition.elapsedMs >= sunflowerState.seedTransition.durationMs) {
+                        finishSunflowerSeedTransition();
+                    }
+                } else if (sunflowerState.playing && sunflowerState.outerStep === 1 && !isSunflowerPlacementComplete()) {
+                    startSunflowerSeedTransition(sunflowerState.placementAutoDurationMs);
                 }
+
+                if (sunflowerState.spiralTransition) {
+                    sunflowerState.spiralTransition.elapsedMs += delta;
+                    if (sunflowerState.spiralTransition.elapsedMs >= sunflowerState.spiralTransition.durationMs) {
+                        finishSunflowerSpiralTransition();
+                    }
+                } else if (sunflowerState.playing && sunflowerState.outerStep === 2) {
+                    const pendingFamily = getPendingSunflowerSpiralFamily();
+                    if (pendingFamily) {
+                        startSunflowerSpiralAnimation(pendingFamily);
+                    } else {
+                        sunflowerState.playing = false;
+                    }
+                }
+
                 renderSunflowerFrame();
             }
 
@@ -582,6 +1239,7 @@
                     return;
                 }
                 bindSunflowerControls();
+                loadSunflowerRealImage();
                 sunflowerState.initialized = true;
                 renderSunflowerFrame();
             }

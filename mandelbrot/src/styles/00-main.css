@@ -1061,6 +1061,56 @@
             display: block;
         }
 
+        .sunflower-viewport-actions {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .sunflower-viewport-actions[hidden] {
+            display: none;
+        }
+
+        .sunflower-viewport-actions button {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+            backdrop-filter: blur(4px);
+        }
+
+        .sunflower-family-toggle[data-family="red"] {
+            border-color: rgba(220, 38, 38, 0.24);
+            color: #991b1b;
+        }
+
+        .sunflower-family-toggle[data-family="blue"] {
+            border-color: rgba(37, 99, 235, 0.24);
+            color: #1d4ed8;
+        }
+
+        .sunflower-family-toggle[data-family="red"][aria-pressed="true"] {
+            background: rgba(254, 242, 242, 0.98);
+            border-color: rgba(220, 38, 38, 0.3);
+            color: #b91c1c;
+        }
+
+        .sunflower-family-toggle[data-family="blue"][aria-pressed="true"] {
+            background: rgba(239, 246, 255, 0.98);
+            border-color: rgba(37, 99, 235, 0.3);
+            color: #1d4ed8;
+        }
+
+        .sunflower-family-toggle[aria-pressed="false"] {
+            opacity: 0.72;
+            color: var(--muted);
+        }
+
         .nautilus-stage .nautilus-background-canvas {
             z-index: 1;
         }

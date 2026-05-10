@@ -32,7 +32,9 @@
             const NAUTILUS_FIBONACCI_SEQUENCE = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
             const NAUTILUS_SQUARE_TOTAL = NAUTILUS_FIBONACCI_SEQUENCE.length;
             const SUNFLOWER_PARASTICHY_COUNTS = [34, 55];
-            const SUNFLOWER_MAX_SEEDS = 377;
+            const SUNFLOWER_RED_REPRESENTATIVE_STRIDE = 21;
+            const SUNFLOWER_MAX_SEEDS = 233;
+            const SUNFLOWER_REAL_IMAGE_ASSET = 'mandelbrot/assets/sunflower/sunflower-seed-head.jpg';
             const MANDELBROT_COLOR_SCHEMES = {
                 blue: {
                     label: 'Blue',
@@ -119,29 +121,24 @@
             };
             const SUNFLOWER_STEP_DESCRIPTORS = [
                 {
-                    title: 'Split the circle into golden arcs',
-                    copy: 'If the long arc a and the short arc b satisfy a : b = φ : 1, then the smaller sweep is the golden angle used in phyllotaxis.',
-                    metrics: ['a : b = φ : 1', 'a ≈ 222.5°', 'b ≈ 137.5°']
+                    title: 'Reveal how a / b creates the golden angle',
+                    copy: 'Start with the circle and one upward line. Click in the viewport to sweep out arcs a and b, show that a / b is the golden ratio, and reveal the golden angle of 137.50776....',
+                    metrics: ['click to reveal a and b', 'a / b = golden ratio', 'Golden Angle = 137.50776...']
                 },
                 {
-                    title: 'The short arc sweeps 137.5°',
-                    copy: 'Rotating by the short arc b skips the crowded directions and keeps each new seed from landing directly behind an older one.',
-                    metrics: ['b = 360° / φ²', 'golden angle ≈ 137.5°', 'even spacing']
+                    title: 'Place each seed one golden angle at a time',
+                    copy: 'Click in the viewport or press Play. The guide line sweeps by the golden angle, drops a sunflower-seed glyph at its tip, then shortens as the packing works toward the center.',
+                    metrics: ['click or Play to plant seeds', 'uniform rhombus-like seeds', 'radius shortens inward']
                 },
                 {
-                    title: 'Seeds appear one golden angle at a time',
-                    copy: 'Each new seed advances by 137.5° and moves a little farther from the center. That simple rule builds the phyllotaxis disk.',
-                    metrics: ['θₙ = n · 137.5°', 'rₙ ∝ √n', 'seeds fill the disk']
+                    title: 'Two spiral families emerge across the seed head',
+                    copy: 'Once the seeds are in place, trace the spiral families from the center outward. Red spirals reveal first, then blue spirals, and the viewport toggles can isolate each family after the reveal.',
+                    metrics: ['red family first', 'blue family second', 'toggle red / blue visibility']
                 },
                 {
-                    title: 'Counter-spirals reveal Fibonacci counts',
-                    copy: 'When the seeds are connected by neighboring lanes, two opposite families of spirals emerge, often in consecutive Fibonacci numbers like 34 and 55.',
-                    metrics: ['34 clockwise arms', '55 counter arms', 'Fibonacci parastichies']
-                },
-                {
-                    title: 'A sunflower head grows over the pattern',
-                    copy: 'Placing a sunflower image behind the computed seed pattern shows how the same golden-angle placement matches the natural seed head.',
-                    metrics: ['sunflower overlay', 'seed disk aligned', '34 / 55 spiral families']
+                    title: 'A real sunflower follows the same packing rule',
+                    copy: 'A real sunflower seed head shows the same golden-angle packing. At this point the photo stands on its own so the natural seed pattern is easy to read without extra overlay lines.',
+                    metrics: ['real sunflower seed head', 'same golden-angle packing', 'two spiral families']
                 }
             ];
             const NAUTILUS_STEP_TOTAL = NAUTILUS_SQUARE_TOTAL + 1;
@@ -243,10 +240,14 @@
             const nautilusFaceModelStage = document.getElementById('nautilus-face-model-stage');
             const sunflowerStage = document.getElementById('sunflower-stage');
             const sunflowerCanvas = document.getElementById('sunflower-canvas');
+            const sunflowerViewportActions = document.getElementById('sunflower-viewport-actions');
+            const sunflowerToggleRedButton = document.getElementById('sunflower-toggle-red');
+            const sunflowerToggleBlueButton = document.getElementById('sunflower-toggle-blue');
             const sunflowerPrevButton = document.getElementById('sunflower-prev');
             const sunflowerPlayButton = document.getElementById('sunflower-play');
             const sunflowerNextButton = document.getElementById('sunflower-next');
             const sunflowerResetButton = document.getElementById('sunflower-reset');
+            const sunflowerStageCount = document.getElementById('sunflower-stage-count');
             const sunflowerStepTitle = document.getElementById('sunflower-step-title');
             const sunflowerStepCopy = document.getElementById('sunflower-step-copy');
             const sunflowerStepMetrics = document.getElementById('sunflower-step-metrics');
