@@ -3,14 +3,41 @@
   "version": "3.1.3",
   "private": true,
   "scripts": {
-    "build": "node mandelbrot/build.mjs",
+    "build": "yarn build:mandelbrot && yarn build:courses",
     "build:mandelbrot": "node mandelbrot/build.mjs",
+    "build:courses": "vite build --configLoader runner --config courses-app/vite.config.ts",
     "build:mandelbrot:watch": "node mandelbrot/build.mjs --watch",
-    "serve": "concurrently -k -n BUILD,SERVE -c yellow,cyan \"yarn build:mandelbrot:watch\" \"yarn live-server --ignore=mandelbrot/src,.git,.yarn,.pnp.* --wait=150 --open=mandelbrot.html\""
+    "serve": "concurrently -k -n BUILD,SERVE -c yellow,cyan \"yarn build:mandelbrot:watch\" \"yarn live-server --ignore=mandelbrot/src,.git,.yarn,.pnp.* --wait=150 --open=mandelbrot.html\"",
+    "courses:dev": "vite --configLoader runner --config courses-app/vite.config.ts",
+    "courses:preview": "vite preview --configLoader runner --config courses-app/vite.config.ts",
+    "courses:buckets:update": "node tools/courses/update-buckets.mjs",
+    "courses:update": "node tools/courses/update-courses.mjs",
+    "courses:notes:snapshot": "node tools/courses/notes-snapshot.mjs",
+    "courses:notes:compare": "node tools/courses/compare-notes-to-source.mjs",
+    "courses:notes:backups:prepare": "node tools/courses/prepare-note-backups.mjs",
+    "courses:notes:backups:apply": "node tools/courses/apply-note-backups.mjs"
   },
   "packageManager": "yarn@4.14.1+sha512.64df448055b2d37ba269d7db535a469b8da93f8ef1140c25fd7a83c00a8fbaacb214ca0e02553b92a2c54cef78bb67d0b4817fab02001df0e24fac0faccc3b42",
   "devDependencies": {
+    "@types/leaflet": "^1.9.21",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.2.1",
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "rollup": "^4.60.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5"
+  },
+  "dependencies": {
+    "@tmcw/togeojson": "^7.1.2",
+    "@xmldom/xmldom": "^0.9.10",
+    "jszip": "^3.10.1",
+    "leaflet": "^1.9.4",
+    "node-html-markdown": "^2.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.3",
+    "react-router-dom": "^6.28.1"
   }
 }
