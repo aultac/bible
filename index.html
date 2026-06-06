@@ -400,6 +400,163 @@
       color: #e5e7eb;
       border-color: rgba(248, 250, 252, 0.85);
     }
+
+    /* Clean bright refresh */
+    :root {
+      --bg: #f8fafc;
+      --bg-alt: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --accent-2: #d97706;
+      --text: #172033;
+      --muted: #5f6b84;
+      --card-bg: #ffffff;
+      --border-subtle: #d8dfec;
+      --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.08);
+      --radius-lg: 2px;
+      --radius-pill: 2px;
+    }
+
+    body {
+      color: var(--text);
+      background: var(--bg);
+      align-items: flex-start;
+      padding: 24px 16px;
+    }
+
+    .shell {
+      border-radius: 0;
+      border-color: var(--border-subtle);
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+      overflow: visible;
+    }
+
+    .shell::before,
+    .card::before {
+      display: none;
+    }
+
+    .inner {
+      padding: 24px;
+    }
+
+    header {
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    h1 span {
+      background: none;
+      color: var(--text);
+    }
+
+    .subtitle,
+    .badge-label,
+    .pill,
+    .card-tag,
+    .card-desc,
+    .card-meta,
+    .pill-mini,
+    .meta-panel h2,
+    .meta-item-label,
+    .footer-row {
+      color: var(--muted);
+    }
+
+    .badge-row,
+    .pill,
+    .pill-mini,
+    .meta-panel {
+      border-radius: 2px;
+      background: #ffffff;
+      border-color: var(--border-subtle);
+      box-shadow: none;
+    }
+
+    .badge-dot,
+    .pill-dot,
+    .pill-mini-dot,
+    .card-tag-dot {
+      border-radius: 1px;
+      box-shadow: none;
+      background: var(--accent);
+    }
+
+    .card {
+      border-radius: 2px;
+      background: #ffffff;
+      border-color: var(--border-subtle);
+      box-shadow: none;
+      padding: 18px;
+    }
+
+    .card:hover {
+      transform: none;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+      border-color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    .card-title span,
+    .card-cta,
+    .meta-item-value,
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .card-cta {
+      font-weight: 600;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      border-bottom-style: solid;
+    }
+
+    @media (min-width: 768px) {
+      .inner {
+        padding: 28px;
+      }
+    }
+
+    /* Full-width top area */
+    body {
+      padding: 0;
+    }
+
+    .shell {
+      max-width: none;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .inner {
+      padding: 0 0 32px;
+    }
+
+    header {
+      padding: 24px 16px 16px;
+      background: #ffffff;
+    }
+
+    main {
+      width: min(720px, calc(100vw - 32px));
+      margin: 24px auto 0;
+    }
+
+    .cards {
+      max-width: none !important;
+      margin: 0 !important;
+    }
+
+    @media (min-width: 768px) {
+      .inner {
+        padding: 0 0 40px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -417,20 +574,20 @@
         <section class="cards" aria-label="Sunday School tools" style="max-width:720px;margin:0 auto;">
 <!--
           <article class="card">
-            <a href="courses/">
+            <a href="dist/courses/">
               <div class="card-tag">
                 <span class="card-tag-dot orange" aria-hidden="true"></span>
                 Verse-by-verse archive · Current class hub
               </div>
               <h2 class="card-title">Sunday School Courses</h2>
               <p class="card-desc">
-                Browse the Genesis course by narrative bucket, open lesson notes and summaries, and revisit class
+                Browse the Genesis course by narrative section, open lesson notes and summaries, and revisit class
                 resources in a dedicated study-guide style interface.
               </p>
               <div class="card-meta">
                 <span class="pill-mini">
                   <span class="pill-mini-dot alt" aria-hidden="true"></span>
-                  Buckets · Lesson notes · Resources
+                  Sections · Lesson notes · Resources
                 </span>
                 <span class="card-cta">
                   Open courses hub
@@ -451,8 +608,7 @@
               </div>
               <h2 class="card-title">Biblical Lifespans Visualization</h2>
               <p class="card-desc">
-                Interactive timelines, scatter plots, and genealogical trees showing every explicitly stated or
-                calculated age at death, aligned on an Anno Mundi (AM) scale.
+                Interactive timelines, scatter plots, and genealogical trees on an Anno Mundi scale.
               </p>
               <div class="card-meta">
                 <span class="pill-mini">
@@ -478,8 +634,7 @@
               </div>
               <h2 class="card-title">Ziggurat‑Like Structures Worldwide</h2>
               <p class="card-desc">
-                A curated table and interactive map of stepped, pyramid, and ziggurat-style structures from Mesopotamia
-                to Mesoamerica—each with coordinates, images, and brief notes.
+                A table and map of stepped, pyramid, and ziggurat-style structures worldwide.
               </p>
               <div class="card-meta">
                 <span class="pill-mini">
@@ -498,15 +653,14 @@
           </article>
 
           <article class="card">
-            <a href="mandelbrot.html">
+            <a href="dist/mandelbrot.html">
               <div class="card-tag">
                 <span class="card-tag-dot" aria-hidden="true"></span>
                 Math intuition · Interactive fractal explorer
               </div>
               <h2 class="card-title">Mandelbrot Set Explorer</h2>
               <p class="card-desc">
-                A three-part explainer that starts with simple feedback sequences, extends them to complex numbers,
-                and then plots black-or-red tested points on a smooth zoomable Mandelbrot graph.
+                Feedback sequences, complex numbers, and a zoomable Mandelbrot graph.
               </p>
               <div class="card-meta">
                 <span class="pill-mini">
@@ -532,7 +686,7 @@
               </div>
               <h2 class="card-title">Egyptian Deities</h2>
               <p class="card-desc">
-                Pictures of Egyptian Deities during the 18th Dynasty (Exodus 1446)
+                Images of Egyptian deities from the 18th Dynasty context.
               </p>
               <div class="card-meta">
                 <span class="pill-mini">
