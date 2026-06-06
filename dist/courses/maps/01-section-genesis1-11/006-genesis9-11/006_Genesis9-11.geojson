@@ -1,0 +1,327 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.300381,
+          39.702761,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Ararat / Urartu",
+        "visibility": false,
+        "styleUrl": "#landrepresentativepoint00",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              43.05808,
+              34.00047,
+              0
+            ],
+            [
+              40.85894,
+              33.59109,
+              0
+            ],
+            [
+              43.21516,
+              31.54421,
+              0
+            ],
+            [
+              43.37224,
+              31.40775,
+              0
+            ],
+            [
+              46.35679,
+              30.45254,
+              0
+            ],
+            [
+              46.82803999999999,
+              30.31608,
+              0
+            ],
+            [
+              47.77052,
+              30.72546,
+              0
+            ],
+            [
+              48.87009,
+              31.54421,
+              0
+            ],
+            [
+              48.87009,
+              31.68067,
+              0
+            ],
+            [
+              48.87009,
+              31.81713,
+              0
+            ],
+            [
+              46.82803999999999,
+              34.00047,
+              0
+            ],
+            [
+              46.67095,
+              34.00047,
+              0
+            ],
+            [
+              46.51387,
+              34.00047,
+              0
+            ],
+            [
+              46.35679,
+              34.00047,
+              0
+            ],
+            [
+              46.19971,
+              34.00047,
+              0
+            ],
+            [
+              46.04263,
+              34.00047,
+              0
+            ],
+            [
+              45.88555000000001,
+              34.00047,
+              0
+            ],
+            [
+              45.72847,
+              34.00047,
+              0
+            ],
+            [
+              45.57138,
+              34.00047,
+              0
+            ],
+            [
+              45.4143,
+              34.00047,
+              0
+            ],
+            [
+              45.25721999999999,
+              34.00047,
+              0
+            ],
+            [
+              45.10014,
+              34.00047,
+              0
+            ],
+            [
+              44.94306,
+              34.00047,
+              0
+            ],
+            [
+              44.78598,
+              34.00047,
+              0
+            ],
+            [
+              44.62889,
+              34.00047,
+              0
+            ],
+            [
+              44.47181,
+              34.00047,
+              0
+            ],
+            [
+              44.31473,
+              34.00047,
+              0
+            ],
+            [
+              44.15765,
+              34.00047,
+              0
+            ],
+            [
+              44.00057,
+              34.00047,
+              0
+            ],
+            [
+              43.84349,
+              34.00047,
+              0
+            ],
+            [
+              43.68641,
+              34.00047,
+              0
+            ],
+            [
+              43.52932,
+              34.00047,
+              0
+            ],
+            [
+              43.37224,
+              34.00047,
+              0
+            ],
+            [
+              43.21516,
+              34.00047,
+              0
+            ],
+            [
+              43.05808,
+              34.00047,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Shinar",
+        "visibility": false,
+        "styleUrl": "#landisobands225",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#20ffff",
+        "stroke-width": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "GeometryCollection",
+        "geometries": [
+          {
+            "type": "Point",
+            "coordinates": [
+              44.4211193,
+              32.5362886,
+              0
+            ]
+          },
+          {
+            "type": "LineString",
+            "coordinates": [
+              [
+                44.4174306338984,
+                32.5335221004238,
+                0
+              ],
+              [
+                44.4174306338984,
+                32.5390550995762,
+                0
+              ],
+              [
+                44.4248079661016,
+                32.5390550995762,
+                0
+              ],
+              [
+                44.4248079661016,
+                32.5335221004238,
+                0
+              ],
+              [
+                44.4174306338984,
+                32.5335221004238,
+                0
+              ]
+            ]
+          }
+        ]
+      },
+      "properties": {
+        "name": "Ziggurat of Babel (Etemenanki)",
+        "address": "GCPC+GC9, GCPC+GC سنجار،, سنجار، Iraq",
+        "visibility": false,
+        "styleUrl": "#listing_A",
+        "stroke-opacity": 0,
+        "stroke": "#ffffff",
+        "icon": "https://www.google.com/mapfiles/kml/paddle/A.png",
+        "placepageUri": "https://www.google.com/earth/rpc/entity?lat=32.5362886&lng=44.421119299999994&fid=0x1558fd6e11f9733d:0x8be80aedb0eb6a4d&hl=en&gl=us&client=earth-client&cv=7.3.6.10441&useragent=GoogleEarth/7.3.6.10441(Macintosh;Mac OS X (15.4.1);en;kml:2.2;client:Pro;type:default)"
+      },
+      "id": "1.2.1"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.032778,
+          36.864444,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Haran",
+        "visibility": false,
+        "styleUrl": "#landpoint00312",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.422222,
+          32.543333,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Babel",
+        "visibility": false,
+        "styleUrl": "#landpoint003",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.104444,
+          30.962222,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Ur",
+        "visibility": false,
+        "styleUrl": "#landpoint50",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    }
+  ]
+}

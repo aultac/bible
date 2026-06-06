@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "014-genesis29-30",
+  "slug": "014-genesis29-30",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 14,
+  "lessonKind": "passage",
+  "title": "Genesis 29-30",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 29",
+  "endVerse": "Genesis 30",
+  "passage": {
+    "display": "Genesis 29-30",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 29,
+      "verse": null,
+      "raw": "Genesis29",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 30,
+      "verse": null,
+      "raw": "30",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 29",
+    "endVerse": "Genesis 30",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+29-30/"
+  },
+  "notes": {
+    "path": "content/courses/sections/02-section-genesis12-50/lessons/014-genesis29-30/notes.md",
+    "sourcePath": "02-Section-Genesis12-50/014_Genesis29-30/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "content/courses/sections/02-section-genesis12-50/lessons/014-genesis29-30/summary.md",
+    "sourcePath": "02-Section-Genesis12-50/014_Genesis29-30/014_Genesis29-30_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Section-Genesis12-50/014_Genesis29-30/014_Genesis29-30.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/014-genesis29-30/014_Genesis29-30.kmz",
+    "geoJsonPath": "public/courses/maps/02-section-genesis12-50/014-genesis29-30/014_Genesis29-30.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/014-genesis29-30/014_Genesis29-30.geojson",
+    "available": true,
+    "featureCount": 4,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "H9J1seQh-yc",
+    "title": "Know Your Bible - Week 14",
+    "url": "https://www.youtube.com/watch?v=H9J1seQh-yc&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 14,
+    "weekNumber": 14,
+    "durationText": "47:50",
+    "thumbnailUrl": "https://i.ytimg.com/vi/H9J1seQh-yc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBLdz6D5gGvqBAQH2Asx6FTET7O_A"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Section-Genesis12-50/014_Genesis29-30",
+    "folderName": "014_Genesis29-30",
+    "notesPath": "02-Section-Genesis12-50/014_Genesis29-30/notes.md",
+    "summaryDocxPath": "02-Section-Genesis12-50/014_Genesis29-30/014_Genesis29-30_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "02-Section-Genesis12-50/014_Genesis29-30/014_Genesis29-30.kmz"
+  }
+}

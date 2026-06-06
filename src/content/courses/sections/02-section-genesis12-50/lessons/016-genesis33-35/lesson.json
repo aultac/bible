@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "016-genesis33-35",
+  "slug": "016-genesis33-35",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 16,
+  "lessonKind": "passage",
+  "title": "Genesis 33-35",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 33",
+  "endVerse": "Genesis 35",
+  "passage": {
+    "display": "Genesis 33-35",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 33,
+      "verse": null,
+      "raw": "Genesis33",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 35,
+      "verse": null,
+      "raw": "35",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 33",
+    "endVerse": "Genesis 35",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+33-35/"
+  },
+  "notes": {
+    "path": "content/courses/sections/02-section-genesis12-50/lessons/016-genesis33-35/notes.md",
+    "sourcePath": "02-Section-Genesis12-50/016_Genesis33-35/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "content/courses/sections/02-section-genesis12-50/lessons/016-genesis33-35/summary.md",
+    "sourcePath": "02-Section-Genesis12-50/016_Genesis33-35/016_Genesis33-35_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Section-Genesis12-50/016_Genesis33-35/016_Genesis33-35.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/016-genesis33-35/016_Genesis33-35.kmz",
+    "geoJsonPath": "public/courses/maps/02-section-genesis12-50/016-genesis33-35/016_Genesis33-35.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/016-genesis33-35/016_Genesis33-35.geojson",
+    "available": true,
+    "featureCount": 13,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "EotoRyG1A_k",
+    "title": "Know Your Bible - Week 16",
+    "url": "https://www.youtube.com/watch?v=EotoRyG1A_k&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 16,
+    "weekNumber": 16,
+    "durationText": "52:20",
+    "thumbnailUrl": "https://i.ytimg.com/vi/EotoRyG1A_k/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA2JqGcAy1ZVwz5vYVJXfBDKYtjnw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Section-Genesis12-50/016_Genesis33-35",
+    "folderName": "016_Genesis33-35",
+    "notesPath": "02-Section-Genesis12-50/016_Genesis33-35/notes.md",
+    "summaryDocxPath": "02-Section-Genesis12-50/016_Genesis33-35/016_Genesis33-35_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "02-Section-Genesis12-50/016_Genesis33-35/016_Genesis33-35.kmz"
+  }
+}

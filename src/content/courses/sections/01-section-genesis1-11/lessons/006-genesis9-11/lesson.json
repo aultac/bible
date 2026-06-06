@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "006-genesis9-11",
+  "slug": "006-genesis9-11",
+  "sectionId": "01-section-genesis1-11",
+  "sectionSlug": "01-section-genesis1-11",
+  "sequenceNumber": 6,
+  "lessonKind": "passage",
+  "title": "Genesis 9-11",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 9",
+  "endVerse": "Genesis 11",
+  "passage": {
+    "display": "Genesis 9-11",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 9,
+      "verse": null,
+      "raw": "Genesis9",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 11,
+      "verse": null,
+      "raw": "11",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 9",
+    "endVerse": "Genesis 11",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+9-11/"
+  },
+  "notes": {
+    "path": "content/courses/sections/01-section-genesis1-11/lessons/006-genesis9-11/notes.md",
+    "sourcePath": "01-Section-Genesis1-11/006_Genesis9-11/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "content/courses/sections/01-section-genesis1-11/lessons/006-genesis9-11/summary.md",
+    "sourcePath": "01-Section-Genesis1-11/006_Genesis9-11/006_Genesis9-11_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "01-Section-Genesis1-11/006_Genesis9-11/006_Genesis9-11.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/01-section-genesis1-11/006-genesis9-11/006_Genesis9-11.kmz",
+    "geoJsonPath": "public/courses/maps/01-section-genesis1-11/006-genesis9-11/006_Genesis9-11.geojson",
+    "geoJsonPublicUrl": "/courses/maps/01-section-genesis1-11/006-genesis9-11/006_Genesis9-11.geojson",
+    "available": true,
+    "featureCount": 6,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "hI5lY84nidI",
+    "title": "Know Your Bible - Week 6",
+    "url": "https://www.youtube.com/watch?v=hI5lY84nidI&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 6,
+    "weekNumber": 6,
+    "durationText": "46:25",
+    "thumbnailUrl": "https://i.ytimg.com/vi/hI5lY84nidI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCWYbA-i-tneymMlr8Ha9btL7l6ow"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "01-Section-Genesis1-11/006_Genesis9-11",
+    "folderName": "006_Genesis9-11",
+    "notesPath": "01-Section-Genesis1-11/006_Genesis9-11/notes.md",
+    "summaryDocxPath": "01-Section-Genesis1-11/006_Genesis9-11/006_Genesis9-11_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "01-Section-Genesis1-11/006_Genesis9-11/006_Genesis9-11.kmz"
+  }
+}

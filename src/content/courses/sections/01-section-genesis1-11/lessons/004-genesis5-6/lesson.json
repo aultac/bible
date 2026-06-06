@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "004-genesis5-6",
+  "slug": "004-genesis5-6",
+  "sectionId": "01-section-genesis1-11",
+  "sectionSlug": "01-section-genesis1-11",
+  "sequenceNumber": 4,
+  "lessonKind": "passage",
+  "title": "Genesis 5-6",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 5",
+  "endVerse": "Genesis 6",
+  "passage": {
+    "display": "Genesis 5-6",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 5,
+      "verse": null,
+      "raw": "Genesis5",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 6,
+      "verse": null,
+      "raw": "6",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 5",
+    "endVerse": "Genesis 6",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+5-6/"
+  },
+  "notes": {
+    "path": "content/courses/sections/01-section-genesis1-11/lessons/004-genesis5-6/notes.md",
+    "sourcePath": "01-Section-Genesis1-11/004_Genesis5-6/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "content/courses/sections/01-section-genesis1-11/lessons/004-genesis5-6/summary.md",
+    "sourcePath": "01-Section-Genesis1-11/004_Genesis5-6/004_Genesis5-6_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "01-Section-Genesis1-11/004_Genesis5-6/004_Genesis5-6.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/01-section-genesis1-11/004-genesis5-6/004_Genesis5-6.kmz",
+    "geoJsonPath": "public/courses/maps/01-section-genesis1-11/004-genesis5-6/004_Genesis5-6.geojson",
+    "geoJsonPublicUrl": "/courses/maps/01-section-genesis1-11/004-genesis5-6/004_Genesis5-6.geojson",
+    "available": true,
+    "featureCount": 1,
+    "geometryTypes": [
+      "Point"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "DdkXOs0_oac",
+    "title": "Know Your Bible - Week 4",
+    "url": "https://www.youtube.com/watch?v=DdkXOs0_oac&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 4,
+    "weekNumber": 4,
+    "durationText": "50:54",
+    "thumbnailUrl": "https://i.ytimg.com/vi/DdkXOs0_oac/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClIJgZzDCSAwGIg3edVUsf2WE5Xw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "01-Section-Genesis1-11/004_Genesis5-6",
+    "folderName": "004_Genesis5-6",
+    "notesPath": "01-Section-Genesis1-11/004_Genesis5-6/notes.md",
+    "summaryDocxPath": "01-Section-Genesis1-11/004_Genesis5-6/004_Genesis5-6_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "01-Section-Genesis1-11/004_Genesis5-6/004_Genesis5-6.kmz"
+  }
+}

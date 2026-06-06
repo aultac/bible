@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "019-genesis40-43",
+  "slug": "019-genesis40-43",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 19,
+  "lessonKind": "passage",
+  "title": "Genesis 40-43",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 40",
+  "endVerse": "Genesis 43",
+  "passage": {
+    "display": "Genesis 40-43",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 40,
+      "verse": null,
+      "raw": "Genesis40",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 43,
+      "verse": null,
+      "raw": "43",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 40",
+    "endVerse": "Genesis 43",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+40-43/"
+  },
+  "notes": {
+    "path": "content/courses/sections/02-section-genesis12-50/lessons/019-genesis40-43/notes.md",
+    "sourcePath": "02-Section-Genesis12-50/019_Genesis40-43/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "content/courses/sections/02-section-genesis12-50/lessons/019-genesis40-43/summary.md",
+    "sourcePath": "02-Section-Genesis12-50/019_Genesis40-43/019_Genesis40-43_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Section-Genesis12-50/019_Genesis40-43/019_Genesis40-41_45.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/019-genesis40-43/019_Genesis40-41_45.kmz",
+    "geoJsonPath": "public/courses/maps/02-section-genesis12-50/019-genesis40-43/019_Genesis40-41_45.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/019-genesis40-43/019_Genesis40-41_45.geojson",
+    "available": true,
+    "featureCount": 6,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "-ZwJN2MJI3E",
+    "title": "Know Your Bible - Week 19",
+    "url": "https://www.youtube.com/watch?v=-ZwJN2MJI3E&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 19,
+    "weekNumber": 19,
+    "durationText": "47:24",
+    "thumbnailUrl": "https://i.ytimg.com/vi/-ZwJN2MJI3E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBcDpx8d2pFVkbMKvjrp9CpyrGqLw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Section-Genesis12-50/019_Genesis40-43",
+    "folderName": "019_Genesis40-43",
+    "notesPath": "02-Section-Genesis12-50/019_Genesis40-43/notes.md",
+    "summaryDocxPath": "02-Section-Genesis12-50/019_Genesis40-43/019_Genesis40-43_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "02-Section-Genesis12-50/019_Genesis40-43/019_Genesis40-41_45.kmz"
+  }
+}
