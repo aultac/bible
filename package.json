@@ -7,7 +7,7 @@
     "build:mandelbrot": "node src/mandelbrot/build.mjs",
     "build:courses": "vite build --configLoader runner --config src/courses-app/vite.config.ts",
     "build:mandelbrot:watch": "node src/mandelbrot/build.mjs --watch",
-    "serve": "concurrently -k -n BUILD,SERVE -c yellow,cyan \"yarn build:mandelbrot:watch\" \"yarn live-server --ignore=src/mandelbrot/src,.git,.yarn,.pnp.* --wait=150 --open=dist/mandelbrot.html\"",
+    "serve": "concurrently -k -n BUILD,SERVE -c yellow,cyan \"yarn build:mandelbrot:watch\" \"yarn live-server --ignore=src/mandelbrot/src,.git,.yarn,.pnp.* --wait=150 --open=index.html\"",
     "courses:dev": "vite --configLoader runner --config src/courses-app/vite.config.ts",
     "courses:preview": "vite preview --configLoader runner --config src/courses-app/vite.config.ts",
     "courses:sections:update": "node tools/courses/update-sections.mjs",
