@@ -543,13 +543,34 @@
     }
 
     main {
-      width: min(720px, calc(100vw - 32px));
+      width: min(1180px, calc(100vw - 32px));
       margin: 24px auto 0;
     }
 
     .cards {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 16px;
       max-width: none !important;
       margin: 0 !important;
+    }
+
+    .card {
+      flex: 1 1 300px;
+      max-width: 380px;
+      min-width: 260px;
+    }
+
+    .card a {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-meta {
+      margin-top: auto;
     }
 
     @media (min-width: 768px) {
@@ -679,6 +700,32 @@
           </article>
 
           <article class="card">
+            <a href="snakes-pharoahs.html">
+              <div class="card-tag">
+                <span class="card-tag-dot orange" aria-hidden="true"></span>
+                Egypt · Royal imagery
+              </div>
+              <h2 class="card-title">Royal Uraeus (Cobra)</h2>
+              <p class="card-desc">
+                Images showing the snake's prominence on Pharaoh's crowns and headdresses.
+              </p>
+              <div class="card-meta">
+                <span class="pill-mini">
+                  <span class="pill-mini-dot alt" aria-hidden="true"></span>
+                  18th Dynasty · Cached images
+                </span>
+                <span class="card-cta">
+                  Open royal uraeus
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M7 17L17 7" />
+                    <path d="M8 7H17V16" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+
+          <article class="card">
             <a href="egyptian_deities_18th_dynasty.html">
               <div class="card-tag">
                 <span class="card-tag-dot" aria-hidden="true"></span>
@@ -703,23 +750,24 @@
               </div>
             </a>
           </article>
+
           <article class="card">
-            <a href="snakes-pharoahs.html">
+            <a href="ten-plagues-exodus.html">
               <div class="card-tag">
                 <span class="card-tag-dot orange" aria-hidden="true"></span>
-                Egypt · Royal imagery
+                Exodus · Egyptian gods
               </div>
-              <h2 class="card-title">Royal Uraeus (Cobra)</h2>
+              <h2 class="card-title">Ten Plagues Visual Guide</h2>
               <p class="card-desc">
-                Images showing the snake's prominence on Pharaoh's crowns and headdresses.
+                The ten plagues in order, paired with traditional Egyptian deity associations and local cached images.
               </p>
               <div class="card-meta">
                 <span class="pill-mini">
                   <span class="pill-mini-dot alt" aria-hidden="true"></span>
-                  18th Dynasty · Cached images
+                  Exodus 7–12 · Dual images · Sources
                 </span>
                 <span class="card-cta">
-                  Open royal uraeus
+                  Open Ten Plagues
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path d="M7 17L17 7" />
                     <path d="M8 7H17V16" />

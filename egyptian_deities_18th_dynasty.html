@@ -100,6 +100,34 @@
             margin-bottom: 2rem !important;
         }
 
+        .scripture-callout {
+            background: #fffbeb;
+            border: 1px solid #f3d48b;
+            border-left: 6px solid #d97706;
+            color: #713f12;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 2rem;
+            font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+            line-height: 1.6;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+        }
+
+        .scripture-callout strong {
+            color: #172033;
+            font-weight: 800;
+        }
+
+        .scripture-callout cite {
+            display: block;
+            margin-top: 0.75rem;
+            color: #92400e;
+            font-size: 0.85rem;
+            font-style: normal;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
         .deity-card:hover,
         .god-image:hover {
             transform: none;
@@ -197,6 +225,10 @@
 
     <!-- Deities Section -->
     <div id="deities" class="max-w-screen-2xl mx-auto px-8 pt-12 pb-20">
+        <p class="scripture-callout">
+            “because they exchanged the truth about God for a lie and <strong>worshiped and served the creature</strong> rather than the Creator, who is blessed forever! Amen.”
+            <cite>Romans 1:25</cite>
+        </p>
         <!-- Deity 1: Amun-Ra -->
         <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
