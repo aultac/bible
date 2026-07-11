@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Lifespans Visualization - v3.1.2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .back-link { margin: 0 0 10px; font-size: 0.85rem; }
+        .back-link a { color: #777; text-decoration: none; }
+        .back-link a:hover { text-decoration: underline; }
+        .chart-container { position: relative; height: 800px; margin: 40px 0; }
+        h1, h2 { text-align: center; }
+        #timeline-chart { background-color: #f9f9f9; }
+        #scatter-chart { background-color: #f0f0f0; }
+
+        /* Genealogy tree styling */
+        .tree-container { position: relative; height: 1200px; margin: 40px 0; background: #f7fff7; border: 1px solid #e6e6e6; }
+        #genealogy-svg { width: 100%; height: 100%; }
+        .link { fill: none; stroke: #bdbdbd; stroke-width: 1.5px; }
+        .link-david { stroke: #f39c12; stroke-width: 2.5px; }
+        .link-jesus { stroke: #27ae60; stroke-width: 3px; }
+        .link-joseph { stroke: #2980b9; stroke-width: 2.5px; }
+        .node circle { fill: #fff; stroke: #555; stroke-width: 1.5px; }
+        .node-david circle { stroke: #f39c12; stroke-width: 2.5px; }
+        .node-jesus circle { stroke: #27ae60; stroke-width: 3px; }
+        .node-joseph circle { stroke: #2980b9; stroke-width: 2.5px; }
+        .node text { font: 12px sans-serif; fill: #333; text-anchor: middle; }
+        .tree-tooltip { position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: #fff; padding: 8px 10px; border-radius: 4px; font-size: 12px; line-height: 1.3; max-width: 280px; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+
+        .tree-controls { position: absolute; top: 10px; left: 10px; z-index: 2; background: rgba(255,255,255,0.9); padding: 6px 8px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: flex; gap: 6px; align-items: center; }
+        .tree-controls button { border: 1px solid #bbb; background: #fff; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .tree-controls button:hover { background: #f3f3f3; }
+    </style>
+    <style>
+        /* Simulation area styling */
+        .sim-container { margin: 40px 0; }
+        .sim-controls { display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
+        .sim-controls button { border: 1px solid #bbb; background: #fff; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .sim-controls button:hover:not(:disabled) { background: #f3f3f3; }
+        .sim-controls button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .sim-stats { display: flex; gap: 16px; font-size: 14px; align-items: center; }
+        .sim-stats span { background: #fafafa; border: 1px solid #e6e6e6; padding: 4px 8px; border-radius: 6px; }
+        .sim-viewport { position: relative; height: 500px; border: 1px solid #e0e0e0; background: #ffffff; overflow: hidden; }
+        #sim-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+        .sim-field { display: flex; gap: 6px; align-items: center; }
+        .sim-controls input[type="number"] { width: 5.5em; padding: 3px 6px; }
+    </style>
+</head>
+<body>
+    <p class="back-link"><a href="../">Back to index</a></p>
+    <h1>Biblical Lifespans: All Explicit and Calculated Ages at Death</h1>
+    <p>Years are in AM "Anno Mundi" (years since Adam and Eve left Eden).</p>
+    
+    <div class="chart-container">
+        <canvas id="timeline-chart"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="scatter-chart"></canvas>
+    </div>
+
+    <div class="tree-container" id="genealogy-container">
+        <div class="tree-controls">
+            <button id="btn-expand-all" title="Expand every node">Expand all</button>
+            <button id="btn-collapse-all" title="Collapse every node">Collapse all</button>
+            <button id="btn-expand-jesus" title="Expand the lineage to Jesus">Expand Jesus path</button>
+            <label for="chk-center-jesus" title="At each generation, place Jesus’s branch in the middle so His line is vertically centered">
+              <input type="checkbox" id="chk-center-jesus" />
+              Center Jesus line
+            </label>
+            <button id="btn-fit-all" title="Center and fit entire tree into view">Center & fit</button>
+        </div>
+        <svg id="genealogy-svg"></svg>
+        <div id="genealogy-tooltip" class="tree-tooltip" style="opacity:0;"></div>
+    </div>
+
+    <!-- Fourth area: Population Simulation -->
+    <div id="sim-container" class="sim-container">
+        <h2>Population Simulation to Adam’s Death</h2>
+        <div class="sim-controls">
+            <div class="sim-speed">
+                <label for="sim-speed">Speed: 1 year every <strong id="sim-speed-display">1.00s</strong></label>
+                <input id="sim-speed" type="range" min="10" max="1000" step="10" value="1000" />
+            </div>
+            <div class="sim-field">
+                <label for="sim-marriage-age">Age of Marrying</label>
+                <input id="sim-marriage-age" type="number" min="0" step="1" value="18" />
+            </div>
+            <div class="sim-field">
+                <label for="sim-childbearing-end">End of Childbearing Age</label>
+                <input id="sim-childbearing-end" type="number" min="0" step="1" value="30" />
+            </div>
+            <div class="sim-field">
+                <label for="sim-years-per-child">Years per child</label>
+                <input id="sim-years-per-child" type="number" min="1" step="1" value="2" />
+            </div>
+            <div class="sim-field">
+                <label for="sim-male-percent">% Male</label>
+                <input id="sim-male-percent" type="number" min="0" max="100" step="1" value="50" />
+            </div>
+            <button id="sim-start">Start</button>
+            <button id="sim-stop" disabled>Stop</button>
+            <div class="sim-stats">
+                <span>Year: <strong id="sim-year">1</strong> AM</span>
+                <span>Total people: <strong id="sim-total">2</strong></span>
+                <span>Avg children per couple: <strong id="sim-avg-children">0.00</strong></span>
+                <span>Max children per couple: <strong id="sim-max-children">0</strong></span>
+            </div>
+        </div>
+        <div class="sim-viewport" id="sim-viewport">
+            <canvas id="sim-canvas"></canvas>
+        </div>
+        <div class="chart-container" style="height: 300px; margin-top: 16px;">
+            <canvas id="sim-pop-chart"></canvas>
+        </div>
+    </div>
+
+    <!-- Embedded genealogy data (Luke through Mary, Matthew through Joseph) as an edge list -->
+    <script type="application/json" id="genealogy-data">
+    {
+      "people": [
+        {"id":"adam","name":"Adam","birthAM":0,"deathAM":930,"verses":["Gen 5:3-5","Luke 3:38","1 Chr 1:1"]},
+        {"id":"cain","name":"Cain","verses":["Gen 4:1"]},
+        {"id":"abel","name":"Abel","verses":["Gen 4:2"]},
+        {"id":"seth","name":"Seth","birthAM":130,"deathAM":1042,"verses":["Gen 5:3-8","Luke 3:38","1 Chr 1:1"]},
+        {"id":"enosh","name":"Enosh","birthAM":235,"deathAM":1140,"verses":["Gen 5:6-11","Luke 3:38","1 Chr 1:1"]},
+        {"id":"kenan","name":"Kenan","birthAM":325,"deathAM":1235,"verses":["Gen 5:9-14","Luke 3:37","1 Chr 1:2"]},
+        {"id":"mahalalel","name":"Mahalalel","birthAM":395,"deathAM":1290,"verses":["Gen 5:12-17","Luke 3:37","1 Chr 1:2"]},
+        {"id":"jared","name":"Jared","birthAM":460,"deathAM":1422,"verses":["Gen 5:15-20","Luke 3:37","1 Chr 1:2"]},
+        {"id":"enoch","name":"Enoch","birthAM":622,"deathAM":987,"verses":["Gen 5:21-24","Luke 3:37","1 Chr 1:3"]},
+        {"id":"methuselah","name":"Methuselah","birthAM":687,"deathAM":1656,"verses":["Gen 5:25-27","Luke 3:37","1 Chr 1:3"]},
+        {"id":"lamech","name":"Lamech","birthAM":874,"deathAM":1651,"verses":["Gen 5:28-31","Luke 3:36","1 Chr 1:3"]},
+        {"id":"noah","name":"Noah","birthAM":1056,"deathAM":2006,"verses":["Gen 5:32; 9:29","Luke 3:36","1 Chr 1:4"]},
+        {"id":"shem","name":"Shem","birthAM":1556,"deathAM":2156,"verses":["Gen 11:10-11","Luke 3:36","1 Chr 1:4"]},
+        {"id":"arphaxad","name":"Arphaxad","birthAM":1658,"deathAM":2096,"verses":["Gen 11:10-13","Luke 3:36","1 Chr 1:17"]},
+        {"id":"shelah","name":"Shelah","birthAM":1693,"deathAM":2126,"verses":["Gen 11:12-15","Luke 3:35","1 Chr 1:18"]},
+        {"id":"eber","name":"Eber","birthAM":1723,"deathAM":2187,"verses":["Gen 11:16-17","Luke 3:35","1 Chr 1:18"]},
+        {"id":"peleg","name":"Peleg","birthAM":1757,"deathAM":1996,"verses":["Gen 11:18-19","Luke 3:35","1 Chr 1:19"]},
+        {"id":"reu","name":"Reu","birthAM":1787,"deathAM":2026,"verses":["Gen 11:20-21","Luke 3:35","1 Chr 1:25"]},
+        {"id":"serug","name":"Serug","birthAM":1819,"deathAM":2049,"verses":["Gen 11:22-23","Luke 3:35","1 Chr 1:26"]},
+        {"id":"nahor","name":"Nahor","birthAM":1849,"deathAM":1997,"verses":["Gen 11:24-25","Luke 3:34","1 Chr 1:26"]},
+        {"id":"terah","name":"Terah","birthAM":1878,"deathAM":2083,"verses":["Gen 11:26-32","Luke 3:34","1 Chr 1:26"]},
+        {"id":"abraham","name":"Abram (Abraham)","birthAM":2008,"deathAM":2183,"verses":["Gen 17:5; 25:7","Matt 1:1","Luke 3:34","1 Chr 1:27"]},
+        {"id":"isaac","name":"Isaac","birthAM":2108,"deathAM":2288,"verses":["Gen 21:3; 35:28-29","Matt 1:2","Luke 3:34","1 Chr 1:34"]},
+        {"id":"jacob","name":"Jacob (Israel)","birthAM":2168,"deathAM":2315,"verses":["Gen 25:26; 47:28","Matt 1:2","Luke 3:34","1 Chr 1:34"]},
+        {"id":"judah","name":"Judah","verses":["Gen 29:35; 49:8-10","Matt 1:2","Luke 3:33","1 Chr 2:3"]},
+        {"id":"perez","name":"Perez","verses":["Gen 38:29","Matt 1:3","Luke 3:33","1 Chr 2:4"]},
+        {"id":"hezron","name":"Hezron","verses":["Ruth 4:18","Matt 1:3","Luke 3:33","1 Chr 2:5"]},
+        {"id":"ram","name":"Ram (Aram)","verses":["Ruth 4:19","Matt 1:3-4","Luke 3:33"]},
+        {"id":"amminadab","name":"Amminadab","verses":["Ruth 4:19-20","Matt 1:4","Luke 3:33"]},
+        {"id":"nahshon","name":"Nahshon","verses":["Ruth 4:20","Matt 1:4","Luke 3:32"]},
+        {"id":"salmon","name":"Salmon","verses":["Ruth 4:20-21","Matt 1:4-5","1 Chr 2:11"]},
+        {"id":"boaz","name":"Boaz","verses":["Ruth 4:21","Matt 1:5"]},
+        {"id":"obed","name":"Obed","verses":["Ruth 4:21","Matt 1:5"]},
+        {"id":"jesse","name":"Jesse","verses":["Ruth 4:22","Matt 1:5-6","1 Sam 16:1"]},
+        {"id":"david","name":"David","verses":["Ruth 4:22","Matt 1:6","Luke 3:31"]},
+
+        {"id":"solomon","name":"Solomon","verses":["Matt 1:6","1 Chr 3:10"]},
+        {"id":"rehoboam","name":"Rehoboam","verses":["Matt 1:7","1 Chr 3:10"]},
+        {"id":"abijah","name":"Abijah (Abia)","verses":["Matt 1:7","1 Chr 3:10"]},
+        {"id":"asa","name":"Asa","verses":["Matt 1:8","1 Chr 3:10"]},
+        {"id":"jehoshaphat","name":"Jehoshaphat","verses":["Matt 1:8","1 Chr 3:10"]},
+        {"id":"joram","name":"Joram (Jehoram)","verses":["Matt 1:8","1 Chr 3:11"]},
+        {"id":"uzziah","name":"Uzziah (Ozias)","verses":["Matt 1:8-9","1 Chr 3:12"]},
+        {"id":"jotham","name":"Jotham","verses":["Matt 1:9","1 Chr 3:12"]},
+        {"id":"ahaz","name":"Ahaz","verses":["Matt 1:9","1 Chr 3:13"]},
+        {"id":"hezekiah","name":"Hezekiah","verses":["Matt 1:9","1 Chr 3:13"]},
+        {"id":"manasseh","name":"Manasseh","verses":["Matt 1:10","1 Chr 3:13"]},
+        {"id":"amon","name":"Amon","verses":["Matt 1:10","1 Chr 3:14"]},
+        {"id":"josiah","name":"Josiah","verses":["Matt 1:10-11","1 Chr 3:14"]},
+        {"id":"jeconiah","name":"Jeconiah (Jehoiachin)","verses":["Matt 1:11-12","1 Chr 3:16"]},
+        {"id":"shealtiel_m","name":"Shealtiel","verses":["Matt 1:12","1 Chr 3:17"]},
+        {"id":"zerubbabel_m","name":"Zerubbabel","verses":["Matt 1:12-13","1 Chr 3:19"]},
+        {"id":"abiud","name":"Abiud","verses":["Matt 1:13"]},
+        {"id":"eliakim_m","name":"Eliakim","verses":["Matt 1:13"]},
+        {"id":"azor","name":"Azor","verses":["Matt 1:13"]},
+        {"id":"zadok","name":"Zadok","verses":["Matt 1:14"]},
+        {"id":"achim","name":"Achim","verses":["Matt 1:14"]},
+        {"id":"eliud","name":"Eliud","verses":["Matt 1:14"]},
+        {"id":"eleazar","name":"Eleazar","verses":["Matt 1:15"]},
+        {"id":"matthan","name":"Matthan","verses":["Matt 1:15"]},
+        {"id":"jacob_j","name":"Jacob (father of Joseph)","verses":["Matt 1:15"]},
+        {"id":"joseph","name":"Joseph (husband of Mary)","verses":["Matt 1:16"]},
+
+        {"id":"nathan","name":"Nathan","verses":["Luke 3:31","1 Chr 3:5"]},
+        {"id":"mattatha","name":"Mattatha","verses":["Luke 3:31"]},
+        {"id":"menna","name":"Menna (Menan)","verses":["Luke 3:31"]},
+        {"id":"melea","name":"Melea","verses":["Luke 3:31"]},
+        {"id":"eliakim_l","name":"Eliakim","verses":["Luke 3:30"]},
+        {"id":"jonam","name":"Jonam","verses":["Luke 3:30"]},
+        {"id":"joseph_l1","name":"Joseph","verses":["Luke 3:30"]},
+        {"id":"judah_l","name":"Judah","verses":["Luke 3:30"]},
+        {"id":"simeon_l","name":"Simeon","verses":["Luke 3:30"]},
+        {"id":"levi_l1","name":"Levi","verses":["Luke 3:29"]},
+        {"id":"matthat_l1","name":"Matthat","verses":["Luke 3:29"]},
+        {"id":"jorim","name":"Jorim","verses":["Luke 3:29"]},
+        {"id":"eliezer","name":"Eliezer","verses":["Luke 3:29"]},
+        {"id":"joshua","name":"Joshua","verses":["Luke 3:29"]},
+        {"id":"er","name":"Er","verses":["Luke 3:28"]},
+        {"id":"elmadam","name":"Elmadam","verses":["Luke 3:28"]},
+        {"id":"cosam","name":"Cosam","verses":["Luke 3:28"]},
+        {"id":"addi","name":"Addi","verses":["Luke 3:28"]},
+        {"id":"melchi_l1","name":"Melchi","verses":["Luke 3:28"]},
+        {"id":"neri","name":"Neri","verses":["Luke 3:27"]},
+        {"id":"shealtiel_l","name":"Shealtiel","verses":["Luke 3:27"]},
+        {"id":"zerubbabel_l","name":"Zerubbabel","verses":["Luke 3:27"]},
+        {"id":"rhesa","name":"Rhesa","verses":["Luke 3:27"]},
+        {"id":"joanan","name":"Joanan","verses":["Luke 3:27"]},
+        {"id":"joda","name":"Joda","verses":["Luke 3:26"]},
+        {"id":"josech","name":"Josech","verses":["Luke 3:26"]},
+        {"id":"semein","name":"Semein","verses":["Luke 3:26"]},
+        {"id":"mattathias_l1","name":"Mattathias","verses":["Luke 3:26"]},
+        {"id":"maath","name":"Maath","verses":["Luke 3:26"]},
+        {"id":"naggai","name":"Naggai","verses":["Luke 3:25"]},
+        {"id":"esli","name":"Esli","verses":["Luke 3:25"]},
+        {"id":"nahum","name":"Nahum","verses":["Luke 3:25"]},
+        {"id":"amos","name":"Amos","verses":["Luke 3:25"]},
+        {"id":"mattathias_l2","name":"Mattathias","verses":["Luke 3:25"]},
+        {"id":"joseph_l2","name":"Joseph","verses":["Luke 3:24"]},
+        {"id":"jannai","name":"Jannai","verses":["Luke 3:24"]},
+        {"id":"melchi_l2","name":"Melchi","verses":["Luke 3:24"]},
+        {"id":"levi_l2","name":"Levi","verses":["Luke 3:24"]},
+        {"id":"matthat_l2","name":"Matthat","verses":["Luke 3:24"]},
+        {"id":"heli","name":"Heli","verses":["Luke 3:23"]},
+        {"id":"mary","name":"Mary","verses":["Matt 1:16","Luke 1:27"]},
+        {"id":"jesus","name":"Jesus","verses":["Matt 1:16","Luke 3:23"]}
+      ],
+      "edges": [
+        {"parent":"adam","child":"cain"},
+        {"parent":"adam","child":"abel"},
+        {"parent":"adam","child":"seth"},
+        {"parent":"seth","child":"enosh"},
+        {"parent":"enosh","child":"kenan"},
+        {"parent":"kenan","child":"mahalalel"},
+        {"parent":"mahalalel","child":"jared"},
+        {"parent":"jared","child":"enoch"},
+        {"parent":"enoch","child":"methuselah"},
+        {"parent":"methuselah","child":"lamech"},
+        {"parent":"lamech","child":"noah"},
+        {"parent":"noah","child":"shem"},
+        {"parent":"shem","child":"arphaxad"},
+        {"parent":"arphaxad","child":"shelah"},
+        {"parent":"shelah","child":"eber"},
+        {"parent":"eber","child":"peleg"},
+        {"parent":"peleg","child":"reu"},
+        {"parent":"reu","child":"serug"},
+        {"parent":"serug","child":"nahor"},
+        {"parent":"nahor","child":"terah"},
+        {"parent":"terah","child":"abraham"},
+        {"parent":"abraham","child":"isaac"},
+        {"parent":"isaac","child":"jacob"},
+        {"parent":"jacob","child":"judah"},
+        {"parent":"judah","child":"perez"},
+        {"parent":"perez","child":"hezron"},
+        {"parent":"hezron","child":"ram"},
+        {"parent":"ram","child":"amminadab"},
+        {"parent":"amminadab","child":"nahshon"},
+        {"parent":"nahshon","child":"salmon"},
+        {"parent":"salmon","child":"boaz"},
+        {"parent":"boaz","child":"obed"},
+        {"parent":"obed","child":"jesse"},
+        {"parent":"jesse","child":"david"},
+
+        {"parent":"david","child":"solomon"},
+        {"parent":"solomon","child":"rehoboam"},
+        {"parent":"rehoboam","child":"abijah"},
+        {"parent":"abijah","child":"asa"},
+        {"parent":"asa","child":"jehoshaphat"},
+        {"parent":"jehoshaphat","child":"joram"},
+        {"parent":"joram","child":"uzziah"},
+        {"parent":"uzziah","child":"jotham"},
+        {"parent":"jotham","child":"ahaz"},
+        {"parent":"ahaz","child":"hezekiah"},
+        {"parent":"hezekiah","child":"manasseh"},
+        {"parent":"manasseh","child":"amon"},
+        {"parent":"amon","child":"josiah"},
+        {"parent":"josiah","child":"jeconiah"},
+        {"parent":"jeconiah","child":"shealtiel_m"},
+        {"parent":"shealtiel_m","child":"zerubbabel_m"},
+        {"parent":"zerubbabel_m","child":"abiud"},
+        {"parent":"abiud","child":"eliakim_m"},
+        {"parent":"eliakim_m","child":"azor"},
+        {"parent":"azor","child":"zadok"},
+        {"parent":"zadok","child":"achim"},
+        {"parent":"achim","child":"eliud"},
+        {"parent":"eliud","child":"eleazar"},
+        {"parent":"eleazar","child":"matthan"},
+        {"parent":"matthan","child":"jacob_j"},
+        {"parent":"jacob_j","child":"joseph"},
+
+        {"parent":"david","child":"nathan"},
+        {"parent":"nathan","child":"mattatha"},
+        {"parent":"mattatha","child":"menna"},
+        {"parent":"menna","child":"melea"},
+        {"parent":"melea","child":"eliakim_l"},
+        {"parent":"eliakim_l","child":"jonam"},
+        {"parent":"jonam","child":"joseph_l1"},
+        {"parent":"joseph_l1","child":"judah_l"},
+        {"parent":"judah_l","child":"simeon_l"},
+        {"parent":"simeon_l","child":"levi_l1"},
+        {"parent":"levi_l1","child":"matthat_l1"},
+        {"parent":"matthat_l1","child":"jorim"},
+        {"parent":"jorim","child":"eliezer"},
+        {"parent":"eliezer","child":"joshua"},
+        {"parent":"joshua","child":"er"},
+        {"parent":"er","child":"elmadam"},
+        {"parent":"elmadam","child":"cosam"},
+        {"parent":"cosam","child":"addi"},
+        {"parent":"addi","child":"melchi_l1"},
+        {"parent":"melchi_l1","child":"neri"},
+        {"parent":"neri","child":"shealtiel_l"},
+        {"parent":"shealtiel_l","child":"zerubbabel_l"},
+        {"parent":"zerubbabel_l","child":"rhesa"},
+        {"parent":"rhesa","child":"joanan"},
+        {"parent":"joanan","child":"joda"},
+        {"parent":"joda","child":"josech"},
+        {"parent":"josech","child":"semein"},
+        {"parent":"semein","child":"mattathias_l1"},
+        {"parent":"mattathias_l1","child":"maath"},
+        {"parent":"maath","child":"naggai"},
+        {"parent":"naggai","child":"esli"},
+        {"parent":"esli","child":"nahum"},
+        {"parent":"nahum","child":"amos"},
+        {"parent":"amos","child":"mattathias_l2"},
+        {"parent":"mattathias_l2","child":"joseph_l2"},
+        {"parent":"joseph_l2","child":"jannai"},
+        {"parent":"jannai","child":"melchi_l2"},
+        {"parent":"melchi_l2","child":"levi_l2"},
+        {"parent":"levi_l2","child":"matthat_l2"},
+        {"parent":"matthat_l2","child":"heli"},
+        {"parent":"heli","child":"mary"},
+        {"parent":"mary","child":"jesus"}
+      ]
+    }
+    </script>
+
+    <!-- Extra branches: siblings at key levels to show full family branching -->
+    <script type="application/json" id="genealogy-extra">
+    {
+      "people": [
+        {"id":"ham","name":"Ham","verses":["Gen 5:32","Gen 10:1"]},
+        {"id":"japheth","name":"Japheth","verses":["Gen 5:32","Gen 10:1"]},
+        {"id":"elam","name":"Elam","verses":["Gen 10:22"]},
+        {"id":"asshur","name":"Asshur","verses":["Gen 10:22"]},
+        {"id":"lud","name":"Lud","verses":["Gen 10:22"]},
+        {"id":"aram_shem","name":"Aram (son of Shem)","verses":["Gen 10:22"]},
+
+        {"id":"nahor_t","name":"Nahor (son of Terah)","verses":["Gen 11:26-29"]},
+        {"id":"haran_t","name":"Haran (son of Terah)","verses":["Gen 11:26-29"]},
+        {"id":"lot","name":"Lot","verses":["Gen 11:27"]},
+
+        {"id":"ishmael","name":"Ishmael","verses":["Gen 16:15","Gen 25:12-18"]},
+        {"id":"zimran","name":"Zimran","verses":["Gen 25:2"]},
+        {"id":"jokshan","name":"Jokshan","verses":["Gen 25:2"]},
+        {"id":"medan","name":"Medan","verses":["Gen 25:2"]},
+        {"id":"midian","name":"Midian","verses":["Gen 25:2"]},
+        {"id":"ishbak","name":"Ishbak","verses":["Gen 25:2"]},
+        {"id":"shuah","name":"Shuah","verses":["Gen 25:2"]},
+
+        {"id":"esau","name":"Esau","verses":["Gen 25:25","Gen 36:1"]},
+
+        {"id":"reuben","name":"Reuben","verses":["Gen 35:22-26"]},
+        {"id":"simeon_j","name":"Simeon (son of Jacob)","verses":["Gen 35:22-26"]},
+        {"id":"levi_j","name":"Levi (son of Jacob)","verses":["Gen 35:22-26"]},
+        {"id":"issachar","name":"Issachar","verses":["Gen 35:23-26"]},
+        {"id":"zebulun","name":"Zebulun","verses":["Gen 35:23-26"]},
+        {"id":"dan","name":"Dan","verses":["Gen 35:22-26"]},
+        {"id":"naphtali","name":"Naphtali","verses":["Gen 35:25"]},
+        {"id":"gad","name":"Gad","verses":["Gen 35:26"]},
+        {"id":"asher","name":"Asher","verses":["Gen 35:26"]},
+        {"id":"joseph_p","name":"Joseph (son of Jacob)","verses":["Gen 30:24","Gen 35:24"]},
+        {"id":"benjamin","name":"Benjamin","verses":["Gen 35:18"]},
+        {"id":"dinah","name":"Dinah","verses":["Gen 30:21","Gen 34:1"]},
+
+        {"id":"manasseh_joseph","name":"Manasseh (son of Joseph)","verses":["Gen 41:51"]},
+        {"id":"ephraim_joseph","name":"Ephraim","verses":["Gen 41:52"]},
+
+        {"id":"er_judah","name":"Er","verses":["Gen 38:3"]},
+        {"id":"onan","name":"Onan","verses":["Gen 38:4"]},
+        {"id":"shelah","name":"Shelah","verses":["Gen 38:5"]},
+        {"id":"zerah","name":"Zerah","verses":["Gen 38:30"]},
+        {"id":"hamul","name":"Hamul","verses":["Gen 46:12","1 Chr 2:5"]},
+
+        {"id":"jerahmeel","name":"Jerahmeel","verses":["1 Chr 2:9"]},
+        {"id":"caleb","name":"Caleb (son of Hezron)","verses":["1 Chr 2:9"]},
+
+        {"id":"eliab","name":"Eliab","verses":["1 Sam 16:6","1 Chr 2:13"]},
+        {"id":"abinadab_b","name":"Abinadab (brother of David)","verses":["1 Sam 16:8","1 Chr 2:13"]},
+        {"id":"shammah","name":"Shammah (Shimea)","verses":["1 Sam 16:9","1 Chr 2:13"]},
+        {"id":"nethanel","name":"Nethanel","verses":["1 Chr 2:14"]},
+        {"id":"raddai","name":"Raddai","verses":["1 Chr 2:14"]},
+        {"id":"ozem","name":"Ozem","verses":["1 Chr 2:15"]},
+        {"id":"zeruiah","name":"Zeruiah","verses":["1 Chr 2:16"]},
+        {"id":"abigail_d","name":"Abigail","verses":["1 Chr 2:16"]},
+
+        {"id":"amnon","name":"Amnon","verses":["2 Sam 3:2","1 Chr 3:1"]},
+        {"id":"daniel_david","name":"Daniel (Chileab)","verses":["2 Sam 3:3","1 Chr 3:1"]},
+        {"id":"absalom","name":"Absalom","verses":["2 Sam 3:3","1 Chr 3:2"]},
+        {"id":"adonijah","name":"Adonijah","verses":["2 Sam 3:4","1 Chr 3:2"]},
+        {"id":"shephatiah","name":"Shephatiah","verses":["2 Sam 3:4","1 Chr 3:3"]},
+        {"id":"ithream","name":"Ithream","verses":["2 Sam 3:5","1 Chr 3:3"]},
+        {"id":"shammua","name":"Shammua (Shimea)","verses":["2 Sam 5:14","1 Chr 3:5"]},
+        {"id":"shobab","name":"Shobab","verses":["2 Sam 5:14","1 Chr 3:5"]},
+        {"id":"ibhar","name":"Ibhar","verses":["2 Sam 5:15","1 Chr 3:6"]},
+        {"id":"elishua_david","name":"Elishua","verses":["2 Sam 5:15","1 Chr 14:5"]},
+        {"id":"nepheg","name":"Nepheg","verses":["2 Sam 5:15","1 Chr 3:7"]},
+        {"id":"japhia","name":"Japhia","verses":["2 Sam 5:15","1 Chr 3:7"]},
+        {"id":"elishama_david","name":"Elishama","verses":["2 Sam 5:16","1 Chr 3:8"]},
+        {"id":"eliada","name":"Eliada (Beeliada)","verses":["2 Sam 5:16","1 Chr 3:8"]},
+        {"id":"eliphelet","name":"Eliphelet","verses":["2 Sam 5:16","1 Chr 3:8"]},
+        {"id":"tamar_daughter","name":"Tamar","verses":["2 Sam 13:1","1 Chr 3:9"]},
+
+        {"id":"enoch_cain","name":"Enoch (son of Cain)","verses":["Gen 4:17"]},
+        {"id":"irad","name":"Irad","verses":["Gen 4:18"]},
+        {"id":"mehujael","name":"Mehujael","verses":["Gen 4:18"]},
+        {"id":"methushael","name":"Methushael","verses":["Gen 4:18"]},
+        {"id":"lamech_cain","name":"Lamech (descendant of Cain)","verses":["Gen 4:18-22"]},
+        {"id":"jabal","name":"Jabal","verses":["Gen 4:20"]},
+        {"id":"jubal","name":"Jubal","verses":["Gen 4:21"]},
+        {"id":"tubal_cain","name":"Tubal-cain","verses":["Gen 4:22"]},
+        {"id":"naamah","name":"Naamah","verses":["Gen 4:22"]},
+
+        {"id":"gomer","name":"Gomer","verses":["Gen 10:2"]},
+        {"id":"magog","name":"Magog","verses":["Gen 10:2"]},
+        {"id":"madai","name":"Madai","verses":["Gen 10:2"]},
+        {"id":"javan","name":"Javan","verses":["Gen 10:2"]},
+        {"id":"tubal","name":"Tubal","verses":["Gen 10:2"]},
+        {"id":"meshech","name":"Meshech","verses":["Gen 10:2"]},
+        {"id":"tiras","name":"Tiras","verses":["Gen 10:2"]},
+        {"id":"ashkenaz","name":"Ashkenaz","verses":["Gen 10:3"]},
+        {"id":"riphath","name":"Riphath","verses":["Gen 10:3"]},
+        {"id":"togarmah","name":"Togarmah","verses":["Gen 10:3"]},
+        {"id":"elishah","name":"Elishah","verses":["Gen 10:4"]},
+        {"id":"tarshish","name":"Tarshish","verses":["Gen 10:4"]},
+        {"id":"kittim","name":"Kittim","verses":["Gen 10:4"]},
+        {"id":"dodanim","name":"Dodanim","verses":["Gen 10:4"]},
+
+        {"id":"cush","name":"Cush","verses":["Gen 10:6"]},
+        {"id":"mizraim","name":"Mizraim","verses":["Gen 10:6"]},
+        {"id":"put","name":"Put","verses":["Gen 10:6"]},
+        {"id":"canaan","name":"Canaan","verses":["Gen 10:6"]},
+        {"id":"seba","name":"Seba","verses":["Gen 10:7"]},
+        {"id":"havilah_cush","name":"Havilah","verses":["Gen 10:7"]},
+        {"id":"sabtah","name":"Sabtah","verses":["Gen 10:7"]},
+        {"id":"raamah","name":"Raamah","verses":["Gen 10:7"]},
+        {"id":"sabtecah","name":"Sabteca","verses":["Gen 10:7"]},
+        {"id":"sheba_raamah","name":"Sheba","verses":["Gen 10:7"]},
+        {"id":"dedan","name":"Dedan","verses":["Gen 10:7"]},
+        {"id":"nimrod","name":"Nimrod","verses":["Gen 10:8-10"]},
+
+        {"id":"ludites","name":"Ludites","verses":["Gen 10:13"]},
+        {"id":"anamites","name":"Anamites","verses":["Gen 10:13"]},
+        {"id":"lehabites","name":"Lehabites","verses":["Gen 10:13"]},
+        {"id":"naphtuhites","name":"Naphtuhites","verses":["Gen 10:13"]},
+        {"id":"pathrusites","name":"Pathrusites","verses":["Gen 10:14"]},
+        {"id":"casluhites","name":"Casluhites","verses":["Gen 10:14"]},
+        {"id":"caphtorites","name":"Caphtorites","verses":["Gen 10:14"]},
+
+        {"id":"sidon","name":"Sidon","verses":["Gen 10:15"]},
+        {"id":"heth","name":"Heth","verses":["Gen 10:15"]},
+        {"id":"jebusites","name":"Jebusites","verses":["Gen 10:16"]},
+        {"id":"amorites","name":"Amorites","verses":["Gen 10:16"]},
+        {"id":"girgasites","name":"Girgashites","verses":["Gen 10:16"]},
+        {"id":"hivites","name":"Hivites","verses":["Gen 10:17"]},
+        {"id":"arkites","name":"Arkites","verses":["Gen 10:17"]},
+        {"id":"sinites","name":"Sinites","verses":["Gen 10:17"]},
+        {"id":"arvadites","name":"Arvadites","verses":["Gen 10:18"]},
+        {"id":"zemarites","name":"Zemarites","verses":["Gen 10:18"]},
+        {"id":"hamathites","name":"Hamathites","verses":["Gen 10:18"]},
+
+        {"id":"joktan","name":"Joktan","verses":["Gen 10:25"]},
+        {"id":"almodad","name":"Almodad","verses":["Gen 10:26"]},
+        {"id":"sheleph","name":"Sheleph","verses":["Gen 10:26"]},
+        {"id":"hazarmaveth","name":"Hazarmaveth","verses":["Gen 10:26"]},
+        {"id":"jerah","name":"Jerah","verses":["Gen 10:26"]},
+        {"id":"hadoram","name":"Hadoram","verses":["Gen 10:27"]},
+        {"id":"uzal","name":"Uzal","verses":["Gen 10:27"]},
+        {"id":"diklah","name":"Diklah","verses":["Gen 10:27"]},
+        {"id":"obal","name":"Obal","verses":["Gen 10:28"]},
+        {"id":"abimael","name":"Abimael","verses":["Gen 10:28"]},
+        {"id":"sheba_joktan","name":"Sheba","verses":["Gen 10:28"]},
+        {"id":"ophir","name":"Ophir","verses":["Gen 10:29"]},
+        {"id":"havilah_joktan","name":"Havilah","verses":["Gen 10:29"]},
+        {"id":"jobab","name":"Jobab","verses":["Gen 10:29"]},
+
+        {"id":"eliphaz","name":"Eliphaz","verses":["Gen 36:4"]},
+        {"id":"reuel_e","name":"Reuel","verses":["Gen 36:4"]},
+        {"id":"jeush","name":"Jeush","verses":["Gen 36:5"]},
+        {"id":"jalam","name":"Jalam","verses":["Gen 36:5"]},
+        {"id":"korah_e","name":"Korah","verses":["Gen 36:5"]},
+        {"id":"amalek","name":"Amalek","verses":["Gen 36:12"]},
+
+        {"id":"nebaioth","name":"Nebaioth","verses":["Gen 25:13"]},
+        {"id":"kedar","name":"Kedar","verses":["Gen 25:13"]},
+        {"id":"adbeel","name":"Adbeel","verses":["Gen 25:13"]},
+        {"id":"mibsam","name":"Mibsam","verses":["Gen 25:13"]},
+        {"id":"mishma","name":"Mishma","verses":["Gen 25:14"]},
+        {"id":"dumah","name":"Dumah","verses":["Gen 25:14"]},
+        {"id":"massa","name":"Massa","verses":["Gen 25:14"]},
+        {"id":"hadad","name":"Hadad (Hadar)","verses":["Gen 25:15"]},
+        {"id":"tema","name":"Tema","verses":["Gen 25:15"]},
+        {"id":"jetur","name":"Jetur","verses":["Gen 25:15"]},
+        {"id":"naphish","name":"Naphish","verses":["Gen 25:15"]},
+        {"id":"kedemah","name":"Kedemah","verses":["Gen 25:15"]}
+      ],
+      "edges": [
+        {"parent":"noah","child":"ham"},
+        {"parent":"noah","child":"japheth"},
+        {"parent":"shem","child":"elam"},
+        {"parent":"shem","child":"asshur"},
+        {"parent":"shem","child":"lud"},
+        {"parent":"shem","child":"aram_shem"},
+
+        {"parent":"terah","child":"nahor_t"},
+        {"parent":"terah","child":"haran_t"},
+        {"parent":"haran_t","child":"lot"},
+
+        {"parent":"abraham","child":"ishmael"},
+        {"parent":"abraham","child":"zimran"},
+        {"parent":"abraham","child":"jokshan"},
+        {"parent":"abraham","child":"medan"},
+        {"parent":"abraham","child":"midian"},
+        {"parent":"abraham","child":"ishbak"},
+        {"parent":"abraham","child":"shuah"},
+
+        {"parent":"isaac","child":"esau"},
+
+        {"parent":"jacob","child":"reuben"},
+        {"parent":"jacob","child":"simeon_j"},
+        {"parent":"jacob","child":"levi_j"},
+        {"parent":"jacob","child":"issachar"},
+        {"parent":"jacob","child":"zebulun"},
+        {"parent":"jacob","child":"dan"},
+        {"parent":"jacob","child":"naphtali"},
+        {"parent":"jacob","child":"gad"},
+        {"parent":"jacob","child":"asher"},
+        {"parent":"jacob","child":"joseph_p"},
+        {"parent":"jacob","child":"benjamin"},
+        {"parent":"jacob","child":"dinah"},
+
+        {"parent":"joseph_p","child":"manasseh_joseph"},
+        {"parent":"joseph_p","child":"ephraim_joseph"},
+
+        {"parent":"judah","child":"er_judah"},
+        {"parent":"judah","child":"onan"},
+        {"parent":"judah","child":"shelah"},
+        {"parent":"judah","child":"zerah"},
+        {"parent":"perez","child":"hamul"},
+        {"parent":"hezron","child":"jerahmeel"},
+        {"parent":"hezron","child":"caleb"},
+
+        {"parent":"jesse","child":"eliab"},
+        {"parent":"jesse","child":"abinadab_b"},
+        {"parent":"jesse","child":"shammah"},
+        {"parent":"jesse","child":"nethanel"},
+        {"parent":"jesse","child":"raddai"},
+        {"parent":"jesse","child":"ozem"},
+        {"parent":"jesse","child":"zeruiah"},
+        {"parent":"jesse","child":"abigail_d"},
+
+        {"parent":"david","child":"amnon"},
+        {"parent":"david","child":"daniel_david"},
+        {"parent":"david","child":"absalom"},
+        {"parent":"david","child":"adonijah"},
+        {"parent":"david","child":"shephatiah"},
+        {"parent":"david","child":"ithream"},
+        {"parent":"david","child":"shammua"},
+        {"parent":"david","child":"shobab"},
+        {"parent":"david","child":"ibhar"},
+        {"parent":"david","child":"elishua_david"},
+        {"parent":"david","child":"nepheg"},
+        {"parent":"david","child":"japhia"},
+        {"parent":"david","child":"elishama_david"},
+        {"parent":"david","child":"eliada"},
+        {"parent":"david","child":"eliphelet"},
+        {"parent":"david","child":"tamar_daughter"},
+
+        {"parent":"cain","child":"enoch_cain"},
+        {"parent":"enoch_cain","child":"irad"},
+        {"parent":"irad","child":"mehujael"},
+        {"parent":"mehujael","child":"methushael"},
+        {"parent":"methushael","child":"lamech_cain"},
+        {"parent":"lamech_cain","child":"jabal"},
+        {"parent":"lamech_cain","child":"jubal"},
+        {"parent":"lamech_cain","child":"tubal_cain"},
+        {"parent":"lamech_cain","child":"naamah"},
+
+        {"parent":"japheth","child":"gomer"},
+        {"parent":"japheth","child":"magog"},
+        {"parent":"japheth","child":"madai"},
+        {"parent":"japheth","child":"javan"},
+        {"parent":"japheth","child":"tubal"},
+        {"parent":"japheth","child":"meshech"},
+        {"parent":"japheth","child":"tiras"},
+        {"parent":"gomer","child":"ashkenaz"},
+        {"parent":"gomer","child":"riphath"},
+        {"parent":"gomer","child":"togarmah"},
+        {"parent":"javan","child":"elishah"},
+        {"parent":"javan","child":"tarshish"},
+        {"parent":"javan","child":"kittim"},
+        {"parent":"javan","child":"dodanim"},
+
+        {"parent":"ham","child":"cush"},
+        {"parent":"ham","child":"mizraim"},
+        {"parent":"ham","child":"put"},
+        {"parent":"ham","child":"canaan"},
+        {"parent":"cush","child":"seba"},
+        {"parent":"cush","child":"havilah_cush"},
+        {"parent":"cush","child":"sabtah"},
+        {"parent":"cush","child":"raamah"},
+        {"parent":"cush","child":"sabtecah"},
+        {"parent":"raamah","child":"sheba_raamah"},
+        {"parent":"raamah","child":"dedan"},
+        {"parent":"cush","child":"nimrod"},
+
+        {"parent":"mizraim","child":"ludites"},
+        {"parent":"mizraim","child":"anamites"},
+        {"parent":"mizraim","child":"lehabites"},
+        {"parent":"mizraim","child":"naphtuhites"},
+        {"parent":"mizraim","child":"pathrusites"},
+        {"parent":"mizraim","child":"casluhites"},
+        {"parent":"mizraim","child":"caphtorites"},
+
+        {"parent":"canaan","child":"sidon"},
+        {"parent":"canaan","child":"heth"},
+        {"parent":"canaan","child":"jebusites"},
+        {"parent":"canaan","child":"amorites"},
+        {"parent":"canaan","child":"girgasites"},
+        {"parent":"canaan","child":"hivites"},
+        {"parent":"canaan","child":"arkites"},
+        {"parent":"canaan","child":"sinites"},
+        {"parent":"canaan","child":"arvadites"},
+        {"parent":"canaan","child":"zemarites"},
+        {"parent":"canaan","child":"hamathites"},
+
+        {"parent":"aram_shem","child":"uz"},
+        {"parent":"aram_shem","child":"hul"},
+        {"parent":"aram_shem","child":"gether"},
+        {"parent":"aram_shem","child":"mash"},
+
+        {"parent":"eber","child":"joktan"},
+        {"parent":"joktan","child":"almodad"},
+        {"parent":"joktan","child":"sheleph"},
+        {"parent":"joktan","child":"hazarmaveth"},
+        {"parent":"joktan","child":"jerah"},
+        {"parent":"joktan","child":"hadoram"},
+        {"parent":"joktan","child":"uzal"},
+        {"parent":"joktan","child":"diklah"},
+        {"parent":"joktan","child":"obal"},
+        {"parent":"joktan","child":"abimael"},
+        {"parent":"joktan","child":"sheba_joktan"},
+        {"parent":"joktan","child":"ophir"},
+        {"parent":"joktan","child":"havilah_joktan"},
+        {"parent":"joktan","child":"jobab"},
+
+        {"parent":"esau","child":"eliphaz"},
+        {"parent":"esau","child":"reuel_e"},
+        {"parent":"esau","child":"jeush"},
+        {"parent":"esau","child":"jalam"},
+        {"parent":"esau","child":"korah_e"},
+        {"parent":"eliphaz","child":"amalek"},
+
+        {"parent":"ishmael","child":"nebaioth"},
+        {"parent":"ishmael","child":"kedar"},
+        {"parent":"ishmael","child":"adbeel"},
+        {"parent":"ishmael","child":"mibsam"},
+        {"parent":"ishmael","child":"mishma"},
+        {"parent":"ishmael","child":"dumah"},
+        {"parent":"ishmael","child":"massa"},
+        {"parent":"ishmael","child":"hadad"},
+        {"parent":"ishmael","child":"tema"},
+        {"parent":"ishmael","child":"jetur"},
+        {"parent":"ishmael","child":"naphish"},
+        {"parent":"ishmael","child":"kedemah"}
+      ]
+    }
+    </script>
+
+    <!-- 1 Chronicles expansions: tribe heads and priestly line (selected highlights to avoid extreme size) -->
+    <script type="application/json" id="genealogy-extra-chronicles">
+    {
+      "people": [
+        {"id":"levi","name":"Levi","verses":["1 Chr 6:1"]},
+        {"id":"gershon","name":"Gershon","verses":["1 Chr 6:1"]},
+        {"id":"kohath","name":"Kohath","verses":["1 Chr 6:1"]},
+        {"id":"merari","name":"Merari","verses":["1 Chr 6:1"]},
+        {"id":"amram","name":"Amram","verses":["1 Chr 6:2"]},
+        {"id":"izhar","name":"Izhar","verses":["1 Chr 6:2"]},
+        {"id":"hebron_lev","name":"Hebron","verses":["1 Chr 6:2"]},
+        {"id":"uzziel","name":"Uzziel","verses":["1 Chr 6:2"]},
+        {"id":"miriam","name":"Miriam","verses":["1 Chr 6:3"]},
+        {"id":"aaron","name":"Aaron","verses":["1 Chr 6:3"]},
+        {"id":"moses","name":"Moses","verses":["1 Chr 6:3"]},
+        {"id":"nadab","name":"Nadab","verses":["1 Chr 6:3"]},
+        {"id":"abihu","name":"Abihu","verses":["1 Chr 6:3"]},
+        {"id":"eleazar_pr","name":"Eleazar","verses":["1 Chr 6:4"]},
+        {"id":"ithamar","name":"Ithamar","verses":["1 Chr 6:3"]},
+        {"id":"phinehas","name":"Phinehas","verses":["1 Chr 6:4"]},
+        {"id":"abishua","name":"Abishua","verses":["1 Chr 6:4"]},
+        {"id":"bukki","name":"Bukki","verses":["1 Chr 6:5"]},
+        {"id":"uzzi_pr","name":"Uzzi","verses":["1 Chr 6:5"]},
+        {"id":"zerahiah","name":"Zerahiah","verses":["1 Chr 6:6"]},
+        {"id":"meraioth","name":"Meraioth","verses":["1 Chr 6:6"]},
+        {"id":"amariah1","name":"Amariah","verses":["1 Chr 6:7"]},
+        {"id":"ahitub1","name":"Ahitub","verses":["1 Chr 6:7"]},
+        {"id":"zadok1","name":"Zadok","verses":["1 Chr 6:8"]},
+        {"id":"ahimaaz","name":"Ahimaaz","verses":["1 Chr 6:8"]},
+        {"id":"azariah1","name":"Azariah","verses":["1 Chr 6:9"]},
+        {"id":"johanan","name":"Johanan","verses":["1 Chr 6:9"]},
+        {"id":"azariah2","name":"Azariah","verses":["1 Chr 6:9-10"]},
+        {"id":"amariah2","name":"Amariah","verses":["1 Chr 6:11"]},
+        {"id":"ahitub2","name":"Ahitub","verses":["1 Chr 6:11"]},
+        {"id":"zadok2","name":"Zadok","verses":["1 Chr 6:12"]},
+        {"id":"shallum","name":"Shallum","verses":["1 Chr 6:12"]},
+        {"id":"hilkiah","name":"Hilkiah","verses":["1 Chr 6:13"]},
+        {"id":"azariah3","name":"Azariah","verses":["1 Chr 6:13"]},
+        {"id":"seraiah","name":"Seraiah","verses":["1 Chr 6:14"]},
+        {"id":"jehozadak","name":"Jehozadak","verses":["1 Chr 6:14-15"]},
+
+        {"id":"hur","name":"Hur","verses":["1 Chr 2:50"]},
+        {"id":"uri","name":"Uri","verses":["1 Chr 2:20","Ex 31:2"]},
+        {"id":"bezalel","name":"Bezalel","verses":["1 Chr 2:20","Ex 31:2"]},
+        {"id":"segub","name":"Segub","verses":["1 Chr 2:21"]},
+        {"id":"jair_gilead","name":"Jair","verses":["1 Chr 2:22"]},
+
+        {"id":"benjamin","name":"Benjamin","verses":["1 Chr 8:1"]},
+        {"id":"bela_ben","name":"Bela","verses":["1 Chr 8:1"]},
+        {"id":"ashbel","name":"Ashbel","verses":["1 Chr 8:1"]},
+        {"id":"aharrah","name":"Aharah","verses":["1 Chr 8:1"]},
+        {"id":"kish","name":"Kish","verses":["1 Chr 8:33"]},
+        {"id":"saul","name":"Saul","verses":["1 Chr 8:33"]},
+        {"id":"jonathan","name":"Jonathan","verses":["1 Chr 8:33"]},
+        {"id":"ish_bosheth","name":"Ish-bosheth (Esh-baal)","verses":["1 Chr 8:33"]},
+        {"id":"meribbaal","name":"Merib-baal (Mephibosheth)","verses":["1 Chr 8:34"]},
+
+        {"id":"reuben_head","name":"Reuben","verses":["1 Chr 5:3"]},
+        {"id":"hanoch","name":"Hanoch","verses":["1 Chr 5:3"]},
+        {"id":"pallu","name":"Pallu","verses":["1 Chr 5:3"]},
+        {"id":"hezron_r","name":"Hezron","verses":["1 Chr 5:3"]},
+        {"id":"carmi","name":"Carmi","verses":["1 Chr 5:3"]},
+
+        {"id":"gad_head","name":"Gad","verses":["1 Chr 5:11"]},
+        {"id":"zephon","name":"Zephon","verses":["Gen 46:16"]},
+        {"id":"haggi","name":"Haggi","verses":["Gen 46:16"]},
+        {"id":"shuni","name":"Shuni","verses":["Gen 46:16"]},
+        {"id":"ezbon","name":"Ezbon","verses":["Gen 46:16"]},
+        {"id":"eri","name":"Eri","verses":["Gen 46:16"]},
+        {"id":"arodi","name":"Arodi","verses":["Gen 46:16"]},
+        {"id":"areli","name":"Areli","verses":["Gen 46:16"]},
+
+        {"id":"naphtali_head","name":"Naphtali","verses":["1 Chr 7:13"]},
+        {"id":"jahzeel","name":"Jahzeel","verses":["1 Chr 7:13"]},
+        {"id":"guni","name":"Guni","verses":["1 Chr 7:13"]},
+        {"id":"jezer_n","name":"Jezer","verses":["1 Chr 7:13"]},
+        {"id":"shillem","name":"Shillem","verses":["1 Chr 7:13"]},
+
+        {"id":"manasseh_line","name":"Manasseh","verses":["1 Chr 7:14"]},
+        {"id":"machir","name":"Machir","verses":["1 Chr 7:14"]},
+        {"id":"gilead","name":"Gilead","verses":["1 Chr 7:14"]},
+
+        {"id":"ephraim_line","name":"Ephraim","verses":["1 Chr 7:20"]},
+        {"id":"shuthelah1","name":"Shuthelah","verses":["1 Chr 7:20"]},
+        {"id":"bered","name":"Bered","verses":["1 Chr 7:20"]},
+        {"id":"tahath1","name":"Tahath","verses":["1 Chr 7:20"]},
+        {"id":"eleadah","name":"Eleadah","verses":["1 Chr 7:20"]},
+        {"id":"tahath2","name":"Tahath","verses":["1 Chr 7:20"]},
+        {"id":"zabad","name":"Zabad","verses":["1 Chr 7:21"]},
+        {"id":"shuthelah2","name":"Shuthelah","verses":["1 Chr 7:21"]},
+        {"id":"ammihud","name":"Ammihud","verses":["1 Chr 7:26"]},
+        {"id":"elishama_e","name":"Elishama","verses":["1 Chr 7:26"]},
+        {"id":"nun","name":"Nun","verses":["1 Chr 7:27"]},
+        {"id":"joshua","name":"Joshua","verses":["1 Chr 7:27"]}
+      ],
+      "edges": [
+        {"parent":"levi","child":"gershon"},
+        {"parent":"levi","child":"kohath"},
+        {"parent":"levi","child":"merari"},
+        {"parent":"kohath","child":"amram"},
+        {"parent":"kohath","child":"izhar"},
+        {"parent":"kohath","child":"hebron_lev"},
+        {"parent":"kohath","child":"uzziel"},
+        {"parent":"amram","child":"miriam"},
+        {"parent":"amram","child":"aaron"},
+        {"parent":"amram","child":"moses"},
+        {"parent":"aaron","child":"nadab"},
+        {"parent":"aaron","child":"abihu"},
+        {"parent":"aaron","child":"eleazar_pr"},
+        {"parent":"aaron","child":"ithamar"},
+        {"parent":"eleazar_pr","child":"phinehas"},
+        {"parent":"phinehas","child":"abishua"},
+        {"parent":"abishua","child":"bukki"},
+        {"parent":"bukki","child":"uzzi_pr"},
+        {"parent":"uzzi_pr","child":"zerahiah"},
+        {"parent":"zerahiah","child":"meraioth"},
+        {"parent":"meraioth","child":"amariah1"},
+        {"parent":"amariah1","child":"ahitub1"},
+        {"parent":"ahitub1","child":"zadok1"},
+        {"parent":"zadok1","child":"ahimaaz"},
+        {"parent":"ahimaaz","child":"azariah1"},
+        {"parent":"azariah1","child":"johanan"},
+        {"parent":"johanan","child":"azariah2"},
+        {"parent":"azariah2","child":"amariah2"},
+        {"parent":"amariah2","child":"ahitub2"},
+        {"parent":"ahitub2","child":"zadok2"},
+        {"parent":"zadok2","child":"shallum"},
+        {"parent":"shallum","child":"hilkiah"},
+        {"parent":"hilkiah","child":"azariah3"},
+        {"parent":"azariah3","child":"seraiah"},
+        {"parent":"seraiah","child":"jehozadak"},
+
+        {"parent":"caleb","child":"hur"},
+        {"parent":"hur","child":"uri"},
+        {"parent":"uri","child":"bezalel"},
+        {"parent":"hezron","child":"segub"},
+        {"parent":"segub","child":"jair_gilead"},
+
+        {"parent":"benjamin","child":"bela_ben"},
+        {"parent":"benjamin","child":"ashbel"},
+        {"parent":"benjamin","child":"aharrah"},
+        {"parent":"kish","child":"saul"},
+        {"parent":"saul","child":"jonathan"},
+        {"parent":"saul","child":"ish_bosheth"},
+        {"parent":"jonathan","child":"meribbaal"},
+
+        {"parent":"reuben_head","child":"hanoch"},
+        {"parent":"reuben_head","child":"pallu"},
+        {"parent":"reuben_head","child":"hezron_r"},
+        {"parent":"reuben_head","child":"carmi"},
+
+        {"parent":"gad_head","child":"zephon"},
+        {"parent":"gad_head","child":"haggi"},
+        {"parent":"gad_head","child":"shuni"},
+        {"parent":"gad_head","child":"ezbon"},
+        {"parent":"gad_head","child":"eri"},
+        {"parent":"gad_head","child":"arodi"},
+        {"parent":"gad_head","child":"areli"},
+
+        {"parent":"naphtali_head","child":"jahzeel"},
+        {"parent":"naphtali_head","child":"guni"},
+        {"parent":"naphtali_head","child":"jezer_n"},
+        {"parent":"naphtali_head","child":"shillem"},
+
+        {"parent":"manasseh_line","child":"machir"},
+        {"parent":"machir","child":"gilead"},
+
+        {"parent":"ephraim_line","child":"shuthelah1"},
+        {"parent":"shuthelah1","child":"bered"},
+        {"parent":"bered","child":"tahath1"},
+        {"parent":"tahath1","child":"eleadah"},
+        {"parent":"eleadah","child":"tahath2"},
+        {"parent":"tahath2","child":"zabad"},
+        {"parent":"zabad","child":"shuthelah2"},
+        {"parent":"shuthelah2","child":"ammihud"},
+        {"parent":"ammihud","child":"elishama_e"},
+        {"parent":"elishama_e","child":"nun"},
+        {"parent":"nun","child":"joshua"}
+      ]
+    }
+    </script>
+
+    <script>
+        // Register plugins with checks
+        if (typeof ChartDataLabels !== 'undefined') {
+            Chart.register(ChartDataLabels);
+        }
+        if (typeof ChartZoom !== 'undefined') {
+            Chart.register(ChartZoom);
+        }
+
+        // Data remains the same
+        const lifespanData = [
+            { name: "Adam", birth: 0, death: 930, ref: "Gen 5:5", order: 1 },
+            { name: "Seth", birth: 130, death: 1042, ref: "Gen 5:8", order: 2 },
+            { name: "Enosh", birth: 235, death: 1140, ref: "Gen 5:11", order: 3 },
+            { name: "Kenan", birth: 325, death: 1235, ref: "Gen 5:14", order: 4 },
+            { name: "Mahalalel", birth: 395, death: 1290, ref: "Gen 5:17", order: 5 },
+            { name: "Jared", birth: 460, death: 1422, ref: "Gen 5:20", order: 6 },
+            { name: "Enoch", birth: 622, death: 987, ref: "Gen 5:23", order: 7 },
+            { name: "Methuselah", birth: 687, death: 1656, ref: "Gen 5:27", order: 8 },
+            { name: "Lamech", birth: 874, death: 1651, ref: "Gen 5:31", order: 9 },
+            { name: "Noah", birth: 1056, death: 2006, ref: "Gen 9:29", order: 10 },
+            { name: "Shem", birth: 1556, death: 2156, ref: "Gen 11:10-11", order: 11 },
+            { name: "Arphaxad", birth: 1658, death: 2096, ref: "Gen 11:13", order: 12 },
+            { name: "Shelah", birth: 1693, death: 2126, ref: "Gen 11:15", order: 13 },
+            { name: "Eber", birth: 1723, death: 2187, ref: "Gen 11:17", order: 14 },
+            { name: "Peleg", birth: 1757, death: 1996, ref: "Gen 11:19", order: 15 },
+            { name: "Reu", birth: 1787, death: 2026, ref: "Gen 11:21", order: 16 },
+            { name: "Serug", birth: 1819, death: 2049, ref: "Gen 11:23", order: 17 },
+            { name: "Nahor", birth: 1849, death: 1997, ref: "Gen 11:25", order: 18 },
+            { name: "Terah", birth: 1878, death: 2083, ref: "Gen 11:32", order: 19 },
+            { name: "Sarah", birth: 2018, death: 2145, ref: "Gen 23:1", order: 20 },
+            { name: "Abraham", birth: 2008, death: 2183, ref: "Gen 25:7", order: 21 },
+            { name: "Ishmael", birth: 2094, death: 2231, ref: "Gen 25:17", order: 22 },
+            { name: "Isaac", birth: 2108, death: 2288, ref: "Gen 35:28", order: 23 },
+            { name: "Jacob", birth: 2168, death: 2315, ref: "Gen 47:28", order: 24 },
+            { name: "Joseph", birth: 2259, death: 2369, ref: "Gen 50:26", order: 25 },
+            { name: "Aaron", birth: 2430, death: 2553, ref: "Num 33:39", order: 26 },
+            { name: "Moses", birth: 2433, death: 2553, ref: "Deut 34:7", order: 27 },
+            { name: "David", birth: 2964, death: 3034, ref: "2 Sam 5:4-5 (calculated 70)", order: 28 },
+            { name: "Rehoboam", birth: 3033, death: 3092, ref: "1 Ki 14:21; 11:42 (calculated 58)", order: 29 },
+            { name: "Jehoshaphat", birth: 3100, death: 3160, ref: "2 Chron 20:31 (calculated 60)", order: 30 },
+            { name: "Joash", birth: 3137, death: 3184, ref: "2 Chron 24:1 (calculated 47)", order: 31 },
+            { name: "Amaziah", birth: 3167, death: 3221, ref: "2 Chron 25:1 (calculated 54)", order: 32 },
+            { name: "Uzziah", birth: 3198, death: 3266, ref: "2 Ki 15:2 (calculated 68)", order: 33 },
+            { name: "Hezekiah", birth: 3254, death: 3308, ref: "2 Ki 18:2 (calculated 54)", order: 34 },
+            { name: "Manasseh", birth: 3281, death: 3348, ref: "2 Chron 33:1 (calculated 67)", order: 35 },
+            { name: "Josiah", birth: 3343, death: 3382, ref: "2 Chron 34:1 (calculated 39)", order: 36 },
+            { name: "Jehoiakim", birth: 3370, death: 3406, ref: "2 Ki 23:36 (calculated 36)", order: 37 },
+            { name: "Jehoiada", birth: 3067, death: 3197, ref: "2 Chron 24:15 (explicit 130)", order: 38 }
+        ];
+
+        // Extended Colors
+        const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40", "#C9CBCF", "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40", "#FF6384", "#C9CBCF", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40", "#FF6384", "#C9CBCF", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40", "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40", "#FF6384", "#C9CBCF", "#36A2EB", "#FFCE56", "#4BC0C0"];
+
+        // Key events (Anno Mundi)
+        const FLOOD_AM = 1656;
+        const peleg = lifespanData.find(p => p.name === 'Peleg');
+        const BABEL_AM = peleg ? (peleg.birth + peleg.death) / 2 : 1876.5;
+
+        // Function to update label font size based on zoom (safe getZoom check)
+        function updateLabelSize(chart) {
+            try {
+                if (typeof chart.getZoom !== 'function') return; // Skip if plugin not loaded
+                const zoomX = chart.getZoom().x || 1;
+                const zoomY = chart.getZoom().y || 1;
+                const zoomLevel = Math.sqrt(zoomX * zoomY);
+                const newSize = Math.max(8, 10 * zoomLevel);
+                if (chart.options.plugins.datalabels && chart.options.plugins.datalabels.font.size !== newSize) {
+                    chart.options.plugins.datalabels.font.size = newSize;
+                    chart.update('none');
+                }
+            } catch (e) {
+                console.log('Zoom update error:', e);
+            }
+        }
+
+        // Timeline Chart
+        const timelineCtx = document.getElementById('timeline-chart').getContext('2d');
+        const timelineChart = new Chart(timelineCtx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    ...lifespanData.map((person, index) => ({
+                        label: person.name,
+                        data: [
+                            { x: person.birth, y: index, name: person.name },
+                            { x: person.death, y: index, name: person.name }
+                        ],
+                        showLine: true,
+                        borderColor: colors[index % colors.length],
+                        backgroundColor: colors[index % colors.length],
+                        pointBackgroundColor: colors[index % colors.length],
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: false,
+                        tension: 0,
+                        borderWidth: 2
+                    })),
+                    {
+                        label: 'The Flood',
+                        isMarker: true,
+                        data: [
+                            { x: FLOOD_AM, y: -0.5 },
+                            { x: FLOOD_AM, y: lifespanData.length - 0.5 }
+                        ],
+                        showLine: true,
+                        borderColor: '#b22222',
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                        borderWidth: 2,
+                        borderDash: [6, 6],
+                        fill: false
+                    },
+                    {
+                        label: 'Tower of Babel (sometime during life of Peleg)',
+                        isMarker: true,
+                        data: [
+                            { x: BABEL_AM, y: -0.5 },
+                            { x: BABEL_AM, y: lifespanData.length - 0.5 }
+                        ],
+                        showLine: true,
+                        borderColor: '#8e44ad',
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                        borderWidth: 2,
+                        borderDash: [6, 6],
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: { display: true, text: 'Year AM (from Creation)' },
+                        min: 0,
+                        max: 3500
+                    },
+                    y: {
+                        type: 'linear',
+                        min: -0.5,
+                        max: lifespanData.length - 0.5,
+                        title: { display: true, text: 'Biblical Figures (ordered by birth year)' },
+                        ticks: {
+                            callback: function(value) {
+                                return lifespanData[Math.round(value)]?.name || '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        display: function(context) {
+                            return context.dataIndex === 0;
+                        },
+                        anchor: 'end',
+                        align: 'left',
+                        formatter: function(value, context) {
+                            return context.dataset.label;
+                        },
+                        font: { size: 10 },
+                        color: 'black'
+                    },
+                    zoom: {
+                        zoom: { 
+                            wheel: { enabled: false },
+                            pinch: { enabled: true }, 
+                            mode: 'xy',
+                            limits: {
+                                x: { min: 1, max: 20 },
+                                y: { min: 1, max: 20 }
+                            },
+                            onZoomComplete: function({chart}) {
+                                updateLabelSize(chart);
+                            }
+                        },
+                        pan: { enabled: true, mode: 'xy' }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataset && context.dataset.isMarker) {
+                                    const year = context.parsed.x;
+                                    const label = context.dataset.label || 'Marker';
+                                    return `${label}: ${year} AM`;
+                                }
+                                const person = lifespanData[context.datasetIndex];
+                                if (!person) return '';
+                                const isBirth = context.parsed.x === person.birth;
+                                const event = isBirth ? 'Birth' : 'Death';
+                                const year = context.parsed.x;
+                                return `${person.name}: ${event} in ${year} AM (${person.ref})`;
+                            }
+                        }
+                    }
+                },
+                interaction: { mode: 'nearest', intersect: false }
+            }
+        });
+
+        updateLabelSize(timelineChart);
+
+        // Scatter Chart
+        const scatterCtx = document.getElementById('scatter-chart').getContext('2d');
+        const scatterDataPoints = lifespanData.map((person, index) => ({
+            x: person.death,
+            y: person.death - person.birth,
+            name: person.name,
+            age: person.death - person.birth,
+            ref: person.ref,
+            order: person.order
+        }));
+
+        const scatterChart = new Chart(scatterCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Lifespans',
+                    data: scatterDataPoints,
+                    backgroundColor: colors.slice(0, lifespanData.length),
+                    borderColor: colors.slice(0, lifespanData.length),
+                    pointRadius: 5,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: { display: true, text: 'Death Year AM' },
+                        min: 900,
+                        max: 3500
+                    },
+                    y: {
+                        type: 'linear',
+                        title: { display: true, text: 'Age at Death (years)' },
+                        min: 0,
+                        max: 1000
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        display: true,
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: function(value, context) {
+                            return lifespanData[context.dataIndex].name || '';
+                        },
+                        font: { size: 10 },
+                        color: 'black',
+                        offset: 4
+                    },
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const point = context.raw;
+                                return `${point.name} (Order ${point.order}): ${point.age} years (${point.ref})`;
+                            }
+                        }
+                    },
+                    zoom: {
+                        zoom: { 
+                            wheel: { enabled: false },
+                            pinch: { enabled: true }, 
+                            mode: 'xy',
+                            limits: {
+                                x: { min: 1, max: 20 },
+                                y: { min: 1, max: 20 }
+                            },
+                            onZoomComplete: function({chart}) {
+                                updateLabelSize(chart);
+                            }
+                        },
+                        pan: { enabled: true, mode: 'xy' }
+                    }
+                },
+                interaction: { mode: 'nearest', intersect: false }
+            }
+        });
+
+        updateLabelSize(scatterChart);
+    </script>
+
+    <script>
+      (function(){
+        if (typeof d3 === 'undefined') { console.warn('D3 failed to load - genealogy tree not rendered'); return; }
+        const container = document.getElementById('genealogy-container');
+        if (!container) return;
+        const svg = d3.select('#genealogy-svg');
+        const tooltip = d3.select('#genealogy-tooltip');
+        const dataEl = document.getElementById('genealogy-data');
+        let raw;
+        try {
+          raw = JSON.parse((dataEl && dataEl.textContent) || '{}');
+        } catch (e) {
+          console.error('Invalid genealogy JSON', e);
+          return;
+        }
+        // Merge in any extra branching data
+        try {
+          const extraEl = document.getElementById('genealogy-extra');
+          if (extraEl) {
+            const extra = JSON.parse(extraEl.textContent || '{}');
+            if (extra) {
+              if (Array.isArray(extra.people)) raw.people = (raw.people || []).concat(extra.people);
+              if (Array.isArray(extra.edges)) raw.edges = (raw.edges || []).concat(extra.edges);
+            }
+          }
+          const extraChron = document.getElementById('genealogy-extra-chronicles');
+          if (extraChron) {
+            const extra2 = JSON.parse(extraChron.textContent || '{}');
+            if (extra2) {
+              if (Array.isArray(extra2.people)) raw.people = (raw.people || []).concat(extra2.people);
+              if (Array.isArray(extra2.edges)) raw.edges = (raw.edges || []).concat(extra2.edges);
+            }
+          }
+        } catch (e) {
+          console.warn('Invalid genealogy extra JSON', e);
+        }
+
+        // Convert edge list into a hierarchy if needed
+        function buildHierarchyFromEdges(raw) {
+          const peopleById = new Map();
+          (raw.people || []).forEach(p => {
+            peopleById.set(p.id, p);
+          });
+          const childrenMap = new Map();
+          (raw.edges || []).forEach(e => {
+            if (!childrenMap.has(e.parent)) childrenMap.set(e.parent, []);
+            childrenMap.get(e.parent).push(e.child);
+          });
+          const seen = new Set();
+          function buildNode(id) {
+            if (seen.has(id)) return null; // prevent accidental cycles
+            seen.add(id);
+            const p = peopleById.get(id) || { id, name: id };
+            const node = {
+              name: p.name || id,
+              birthAM: p.birthAM,
+              deathAM: p.deathAM,
+              verses: p.verses,
+              children: []
+            };
+            const childIds = childrenMap.get(id) || [];
+            node.children = childIds.map(buildNode).filter(Boolean);
+            return node;
+          }
+          return buildNode('adam');
+        }
+
+        const data = (raw && Array.isArray(raw.people) && Array.isArray(raw.edges)) ? buildHierarchyFromEdges(raw) : raw;
+
+        const width = container.clientWidth || 1200;
+        const height = container.clientHeight || 1200;
+        svg.attr('viewBox', [0, 0, width, height]);
+
+        const margin = { top: 40, right: 60, bottom: 40, left: 160 };
+        const gZoom = svg.append('g');
+
+        // Build hierarchy and layout
+        const root = d3.hierarchy(data);
+        const tree = d3.tree().nodeSize([28, 140]).separation((a, b) => (a.parent === b.parent ? 1.8 : 2.5)); // tuned spacing
+        tree(root);
+        initOriginalOrder(root);
+
+        // Center tree horizontally in initial view
+        const nodesList = root.descendants();
+        const x0 = d3.min(nodesList, d => d.x);
+        const x1 = d3.max(nodesList, d => d.x);
+        const innerWidth = width - margin.left - margin.right;
+        const initialTx = innerWidth / 2 - (x0 + x1) / 2;
+        const g = gZoom.append('g').attr('transform', `translate(${margin.left + initialTx},${margin.top})`);
+
+        const linkGen = d3.linkVertical().x(d=>d.x).y(d=>d.y);
+
+        function findByName(name){ return root.descendants().find(d => d.data.name === name); }
+        function pathSet(node){ return new Set(node ? node.ancestors() : []); }
+
+        // Ordering controls
+        let centerJesus = false;
+
+        function forEachChildrenArrays(d, cb){
+          if (d.children) cb(d.children, d);
+          if (d._children) cb(d._children, d);
+        }
+
+        function initOriginalOrder(root){
+          root.each(d => {
+            const map = new Map();
+            const list = [];
+            if (d.children) list.push(...d.children);
+            if (d._children) list.push(...d._children);
+            list.forEach((c, i) => map.set(c.data.name, i));
+            d._origOrder = map;
+          });
+        }
+
+        function markHasTarget(d, targetName){
+          let has = (d.data && d.data.name === targetName) ? true : false;
+          (d.children || []).forEach(c => { if (markHasTarget(c, targetName)) has = true; });
+          (d._children || []).forEach(c => { if (markHasTarget(c, targetName)) has = true; });
+          d._hasTarget = has;
+          return has;
+        }
+
+        function placeCenter(arr, predicate){
+          if (!arr || arr.length < 2) return;
+          const idx = arr.findIndex(predicate);
+          if (idx === -1) return;
+          const [child] = arr.splice(idx, 1);
+          const mid = Math.floor(arr.length / 2);
+          arr.splice(mid, 0, child);
+        }
+
+        function applyCentering(d, targetName){
+          forEachChildrenArrays(d, (arr) => placeCenter(arr, c => !!c._hasTarget));
+          (d.children || []).forEach(c => applyCentering(c, targetName));
+          (d._children || []).forEach(c => applyCentering(c, targetName));
+        }
+
+        function restoreOriginalOrder(){
+          root.each(d => {
+            const map = d._origOrder;
+            if (!map) return;
+            function sortByMap(arr){
+              if (!arr) return;
+              arr.sort((a,b) => (map.get(a.data.name) ?? 0) - (map.get(b.data.name) ?? 0));
+            }
+            sortByMap(d.children);
+            sortByMap(d._children);
+          });
+        }
+
+        function redraw() {
+          // Reorder before layout
+          if (centerJesus) {
+            markHasTarget(root, 'Jesus');
+            applyCentering(root, 'Jesus');
+          } else {
+            restoreOriginalOrder();
+          }
+
+          tree(root);
+          const jesusNode = findByName('Jesus');
+          const josephNode = findByName('Joseph (husband of Mary)');
+          const davidNode = findByName('David');
+          const jesusSet = pathSet(jesusNode);
+          const josephSet = pathSet(josephNode);
+          const combined = new Set([...jesusSet, ...(josephNode ? josephNode.ancestors() : [])]);
+          const davidSet = pathSet(davidNode);
+          const davidOnly = new Set([...davidSet].filter(n => !combined.has(n)));
+
+          g.selectAll('*').remove();
+
+          // Links
+          g.append('g')
+            .selectAll('path')
+            .data(root.links())
+            .join('path')
+            .attr('class', d => {
+              const classes = ['link'];
+              if (jesusSet.has(d.target)) classes.push('link-jesus');
+              else if (josephNode && josephNode.ancestors().includes(d.target)) classes.push('link-joseph');
+              else if (davidOnly.has(d.target)) classes.push('link-david');
+              return classes.join(' ');
+            })
+            .attr('d', linkGen);
+
+          // Overlay: connect Joseph to Jesus so both lineages terminate at Jesus
+          if (josephNode && jesusNode) {
+            g.append('g')
+              .attr('class', 'overlay-links')
+              .append('path')
+              .datum({ source: josephNode, target: jesusNode })
+              .attr('class', 'link link-jesus')
+              .attr('d', linkGen);
+          }
+
+          // Nodes
+          const nodesSel = g.append('g')
+            .selectAll('g')
+            .data(root.descendants())
+            .join('g')
+            .attr('class', d => {
+              const classes = ['node'];
+              if (jesusSet.has(d)) classes.push('node-jesus');
+              else if (josephNode && josephNode.ancestors().includes(d)) classes.push('node-joseph');
+              else if (davidOnly.has(d)) classes.push('node-david');
+              return classes.join(' ');
+            })
+            .attr('transform', d => `translate(${d.x},${d.y})`)
+            .on('click', (event, d) => {
+              if (d.children) { d._children = d.children; d.children = null; }
+              else if (d._children) { d.children = d._children; d._children = null; }
+              redraw();
+            });
+
+          nodesSel.append('circle').attr('r', 5);
+          nodesSel.append('text')
+            .attr('y', 8)
+            .attr('dy', '1.1em')
+            .attr('text-anchor', 'middle')
+            .text(d => d.data.name)
+            .style('pointer-events','none');
+
+          // Tooltips
+          function tooltipHTML(d){
+            const b = d.data.birthAM, de = d.data.deathAM;
+            const age = (b!=null && de!=null) ? (de-b) : null;
+            const lines = [];
+            lines.push(`<strong>${d.data.name}</strong>`);
+            if (b!=null || de!=null) lines.push(`AM: ${b!=null?b:'?'} – ${de!=null?de:'?'}`);
+            if (age!=null) lines.push(`Age: ${age}`);
+            if (Array.isArray(d.data.verses) && d.data.verses.length) lines.push(`Verses: ${d.data.verses.join(', ')}`);
+            return lines.join('<br>');
+          }
+
+          nodesSel
+            .on('mouseenter', (event, d) => { tooltip.style('opacity', 1).html(tooltipHTML(d)); })
+            .on('mousemove', (event) => {
+              const r = container.getBoundingClientRect();
+              tooltip.style('left', (event.clientX - r.left + 12) + 'px')
+                     .style('top', (event.clientY - r.top + 12) + 'px');
+            })
+            .on('mouseleave', () => { tooltip.style('opacity', 0); });
+        }
+
+        // Controls
+        function walk(d, fn){ fn(d); (d.children||[]).forEach(c=>walk(c, fn)); (d._children||[]).forEach(c=>walk(c, fn)); }
+        function collapseAll(){ walk(root, d => { if (d.children) { d._children = d.children; d.children = null; } }); redraw(); }
+        function expandAll(){ walk(root, d => { if (d._children) { d.children = d._children; d._children = null; } }); redraw(); }
+        function expandPathTo(name){
+          function find(d){ if (d.data.name===name) return d; for (const c of (d.children||[])) { const r=find(c); if (r) return r; } for (const c of (d._children||[])) { const r=find(c); if (r) return r; } return null; }
+          const t = find(root);
+          if (t){ t.ancestors().forEach(a=>{ if (a._children){ a.children=a._children; a._children=null; }}); }
+          redraw();
+        }
+
+        function centerOnNode(name, scale){
+          const target = findByName(name);
+          if (!target) return;
+          tree(root); // ensure positions are current
+          const current = d3.zoomTransform(svg.node());
+          const s = (typeof scale === 'number' && isFinite(scale) && scale > 0) ? scale : current.k;
+          const px = margin.left + initialTx + target.x;
+          const py = margin.top + target.y;
+          const tx = (width / 2) - s * px;
+          const ty = (height / 2) - s * py;
+          const transform = d3.zoomIdentity.translate(tx, ty).scale(s);
+          svg.call(zoom.transform, transform);
+        }
+
+        const btnExpandAll = document.getElementById('btn-expand-all');
+        const btnCollapseAll = document.getElementById('btn-collapse-all');
+        const btnExpandJesus = document.getElementById('btn-expand-jesus');
+        const btnFitAll = document.getElementById('btn-fit-all');
+        const btnCenterJesusView = document.getElementById('btn-center-jesus-view');
+        if (btnExpandAll) btnExpandAll.addEventListener('click', expandAll);
+        if (btnCollapseAll) btnCollapseAll.addEventListener('click', collapseAll);
+        if (btnExpandJesus) btnExpandJesus.addEventListener('click', () => expandPathTo('Jesus'));
+        if (btnFitAll) btnFitAll.addEventListener('click', () => fitToContent(60));
+        if (btnCenterJesusView) btnCenterJesusView.addEventListener('click', () => { expandPathTo('Jesus'); centerOnNode('Jesus'); });
+        const chkCenter = document.getElementById('chk-center-jesus');
+        if (chkCenter) chkCenter.addEventListener('change', () => { centerJesus = chkCenter.checked; redraw(); });
+
+        // Initial draw
+        redraw();
+
+        // Fit bounds into view on load
+        function fitToContent(padding = 40) {
+          try {
+            const bbox = g.node().getBBox();
+            if (!bbox || !isFinite(bbox.width) || !isFinite(bbox.height) || bbox.width === 0 || bbox.height === 0) return;
+            const fullWidth = width;
+            const fullHeight = height;
+            const midX = bbox.x + bbox.width / 2;
+            const midY = bbox.y + bbox.height / 2;
+            const scale = Math.min(
+              (fullWidth - 2 * padding) / bbox.width,
+              (fullHeight - 2 * padding) / bbox.height
+            );
+            const transform = d3.zoomIdentity
+              .translate(fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY)
+              .scale(scale);
+            svg.call(zoom.transform, transform);
+          } catch (e) {
+            // ignore
+          }
+        }
+
+        // Zoom & pan
+        const zoom = d3.zoom()
+          .scaleExtent([0.3, 3])
+          // Allow wheel, touch, and drag-pan zoom; only restrict to left-button for mouse drags
+          .filter((event) => {
+            if (event.type === 'mousedown' || event.type === 'pointerdown') {
+              return event.button === 0; // left-button only
+            }
+            return true; // allow wheel, touch, and other pointer events for zooming/panning
+          })
+          .on('zoom', (event) => {
+            gZoom.attr('transform', event.transform);
+          });
+        svg.call(zoom);
+
+        // Center after first render (allow DOM to layout)
+        if (typeof requestAnimationFrame === 'function') {
+          requestAnimationFrame(() => fitToContent(60));
+        } else {
+          setTimeout(() => fitToContent(60), 0);
+        }
+      })();
+    </script>
+    <script>
+      (function(){
+        // Population simulation
+        const startBtn = document.getElementById('sim-start');
+        if (!startBtn) return; // safety if section was removed
+        const stopBtn = document.getElementById('sim-stop');
+        const yearEl = document.getElementById('sim-year');
+        const totalEl = document.getElementById('sim-total');
+        const avgEl = document.getElementById('sim-avg-children');
+        const maxEl = document.getElementById('sim-max-children');
+        const speedSlider = document.getElementById('sim-speed');
+        const speedDisplay = document.getElementById('sim-speed-display');
+
+        // User-configurable settings
+        const marriageAgeInput = document.getElementById('sim-marriage-age');
+        const childEndInput = document.getElementById('sim-childbearing-end');
+        const yearsPerChildInput = document.getElementById('sim-years-per-child');
+        const malePercentInput = document.getElementById('sim-male-percent');
+
+        const SIM_START_YEAR = 1;
+        const SIM_END_YEAR = 930; // Adam's death
+        const YEARS_PER_TICK = 1; // 1 year of sim time per tick
+        let msPerTick = 1000; // real time between ticks
+
+        const viewport = document.getElementById('sim-viewport');
+        const canvas = document.getElementById('sim-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas(){
+          const rect = viewport.getBoundingClientRect();
+          const dpr = window.devicePixelRatio || 1;
+          canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+          canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+          canvas.style.width = rect.width + 'px';
+          canvas.style.height = rect.height + 'px';
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          draw();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        let currentYear = SIM_START_YEAR;
+        let people = [];
+        let peopleById = new Map();
+        let couples = []; // { maleId, femaleId, startYear, children }
+        let totalChildren = 0;
+        let nextId = 1;
+        let timer = null;
+        let running = false;
+        const MAX_DRAW = 20000; // render throttle only; stats still track everyone
+
+        const config = {
+          marriageAge: 20,
+          childEndAge: 50,
+          yearsPerChild: 2,
+          malePercent: 50
+        };
+
+        function fmtMs(ms){ return ms >= 1000 ? (ms/1000).toFixed(2) + 's' : ms + 'ms'; }
+        function restartTimer(){ if (timer) { clearInterval(timer); timer = setInterval(step, msPerTick); } }
+        function updateSpeedFromSlider(){
+          if (!speedSlider) return;
+          const raw = parseInt(speedSlider.value, 10) || 10;
+          // Map 10..1000 slider to 1000..10 ms so left=slow, right=fast
+          msPerTick = 1010 - Math.min(1000, Math.max(10, raw));
+          if (speedDisplay) speedDisplay.textContent = fmtMs(msPerTick);
+          if (running) restartTimer();
+        }
+        function readSettings(){
+          if (marriageAgeInput) config.marriageAge = Math.max(0, parseInt(marriageAgeInput.value, 10) || 20);
+          if (childEndInput) config.childEndAge = Math.max(0, parseInt(childEndInput.value, 10) || 50);
+          if (yearsPerChildInput) config.yearsPerChild = Math.max(1, parseInt(yearsPerChildInput.value, 10) || 2);
+          if (malePercentInput){
+            let v = parseFloat(malePercentInput.value);
+            if (!isFinite(v)) v = 50;
+            config.malePercent = Math.min(100, Math.max(0, v));
+          }
+        }
+
+        function randXY(){
+          const rect = viewport.getBoundingClientRect();
+          return { x: Math.random() * rect.width, y: Math.random() * rect.height };
+        }
+
+        function addPerson(sex, x, y, birthYear){
+          if (x == null || y == null){ const p = randXY(); x = p.x; y = p.y; }
+          const person = { id: nextId++, sex, x, y, birthYear, spouseId: null };
+          people.push(person);
+          peopleById.set(person.id, person);
+          return person;
+        }
+
+        function init(){
+          people = []; peopleById = new Map(); couples = []; totalChildren = 0; nextId = 1; currentYear = SIM_START_YEAR;
+          const rect = viewport.getBoundingClientRect();
+          const cx = rect.width / 2, cy = rect.height / 2;
+          addPerson('M', cx - 6, cy, currentYear); // red
+          addPerson('F', cx + 6, cy, currentYear); // blue
+          updateStats();
+          draw();
+          // seed chart
+          simPopChart.data.datasets[0].data = [{ x: currentYear, y: people.length }];
+          simPopChart.update('none');
+        }
+
+        function draw(){
+          if (!ctx) return;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const start = Math.max(0, people.length - MAX_DRAW);
+          for (let i = start; i < people.length; i++){
+            const p = people[i];
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+            ctx.fillStyle = (p.sex === 'M') ? '#d62828' : '#1d4ed8'; // male red, female blue
+            ctx.globalAlpha = 0.9;
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        function getAge(p){ return currentYear - p.birthYear; }
+        function shuffle(arr){ for (let i = arr.length - 1; i > 0; i--){ const j = (Math.random() * (i + 1)) | 0; [arr[i], arr[j]] = [arr[j], arr[i]]; } }
+        function clamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
+
+        function pairUpSingles(){
+          // Only pair singles who are within their childbearing window to avoid infertile matches
+          const males = people.filter(p => p.sex === 'M' && !p.spouseId && getAge(p) >= config.marriageAge);
+          const females = people.filter(p => p.sex === 'F' && !p.spouseId && getAge(p) >= config.marriageAge);
+
+          const fertileMales = males.filter(p => getAge(p) <= config.childEndAge);
+          const fertileFemales = females.filter(p => getAge(p) <= config.childEndAge);
+          shuffle(fertileMales); shuffle(fertileFemales);
+
+          const n = Math.min(fertileMales.length, fertileFemales.length);
+          const rect = viewport.getBoundingClientRect();
+          const sep = 6; // px separation between partners
+          for (let i = 0; i < n; i++){
+            const m = fertileMales[i], f = fertileFemales[i];
+            m.spouseId = f.id; f.spouseId = m.id;
+            // Co-locate pair side-by-side at the averaged position
+            const baseX = clamp(((m.x || 0) + (f.x || 0)) / 2, sep + 3, rect.width - sep - 3);
+            const baseY = clamp(((m.y || 0) + (f.y || 0)) / 2, 3, rect.height - 3);
+            m.x = baseX - sep; m.y = baseY;
+            f.x = baseX + sep; f.y = baseY;
+            couples.push({ maleId: m.id, femaleId: f.id, startYear: currentYear, lastBirthYear: currentYear, children: 0 });
+          }
+        }
+
+        function haveBirths(){
+          for (const c of couples){
+            const m = peopleById.get(c.maleId), f = peopleById.get(c.femaleId);
+            if (!m || !f) continue;
+            const mAge = getAge(m), fAge = getAge(f);
+            if (mAge < config.marriageAge || fAge < config.marriageAge) continue;
+            // Stop only once beyond the end age, not at the exact boundary
+            if (mAge > config.childEndAge || fAge > config.childEndAge) continue;
+            const last = (typeof c.lastBirthYear === 'number') ? c.lastBirthYear : c.startYear;
+            if ((currentYear - last) >= config.yearsPerChild){
+              const sex = (Math.random() * 100) < config.malePercent ? 'M' : 'F';
+              addPerson(sex, null, null, currentYear);
+              c.children += 1;
+              c.lastBirthYear = currentYear;
+              totalChildren += 1;
+            }
+          }
+        }
+
+        function updateStats(){
+          yearEl.textContent = String(currentYear);
+          totalEl.textContent = people.length.toLocaleString();
+          const avg = couples.length ? (totalChildren / couples.length) : 0;
+          avgEl.textContent = avg.toFixed(2);
+          const max = couples.length ? couples.reduce((m, c) => Math.max(m, c.children|0), 0) : 0;
+          if (maxEl) maxEl.textContent = String(max);
+        }
+
+        // Population chart
+        const popCtx = document.getElementById('sim-pop-chart').getContext('2d');
+        const simPopChart = new Chart(popCtx, {
+          type: 'line',
+          data: { datasets: [{
+            label: 'Population',
+            data: [{ x: SIM_START_YEAR, y: 2 }],
+            borderColor: '#2c3e50',
+            backgroundColor: '#2c3e50',
+            borderWidth: 2,
+            pointRadius: 0,
+            tension: 0,
+            fill: false
+          }] },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { type: 'linear', title: { display: true, text: 'Year AM' }, min: SIM_START_YEAR, max: SIM_END_YEAR },
+              y: { type: 'linear', title: { display: true, text: 'Total population' }, beginAtZero: true }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+
+        function pushPop(){
+          simPopChart.data.datasets[0].data.push({ x: currentYear, y: people.length });
+          simPopChart.update('none');
+        }
+
+        function step(){
+          const remaining = SIM_END_YEAR - currentYear;
+          if (remaining <= 0){ stop(); return; }
+          const stepYears = Math.min(YEARS_PER_TICK, remaining);
+          currentYear += stepYears; // 1-year per tick
+          pairUpSingles();
+          haveBirths();
+          updateStats();
+          draw();
+          pushPop();
+          if (currentYear >= SIM_END_YEAR) stop();
+        }
+
+        function start(){
+          if (running) return;
+          running = true;
+          startBtn.disabled = true;
+          stopBtn.disabled = false;
+          stopBtn.textContent = 'Stop';
+          if (people.length === 0 || currentYear === SIM_END_YEAR){
+            init();
+          }
+          timer = setInterval(step, msPerTick);
+        }
+
+        function stop(){
+          if (timer) clearInterval(timer);
+          timer = null;
+          running = false;
+          startBtn.disabled = false;
+          stopBtn.disabled = false;
+          stopBtn.textContent = 'Restart';
+        }
+
+        startBtn.addEventListener('click', () => {
+          if (canvas.width === 0 || canvas.height === 0) resizeCanvas();
+          if (people.length === 0) init();
+          start();
+        });
+        stopBtn.addEventListener('click', () => {
+          if (running) {
+            stop();
+          } else {
+            // Restart from initial state
+            init();
+            start();
+          }
+        });
+        if (speedSlider){ speedSlider.addEventListener('input', updateSpeedFromSlider); speedSlider.addEventListener('change', updateSpeedFromSlider); }
+        const settingsEls = [marriageAgeInput, childEndInput, yearsPerChildInput, malePercentInput];
+        settingsEls.forEach(el => { if (el) { el.addEventListener('input', readSettings); el.addEventListener('change', readSettings); }});
+
+        // initial sizing and seed state
+        resizeCanvas();
+        init();
+        updateSpeedFromSlider();
+        readSettings();
+      })();
+    </script>
+</body>
+</html>

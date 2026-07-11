@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "003-genesis3-4",
+  "slug": "003-genesis3-4",
+  "sectionId": "01-section-genesis1-11",
+  "sectionSlug": "01-section-genesis1-11",
+  "sequenceNumber": 3,
+  "lessonKind": "passage",
+  "title": "Genesis 3-4",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 3",
+  "endVerse": "Genesis 4",
+  "passage": {
+    "display": "Genesis 3-4",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 3,
+      "verse": null,
+      "raw": "Genesis3",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 4,
+      "verse": null,
+      "raw": "4",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 3",
+    "endVerse": "Genesis 4",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+3-4/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/003-genesis3-4/notes.md",
+    "sourcePath": "01-Section-Genesis1-11/003_Genesis3-4/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/003-genesis3-4/summary.md",
+    "sourcePath": "01-Section-Genesis1-11/003_Genesis3-4/003_Genesis3-4_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "01-Section-Genesis1-11/003_Genesis3-4/003_Genesis3-4.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/01-section-genesis1-11/003-genesis3-4/003_Genesis3-4.kmz",
+    "geoJsonPath": "apps/courses/public/maps/01-section-genesis1-11/003-genesis3-4/003_Genesis3-4.geojson",
+    "geoJsonPublicUrl": "/courses/maps/01-section-genesis1-11/003-genesis3-4/003_Genesis3-4.geojson",
+    "available": true,
+    "featureCount": 15,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "dZLpDLvluSE",
+    "title": "Know Your Bible - Week 3",
+    "url": "https://www.youtube.com/watch?v=dZLpDLvluSE&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 3,
+    "weekNumber": 3,
+    "durationText": "49:04",
+    "thumbnailUrl": "https://i.ytimg.com/vi/dZLpDLvluSE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDTCBNUqLZ5KtNtzR-Ot8ymw4jkMg"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "01-Section-Genesis1-11/003_Genesis3-4",
+    "folderName": "003_Genesis3-4",
+    "notesPath": "01-Section-Genesis1-11/003_Genesis3-4/notes.md",
+    "summaryDocxPath": "01-Section-Genesis1-11/003_Genesis3-4/003_Genesis3-4_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "01-Section-Genesis1-11/003_Genesis3-4/003_Genesis3-4.kmz"
+  }
+}

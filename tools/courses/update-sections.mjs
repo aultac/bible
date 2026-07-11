@@ -19,7 +19,7 @@ function printHelp() {
   console.log(`Usage: yarn courses:sections:update
 
 Scans the canonical Sunday School source tree and refreshes the git-tracked
-section manifests in src/content/courses/. Existing manual section metadata fields
+section manifests in apps/courses/content/. Existing manual section metadata fields
 already present in the repo are preserved when possible.`);
 }
 

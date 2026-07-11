@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "015-genesis31-33",
+  "slug": "015-genesis31-33",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 15,
+  "lessonKind": "passage",
+  "title": "Genesis 31-33",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 31",
+  "endVerse": "Genesis 33",
+  "passage": {
+    "display": "Genesis 31-33",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 31,
+      "verse": null,
+      "raw": "Genesis31",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 33,
+      "verse": null,
+      "raw": "33",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 31",
+    "endVerse": "Genesis 33",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+31-33/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/015-genesis31-33/notes.md",
+    "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/015-genesis31-33/summary.md",
+    "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/015_Genesis31-33_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/015_Genesis31-32.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/015-genesis31-33/015_Genesis31-32.kmz",
+    "geoJsonPath": "apps/courses/public/maps/02-section-genesis12-50/015-genesis31-33/015_Genesis31-32.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/015-genesis31-33/015_Genesis31-32.geojson",
+    "available": true,
+    "featureCount": 10,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "babylonbeeidea_JacobLeahValentine.jpg",
+      "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/resources/babylonbeeidea_JacobLeahValentine.jpg",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/015-genesis31-33/babylonbeeidea_JacobLeahValentine.jpg",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/015-genesis31-33/babylonbeeidea_JacobLeahValentine.jpg"
+    },
+    {
+      "name": "mandrake1.png",
+      "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/resources/mandrake1.png",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/015-genesis31-33/mandrake1.png",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/015-genesis31-33/mandrake1.png"
+    },
+    {
+      "name": "mandrake2.png",
+      "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/resources/mandrake2.png",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/015-genesis31-33/mandrake2.png",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/015-genesis31-33/mandrake2.png"
+    },
+    {
+      "name": "mandrake3.png",
+      "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/resources/mandrake3.png",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/015-genesis31-33/mandrake3.png",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/015-genesis31-33/mandrake3.png"
+    },
+    {
+      "name": "ron_swanson_valentine.JPG",
+      "sourcePath": "02-Section-Genesis12-50/015_Genesis31-33/resources/ron_swanson_valentine.JPG",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/015-genesis31-33/ron_swanson_valentine.JPG",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/015-genesis31-33/ron_swanson_valentine.JPG"
+    }
+  ],
+  "youtube": {
+    "videoId": "NHy1vTfOyQo",
+    "title": "Know Your Bible - Week 15",
+    "url": "https://www.youtube.com/watch?v=NHy1vTfOyQo&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 15,
+    "weekNumber": 15,
+    "durationText": "51:51",
+    "thumbnailUrl": "https://i.ytimg.com/vi/NHy1vTfOyQo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDz1FSUUVa5mTcQ1KI1O-qaLWg_qg"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Section-Genesis12-50/015_Genesis31-33",
+    "folderName": "015_Genesis31-33",
+    "notesPath": "02-Section-Genesis12-50/015_Genesis31-33/notes.md",
+    "summaryDocxPath": "02-Section-Genesis12-50/015_Genesis31-33/015_Genesis31-33_summary.docx",
+    "resourcesDirectory": "02-Section-Genesis12-50/015_Genesis31-33/resources",
+    "mapPath": "02-Section-Genesis12-50/015_Genesis31-33/015_Genesis31-32.kmz"
+  }
+}

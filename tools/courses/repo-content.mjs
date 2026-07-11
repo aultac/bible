@@ -39,15 +39,15 @@ const markdownConverter = new NodeHtmlMarkdown({
   codeBlockStyle: "fenced",
 });
 
-const CONTENT_ROOT = path.join(REPO_ROOT, "src", "content", "courses");
+const COURSES_APP_ROOT = path.join(REPO_ROOT, "apps", "courses");
+const CONTENT_ROOT = path.join(COURSES_APP_ROOT, "content");
 const BUCKETS_ROOT = path.join(CONTENT_ROOT, "sections");
 const PUBLIC_RESOURCES_ROOT = path.join(
-  REPO_ROOT,
+  COURSES_APP_ROOT,
   "public",
-  "courses",
   "resources"
 );
-const PUBLIC_MAPS_ROOT = path.join(REPO_ROOT, "public", "courses", "maps");
+const PUBLIC_MAPS_ROOT = path.join(COURSES_APP_ROOT, "public", "maps");
 const PLAYLIST_SNAPSHOT_PATH = path.join(CONTENT_ROOT, "playlist.json");
 
 const BUCKET_MANUAL_FIELDS = [
@@ -434,7 +434,7 @@ function buildSectionListEntry(sectionManifest) {
     endVerse: sectionManifest.endVerse,
     passage: sectionManifest.passage,
     lessonCount: sectionManifest.lessonCount,
-    sectionPath: `src/content/courses/sections/${sectionManifest.slug}/section.json`,
+    sectionPath: `apps/courses/content/sections/${sectionManifest.slug}/section.json`,
     sectionSummaryPath: sectionManifest.sectionSummary.path,
     source: sectionManifest.source,
   };
@@ -522,7 +522,7 @@ async function writeSectionManifests({
       startVerse: buildVerseString(lesson.passage?.start),
       endVerse: buildVerseString(lesson.passage?.end),
       passage: buildPassageRecord(lesson.passage),
-      lessonPath: `src/content/courses/sections/${section.slug}/lessons/${lesson.slug}/lesson.json`,
+      lessonPath: `apps/courses/content/sections/${section.slug}/lessons/${lesson.slug}/lesson.json`,
       notesAvailable: Boolean(lesson.notesSourcePath),
       summaryAvailable: Boolean(lesson.summaryDocxPath),
       resourceCount: lesson.resourceFiles.length,

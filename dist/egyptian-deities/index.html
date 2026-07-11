@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal-Headed Gods of the 18th Dynasty • Egyptian Deities Visual Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        :root {
+            --gold: #d4af37;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .egyptian-gold {
+            color: #d4af37;
+        }
+
+        .deity-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .deity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .section-header {
+            background: linear-gradient(to right, #1e2937, #334155);
+        }
+
+        .info-card {
+            background: #0f172a;
+            border: 1px solid #475569;
+        }
+
+        .god-image {
+            border: 8px solid #1e2937;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                       box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .god-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 35px 60px -15px rgb(0 0 0 / 0.5);
+        }
+
+        .nav-active {
+            color: #d4af37;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .hieroglyph-bg {
+            background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 fill=%22none%22%3E%3Cpath fill-rule=%22evenodd%22 clip-rule=%22evenodd%22 d=%22M30 0L60 30L30 60L0 30L30 0Z%22 fill=%22%23334155%22 fill-opacity=%22008%22/%3E%3C/svg%27');
+            background-size: 60px 60px;
+        }
+
+        /* Clean bright refresh */
+        body {
+            background: #f8fafc !important;
+            color: #172033 !important;
+        }
+
+        nav,
+        footer,
+        .deity-card,
+        .deity-card .bg-slate-950,
+        .deity-card .bg-slate-900,
+        .deity-card .bg-slate-800,
+        footer.bg-black {
+            background: #ffffff !important;
+        }
+
+        nav {
+            position: static !important;
+            border-bottom: 1px solid #d8dfec !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+        }
+
+        footer {
+            border-top: 1px solid #d8dfec !important;
+        }
+
+        .deity-card {
+            border: 1px solid #d8dfec !important;
+            border-radius: 2px !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+            margin-bottom: 2rem !important;
+        }
+
+        .scripture-callout {
+            background: #fffbeb;
+            border: 1px solid #f3d48b;
+            border-left: 6px solid #d97706;
+            color: #713f12;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 2rem;
+            font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+            line-height: 1.6;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+        }
+
+        .scripture-callout strong {
+            color: #172033;
+            font-weight: 800;
+        }
+
+        .scripture-callout cite {
+            display: block;
+            margin-top: 0.75rem;
+            color: #92400e;
+            font-size: 0.85rem;
+            font-style: normal;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .deity-card:hover,
+        .god-image:hover {
+            transform: none;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+        }
+
+        .god-image {
+            border: 1px solid #d8dfec !important;
+            border-radius: 2px !important;
+            box-shadow: none !important;
+            background: #ffffff;
+        }
+
+        .rounded-full,
+        .rounded-3xl,
+        .rounded-2xl {
+            border-radius: 2px !important;
+        }
+
+        .shadow-xl,
+        .shadow-2xl {
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+        }
+
+        .bg-gradient-to-br {
+            background-image: none !important;
+            background-color: #f8fafc !important;
+            border: 1px solid #d8dfec;
+        }
+
+        .text-slate-200,
+        .text-slate-300,
+        .text-slate-950 {
+            color: #172033 !important;
+        }
+
+        .text-slate-400,
+        .text-slate-500 {
+            color: #5f6b84 !important;
+        }
+
+        .border-slate-700,
+        .border-slate-800 {
+            border-color: #d8dfec !important;
+        }
+
+        .deity-card [class*="/10"] {
+            background-color: #f8fafc !important;
+        }
+
+        .deity-card .absolute.bottom-6.right-6 {
+            background: #ffffff !important;
+            color: #5f6b84 !important;
+            border: 1px solid #d8dfec;
+            backdrop-filter: none !important;
+        }
+
+        .deity-card a {
+            color: #2563eb !important;
+        }
+
+        .heading-serif {
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 768px) {
+            nav .max-w-screen-2xl,
+            #deities,
+            footer .max-w-screen-2xl {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+    <!-- Top Navigation -->
+    <nav class="bg-slate-900 border-b border-slate-700 sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-4">
+                <div class="w-11 h-11 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-ankh text-slate-950 text-3xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tighter heading-serif">18th Dynasty</h1>
+                    <p class="text-xs text-slate-400 -mt-1">New Kingdom • c. 1550–1292 BCE</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-x-8 text-sm">
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- Deities Section -->
+    <div id="deities" class="max-w-screen-2xl mx-auto px-8 pt-12 pb-20">
+        <p class="scripture-callout">
+            “because they exchanged the truth about God for a lie and <strong>worshiped and served the creature</strong> rather than the Creator, who is blessed forever! Amen.”
+            <cite>Romans 1:25</cite>
+        </p>
+        <!-- Deity 1: Amun-Ra -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <!-- Info Card -->
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-amber-400/10 text-amber-400 text-xs font-bold tracking-[1px] rounded-full">SUPREME GOD</div>
+                            <div class="text-xs text-slate-500">Thebes • Karnak</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Amun-Ra</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-paw text-amber-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-amber-300">Ram</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Primary sacred animal of Amun-Ra; ram-headed sphinxes lined the processional ways at Karnak.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">Sacrificing a ram or lamb was viewed as a direct attack on the visible form of Egypt’s supreme national deity during the 18th Dynasty.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Ram-Sphinx_of_Amun-Ra.jpg" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Large Image -->
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Ram-Sphinx_of_Amun-Ra.jpg" target="_blank" class="block w-full max-w-[620px]">
+                        <img src="assets/Ram-Sphinx_of_Amun-Ra.jpg" 
+                             alt="Ram-headed sphinx of Amun-Ra at Karnak, 18th Dynasty"
+                             class="god-image w-full h-auto max-h-[520px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">Karnak • New Kingdom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deity 6: Hathor -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-pink-400/10 text-pink-400 text-xs font-bold tracking-[1px] rounded-full">LOVE • MOTHERHOOD</div>
+                            <div class="text-xs text-slate-500">Dendera • Theban Tombs</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Hathor</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-cow text-pink-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-pink-300">Cow</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Cow-headed or woman with cow horns and sun disk — goddess of joy and the afterlife.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">Explicit 18th-Dynasty cow form. Cows were generally protected as sacred to Hathor/Isis, making any related sacrifice provocative.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Head_of_a_Cow_Goddess_(Hathor_or_Mehetweret)_MET_DP317925.jpg" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Head_of_a_Cow_Goddess_(Hathor_or_Mehetweret)_MET_DP317925.jpg" target="_blank" class="block w-full max-w-[580px]">
+                        <img src="assets/Head_of_a_Cow_Goddess_-Hathor_or_Mehetweret-_MET_DP317925.jpg" 
+                             alt="Head of Hathor cow goddess, 18th Dynasty, Amenhotep III era"
+                             class="god-image w-full h-auto max-h-[520px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">MET • Amenhotep III</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deity 9: Ptah / Apis -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-emerald-400/10 text-emerald-400 text-xs font-bold tracking-[1px] rounded-full">CREATOR • CRAFTSMANSHIP</div>
+                            <div class="text-xs text-slate-500">Memphis • Serapeum</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Ptah (Apis Bull)</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-bull text-emerald-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-emerald-300">Bull</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Living Apis bull as the sacred manifestation of Ptah in Memphis.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4"><strong>Direct link to Hebrew sacrifice:</strong> The Hebrews’ offering of bulls and calves targeted the sacred living embodiment of the creator god Ptah — one of the most explicit “abominations” possible.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Apis_Bull_Statue_(photo_by_Carolyn_Whitson).png" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Apis_Bull_Statue_(photo_by_Carolyn_Whitson).png" target="_blank" class="block w-full max-w-[580px]">
+                        <img src="assets/Apis_Bull_Statue_-photo_by_Carolyn_Whitson-.png" 
+                             alt="Statue of the Apis bull, Memphis cult"
+                             class="god-image w-full h-auto max-h-[520px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">Memphis • New Kingdom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Deity 2: Ra-Horakhty -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-orange-400/10 text-orange-400 text-xs font-bold tracking-[1px] rounded-full">SOLAR GOD</div>
+                            <div class="text-xs text-slate-500">Universal • Heliopolis</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Ra-Horakhty</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-dove text-orange-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-orange-300">Falcon</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Falcon-headed man with sun disk — the rising sun and cosmic order.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">One of the most common depictions of the sun god. Hebrew burnt offerings stood in stark contrast to Ra’s daily solar journey.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Re-Horakhty.svg" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Re-Horakhty.svg" target="_blank" class="block w-full max-w-[520px]">
+                        <img src="assets/Re-Horakhty.svg" 
+                             alt="Ra-Horakhty falcon-headed sun god"
+                             class="god-image w-full h-auto max-h-[480px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">New Kingdom style</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deity 3: Horus -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-sky-400/10 text-sky-400 text-xs font-bold tracking-[1px] rounded-full">KINGSHIP • SKY</div>
+                            <div class="text-xs text-slate-500">Edfu • National Protector</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Horus</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-dove text-sky-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-sky-300">Falcon</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Falcon-headed or full falcon — god of kingship and the sky.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">This 18th-Dynasty statue (Amenhotep II era) shows the falcon form directly tied to pharaonic legitimacy — the very kingship the plagues challenged.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Horus_R01.jpg" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Horus_R01.jpg" target="_blank" class="block w-full max-w-[520px]">
+                        <img src="assets/Horus_R01.jpg" 
+                             alt="Statue of Horus, reign of Amenhotep II"
+                             class="god-image w-full h-auto max-h-[520px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">c. 1400 BCE • Amenhotep II</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deity 4: Anubis -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-zinc-400/10 text-zinc-400 text-xs font-bold tracking-[1px] rounded-full">FUNERARY • EMBALMING</div>
+                            <div class="text-xs text-slate-500">Tombs • Afterlife</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Anubis</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-paw text-zinc-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-zinc-300">Jackal</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Jackal-headed god of mummification and guardian of the dead.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">Iconic in New Kingdom tomb art. Burning animals in sacrifice would have contrasted sharply with Anubis’s role in preserving the body for eternity.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Anubis_jackal.svg" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Anubis_jackal.svg" target="_blank" class="block w-full max-w-[480px]">
+                        <img src="assets/Anubis_jackal.svg" 
+                             alt="Anubis as jackal, New Kingdom style"
+                             class="god-image w-full h-auto max-h-[480px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">New Kingdom tomb art</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deity 5: Thoth -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-teal-400/10 text-teal-400 text-xs font-bold tracking-[1px] rounded-full">WISDOM • WRITING</div>
+                            <div class="text-xs text-slate-500">Hermopolis • Scribe of the Gods</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Thoth</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-feather text-teal-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-teal-300">Ibis</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Ibis-headed god of wisdom, hieroglyphs, and the moon.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">Another sacred bird form. Part of the broader Egyptian worldview in which animals embodied divine intelligence and cosmic order.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Thoth.svg" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Thoth.svg" target="_blank" class="block w-full max-w-[480px]">
+                        <img src="assets/Thoth.svg" 
+                             alt="Thoth ibis-headed god"
+                             class="god-image w-full h-auto max-h-[480px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">New Kingdom style</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deity 7: Sekhmet -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-red-400/10 text-red-400 text-xs font-bold tracking-[1px] rounded-full">WAR • HEALING</div>
+                            <div class="text-xs text-slate-500">Thebes • Mut Temple</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Sekhmet</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-paw text-red-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-red-300">Lioness</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Lioness-headed “Eye of Ra” — fierce protector and bringer of pestilence.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">Hundreds of these statues were commissioned by Amenhotep III alone. The lioness embodied raw divine power and danger.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:Sekhmet_statues_Louvre.JPG" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:Sekhmet_statues_Louvre.JPG" target="_blank" class="block w-full max-w-[620px]">
+                        <img src="assets/Sekhmet_statues_Louvre.JPG" 
+                             alt="Sekhmet lioness-headed statues, 18th Dynasty"
+                             class="god-image w-full h-auto max-h-[520px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">Louvre • Amenhotep III cache</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deity 8: Khonsu -->
+        <div class="deity-card bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden mb-12 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <div class="lg:col-span-5 p-10 lg:p-12 flex flex-col">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="px-4 py-1 bg-violet-400/10 text-violet-400 text-xs font-bold tracking-[1px] rounded-full">MOON • HEALING</div>
+                            <div class="text-xs text-slate-500">Theban Triad • Karnak</div>
+                        </div>
+                        
+                        <h4 class="text-5xl heading-serif tracking-tighter mb-3">Khonsu</h4>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center gap-x-2 mb-1">
+                                <i class="fa-solid fa-dove text-violet-400 w-4"></i>
+                                <span class="font-semibold text-lg">Animal Form: <span class="text-violet-300">Falcon</span></span>
+                            </div>
+                            <p class="text-slate-400 text-sm">Son of Amun and Mut; falcon aspects link him to the solar-lunar complex.</p>
+                        </div>
+                        
+                        <div class="prose prose-sm text-slate-300">
+                            <p class="mb-4">Completes the powerful Theban Triad. Another falcon deity whose sacred birds were part of the protected animal world.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-slate-700">
+                        <a href="https://commons.wikimedia.org/wiki/File:KhonsuTemple-Karnak-Khonsu.jpg" target="_blank"
+                           class="group inline-flex items-center text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors">
+                            VIEW FULL IMAGE ON WIKIMEDIA COMMONS 
+                            <i class="fa-solid fa-external-link-alt ml-2 text-xs group-hover:translate-x-0.5 transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-slate-950 relative flex items-center justify-center p-8 lg:p-10">
+                    <a href="https://commons.wikimedia.org/wiki/File:KhonsuTemple-Karnak-Khonsu.jpg" target="_blank" class="block w-full max-w-[580px]">
+                        <img src="assets/KhonsuTemple-Karnak-Khonsu.jpg" 
+                             alt="Khonsu relief at Karnak Temple, New Kingdom"
+                             class="god-image w-full h-auto max-h-[520px] object-contain rounded-2xl shadow-2xl"
+                             loading="lazy">
+                    </a>
+                    <div class="absolute bottom-6 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-image text-amber-400"></i>
+                        <span class="font-mono tracking-widest">Karnak Temple • New Kingdom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-slate-800">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center text-xs text-slate-500">
+            All images sourced from Wikimedia Commons (public domain / CC). 
+            Created for educational exploration of 18th Dynasty Egyptian religion and the biblical Exodus narrative.<br>
+            <span class="mt-1 inline-block">Sources: Wilkinson, Hornung, British Museum, Louvre, MET • 18th Dynasty context ~1446 BCE</span>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent-gold', '#d4af37');
+        }
+        
+        // Smooth scroll for nav links
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Keyboard accessibility for images
+        function setupKeyboardNav() {
+            document.querySelectorAll('.god-image').forEach(img => {
+                img.setAttribute('tabindex', '0');
+                img.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const link = this.closest('a');
+                        if (link) link.click();
+                    }
+                });
+            });
+        }
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            setupSmoothScroll();
+            setupKeyboardNav();
+            
+            // Easter egg: Press 'e' for Exodus highlight
+            document.addEventListener('keydown', function(e) {
+                if (e.key.toLowerCase() === 'e') {
+                    const banner = document.querySelector('.bg-slate-900.border-y');
+                    if (banner) {
+                        banner.style.transition = 'all 0.3s';
+                        banner.style.boxShadow = '0 0 30px rgba(245, 158, 11, 0.3)';
+                        setTimeout(() => {
+                            banner.style.boxShadow = 'none';
+                        }, 1200);
+                    }
+                }
+            });
+            
+            console.log('%c[Egyptian Deities] 18th Dynasty visual guide initialized successfully.', 'color:#64748b');
+        }
+        
+        window.onload = init;
+    </script>
+</body>
+</html>

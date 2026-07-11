@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-16T21:17:15.258Z",
+  "id": "021-genesis44-45",
+  "slug": "021-genesis44-45",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 21,
+  "lessonKind": "passage",
+  "title": "Genesis 44-45",
+  "description": "",
+  "status": "published",
+  "startVerse": "Genesis 44",
+  "endVerse": "Genesis 45",
+  "passage": {
+    "display": "Genesis 44-45",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 44,
+      "verse": null,
+      "raw": "Genesis44",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 45,
+      "verse": null,
+      "raw": "45",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 44",
+    "endVerse": "Genesis 45",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+44-45/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/021-genesis44-45/notes.md",
+    "sourcePath": "02-Section-Genesis12-50/021_Genesis44-45/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/021-genesis44-45/summary.md",
+    "sourcePath": "02-Section-Genesis12-50/021_Genesis44-45/021_Genesis44-45_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Section-Genesis12-50/021_Genesis44-45/021_Genesis44-45_24.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/021-genesis44-45/021_Genesis44-45_24.kmz",
+    "geoJsonPath": "apps/courses/public/maps/02-section-genesis12-50/021-genesis44-45/021_Genesis44-45_24.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/021-genesis44-45/021_Genesis44-45_24.geojson",
+    "available": true,
+    "featureCount": 5,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "1-Inclusios.docx",
+      "sourcePath": "02-Section-Genesis12-50/021_Genesis44-45/resources/1-Inclusios.docx",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/021-genesis44-45/1-Inclusios.docx",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/021-genesis44-45/1-Inclusios.docx"
+    },
+    {
+      "name": "2-Inclusios.docx",
+      "sourcePath": "02-Section-Genesis12-50/021_Genesis44-45/resources/2-Inclusios.docx",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/021-genesis44-45/2-Inclusios.docx",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/021-genesis44-45/2-Inclusios.docx"
+    },
+    {
+      "name": "3-Inclusios.docx",
+      "sourcePath": "02-Section-Genesis12-50/021_Genesis44-45/resources/3-Inclusios.docx",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/021-genesis44-45/3-Inclusios.docx",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/021-genesis44-45/3-Inclusios.docx"
+    }
+  ],
+  "youtube": {
+    "videoId": "A7rCRbhtLL8",
+    "title": "Know Your Bible - Week 21",
+    "url": "https://www.youtube.com/watch?v=A7rCRbhtLL8&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 21,
+    "weekNumber": 21,
+    "durationText": "51:48",
+    "thumbnailUrl": "https://i.ytimg.com/vi/A7rCRbhtLL8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAdgkkef7fqNihB1w54ZFjBGA8JDg"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Section-Genesis12-50/021_Genesis44-45",
+    "folderName": "021_Genesis44-45",
+    "notesPath": "02-Section-Genesis12-50/021_Genesis44-45/notes.md",
+    "summaryDocxPath": "02-Section-Genesis12-50/021_Genesis44-45/021_Genesis44-45_summary.docx",
+    "resourcesDirectory": "02-Section-Genesis12-50/021_Genesis44-45/resources",
+    "mapPath": "02-Section-Genesis12-50/021_Genesis44-45/021_Genesis44-45_24.kmz"
+  }
+}

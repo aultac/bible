@@ -19,8 +19,8 @@ function printHelp() {
   console.log(`Usage: yarn courses:update
 
 Scans the canonical Sunday School source tree and regenerates the git-tracked
-course content in src/content/courses/ plus copied lesson resources in
-public/courses/resources/. Notes markdown is copied from the approved canonical
+course content in apps/courses/content/ plus copied lesson resources in
+apps/courses/public/resources/. Notes markdown is copied from the approved canonical
 notes.md backups, summary .docx files are converted to summary.md, lesson-root
 KMZ files are converted into GeoJSON map assets, and the configured YouTube
 playlist snapshot is refreshed and matched to lessons by week number.`);
