@@ -3,22 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ten Plagues of Exodus • Egyptian Gods Visual Guide</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta name="theme-color" content="#111827">
+    <title>The Ten Plagues of Exodus • Presentation Guide</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
-
         :root {
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --ink: #172033;
-            --muted: #5f6b84;
-            --border: #d8dfec;
-            --accent: #d97706;
-            --accent-soft: #fff7ed;
-            --blue: #2563eb;
-            --shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+            --ink: #111827;
+            --paper: #f5f2ea;
+            --card: #fffdf8;
+            --gold: #d6a542;
+            --gold-light: #f6d98d;
+            --muted: #6b7280;
+            --line: rgba(255, 255, 255, 0.14);
+            --header-height: 144px;
         }
 
         * {
@@ -31,777 +27,1375 @@
 
         body {
             margin: 0;
-            background: var(--bg);
+            background: var(--paper);
             color: var(--ink);
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
+        button,
         a {
-            color: var(--blue);
+            font: inherit;
         }
 
-        .heading-serif {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 700;
-            letter-spacing: -0.01em;
+        button {
+            border: 0;
         }
 
-        nav {
-            background: #ffffff;
-            border-bottom: 1px solid var(--border);
-            box-shadow: var(--shadow);
+        button:focus-visible,
+        a:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 3px solid var(--gold-light);
+            outline-offset: 3px;
         }
 
-        .page-shell {
-            width: min(1536px, calc(100vw - 32px));
+        .site-header {
+            position: sticky;
+            z-index: 50;
+            top: 0;
+            color: #ffffff;
+            background: var(--ink);
+            box-shadow: 0 8px 30px rgba(17, 24, 39, 0.25);
+        }
+
+        .header-main {
+            display: flex;
+            min-height: 70px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            width: min(1600px, calc(100% - 40px));
             margin: 0 auto;
         }
 
-        .hero {
-            margin: 32px auto 28px;
-            background: #ffffff;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            padding: clamp(22px, 4vw, 44px);
+        .brand {
+            display: flex;
+            flex: 1 1 auto;
+            min-width: 0;
+            align-items: center;
+            gap: 13px;
+            color: inherit;
         }
 
-        .hero-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 10px;
-            border: 1px solid var(--border);
-            background: var(--accent-soft);
-            color: #9a3412;
-            font-size: 0.76rem;
-            font-weight: 700;
-            letter-spacing: 0.13em;
+        .brand-mark {
+            display: grid;
+            flex: 0 0 auto;
+            width: 40px;
+            height: 40px;
+            place-items: center;
+            border: 1px solid rgba(246, 217, 141, 0.45);
+            color: var(--gold-light);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.55rem;
+        }
+
+        .brand-copy {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .brand-heading {
+            display: flex;
+            min-width: 0;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .brand-number {
+            flex: 0 0 auto;
+            color: var(--gold-light);
+            font-size: 0.66rem;
+            font-weight: 900;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            margin-bottom: 14px;
         }
 
-        .hero h2 {
-            margin: 0 0 12px;
-            font-size: clamp(2.2rem, 4vw, 4.8rem);
-            line-height: 0.95;
-        }
-
-        .hero p {
+        .brand-title {
+            display: block;
+            min-width: 0;
             margin: 0;
-            max-width: 900px;
-            color: var(--muted);
-            font-size: clamp(0.98rem, 1.2vw, 1.12rem);
-            line-height: 1.65;
+            overflow: hidden;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.2rem, 2vw, 1.7rem);
+            line-height: 1.1;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .hero-note {
-            margin-top: 18px;
-            padding: 13px 15px;
-            border-left: 4px solid var(--accent);
-            background: #fffbeb;
-            color: #713f12;
-            font-size: 0.92rem;
-            line-height: 1.55;
+        .brand-subtitle {
+            display: block;
+            margin-top: 2px;
+            color: #aeb7c6;
+            font-size: 0.67rem;
+            font-weight: 700;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
         }
 
-        .quick-nav {
+        .utility-links {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 22px;
+            align-items: center;
+            gap: 20px;
         }
 
-        .quick-nav a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        .utility-links a {
+            color: #d6dbe4;
+            font-size: 0.82rem;
+            font-weight: 700;
             text-decoration: none;
-            border: 1px solid var(--border);
-            background: #ffffff;
-            color: var(--muted);
-            padding: 6px 9px;
-            font-size: 0.78rem;
-            font-weight: 600;
         }
 
-        .quick-nav a:hover {
-            color: var(--ink);
-            border-color: #94a3b8;
-            background: #f8fafc;
+        .utility-links a:hover {
+            color: var(--gold-light);
         }
 
-        #plagues {
-            padding: 0 0 40px;
+        .desktop-tabs {
+            display: grid;
+            grid-template-columns: repeat(10, minmax(0, 1fr));
+            width: 100%;
+            border-top: 1px solid var(--line);
         }
 
-        .plague-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            margin-bottom: 32px;
+        .plague-tab {
+            position: relative;
+            min-width: 0;
+            min-height: 73px;
+            padding: 11px 8px 12px;
+            border-right: 1px solid var(--line);
+            color: #c8ced8;
+            background: transparent;
+            cursor: pointer;
+            text-align: center;
+            transition: color 160ms ease, background 160ms ease;
         }
 
-        @media (min-width: 1024px) {
-            .plague-card {
-                display: grid;
-                grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
-            }
+        .plague-tab:last-child {
+            border-right: 0;
         }
 
-        .plague-info {
-            padding: clamp(22px, 3vw, 42px);
-            border-bottom: 1px solid var(--border);
+        .plague-tab::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            content: "";
+            background: transparent;
         }
 
-        @media (min-width: 1024px) {
-            .plague-info {
-                border-bottom: 0;
-                border-right: 1px solid var(--border);
-            }
+        .plague-tab:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.06);
         }
 
-        .eyebrow-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 9px;
-            margin-bottom: 16px;
+        .plague-tab[aria-selected="true"] {
+            color: var(--gold-light);
+            background: rgba(214, 165, 66, 0.12);
         }
 
-        .plague-number {
-            display: inline-flex;
-            width: 36px;
-            height: 36px;
+        .plague-tab[aria-selected="true"]::after {
+            background: var(--gold);
+        }
+
+        .tab-number {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--gold);
+            font-size: 0.68rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+        }
+
+        .tab-name {
+            display: block;
+            overflow: hidden;
+            font-size: clamp(0.64rem, 0.78vw, 0.76rem);
+            font-weight: 750;
+            line-height: 1.15;
+            text-overflow: ellipsis;
+        }
+
+        .mobile-trigger {
+            display: none;
             align-items: center;
             justify-content: center;
-            background: #0f172a;
-            color: #f8fafc;
-            font-weight: 800;
-            font-size: 0.86rem;
-            letter-spacing: 0.04em;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            background: transparent;
+            cursor: pointer;
         }
 
-        .badge {
-            display: inline-flex;
+        .mobile-trigger svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-width: 2;
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .presentation {
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        .billboard {
+            position: relative;
+            display: grid;
+            width: 100%;
+            height: clamp(520px, calc(100svh - var(--header-height)), 920px);
+            min-height: 520px;
+            place-items: center;
+            overflow: hidden;
+            color: #ffffff;
+            background: #030712;
+            isolation: isolate;
+        }
+
+        .billboard-image {
+            position: absolute;
+            z-index: -3;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #030712;
+        }
+
+
+        .carousel-button {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            display: grid;
+            width: clamp(46px, 5vw, 62px);
+            height: clamp(46px, 5vw, 62px);
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            color: #ffffff;
+            background: rgba(3, 7, 18, 0.58);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+        }
+
+        .carousel-button:hover {
+            color: var(--ink);
+            background: var(--gold-light);
+            transform: translateY(-50%) scale(1.04);
+        }
+
+        .carousel-button.previous {
+            left: clamp(14px, 3vw, 42px);
+        }
+
+        .carousel-button.next {
+            right: clamp(14px, 3vw, 42px);
+        }
+
+        .carousel-button svg {
+            width: 27px;
+            height: 27px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2;
+        }
+
+        .carousel-status {
+            position: absolute;
+            right: 0;
+            bottom: clamp(24px, 4vw, 48px);
+            left: 0;
+            display: flex;
             align-items: center;
-            gap: 7px;
-            border: 1px solid var(--border);
-            background: #f8fafc;
-            color: var(--muted);
-            padding: 6px 9px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            justify-content: center;
+            gap: 13px;
+        }
+
+        .carousel-count {
+            min-width: 48px;
+            color: #ffffff;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-align: center;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+        }
+
+        .carousel-dot[aria-current="true"] {
+            border-color: var(--gold-light);
+            background: var(--gold-light);
+            transform: scale(1.2);
+        }
+
+        .gods-section {
+            padding: clamp(52px, 7vw, 92px) 20px clamp(64px, 8vw, 110px);
+            background:
+                radial-gradient(circle at top left, rgba(214, 165, 66, 0.12), transparent 36%),
+                var(--paper);
+        }
+
+        .gods-shell {
+            width: min(1260px, 100%);
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: clamp(28px, 4vw, 45px);
+        }
+
+        .section-eyebrow {
+            margin: 0 0 8px;
+            color: #9a6700;
+            font-size: 0.74rem;
+            font-weight: 900;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2rem, 4.5vw, 4.5rem);
+            line-height: 1;
+            letter-spacing: -0.035em;
+        }
+
+
+        .god-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: clamp(18px, 2.5vw, 30px);
+        }
+
+        .god-grid.single {
+            width: 100%;
+            max-width: 540px;
+            grid-template-columns: minmax(0, 1fr);
+            margin: 0 auto;
+        }
+
+        .god-card {
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #ded7c7;
+            background: var(--card);
+            box-shadow: 0 14px 38px rgba(17, 24, 39, 0.09);
+        }
+
+        .god-image-link,
+        .god-image-shell {
+            position: relative;
+            display: grid;
+            height: clamp(480px, 52vw, 680px);
+            place-items: center;
+            overflow: hidden;
+            border-bottom: 1px solid #ded7c7;
+            background:
+                linear-gradient(135deg, rgba(214, 165, 66, 0.12), rgba(255, 255, 255, 0.82)),
+                #eee8da;
+        }
+
+        .god-image-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .god-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 18px;
+            object-fit: contain;
+            transition: transform 220ms ease;
+        }
+
+        .god-image-link:hover .god-image {
+            transform: scale(1.035);
+        }
+
+        .source-label {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            padding: 5px 8px;
+            color: #ffffff;
+            background: rgba(17, 24, 39, 0.76);
+            font-size: 0.63rem;
+            font-weight: 850;
             letter-spacing: 0.09em;
             text-transform: uppercase;
         }
 
-        .plague-info h3 {
-            margin: 0 0 10px;
-            font-size: clamp(2rem, 3.2vw, 3.8rem);
-            line-height: 0.98;
+        .god-copy {
+            flex: 1;
+            padding: 21px 23px 24px;
         }
 
-        .scripture {
-            color: var(--muted);
-            font-size: 0.88rem;
-            margin-bottom: 18px;
+        .god-name {
+            margin: 0 0 7px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.7rem, 3vw, 2.35rem);
+            line-height: 1;
         }
 
-        .target-line {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            margin: 18px 0;
-            padding: 14px;
-            border: 1px solid var(--border);
-            background: #f8fafc;
-        }
-
-        .target-line i {
-            color: var(--accent);
-            margin-top: 2px;
-        }
-
-        .target-line strong {
-            display: block;
-            margin-bottom: 3px;
-            font-size: 0.76rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .target-line span {
-            color: var(--ink);
-            font-weight: 700;
-        }
-
-        .copy-block {
-            margin-top: 18px;
-        }
-
-        .copy-block h4 {
-            margin: 0 0 6px;
-            color: var(--ink);
-            font-size: 0.82rem;
-            letter-spacing: 0.13em;
-            text-transform: uppercase;
-        }
-
-        .copy-block p {
+        .god-description {
             margin: 0;
-            color: var(--muted);
+            color: #525a67;
             font-size: 0.94rem;
-            line-height: 1.62;
+            line-height: 1.55;
         }
 
-        .media-zone {
-            padding: clamp(18px, 2.6vw, 34px);
-            background: #f8fafc;
-        }
-
-        .image-grid {
+        .deity-mosaic {
             display: grid;
-            gap: 18px;
+            width: 100%;
+            height: 100%;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2px;
+            background: #c8bfae;
         }
 
-        @media (min-width: 768px) {
-            .image-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+        .deity-mosaic img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 8px;
+            object-fit: contain;
+            background: #f5efe2;
+        }
+
+        .page-footer {
+            padding: 24px 20px;
+            border-top: 1px solid #303849;
+            color: #9da7b7;
+            background: var(--ink);
+            font-size: 0.72rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .page-footer a {
+            color: #d8dde5;
+        }
+
+        @media (max-width: 1100px) {
+            :root {
+                --header-height: 134px;
+            }
+
+            .plague-tab {
+                min-height: 63px;
+                padding: 9px 4px;
+            }
+
+            .utility-links {
+                gap: 13px;
             }
         }
 
-        .image-card {
-            display: flex;
-            min-width: 0;
-            flex-direction: column;
-            background: #ffffff;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
+        @media (max-width: 860px) {
+            :root {
+                --header-height: 72px;
+            }
+
+            .header-main {
+                min-height: var(--header-height);
+                width: min(1600px, calc(100% - 28px));
+            }
+
+            .brand-mark {
+                width: 36px;
+                height: 36px;
+            }
+
+            .desktop-tabs,
+            .utility-links {
+                display: none;
+            }
+
+            .brand-heading {
+                gap: 7px;
+            }
+
+            .brand-number {
+                font-size: 0.58rem;
+            }
+
+            .brand-title {
+                font-size: 1.08rem;
+            }
+
+            .brand-subtitle {
+                font-size: 0.6rem;
+                letter-spacing: 0.08em;
+            }
+
+            .mobile-trigger {
+                display: flex;
+                flex: 0 0 auto;
+            }
+
+            .mobile-menu {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                overflow: auto;
+                max-height: calc(100svh - var(--header-height));
+                padding: 14px;
+                border-top: 1px solid var(--line);
+                background: #151d2b;
+                box-shadow: 0 20px 40px rgba(3, 7, 18, 0.36);
+            }
+
+            .mobile-menu.open {
+                display: block;
+            }
+
+            .mobile-menu-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .mobile-plague-button {
+                display: flex;
+                min-height: 58px;
+                align-items: center;
+                gap: 11px;
+                padding: 10px 12px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: #dde2ea;
+                background: rgba(255, 255, 255, 0.04);
+                cursor: pointer;
+                text-align: left;
+            }
+
+            .mobile-plague-button[aria-current="true"] {
+                border-color: rgba(246, 217, 141, 0.55);
+                color: var(--gold-light);
+                background: rgba(214, 165, 66, 0.14);
+            }
+
+            .mobile-number {
+                color: var(--gold);
+                font-size: 0.72rem;
+                font-weight: 900;
+                letter-spacing: 0.1em;
+            }
+
+            .mobile-name {
+                font-size: 0.79rem;
+                font-weight: 750;
+                line-height: 1.15;
+            }
+
+            .mobile-utility-links {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-top: 12px;
+            }
+
+            .mobile-utility-links a {
+                padding: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: #cdd3dc;
+                font-size: 0.76rem;
+                font-weight: 750;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            .billboard {
+                height: clamp(470px, calc(100svh - var(--header-height)), 760px);
+                min-height: 470px;
+            }
+
+
+            .carousel-button {
+                top: auto;
+                bottom: 20px;
+                transform: none;
+            }
+
+            .carousel-button:hover {
+                transform: scale(1.04);
+            }
+
+            .carousel-button.previous {
+                left: 18px;
+            }
+
+            .carousel-button.next {
+                right: 18px;
+            }
+
+            .carousel-status {
+                bottom: 36px;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
         }
 
-        .image-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 12px 14px;
-            border-bottom: 1px solid var(--border);
+        @media (max-width: 540px) {
+            .brand-title {
+                font-size: 0.98rem;
+            }
+
+            .mobile-menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-plague-button {
+                min-height: 50px;
+            }
+
+            .billboard {
+                height: 68svh;
+                min-height: 460px;
+                max-height: 640px;
+            }
+
+
+            .carousel-button {
+                width: 44px;
+                height: 44px;
+            }
+
+            .carousel-status {
+                bottom: 32px;
+            }
+
+            .carousel-dots {
+                gap: 6px;
+            }
+
+            .gods-section {
+                padding-right: 14px;
+                padding-left: 14px;
+            }
+
+            .god-image-link,
+            .god-image-shell {
+                height: clamp(440px, 120vw, 580px);
+            }
         }
 
-        .image-card-header strong {
-            font-size: 0.82rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
 
-        .image-card-header span {
-            color: var(--muted);
-            font-size: 0.78rem;
-            text-align: right;
-        }
-
-        .image-shell {
-            height: clamp(300px, 35vw, 520px);
-            padding: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #ffffff;
-        }
-
-        .image-shell a {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .featured-image {
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border: 1px solid var(--border);
-            background: #ffffff;
-        }
-
-        .image-caption {
-            flex: 1;
-            padding: 12px 14px;
-            color: var(--muted);
-            font-size: 0.86rem;
-            line-height: 1.5;
-            border-top: 1px solid var(--border);
-        }
-
-        .source-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding: 0 14px 14px;
-        }
-
-        .source-row a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            background: #ffffff;
-            color: var(--muted);
-            padding: 26px 16px;
-            text-align: center;
-            font-size: 0.8rem;
-            line-height: 1.55;
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="page-shell py-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div class="flex items-center gap-x-4">
-                <div class="w-11 h-11 bg-amber-50 border border-amber-200 flex items-center justify-center">
-                    <i class="fa-solid fa-staff-snake text-amber-700 text-2xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-3xl font-bold tracking-tighter heading-serif">Ten Plagues of Exodus</h1>
-                    <p class="text-xs text-slate-500 -mt-1">Egyptian gods • Exodus 7–12 • visual guide</p>
+    <header class="site-header">
+        <div class="header-main">
+            <div class="brand" aria-live="polite">
+                <span class="brand-mark" aria-hidden="true">X</span>
+                <div class="brand-copy">
+                    <div class="brand-heading">
+                        <span class="brand-number" id="header-plague-number">Plague 01</span>
+                        <h1 class="brand-title" id="header-plague-title">The Nile Turns to Blood</h1>
+                    </div>
+                    <span class="brand-subtitle" id="header-plague-scripture">Exodus 7:14–25</span>
                 </div>
             </div>
-            <div class="flex items-center gap-4 text-sm font-semibold">
-                <a href="../" class="no-underline text-slate-500 hover:text-slate-900">Tools home</a>
-                <a href="../egyptian-deities/" class="no-underline text-slate-500 hover:text-slate-900">Egyptian Deities</a>
-            </div>
+            <nav class="utility-links" aria-label="Related tools">
+                <a href="../">Tools home</a>
+                <a href="../egyptian-deities/">Egyptian Deities</a>
+            </nav>
+            <button class="mobile-trigger"
+                    id="mobile-trigger"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    aria-label="Open plague menu">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h16M4 12h16M4 17h16"></path>
+                </svg>
+            </button>
         </div>
-    </nav>
-
-    <header class="page-shell hero">
-        <div class="hero-kicker">
-            <i class="fa-solid fa-scroll"></i>
-            Exodus 7–12
-        </div>
-        <h2 class="heading-serif">The Plagues and Egypt’s Gods</h2>
-        <p>
-            A visual companion to the Egyptian Deities page: each plague appears in biblical order, paired with a traditional Egyptian deity or divine-royal claim that the plague is often understood to challenge.
-            Every card keeps both images prominent: the targeted god and an image representing the plague.
-        </p>
-        <div class="hero-note">
-            Exodus says the Lord would bring judgment “on all the gods of Egypt” (Exodus 12:12), but it does not explicitly map each plague to a named Egyptian deity.
-            The pairings below are common teaching associations, so the page phrases them as interpretive rather than certain.
-        </div>
-        <div class="quick-nav" id="quick-nav" aria-label="Jump to plague"></div>
+        <nav class="desktop-tabs" id="desktop-tabs" aria-label="Choose a plague" role="tablist"></nav>
+        <nav class="mobile-menu" id="mobile-menu" aria-label="Choose a plague"></nav>
     </header>
 
-    <main id="plagues" class="page-shell" aria-label="The ten plagues in order"></main>
+    <main class="presentation" id="presentation"></main>
 
-    <footer>
-        Images are cached locally in this site and linked back to their original source pages.
-        James Tissot plague images are from FreeBibleimages / The Jewish Museum, New York; other plague and deity images are sourced from Wikimedia Commons or existing local Commons-sourced assets.
-        Created for educational exploration of the biblical Exodus narrative and ancient Egyptian religious context.
+    <footer class="page-footer">
+        Egyptian deity images are cached locally from
+        <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.
+        Deity pairings are traditional teaching associations rather than identifications made explicitly in Exodus.
     </footer>
 
     <script>
-        const sourcePageTissot = 'https://www.freebibleimages.org/illustrations/jtjm-moses2/';
-
         const plagues = [
             {
                 number: 1,
                 slug: 'blood',
-                plague: 'Water Turned to Blood',
+                tabName: 'Blood',
+                name: 'The Nile Turns to Blood',
                 scripture: 'Exodus 7:14–25',
-                domain: 'Nile • life-source',
-                icon: 'fa-droplet',
-                target: 'Hapi',
-                summary: 'The Nile becomes undrinkable blood; fish die, the river stinks, and Egypt’s life-source becomes a scene of death.',
-                godStory: 'Hapi personified the Nile’s annual inundation. Egyptians honored him because floodwaters brought black silt, crops, and prosperity to the land.',
-                challenge: 'The plague attacks the river itself: the source of life becomes corrupted, undermining confidence in the deity who embodied the flood.',
-                god: {
-                    src: 'assets/god-hapi.png',
-                    alt: 'Representation of Hapi, Egyptian god of the Nile flood',
-                    caption: 'Hapi, the Nile flood personified, shown with water-plant symbolism.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Hapi_(God).png',
-                    sourceLabel: 'Hapi image source',
-                    width: 1485,
-                    height: 3088
-                },
-                plagueImage: {
-                    src: 'assets/plague-01-blood.jpg',
-                    alt: 'James Tissot illustration of water changed into blood',
-                    caption: 'James Tissot’s “Water is Changed Into Blood” imagines the Nile plague at Pharaoh’s court.',
-                    source: sourcePageTissot,
-                    sourceLabel: 'Plague image source',
-                    width: 1024,
-                    height: 768
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-01-nile-blood.jpg', alt: 'The Nile and its water turned to blood' }
+                ],
+                gods: [
+                    {
+                        name: 'Khnum',
+                        description: 'God of the Nile’s source, creation, and the inundation.',
+                        image: 'assets/deities/khnum.svg',
+                        alt: 'Khnum, ram-headed Egyptian creator god',
+                        source: 'https://commons.wikimedia.org/wiki/File:Khnum.svg'
+                    },
+                    {
+                        name: 'Hapi',
+                        description: 'God of the Nile’s annual flood and fertility.',
+                        image: 'assets/god-hapi.png',
+                        alt: 'Hapi, Egyptian god of the Nile flood',
+                        source: 'https://commons.wikimedia.org/wiki/File:Hapi_(God).png'
+                    },
+                    {
+                        name: 'Osiris',
+                        description: 'God of the dead, resurrection, and life-giving renewal.',
+                        image: 'assets/god-osiris.png',
+                        alt: 'Osiris, Egyptian god of resurrection and the dead',
+                        source: 'https://commons.wikimedia.org/wiki/File:Osiris_(God).png'
+                    }
+                ]
             },
             {
                 number: 2,
                 slug: 'frogs',
-                plague: 'Frogs',
+                tabName: 'Frogs',
+                name: 'Frogs',
                 scripture: 'Exodus 8:1–15',
-                domain: 'Fertility • childbirth',
-                icon: 'fa-frog',
-                target: 'Heqet',
-                summary: 'Frogs swarm from the waters into houses, bedrooms, beds, ovens, and kneading bowls.',
-                godStory: 'Heqet was commonly represented as a frog or frog-headed goddess and was associated with fertility, birth, and the life that followed the Nile flood.',
-                challenge: 'A creature linked with life and fertility becomes an uncontrollable invasion, turning a sacred symbol into a household plague.',
-                god: {
-                    src: 'assets/god-heqet.png',
-                    alt: 'Representation of Heqet, frog-headed Egyptian goddess',
-                    caption: 'Heqet, the frog-associated goddess of fertility and childbirth.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Heqet_(Goddess).png',
-                    sourceLabel: 'Heqet image source',
-                    width: 1181,
-                    height: 2342
-                },
-                plagueImage: {
-                    src: 'assets/plague-02-frogs.jpg',
-                    alt: 'Sainte-Chapelle stained glass depicting the second plague of Egypt, frogs',
-                    caption: 'A medieval stained-glass scene from Sainte-Chapelle depicting Egypt’s plague of frogs.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Sainte-Chapelle_-_Second_Plague_of_Egypt_(Frogs).jpg',
-                    sourceLabel: 'Plague image source',
-                    width: 2816,
-                    height: 2112
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-02-01-frogs.png', alt: 'Frogs covering the land during the second plague' },
+                    { src: 'assets/plagues/plague-02-02-frogs.jpg', alt: 'Frogs filling an Egyptian home during the second plague' }
+                ],
+                gods: [
+                    {
+                        name: 'Heket',
+                        description: 'Goddess of childbirth, midwives, and fertility.',
+                        image: 'assets/god-heqet.png',
+                        alt: 'Heket, frog-headed Egyptian goddess',
+                        source: 'https://commons.wikimedia.org/wiki/File:Heqet_(Goddess).png'
+                    }
+                ]
             },
             {
                 number: 3,
-                slug: 'lice',
-                plague: 'Gnats or Lice',
+                slug: 'gnats',
+                tabName: 'Gnats',
+                name: 'Gnats',
                 scripture: 'Exodus 8:16–19',
-                domain: 'Earth • dust',
-                icon: 'fa-bug',
-                target: 'Geb',
-                summary: 'The dust of the land becomes gnats or lice on people and animals throughout Egypt.',
-                godStory: 'Geb personified the earth and fertile ground. In Egyptian myth he was father of Osiris, Isis, Seth, and Nephthys.',
-                challenge: 'The dust under Geb’s domain becomes torment, and even Pharaoh’s magicians confess, “This is the finger of God.”',
-                god: {
-                    src: 'assets/god-geb.png',
-                    alt: 'Representation of Geb, Egyptian earth god',
-                    caption: 'Geb, the earth god, associated with the ground and fertile land.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Geb_(God).png',
-                    sourceLabel: 'Geb image source',
-                    width: 1236,
-                    height: 2817
-                },
-                plagueImage: {
-                    src: 'assets/plague-03-lice.jpg',
-                    alt: 'Jan Luyken etching of the plague of lice',
-                    caption: 'Jan Luyken’s etching visualizes the third plague as lice or small biting insects.',
-                    source: 'https://commons.wikimedia.org/wiki/File:The_plague_of_lice._Etching_by_J._Luyken._Wellcome_V0010556.jpg',
-                    sourceLabel: 'Plague image source',
-                    width: 648,
-                    height: 486
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-03-01-gnats.png', alt: 'Gnats swarming people and animals during the third plague' },
+                    { src: 'assets/plagues/plague-03-02-gnats.jpg', alt: 'The dust of Egypt becoming gnats' }
+                ],
+                gods: [
+                    {
+                        name: 'Geb',
+                        description: 'God of the earth, soil, and vegetation.',
+                        image: 'assets/god-geb.png',
+                        alt: 'Geb, Egyptian god of the earth',
+                        source: 'https://commons.wikimedia.org/wiki/File:Geb_(God).png'
+                    }
+                ]
             },
             {
                 number: 4,
-                slug: 'swarms',
-                plague: 'Swarms of Flies',
+                slug: 'flies',
+                tabName: 'Flies',
+                name: 'Flies and Scarabs',
                 scripture: 'Exodus 8:20–32',
-                domain: 'Insects • becoming',
-                icon: 'fa-mosquito',
-                target: 'Khepri',
-                summary: 'Swarms fill Egyptian houses and cover the ground, while Goshen is set apart.',
-                godStory: 'Khepri was the scarab-headed god of becoming and the morning sun. The scarab rolling its ball became a symbol of solar renewal.',
-                challenge: 'The Hebrew term may suggest mixed swarms, but the teaching association is clear: insect life does not obey Egypt’s sacred insect symbolism.',
-                god: {
-                    src: 'assets/god-khepri.png',
-                    alt: 'Representation of Khepri, scarab-headed Egyptian god',
-                    caption: 'Khepri, the scarab-headed god of becoming and morning renewal.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Khepri_(God).png',
-                    sourceLabel: 'Khepri image source',
-                    width: 1437,
-                    height: 2318
-                },
-                plagueImage: {
-                    src: 'assets/plague-04-flies.jpg',
-                    alt: 'James Tissot illustration of the plague of flies',
-                    caption: 'James Tissot’s “The Plague of Flies” shows Pharaoh overwhelmed by the swarm.',
-                    source: sourcePageTissot,
-                    sourceLabel: 'Plague image source',
-                    width: 1024,
-                    height: 768
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-04-01-flies.jpg', alt: 'Swarms of flies filling Egypt during the fourth plague' },
+                    { src: 'assets/plagues/plague-04-02-scarabs.jpg', alt: 'Scarabs representing the insect swarms of the fourth plague' },
+                    { src: 'assets/plagues/plague-04-03-split-land.jpg', alt: 'The fourth plague falling on Egypt while Goshen is spared' }
+                ],
+                gods: [
+                    {
+                        name: 'Khepri',
+                        description: 'God of the rising sun, creation, and renewal.',
+                        image: 'assets/god-khepri.png',
+                        alt: 'Khepri, scarab-headed Egyptian god',
+                        source: 'https://commons.wikimedia.org/wiki/File:Khepri_(God).png'
+                    },
+                    {
+                        name: 'Shu',
+                        description: 'God of air, wind, and the space between earth and sky.',
+                        image: 'assets/deities/shu.svg',
+                        alt: 'Shu, Egyptian god of air',
+                        source: 'https://commons.wikimedia.org/wiki/File:Shu.svg'
+                    }
+                ]
             },
             {
                 number: 5,
                 slug: 'livestock',
-                plague: 'Death of Livestock',
+                tabName: 'Livestock',
+                name: 'Death of Livestock',
                 scripture: 'Exodus 9:1–7',
-                domain: 'Cattle • motherhood',
-                icon: 'fa-cow',
-                target: 'Hathor',
-                summary: 'A severe plague strikes Egypt’s horses, donkeys, camels, cattle, sheep, and goats, while Israel’s livestock are spared.',
-                godStory: 'Hathor was a cow-associated goddess of motherhood, joy, music, and the afterlife. Sacred cattle also pointed toward cults such as Apis at Memphis.',
-                challenge: 'The plague strikes the animal world connected with wealth, food, and sacred cattle imagery, exposing the limits of Egypt’s protective deities.',
-                god: {
-                    src: 'assets/Head_of_a_Cow_Goddess_-Hathor_or_Mehetweret-_MET_DP317925.jpg',
-                    alt: 'Head of a cow goddess, Hathor or Mehetweret, from the Metropolitan Museum of Art',
-                    caption: 'A cow-goddess head identified as Hathor or Mehetweret, already cached for the Egyptian Deities page.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Head_of_a_Cow_Goddess_(Hathor_or_Mehetweret)_MET_DP317925.jpg',
-                    sourceLabel: 'Hathor image source',
-                    width: 2632,
-                    height: 3851
-                },
-                plagueImage: {
-                    src: 'assets/plague-05-livestock.jpg',
-                    alt: 'Gustave Doré illustration of the fifth plague, livestock disease',
-                    caption: 'Gustave Doré’s “The Fifth Plague: Livestock Disease” presents the collapse of Egypt’s herds.',
-                    source: 'https://commons.wikimedia.org/wiki/File:033.The_Fifth_Plague._Livestock_Disease.jpg',
-                    sourceLabel: 'Plague image source',
-                    width: 2645,
-                    height: 2079
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-05-01-livestock.jpg', alt: 'Egyptian livestock struck during the fifth plague' },
+                    { src: 'assets/plagues/plague-05-02-livestock-temple.jpg', alt: 'The plague of livestock near an Egyptian temple' },
+                    { src: 'assets/plagues/plague-05-03-livestock-split-land.jpg', alt: 'Egyptian livestock dying while Israelite livestock are spared' },
+                    { src: 'assets/plagues/plague-05-04-livestock-tablet-guy.jpg', alt: 'An Egyptian surveying the loss of livestock during the fifth plague' }
+                ],
+                gods: [
+                    {
+                        name: 'Hathor',
+                        description: 'Goddess of motherhood, joy, love, and sacred cattle.',
+                        image: 'assets/Head_of_a_Cow_Goddess_-Hathor_or_Mehetweret-_MET_DP317925.jpg',
+                        alt: 'Head of the Egyptian cow goddess Hathor',
+                        source: 'https://commons.wikimedia.org/wiki/File:Head_of_a_Cow_Goddess_(Hathor_or_Mehetweret)_MET_DP317925.jpg'
+                    },
+                    {
+                        name: 'Apis',
+                        description: 'Sacred bull of strength, fertility, and royal power.',
+                        image: 'assets/deities/apis.png',
+                        alt: 'Statue of the sacred Apis bull',
+                        source: 'https://commons.wikimedia.org/wiki/File:Apis_Bull_Statue_(photo_by_Carolyn_Whitson).png'
+                    }
+                ]
             },
             {
                 number: 6,
                 slug: 'boils',
-                plague: 'Boils',
+                tabName: 'Boils',
+                name: 'Boils',
                 scripture: 'Exodus 9:8–12',
-                domain: 'Disease • healing',
-                icon: 'fa-kit-medical',
-                target: 'Sekhmet',
-                summary: 'Soot becomes fine dust over Egypt, and festering boils break out on people and animals.',
-                godStory: 'Sekhmet, the lioness “Eye of Ra,” was feared as a bringer of plague and honored as a powerful healing deity.',
-                challenge: 'A plague of painful skin disease humiliates the powers associated with medicine, ritual purity, and protection from pestilence.',
-                god: {
-                    src: 'assets/Sekhmet_statues_Louvre.JPG',
-                    alt: 'Sekhmet lioness-headed statues in the Louvre',
-                    caption: 'Sekhmet statues from the New Kingdom context, already cached for the Egyptian Deities page.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Sekhmet_statues_Louvre.JPG',
-                    sourceLabel: 'Sekhmet image source',
-                    width: 1640,
-                    height: 2470
-                },
-                plagueImage: {
-                    src: 'assets/plague-06-boils.jpg',
-                    alt: 'James Tissot illustration of the plague of boils and blains',
-                    caption: 'James Tissot’s “The Plague of Boils and Blains” focuses on physical affliction in Pharaoh’s court.',
-                    source: sourcePageTissot,
-                    sourceLabel: 'Plague image source',
-                    width: 1024,
-                    height: 768
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-06-01-boils-court.jpg', alt: 'Egyptians in Pharaoh’s court afflicted with boils' },
+                    { src: 'assets/plagues/plague-06-02-boils-apis-temple.jpg', alt: 'The plague of boils at an Egyptian temple' }
+                ],
+                gods: [
+                    {
+                        name: 'Sekhmet',
+                        description: 'Goddess of war, plague, protection, and healing.',
+                        image: 'assets/Sekhmet_statues_Louvre.JPG',
+                        alt: 'Lioness-headed statues of Sekhmet',
+                        source: 'https://commons.wikimedia.org/wiki/File:Sekhmet_statues_Louvre.JPG'
+                    },
+                    {
+                        name: 'Isis',
+                        description: 'Goddess of motherhood, magic, protection, and healing.',
+                        image: 'assets/deities/isis.svg',
+                        alt: 'Isis, Egyptian goddess of motherhood and magic',
+                        source: 'https://commons.wikimedia.org/wiki/File:Isis.svg'
+                    }
+                ]
             },
             {
                 number: 7,
                 slug: 'hail',
-                plague: 'Hail and Fire',
+                tabName: 'Hail',
+                name: 'Hail and Fire',
                 scripture: 'Exodus 9:13–35',
-                domain: 'Sky • heavens',
-                icon: 'fa-cloud-bolt',
-                target: 'Nut',
-                summary: 'The worst hailstorm in Egypt’s memory falls with thunder and fire, destroying people, animals, flax, barley, and trees left in the field.',
-                godStory: 'Nut was the sky goddess whose arched body stretched over the earth. She swallowed the sun each evening and gave birth to it each morning.',
-                challenge: 'The heavens no longer appear protective or orderly; from the sky comes a destructive storm that Egypt’s sky theology cannot restrain.',
-                god: {
-                    src: 'assets/god-nut.png',
-                    alt: 'Representation of Nut, Egyptian sky goddess',
-                    caption: 'Nut, the sky goddess, shown in her arched celestial form.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Nut_(goddess).png',
-                    sourceLabel: 'Nut image source',
-                    width: 1056,
-                    height: 2739
-                },
-                plagueImage: {
-                    src: 'assets/plague-07-hail.jpg',
-                    alt: 'James Tissot illustration of the plague of hail',
-                    caption: 'James Tissot’s “The Plague of Hail” visualizes storm, fire, and destruction over Egypt.',
-                    source: sourcePageTissot,
-                    sourceLabel: 'Plague image source',
-                    width: 1024,
-                    height: 768
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-07-01-hail.jpg', alt: 'Destructive hail and fire falling on Egypt' },
+                    { src: 'assets/plagues/plague-07-02-hail.png', alt: 'The seventh plague of hail over Egypt' },
+                    { src: 'assets/plagues/plague-07-03-hail-funny-fist.jpg', alt: 'A dramatic depiction of the hail plague' }
+                ],
+                gods: [
+                    {
+                        name: 'Nut',
+                        description: 'Goddess of the sky, stars, and the heavens.',
+                        image: 'assets/god-nut.png',
+                        alt: 'Nut, Egyptian goddess of the sky',
+                        source: 'https://commons.wikimedia.org/wiki/File:Nut_(goddess).png'
+                    },
+                    {
+                        name: 'Shu',
+                        description: 'God of air, wind, and the space between earth and sky.',
+                        image: 'assets/deities/shu.svg',
+                        alt: 'Shu, Egyptian god of air',
+                        source: 'https://commons.wikimedia.org/wiki/File:Shu.svg'
+                    },
+                    {
+                        name: 'Set',
+                        description: 'God of storms, disorder, violence, and the desert.',
+                        image: 'assets/deities/set.svg',
+                        alt: 'Set, Egyptian god of storms and disorder',
+                        source: 'https://commons.wikimedia.org/wiki/File:Set.svg'
+                    }
+                ]
             },
             {
                 number: 8,
                 slug: 'locusts',
-                plague: 'Locusts',
+                tabName: 'Locusts',
+                name: 'Locusts',
                 scripture: 'Exodus 10:1–20',
-                domain: 'Vegetation • crops',
-                icon: 'fa-leaf',
-                target: 'Osiris',
-                summary: 'Locusts cover the land and devour what survived the hail, leaving no green thing on tree or plant.',
-                godStory: 'Osiris was the slain and restored king associated with the afterlife, resurrection, and the renewed life of grain and vegetation.',
-                challenge: 'The locusts consume the agricultural renewal that Egyptian religion connected with divine death-and-life cycles.',
-                god: {
-                    src: 'assets/god-osiris.png',
-                    alt: 'Representation of Osiris, Egyptian god of the afterlife and vegetation renewal',
-                    caption: 'Osiris, restored king of the dead and deity connected with renewal and grain.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Osiris_(God).png',
-                    sourceLabel: 'Osiris image source',
-                    width: 1761,
-                    height: 2582
-                },
-                plagueImage: {
-                    src: 'assets/plague-08-locusts.jpg',
-                    alt: 'James Tissot illustration of the plague of locusts',
-                    caption: 'James Tissot’s “The Plague of Locusts” shows Moses and Aaron as the swarm arrives.',
-                    source: sourcePageTissot,
-                    sourceLabel: 'Plague image source',
-                    width: 1024,
-                    height: 768
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-08-locusts.png', alt: 'A vast swarm of locusts consuming Egypt’s crops' },
+                    { src: 'assets/plagues/plague-08-02-locusts-madagascar.jpg', alt: 'Locusts covering the ground during an outbreak in Madagascar' },
+                    { src: 'assets/plagues/plague-08-03-locusts-madagascar.jpg', alt: 'A dense group of locusts during an outbreak in Madagascar' },
+                    { src: 'assets/plagues/plague-08-04-locusts-madagascar.jpg', alt: 'Locusts gathered together during an outbreak in Madagascar' },
+                    { src: 'assets/plagues/plague-08-05-locusts-madagascar.jpg', alt: 'A field affected by locusts in Madagascar' }
+                ],
+                gods: [
+                    {
+                        name: 'Osiris',
+                        description: 'God of the dead, resurrection, grain, and renewal.',
+                        image: 'assets/god-osiris.png',
+                        alt: 'Osiris, Egyptian god of resurrection and grain',
+                        source: 'https://commons.wikimedia.org/wiki/File:Osiris_(God).png'
+                    },
+                    {
+                        name: 'Renenutet',
+                        description: 'Goddess of nourishment, harvest, and stored grain.',
+                        image: 'assets/deities/renenutet.svg',
+                        alt: 'Renenutet, Egyptian goddess of harvest',
+                        source: 'https://commons.wikimedia.org/wiki/File:Renenutet.svg'
+                    }
+                ]
             },
             {
                 number: 9,
                 slug: 'darkness',
-                plague: 'Darkness',
+                tabName: 'Darkness',
+                name: 'Darkness',
                 scripture: 'Exodus 10:21–29',
-                domain: 'Sun • cosmic order',
-                icon: 'fa-sun',
-                target: 'Ra-Horakhty',
-                summary: 'A darkness that can be felt covers Egypt for three days, while the Israelites have light where they live.',
-                godStory: 'Ra-Horakhty joined Ra, the sun, with Horus of the horizon. The sun’s daily journey symbolized cosmic order and royal legitimacy.',
-                challenge: 'Darkness directly negates Egypt’s supreme solar symbolism: the sun does not rise over Pharaoh’s land until the Lord permits light.',
-                god: {
-                    src: 'assets/Re-Horakhty.svg',
-                    alt: 'Ra-Horakhty falcon-headed sun god',
-                    caption: 'Ra-Horakhty, the falcon-headed solar deity with sun disk.',
-                    source: 'https://commons.wikimedia.org/wiki/File:Re-Horakhty.svg',
-                    sourceLabel: 'Ra-Horakhty image source',
-                    width: 350,
-                    height: 768
-                },
-                plagueImage: {
-                    src: 'assets/plague-09-darkness.jpg',
-                    alt: 'Gustave Doré illustration of the ninth plague, darkness',
-                    caption: 'Gustave Doré’s “The Ninth Plague: Darkness” emphasizes terror under a darkened sky.',
-                    source: 'https://commons.wikimedia.org/wiki/File:034.The_Ninth_Plague._Darkness.jpg',
-                    sourceLabel: 'Plague image source',
-                    width: 2627,
-                    height: 2122
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-09-01-darkness.png', alt: 'A deep darkness covering Egypt during the ninth plague' },
+                    { src: 'assets/plagues/plague-09-02-darkness.png', alt: 'Egypt engulfed in darkness while Israel has light' }
+                ],
+                gods: [
+                    {
+                        name: 'Amun-Ra',
+                        description: 'King of the gods; god of the sun, creation, and hidden power.',
+                        image: 'assets/deities/amun-ra.jpg',
+                        alt: 'Ram-headed sphinx representing Amun-Ra',
+                        source: 'https://commons.wikimedia.org/wiki/File:Ram-Sphinx_of_Amun-Ra.jpg'
+                    },
+                    {
+                        name: 'Ra + Horus',
+                        description: 'Ra-Horakhty: god of the sun, horizon, and royal kingship.',
+                        image: 'assets/Re-Horakhty.svg',
+                        alt: 'Ra-Horakhty, the combined Ra and Horus solar god',
+                        source: 'https://commons.wikimedia.org/wiki/File:Re-Horakhty.svg'
+                    },
+                    {
+                        name: 'Khepri',
+                        description: 'God of the rising sun, creation, and solar renewal.',
+                        image: 'assets/god-khepri.png',
+                        alt: 'Khepri, scarab-headed Egyptian god of the rising sun',
+                        source: 'https://commons.wikimedia.org/wiki/File:Khepri_(God).png'
+                    }
+                ]
             },
             {
                 number: 10,
                 slug: 'firstborn',
-                plague: 'Death of the Firstborn',
+                tabName: 'Firstborn',
+                name: 'Death of the Firstborn',
                 scripture: 'Exodus 11:1–12:36',
-                domain: 'Divine kingship • succession',
-                icon: 'fa-crown',
-                target: 'Pharaoh, the living Horus',
-                summary: 'Every Egyptian firstborn dies, from the firstborn of Pharaoh on the throne to the firstborn of the slave girl, while marked Israelite homes are passed over.',
-                godStory: 'Pharaoh was not merely a political ruler; Egyptian royal ideology presented him as the living Horus and son of Ra, guarantor of order and dynastic continuity.',
-                challenge: 'The final plague strikes the royal house, the heir, and Pharaoh’s claim to divine protection over life, death, and Egypt’s future.',
-                god: {
-                    src: 'assets/tutankhamun-burial-mask.jpg',
-                    alt: 'Tutankhamun burial mask representing Pharaoh’s divine royal imagery',
-                    caption: 'Tutankhamun’s mask stands in for Pharaoh’s divine royal imagery: crown, cobra, and protected kingship.',
-                    source: 'https://commons.wikimedia.org/wiki/File:King_Tut_Burial_Mask.jpg',
-                    sourceLabel: 'Pharaoh image source',
-                    width: 2243,
-                    height: 2667
-                },
-                plagueImage: {
-                    src: 'assets/plague-10-firstborn.jpg',
-                    alt: 'James Tissot illustration of Pharaoh and his dead son',
-                    caption: 'James Tissot’s “Pharaoh and His Dead Son” captures the devastating royal dimension of the tenth plague.',
-                    source: sourcePageTissot,
-                    sourceLabel: 'Plague image source',
-                    width: 1024,
-                    height: 768
-                }
+                billboardImages: [
+                    { src: 'assets/plagues/plague-10-firstborn.png', alt: 'The death of Egypt’s firstborn during the tenth plague' }
+                ],
+                gods: [
+                    {
+                        name: 'All the Gods of Egypt',
+                        description: 'Every divine power claimed by Egypt stood under judgment.',
+                        images: [
+                            { src: 'assets/deities/khnum.svg', alt: 'Khnum' },
+                            { src: 'assets/god-hapi.png', alt: 'Hapi' },
+                            { src: 'assets/god-khepri.png', alt: 'Khepri' },
+                            { src: 'assets/god-nut.png', alt: 'Nut' },
+                            { src: 'assets/deities/isis.svg', alt: 'Isis' },
+                            { src: 'assets/god-osiris.png', alt: 'Osiris' }
+                        ]
+                    },
+                    {
+                        name: 'Pharaoh',
+                        description: 'Divine king of Egypt and guarantor of royal order.',
+                        image: 'assets/tutankhamun-burial-mask.jpg',
+                        alt: 'Tutankhamun burial mask representing divine Pharaoh',
+                        source: 'https://commons.wikimedia.org/wiki/File:King_Tut_Burial_Mask.jpg'
+                    }
+                ]
             }
         ];
 
-        const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+        const presentation = document.getElementById('presentation');
+        const desktopTabs = document.getElementById('desktop-tabs');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileTrigger = document.getElementById('mobile-trigger');
+        const headerPlagueNumber = document.getElementById('header-plague-number');
+        const headerPlagueTitle = document.getElementById('header-plague-title');
+        const headerPlagueScripture = document.getElementById('header-plague-scripture');
+
+        let activePlagueIndex = 0;
+        let activeSlideIndex = 0;
+        let touchStartX = null;
+
+        const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
             '"': '&quot;',
             "'": '&#39;'
-        }[char]));
+        }[character]));
 
-        function imageCard(kind, image, index) {
-            const loading = index < 2 ? 'eager' : 'lazy';
-            return `
-                <article class="image-card">
-                    <div class="image-card-header">
-                        <strong>${escapeHtml(kind)}</strong>
-                        <span>${escapeHtml(image.sourceLabel)}</span>
-                    </div>
-                    <div class="image-shell">
-                        <a href="${escapeHtml(image.source)}" target="_blank" rel="noopener">
-                            <img src="${escapeHtml(image.src)}"
-                                 alt="${escapeHtml(image.alt)}"
-                                 width="${escapeHtml(image.width)}"
-                                 height="${escapeHtml(image.height)}"
-                                 class="featured-image"
-                                 loading="${loading}"
-                                 decoding="async">
-                        </a>
-                    </div>
-                    <p class="image-caption">${escapeHtml(image.caption)}</p>
-                    <div class="source-row">
-                        <a href="${escapeHtml(image.source)}" target="_blank" rel="noopener">
-                            View original source
-                            <i class="fa-solid fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </article>
-            `;
+        const twoDigitNumber = (number) => String(number).padStart(2, '0');
+
+        function renderHeader() {
+            const plague = plagues[activePlagueIndex];
+            headerPlagueNumber.textContent = `Plague ${twoDigitNumber(plague.number)}`;
+            headerPlagueTitle.textContent = plague.name;
+            headerPlagueScripture.textContent = plague.scripture;
+            document.title = `${twoDigitNumber(plague.number)} — ${plague.name} • Ten Plagues`;
         }
 
-        function plagueCard(plague, index) {
-            const number = String(plague.number).padStart(2, '0');
-            return `
-                <article class="plague-card" id="plague-${escapeHtml(plague.slug)}">
-                    <section class="plague-info">
-                        <div class="eyebrow-row">
-                            <span class="plague-number">${number}</span>
-                            <span class="badge"><i class="fa-solid ${escapeHtml(plague.icon)}"></i>${escapeHtml(plague.domain)}</span>
-                        </div>
-                        <h3 class="heading-serif">${escapeHtml(plague.plague)}</h3>
-                        <div class="scripture">${escapeHtml(plague.scripture)}</div>
-                        <p class="text-slate-500 leading-relaxed">${escapeHtml(plague.summary)}</p>
-                        <div class="target-line">
-                            <i class="fa-solid fa-ankh"></i>
-                            <div>
-                                <strong>Traditionally associated target</strong>
-                                <span>${escapeHtml(plague.target)}</span>
-                            </div>
-                        </div>
-                        <div class="copy-block">
-                            <h4>God profile</h4>
-                            <p>${escapeHtml(plague.godStory)}</p>
-                        </div>
-                        <div class="copy-block">
-                            <h4>How the plague challenges the claim</h4>
-                            <p>${escapeHtml(plague.challenge)}</p>
-                        </div>
-                    </section>
-                    <section class="media-zone" aria-label="Images for ${escapeHtml(plague.plague)}">
-                        <div class="image-grid">
-                            ${imageCard('Targeted god', plague.god, index)}
-                            ${imageCard('Plague scene', plague.plagueImage, index)}
-                        </div>
-                    </section>
-                </article>
-            `;
-        }
-
-        function init() {
-            document.getElementById('plagues').innerHTML = plagues.map(plagueCard).join('');
-            document.getElementById('quick-nav').innerHTML = plagues.map((plague) => `
-                <a href="#plague-${escapeHtml(plague.slug)}">
-                    <span>${String(plague.number).padStart(2, '0')}</span>
-                    ${escapeHtml(plague.plague)}
-                </a>
+        function renderDesktopTabs() {
+            desktopTabs.innerHTML = plagues.map((plague, index) => `
+                <button class="plague-tab"
+                        id="tab-${escapeHtml(plague.slug)}"
+                        type="button"
+                        role="tab"
+                        aria-selected="${index === activePlagueIndex}"
+                        aria-controls="plague-panel"
+                        tabindex="${index === activePlagueIndex ? '0' : '-1'}"
+                        data-plague-index="${index}">
+                    <span class="tab-number">${twoDigitNumber(plague.number)}</span>
+                    <span class="tab-name">${escapeHtml(plague.tabName)}</span>
+                </button>
             `).join('');
         }
 
-        init();
+        function renderMobileMenu() {
+            mobileMenu.innerHTML = `
+                <div class="mobile-menu-grid">
+                    ${plagues.map((plague, index) => `
+                        <button class="mobile-plague-button"
+                                type="button"
+                                aria-current="${index === activePlagueIndex}"
+                                data-plague-index="${index}">
+                            <span class="mobile-number">${twoDigitNumber(plague.number)}</span>
+                            <span class="mobile-name">${escapeHtml(plague.name)}</span>
+                        </button>
+                    `).join('')}
+                </div>
+                <div class="mobile-utility-links">
+                    <a href="../">Tools home</a>
+                    <a href="../egyptian-deities/">Egyptian Deities</a>
+                </div>
+            `;
+        }
+
+        function renderGodImage(god) {
+            if (god.images) {
+                return `
+                    <div class="god-image-shell">
+                        <div class="deity-mosaic" role="img" aria-label="A selection of Egyptian gods">
+                            ${god.images.map((image) => `
+                                <img src="${escapeHtml(image.src)}"
+                                     alt="${escapeHtml(image.alt)}"
+                                     loading="lazy"
+                                     decoding="async">
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <a class="god-image-link"
+                   href="${escapeHtml(god.source)}"
+                   target="_blank"
+                   rel="noopener"
+                   aria-label="View image source for ${escapeHtml(god.name)}">
+                    <img class="god-image"
+                         src="${escapeHtml(god.image)}"
+                         alt="${escapeHtml(god.alt)}"
+                         loading="lazy"
+                         decoding="async">
+                    <span class="source-label">Image source</span>
+                </a>
+            `;
+        }
+
+        function renderGodCard(god) {
+            return `
+                <article class="god-card">
+                    ${renderGodImage(god)}
+                    <div class="god-copy">
+                        <h3 class="god-name">${escapeHtml(god.name)}</h3>
+                        <p class="god-description">${escapeHtml(god.description)}</p>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderPresentation() {
+            const plague = plagues[activePlagueIndex];
+            const image = plague.billboardImages[activeSlideIndex];
+            const hasMultipleImages = plague.billboardImages.length > 1;
+            const godGridClass = plague.gods.length === 1 ? 'god-grid single' : 'god-grid';
+
+            presentation.innerHTML = `
+                <article id="plague-panel"
+                         role="tabpanel"
+                         aria-labelledby="tab-${escapeHtml(plague.slug)}">
+                    <section class="billboard"
+                             id="billboard"
+                             tabindex="0"
+                             aria-label="${escapeHtml(plague.name)} image ${activeSlideIndex + 1} of ${plague.billboardImages.length}">
+                        <img class="billboard-image"
+                             src="${escapeHtml(image.src)}"
+                             alt="${escapeHtml(image.alt)}"
+                             loading="eager"
+                             decoding="async">
+                        ${hasMultipleImages ? `
+                            <button class="carousel-button previous"
+                                    type="button"
+                                    data-carousel-direction="-1"
+                                    aria-label="Show previous image">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="m15 18-6-6 6-6"></path>
+                                </svg>
+                            </button>
+                            <button class="carousel-button next"
+                                    type="button"
+                                    data-carousel-direction="1"
+                                    aria-label="Show next image">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div class="carousel-status" aria-label="Image carousel position">
+                                <span class="carousel-count">${activeSlideIndex + 1} / ${plague.billboardImages.length}</span>
+                                <div class="carousel-dots">
+                                    ${plague.billboardImages.map((_, index) => `
+                                        <button class="carousel-dot"
+                                                type="button"
+                                                data-slide-index="${index}"
+                                                aria-current="${index === activeSlideIndex}"
+                                                aria-label="Show image ${index + 1}"></button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </section>
+                    <section class="gods-section" aria-labelledby="gods-heading">
+                        <div class="gods-shell">
+                            <header class="section-heading">
+                                <div>
+                                    <p class="section-eyebrow">Egyptian association</p>
+                                    <h2 id="gods-heading">${plague.number === 10 ? 'Judgment on Egypt’s Gods' : 'Gods Associated with This Plague'}</h2>
+                                </div>
+                            </header>
+                            <div class="${godGridClass}">
+                                ${plague.gods.map(renderGodCard).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            `;
+        }
+
+        function render() {
+            renderHeader();
+            renderDesktopTabs();
+            renderMobileMenu();
+            renderPresentation();
+        }
+
+        function closeMobileMenu({ returnFocus = false } = {}) {
+            mobileMenu.classList.remove('open');
+            mobileTrigger.setAttribute('aria-expanded', 'false');
+            mobileTrigger.setAttribute('aria-label', 'Open plague menu');
+
+            if (returnFocus) {
+                mobileTrigger.focus();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const isOpening = !mobileMenu.classList.contains('open');
+            mobileMenu.classList.toggle('open', isOpening);
+            mobileTrigger.setAttribute('aria-expanded', String(isOpening));
+            mobileTrigger.setAttribute('aria-label', isOpening ? 'Close plague menu' : 'Open plague menu');
+
+            if (isOpening) {
+                mobileMenu.querySelector('[aria-current="true"]')?.focus();
+            }
+        }
+
+        function setActivePlague(index, { updateHash = true, focusPresentation = false } = {}) {
+            if (!Number.isInteger(index) || index < 0 || index >= plagues.length) {
+                return;
+            }
+
+            activePlagueIndex = index;
+            activeSlideIndex = 0;
+            closeMobileMenu();
+            render();
+
+            const plague = plagues[index];
+            if (updateHash && window.location.hash !== `#${plague.slug}`) {
+                history.pushState(null, '', `#${plague.slug}`);
+            }
+
+            if (focusPresentation) {
+                document.getElementById('billboard')?.focus({ preventScroll: true });
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setActiveSlide(index) {
+            const images = plagues[activePlagueIndex].billboardImages;
+            activeSlideIndex = (index + images.length) % images.length;
+            renderPresentation();
+            document.getElementById('billboard')?.focus({ preventScroll: true });
+        }
+
+        function plagueIndexFromHash() {
+            const slug = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+            const index = plagues.findIndex((plague) => plague.slug === slug);
+            return index >= 0 ? index : 0;
+        }
+
+        desktopTabs.addEventListener('click', (event) => {
+            const tab = event.target.closest('[data-plague-index]');
+            if (tab) {
+                setActivePlague(Number(tab.dataset.plagueIndex), { focusPresentation: true });
+            }
+        });
+
+        desktopTabs.addEventListener('keydown', (event) => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+                return;
+            }
+
+            event.preventDefault();
+            let nextIndex = activePlagueIndex;
+
+            if (event.key === 'ArrowLeft') nextIndex = (activePlagueIndex - 1 + plagues.length) % plagues.length;
+            if (event.key === 'ArrowRight') nextIndex = (activePlagueIndex + 1) % plagues.length;
+            if (event.key === 'Home') nextIndex = 0;
+            if (event.key === 'End') nextIndex = plagues.length - 1;
+
+            setActivePlague(nextIndex);
+            document.querySelector(`.plague-tab[data-plague-index="${nextIndex}"]`)?.focus();
+        });
+
+        mobileTrigger.addEventListener('click', toggleMobileMenu);
+
+        mobileMenu.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-plague-index]');
+            if (button) {
+                setActivePlague(Number(button.dataset.plagueIndex), { focusPresentation: true });
+            }
+        });
+
+        presentation.addEventListener('click', (event) => {
+            const directionButton = event.target.closest('[data-carousel-direction]');
+            if (directionButton) {
+                setActiveSlide(activeSlideIndex + Number(directionButton.dataset.carouselDirection));
+                return;
+            }
+
+            const dotButton = event.target.closest('[data-slide-index]');
+            if (dotButton) {
+                setActiveSlide(Number(dotButton.dataset.slideIndex));
+            }
+        });
+
+        presentation.addEventListener('keydown', (event) => {
+            if (!event.target.closest('#billboard')) {
+                return;
+            }
+
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                setActiveSlide(activeSlideIndex - 1);
+            }
+
+            if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                setActiveSlide(activeSlideIndex + 1);
+            }
+        });
+
+        presentation.addEventListener('touchstart', (event) => {
+            touchStartX = event.changedTouches[0]?.clientX ?? null;
+        }, { passive: true });
+
+        presentation.addEventListener('touchend', (event) => {
+            if (touchStartX === null || plagues[activePlagueIndex].billboardImages.length < 2) {
+                touchStartX = null;
+                return;
+            }
+
+            const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+            const distance = touchEndX - touchStartX;
+            touchStartX = null;
+
+            if (Math.abs(distance) > 55) {
+                setActiveSlide(activeSlideIndex + (distance < 0 ? 1 : -1));
+            }
+        }, { passive: true });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                closeMobileMenu({ returnFocus: true });
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.site-header')) {
+                closeMobileMenu();
+            }
+        });
+
+        window.addEventListener('hashchange', () => {
+            setActivePlague(plagueIndexFromHash(), { updateHash: false });
+        });
+
+        activePlagueIndex = plagueIndexFromHash();
+        render();
     </script>
 </body>
 </html>
