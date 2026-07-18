@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "sections": [
+    {
+      "sectionnum": 1,
+      "title": "The Beginning",
+      "periodLabel": "?–c. 2000 BC",
+      "rangeLabel": "Genesis 1–11",
+      "descriptors": ["Creation", "Fall", "Flood", "Babel"]
+    },
+    {
+      "sectionnum": 2,
+      "title": "The Chosen",
+      "periodLabel": "c. 2000–c. 1400 BC",
+      "rangeLabel": "Genesis 12–50",
+      "descriptors": ["Abraham", "Israel", "Joseph", "Egypt"]
+    },
+    {
+      "sectionnum": 3,
+      "title": "The Rules",
+      "periodLabel": "c. 1400–1050 BC",
+      "rangeLabel": "Exodus–Judges",
+      "descriptors": ["Exodus", "Law and Blood", "Conquest", "Judges"]
+    },
+    {
+      "sectionnum": 4,
+      "title": "The Kings",
+      "periodLabel": "1050–930 BC",
+      "rangeLabel": "Ruth, Samuel, and the Wisdom Books",
+      "descriptors": ["Samuel", "Saul", "David", "Solomon", "Temple", "Poetry"]
+    },
+    {
+      "sectionnum": 5,
+      "title": "The Civil War",
+      "periodLabel": "930–722 BC",
+      "rangeLabel": "Kings and Chronicles",
+      "descriptors": ["Rehoboam", "Civil War", "Kings", "Assyria", "Judah Alone"]
+    },
+    {
+      "sectionnum": 6,
+      "title": "The Exile",
+      "periodLabel": "722–538 BC",
+      "rangeLabel": "The Prophets",
+      "descriptors": ["Babylon", "Temple Destroyed", "Prophets"]
+    },
+    {
+      "sectionnum": 7,
+      "title": "The Return",
+      "periodLabel": "538–430 BC",
+      "rangeLabel": "Ezra–Esther",
+      "descriptors": ["Cyrus of Persia", "Nehemiah", "Second Temple", "Ezra"]
+    },
+    {
+      "sectionnum": 8,
+      "title": "The Lost Years",
+      "periodLabel": "430–0 BC",
+      "rangeLabel": "Daniel and the Intertestamental Period",
+      "descriptors": ["Greeks", "Seleucids", "Maccabees", "Rome"]
+    },
+    {
+      "sectionnum": 9,
+      "title": "The Messiah",
+      "periodLabel": "0 BC–32 AD",
+      "rangeLabel": "Matthew–John",
+      "descriptors": ["John the Baptist", "Jesus", "Disciples", "Crucifixion"]
+    },
+    {
+      "sectionnum": 10,
+      "title": "The Resurrection",
+      "periodLabel": "32–70 AD",
+      "rangeLabel": "Acts–Jude",
+      "descriptors": ["Paul", "Acts", "Church", "Jerusalem Destroyed"]
+    },
+    {
+      "sectionnum": 11,
+      "title": "The End",
+      "periodLabel": "70 AD–The End",
+      "rangeLabel": "Revelation",
+      "descriptors": ["Christendom", "Revelation"]
+    }
+  ]
+}

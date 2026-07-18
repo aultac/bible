@@ -1,7 +1,37 @@
 import sectionsIndexData from "../content/sections.json";
+import courseOutlineData from "../content/course-outline.json";
+import {
+  canonicalLessonPath,
+  resolveLessonByReference,
+  type BibleReference,
+} from "./bibleReferences";
+import { sitePath } from "./routerBase";
+
+export interface CourseOutlineSection {
+  sectionnum: number;
+  title: string;
+  periodLabel: string;
+  rangeLabel: string;
+  descriptors: string[];
+}
+
+interface CourseOutlineManifest {
+  schemaVersion: number;
+  sections: CourseOutlineSection[];
+}
+
+export interface PassagePoint {
+  bookId: string;
+  chapter: number;
+  verse: number | null;
+  raw: string;
+  bookName: string;
+}
 
 export interface PassageRecord {
   display: string;
+  start?: PassagePoint;
+  end?: PassagePoint;
   startVerse: string | null;
   endVerse: string | null;
   spansMultipleBooks: boolean;
@@ -116,6 +146,13 @@ export interface LessonManifest {
     sourcePath: string | null;
     available: boolean;
   };
+  notesSummary?: {
+    path: string | null;
+    sourcePath: string | null;
+    sourceFormat: string | null;
+    available: boolean;
+    error: string | null;
+  };
   summary: {
     path: string | null;
     sourcePath: string | null;
@@ -141,6 +178,9 @@ export interface LessonManifest {
 }
 
 export interface HydratedLesson extends LessonManifest {
+  bookName: string;
+  bookSlug: string;
+  canonicalPath: string;
   resolvedResources: Array<LessonResource & { href: string }>;
   resolvedMap: ResolvedLessonMap | null;
 }
@@ -150,23 +190,68 @@ export interface HydratedSection extends SectionManifest {
   latestLesson: HydratedLesson | null;
 }
 
+export interface CourseSection extends CourseOutlineSection {
+  slug: string;
+  available: boolean;
+  status: string;
+  passage: PassageRecord | null;
+  lessonsDetailed: HydratedLesson[];
+}
+export interface CourseBook {
+  name: string;
+  slug: string;
+  lessons: HydratedLesson[];
+}
+
 function normalizeContentPath(modulePath: string) {
   return modulePath.replace(/^.*?content\//u, "content/").replace(/\\/gu, "/");
 }
 
-function resolvePublicHref(publicUrl: string) {
-  const baseUrl = import.meta.env.BASE_URL || "/";
-  const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+function slugify(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/gu, "-")
+    .replace(/^-|-$/gu, "");
+}
 
-  if (publicUrl.startsWith("/courses/")) {
-    return `${normalizedBaseUrl}${publicUrl.slice("/courses/".length)}`;
+function inferBookName(
+  lessonManifest: LessonManifest,
+  sectionManifest: SectionManifest
+) {
+  const passageBookName =
+    lessonManifest.passage?.start?.bookName ||
+    sectionManifest.passage?.start?.bookName;
+
+  if (passageBookName) {
+    return passageBookName;
   }
 
-  if (publicUrl.startsWith("/")) {
+  const reference =
+    lessonManifest.startVerse ||
+    lessonManifest.passage?.display ||
+    sectionManifest.startVerse ||
+    sectionManifest.passage?.display ||
+    sectionManifest.title;
+  const inferredName = reference.match(/^[^\d:–—-]+/u)?.[0]?.trim();
+
+  return inferredName || "Course";
+}
+
+export function resolvePublicHref(publicUrl: string) {
+  if (/^https?:\/\//u.test(publicUrl)) {
     return publicUrl;
   }
 
-  return `${normalizedBaseUrl}${publicUrl}`;
+  if (publicUrl.startsWith("/courses/")) {
+    return sitePath(`/${publicUrl.slice("/courses/".length)}`);
+  }
+
+  if (publicUrl.startsWith("/")) {
+    return sitePath(publicUrl);
+  }
+
+  return sitePath(`/${publicUrl}`);
 }
 
 const sectionManifestModules = import.meta.glob(
@@ -237,9 +322,21 @@ function getMarkdown(contentPath: string | null | undefined) {
   return markdownLoadCache.get(normalizedContentPath) || null;
 }
 
-function hydrateLesson(lessonManifest: LessonManifest): HydratedLesson {
+function hydrateLesson(
+  lessonManifest: LessonManifest,
+  sectionManifest: SectionManifest
+): HydratedLesson {
+  const bookName = inferBookName(lessonManifest, sectionManifest);
+  const bookSlug = slugify(bookName);
+  const canonicalPath = canonicalLessonPath({
+    ...lessonManifest,
+    bookSlug,
+  });
   return {
     ...lessonManifest,
+    bookName,
+    bookSlug,
+    canonicalPath,
     resolvedResources: lessonManifest.resources.map((resource) => ({
       ...resource,
       href: resolvePublicHref(resource.publicUrl),
@@ -255,9 +352,10 @@ function hydrateLesson(lessonManifest: LessonManifest): HydratedLesson {
 }
 
 const sectionsIndex = sectionsIndexData as SectionsIndexManifest;
+const courseOutline = courseOutlineData as CourseOutlineManifest;
 
-const sections = sectionsIndex.sections
-  .map((sectionEntry) => {
+const sections: HydratedSection[] = sectionsIndex.sections
+  .map((sectionEntry): HydratedSection | null => {
     const sectionManifest = sectionManifestBySlug.get(sectionEntry.slug);
 
     if (!sectionManifest) {
@@ -269,18 +367,18 @@ const sections = sectionsIndex.sections
         lessonManifestByKey.get(`${sectionManifest.slug}:${lessonEntry.slug}`)
       )
       .filter((lessonManifest): lessonManifest is LessonManifest => Boolean(lessonManifest))
-      .map(hydrateLesson);
+      .map((lessonManifest) => hydrateLesson(lessonManifest, sectionManifest));
 
     const latestLesson =
       lessonsDetailed.find((lesson) => lesson.status === "current") ||
-      lessonsDetailed.at(-1) ||
+      lessonsDetailed[lessonsDetailed.length - 1] ||
       null;
 
     return {
       ...sectionManifest,
       lessonsDetailed,
       latestLesson,
-    } satisfies HydratedSection;
+    };
   })
   .filter((section): section is HydratedSection => Boolean(section));
 
@@ -288,35 +386,110 @@ const sectionBySlug = new Map<string, HydratedSection>(
   sections.map((section) => [section.slug, section])
 );
 
+const availableSectionByNumber = new Map(
+  sections.map((section) => [section.sectionnum, section])
+);
+
+const courseSections: CourseSection[] = courseOutline.sections.map(
+  (outlineSection) => {
+    const availableSection = availableSectionByNumber.get(
+      outlineSection.sectionnum
+    );
+
+    return {
+      ...outlineSection,
+      slug: availableSection?.slug || `section-${outlineSection.sectionnum}`,
+      available: Boolean(availableSection),
+      status: availableSection?.status || "forthcoming",
+      passage: availableSection?.passage || null,
+      lessonsDetailed: availableSection?.lessonsDetailed || [],
+    };
+  }
+);
+
 const allLessons = sections.flatMap((section) => section.lessonsDetailed);
+
+const bookMap = new Map<string, CourseBook>();
+
+for (const lesson of allLessons) {
+  const existingBook = bookMap.get(lesson.bookSlug);
+
+  if (existingBook) {
+    existingBook.lessons.push(lesson);
+    continue;
+  }
+
+  bookMap.set(lesson.bookSlug, {
+    name: lesson.bookName,
+    slug: lesson.bookSlug,
+    lessons: [lesson],
+  });
+}
+
+const books = [...bookMap.values()];
 
 const lessonByKey = new Map<string, HydratedLesson>(
   allLessons.map((lesson) => [`${lesson.sectionSlug}:${lesson.slug}`, lesson])
 );
+const lessonByCanonicalPath = new Map<string, HydratedLesson>();
+
+for (const lesson of allLessons) {
+  const existingLesson = lessonByCanonicalPath.get(lesson.canonicalPath);
+
+  if (existingLesson) {
+    throw new Error(
+      `Duplicate canonical lesson path ${lesson.canonicalPath}: ${existingLesson.id} and ${lesson.id}`
+    );
+  }
+
+  lessonByCanonicalPath.set(lesson.canonicalPath, lesson);
+}
 
 const currentSection =
-  sections.find((section) => section.status === "current") || sections.at(-1) || null;
+  sections.find((section) => section.status === "current") ||
+  sections[sections.length - 1] ||
+  null;
 
 const latestLesson =
   currentSection?.lessonsDetailed.find((lesson) => lesson.status === "current") ||
-  currentSection?.lessonsDetailed.at(-1) ||
-  allLessons.at(-1) ||
+  currentSection?.lessonsDetailed[currentSection.lessonsDetailed.length - 1] ||
+  allLessons[allLessons.length - 1] ||
   null;
-
-const startHereLesson = sections.at(0)?.lessonsDetailed.at(0) || null;
+const latestVideoLesson =
+  [...allLessons].reverse().find((lesson) => Boolean(lesson.youtube)) || null;
+const startHereLesson = sections[0]?.lessonsDetailed[0] || null;
 
 export const courseLibrary = {
   generatedAt: sectionsIndex.generatedAt,
   sections,
+  courseSections,
   allLessons,
+  books,
   currentSection,
   latestLesson,
+  latestVideoLesson,
   startHereLesson,
+  getBook(bookSlug: string) {
+    return bookMap.get(bookSlug) || null;
+  },
+  getCourseSection(sectionNumber: number) {
+    return (
+      courseSections.find(
+        (section) => section.sectionnum === sectionNumber
+      ) || null
+    );
+  },
   getSection(sectionSlug: string) {
     return sectionBySlug.get(sectionSlug) || null;
   },
   getLesson(sectionSlug: string, lessonSlug: string) {
     return lessonByKey.get(`${sectionSlug}:${lessonSlug}`) || null;
+  },
+  getLessonByCanonicalPath(pathname: string) {
+    return lessonByCanonicalPath.get(pathname) || null;
+  },
+  resolveReference(reference: BibleReference) {
+    return resolveLessonByReference(allLessons, reference);
   },
   getAdjacentLessons(sectionSlug: string, lessonSlug: string) {
     const lessonKey = `${sectionSlug}:${lessonSlug}`;

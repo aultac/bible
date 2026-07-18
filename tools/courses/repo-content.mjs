@@ -31,6 +31,7 @@ import {
   buildPlaylistVideoMatchMap,
   fetchPlaylistSnapshot,
 } from "./youtube-playlist.mjs";
+import { generateLessonSearchIndex } from "./search-index.mjs";
 
 const execFileAsync = promisify(execFile);
 
@@ -42,6 +43,7 @@ const markdownConverter = new NodeHtmlMarkdown({
 const COURSES_APP_ROOT = path.join(REPO_ROOT, "apps", "courses");
 const CONTENT_ROOT = path.join(COURSES_APP_ROOT, "content");
 const BUCKETS_ROOT = path.join(CONTENT_ROOT, "sections");
+const UNPUBLISHED_ROOT = path.join(CONTENT_ROOT, "unpublished");
 const PUBLIC_RESOURCES_ROOT = path.join(
   COURSES_APP_ROOT,
   "public",
@@ -49,6 +51,7 @@ const PUBLIC_RESOURCES_ROOT = path.join(
 );
 const PUBLIC_MAPS_ROOT = path.join(COURSES_APP_ROOT, "public", "maps");
 const PLAYLIST_SNAPSHOT_PATH = path.join(CONTENT_ROOT, "playlist.json");
+const COURSE_OUTLINE_PATH = path.join(CONTENT_ROOT, "course-outline.json");
 
 const BUCKET_MANUAL_FIELDS = [
   "title",
@@ -70,6 +73,16 @@ const LESSON_MANUAL_FIELDS = [
 
 function toPosixPath(value) {
   return value.split(path.sep).join("/");
+}
+
+async function loadCourseOutlineMap() {
+  const courseOutline = await readJsonIfExists(COURSE_OUTLINE_PATH);
+  return new Map(
+    (courseOutline?.sections || []).map((section) => [
+      section.sectionnum,
+      section,
+    ])
+  );
 }
 
 function toRepoRelativePath(targetPath) {
@@ -151,6 +164,30 @@ async function collectFilesRecursive(rootPath, currentRelativePath = "") {
   }
 
   return files;
+}
+
+export async function classifyLessonPublication(lessonPath, notesSourcePath = null) {
+  const publishReasons = (await collectFilesRecursive(lessonPath))
+    .filter((file) => /NOPUBLISH/iu.test(file.fileName))
+    .map((file) => ({
+      type: "filename",
+      path: file.relativePath,
+    }));
+
+  if (
+    notesSourcePath &&
+    /NOPUBLISH/iu.test(await readFile(notesSourcePath, "utf8"))
+  ) {
+    publishReasons.push({
+      type: "notes-content",
+      path: "notes.md",
+    });
+  }
+
+  return {
+    published: publishReasons.length === 0,
+    publishReasons,
+  };
 }
 
 async function listLessonRootMapFiles(canonicalBase, lessonPath) {
@@ -279,25 +316,33 @@ async function loadExistingSectionManualMap() {
 
 async function loadExistingLessonManualMap() {
   const lessonManualMap = new Map();
-
-  if (!(await pathExists(BUCKETS_ROOT))) {
-    return lessonManualMap;
-  }
-
-  for (const sectionSlug of await listDirectories(BUCKETS_ROOT)) {
-    const lessonsRoot = path.join(BUCKETS_ROOT, sectionSlug, "lessons");
-    if (!(await pathExists(lessonsRoot))) {
+  for (const contentRoot of [BUCKETS_ROOT, UNPUBLISHED_ROOT]) {
+    if (!(await pathExists(contentRoot))) {
       continue;
     }
 
-    for (const lessonSlug of await listDirectories(lessonsRoot)) {
-      const lessonManifest = await readJsonIfExists(
-        path.join(lessonsRoot, lessonSlug, "lesson.json")
-      );
-      const key = lessonManifest?.source?.relativeLessonDirectory;
+    for (const sectionSlug of await listDirectories(contentRoot)) {
+      const lessonsRoot = path.join(contentRoot, sectionSlug, "lessons");
+      if (!(await pathExists(lessonsRoot))) {
+        continue;
+      }
 
-      if (key) {
-        lessonManualMap.set(key, pickFields(lessonManifest, LESSON_MANUAL_FIELDS));
+      for (const lessonSlug of await listDirectories(lessonsRoot)) {
+        const lessonManifest = await readJsonIfExists(
+          path.join(lessonsRoot, lessonSlug, "lesson.json")
+        );
+        const key = lessonManifest?.source?.relativeLessonDirectory;
+
+        if (key && !lessonManualMap.has(key)) {
+          const manualFields = pickFields(
+            lessonManifest,
+            LESSON_MANUAL_FIELDS
+          );
+          if (String(manualFields.status).toUpperCase() === "NOPUBLISH") {
+            delete manualFields.status;
+          }
+          lessonManualMap.set(key, manualFields);
+        }
       }
     }
   }
@@ -331,20 +376,31 @@ async function discoverCanonicalSourceTree(canonicalBase) {
       }
 
       const notesSourcePath = path.join(lessonPath, "notes.md");
+      const notesSummarySourcePath = path.join(lessonPath, "notes-summary.md");
       const summaryDocxPath = path.join(lessonPath, `${lessonName}_summary.docx`);
       const resourcesDirectoryPath = path.join(lessonPath, "resources");
       const mapFiles = await listLessonRootMapFiles(canonicalBase, lessonPath);
 
       const hasNotes = await pathExists(notesSourcePath);
+      const hasNotesSummary = await pathExists(notesSummarySourcePath);
       const hasSummaryDocx = await pathExists(summaryDocxPath);
       const hasResourcesDirectory = await pathExists(resourcesDirectoryPath);
+      const publication = await classifyLessonPublication(
+        lessonPath,
+        hasNotes ? notesSourcePath : null
+      );
 
       lessons.push({
         ...parsedLesson,
+        ...publication,
         relativeLessonDirectory: toCanonicalRelativePath(canonicalBase, lessonPath),
         notesSourcePath: hasNotes ? notesSourcePath : null,
         notesSourcePathRelative: hasNotes
           ? toCanonicalRelativePath(canonicalBase, notesSourcePath)
+          : null,
+        notesSummarySourcePath: hasNotesSummary ? notesSummarySourcePath : null,
+        notesSummarySourcePathRelative: hasNotesSummary
+          ? toCanonicalRelativePath(canonicalBase, notesSummarySourcePath)
           : null,
         summaryDocxPath: hasSummaryDocx ? summaryDocxPath : null,
         summaryDocxPathRelative: hasSummaryDocx
@@ -384,6 +440,7 @@ function buildSectionManifest({
   sectionSummaryRepoPath,
   sectionSummaryError,
   manualSectionFields,
+  outlineSection,
   generatedAt,
 }) {
   const title =
@@ -403,6 +460,10 @@ function buildSectionManifest({
     startVerse: buildVerseString(section.passage?.start),
     endVerse: buildVerseString(section.passage?.end),
     passage: buildPassageRecord(section.passage),
+    outlineTitle: outlineSection?.title || null,
+    periodLabel: outlineSection?.periodLabel || null,
+    rangeLabel: outlineSection?.rangeLabel || section.displayTitle,
+    descriptors: outlineSection?.descriptors || [],
     lessonCount: lessonEntries.length,
     lessons: lessonEntries,
     sectionSummary: {
@@ -433,6 +494,10 @@ function buildSectionListEntry(sectionManifest) {
     startVerse: sectionManifest.startVerse,
     endVerse: sectionManifest.endVerse,
     passage: sectionManifest.passage,
+    outlineTitle: sectionManifest.outlineTitle,
+    periodLabel: sectionManifest.periodLabel,
+    rangeLabel: sectionManifest.rangeLabel,
+    descriptors: sectionManifest.descriptors,
     lessonCount: sectionManifest.lessonCount,
     sectionPath: `apps/courses/content/sections/${sectionManifest.slug}/section.json`,
     sectionSummaryPath: sectionManifest.sectionSummary.path,
@@ -505,6 +570,7 @@ async function generateLessonMapAsset({
 async function writeSectionManifests({
   sections,
   sectionManualMap,
+  outlineBySectionNumber,
   generatedAt,
   sectionSummaryOutputs = new Map(),
 }) {
@@ -513,7 +579,8 @@ async function writeSectionManifests({
   for (const section of sections) {
     const sectionDirectory = path.join(BUCKETS_ROOT, section.slug);
     const sectionSummaryOutputPath = path.join(sectionDirectory, "section-summary.md");
-    const lessonEntries = section.lessons.map((lesson) => ({
+    const publishedLessons = section.lessons.filter((lesson) => lesson.published);
+    const lessonEntries = publishedLessons.map((lesson) => ({
       id: lesson.slug,
       slug: lesson.slug,
       sequenceNumber: lesson.sequenceNumber,
@@ -524,6 +591,7 @@ async function writeSectionManifests({
       passage: buildPassageRecord(lesson.passage),
       lessonPath: `apps/courses/content/sections/${section.slug}/lessons/${lesson.slug}/lesson.json`,
       notesAvailable: Boolean(lesson.notesSourcePath),
+      notesSummaryAvailable: Boolean(lesson.notesSummarySourcePath),
       summaryAvailable: Boolean(lesson.summaryDocxPath),
       resourceCount: lesson.resourceFiles.length,
       source: {
@@ -545,6 +613,7 @@ async function writeSectionManifests({
       sectionSummaryError: sectionSummaryOutput.error || null,
       manualSectionFields:
         sectionManualMap.get(section.relativeSectionDirectory) || {},
+      outlineSection: outlineBySectionNumber.get(section.sectionnum) || null,
       generatedAt,
     });
 
@@ -568,11 +637,13 @@ export async function syncSectionManifests() {
   const generatedAt = new Date().toISOString();
   const sections = await discoverCanonicalSourceTree(coursesEnv.canonicalBase);
   const sectionManualMap = await loadExistingSectionManualMap();
+  const outlineBySectionNumber = await loadCourseOutlineMap();
 
   await mkdir(BUCKETS_ROOT, { recursive: true });
   const sectionsManifest = await writeSectionManifests({
     sections,
     sectionManualMap,
+    outlineBySectionNumber,
     generatedAt,
   });
 
@@ -580,7 +651,13 @@ export async function syncSectionManifests() {
     generatedAt,
     sectionCount: sectionsManifest.sectionCount,
     lessonCount: sections.reduce(
-      (total, section) => total + section.lessons.length,
+      (total, section) =>
+        total + section.lessons.filter((lesson) => lesson.published).length,
+      0
+    ),
+    unpublishedLessonCount: sections.reduce(
+      (total, section) =>
+        total + section.lessons.filter((lesson) => !lesson.published).length,
       0
     ),
     sectionsManifestPath: path.join(CONTENT_ROOT, "sections.json"),
@@ -593,6 +670,7 @@ export async function syncCoursesContent() {
   const sections = await discoverCanonicalSourceTree(coursesEnv.canonicalBase);
   const sectionManualMap = await loadExistingSectionManualMap();
   const lessonManualMap = await loadExistingLessonManualMap();
+  const outlineBySectionNumber = await loadCourseOutlineMap();
   const conversionErrors = [];
   let playlistSnapshot = await readJsonIfExists(PLAYLIST_SNAPSHOT_PATH);
   let playlistRefreshStatus = playlistSnapshot ? "cached" : "not-configured";
@@ -616,24 +694,32 @@ export async function syncCoursesContent() {
   const playlistVideoMatchMap = buildPlaylistVideoMatchMap(playlistSnapshot);
 
   await rm(BUCKETS_ROOT, { recursive: true, force: true });
+  await rm(UNPUBLISHED_ROOT, { recursive: true, force: true });
   await rm(PUBLIC_RESOURCES_ROOT, { recursive: true, force: true });
   await rm(PUBLIC_MAPS_ROOT, { recursive: true, force: true });
   await mkdir(BUCKETS_ROOT, { recursive: true });
+  await mkdir(UNPUBLISHED_ROOT, { recursive: true });
   await mkdir(PUBLIC_RESOURCES_ROOT, { recursive: true });
   await mkdir(PUBLIC_MAPS_ROOT, { recursive: true });
 
   const sectionSummaryOutputs = new Map();
 
   let notesCopied = 0;
+  let notesSummariesCopied = 0;
   let lessonSummariesConverted = 0;
   let sectionSummariesConverted = 0;
   let resourceFilesCopied = 0;
   let mapAssetsGenerated = 0;
   let matchedYoutubeLessons = 0;
+  const unpublishedLessons = [];
 
   for (const section of sections) {
     const sectionDirectory = path.join(BUCKETS_ROOT, section.slug);
     const lessonsDirectory = path.join(sectionDirectory, "lessons");
+    const publishedLessons = section.lessons.filter((lesson) => lesson.published);
+    const currentLessonDirectory =
+      publishedLessons[publishedLessons.length - 1]?.relativeLessonDirectory ||
+      null;
     await mkdir(lessonsDirectory, { recursive: true });
 
     let sectionSummaryRepoPath = null;
@@ -665,11 +751,16 @@ export async function syncCoursesContent() {
       (sectionManualMap.get(section.relativeSectionDirectory) || {}).status ||
       deriveDefaultSectionStatus(section.sectionnum);
 
-    for (const [lessonIndex, lesson] of section.lessons.entries()) {
-      const lessonDirectory = path.join(lessonsDirectory, lesson.slug);
+    for (const lesson of section.lessons) {
+      const lessonDirectory = path.join(
+        lesson.published ? lessonsDirectory : UNPUBLISHED_ROOT,
+        ...(lesson.published ? [] : [section.slug, "lessons"]),
+        lesson.slug
+      );
       await mkdir(lessonDirectory, { recursive: true });
 
       let notesRepoPath = null;
+      let notesSummaryRepoPath = null;
       let summaryRepoPath = null;
       let summaryError = null;
       let resources = [];
@@ -680,6 +771,13 @@ export async function syncCoursesContent() {
         await copyFile(lesson.notesSourcePath, outputPath);
         notesRepoPath = toRepoRelativePath(outputPath);
         notesCopied += 1;
+      }
+
+      if (lesson.notesSummarySourcePath) {
+        const outputPath = path.join(lessonDirectory, "notes-summary.md");
+        await copyFile(lesson.notesSummarySourcePath, outputPath);
+        notesSummaryRepoPath = toRepoRelativePath(outputPath);
+        notesSummariesCopied += 1;
       }
 
       if (lesson.summaryDocxPath) {
@@ -699,7 +797,7 @@ export async function syncCoursesContent() {
         }
       }
 
-      if (lesson.resourceFiles.length > 0) {
+      if (lesson.published && lesson.resourceFiles.length > 0) {
         resources = await copyLessonResources({
           sectionSlug: section.slug,
           lessonSlug: lesson.slug,
@@ -709,7 +807,7 @@ export async function syncCoursesContent() {
         resourceFilesCopied += resources.length;
       }
 
-      if (lesson.mapFiles.length > 0) {
+      if (lesson.published && lesson.mapFiles.length > 0) {
         try {
           map = await generateLessonMapAsset({
             sectionSlug: section.slug,
@@ -729,14 +827,28 @@ export async function syncCoursesContent() {
       const manualLessonFields =
         lessonManualMap.get(lesson.relativeLessonDirectory) || {};
       const lessonStatus =
-        manualLessonFields.status ||
-        (sectionStatus === "current" && lessonIndex === section.lessons.length - 1
-          ? "current"
-          : "published");
-      const matchedVideo = playlistVideoMatchMap.get(lesson.sequenceNumber) || null;
+        !lesson.published
+          ? "NOPUBLISH"
+          : manualLessonFields.status ||
+            (sectionStatus === "current" &&
+            lesson.relativeLessonDirectory === currentLessonDirectory
+              ? "current"
+              : "published");
+      const matchedVideo = lesson.published
+        ? playlistVideoMatchMap.get(lesson.sequenceNumber) || null
+        : null;
 
       if (matchedVideo) {
         matchedYoutubeLessons += 1;
+      }
+
+      if (!lesson.published) {
+        unpublishedLessons.push({
+          sectionSlug: section.slug,
+          lessonSlug: lesson.slug,
+          sourcePath: lesson.relativeLessonDirectory,
+          publishReasons: lesson.publishReasons,
+        });
       }
 
       const lessonManifest = {
@@ -751,6 +863,7 @@ export async function syncCoursesContent() {
         title: manualLessonFields.title || lesson.displayTitle,
         description: manualLessonFields.description || "",
         status: lessonStatus,
+        publishReasons: lesson.publishReasons,
         startVerse: buildVerseString(lesson.passage?.start),
         endVerse: buildVerseString(lesson.passage?.end),
         passage: buildPassageRecord(lesson.passage),
@@ -758,6 +871,13 @@ export async function syncCoursesContent() {
           path: notesRepoPath,
           sourcePath: lesson.notesSourcePathRelative,
           available: Boolean(notesRepoPath),
+        },
+        notesSummary: {
+          path: notesSummaryRepoPath,
+          sourcePath: lesson.notesSummarySourcePathRelative,
+          sourceFormat: lesson.notesSummarySourcePath ? "markdown" : null,
+          available: Boolean(notesSummaryRepoPath),
+          error: null,
         },
         summary: {
           path: summaryRepoPath,
@@ -777,6 +897,7 @@ export async function syncCoursesContent() {
           relativeLessonDirectory: lesson.relativeLessonDirectory,
           folderName: lesson.folderName,
           notesPath: lesson.notesSourcePathRelative,
+          notesSummaryPath: lesson.notesSummarySourcePathRelative,
           summaryDocxPath: lesson.summaryDocxPathRelative,
           resourcesDirectory: lesson.resourcesDirectoryPathRelative,
           mapPath: lesson.mapFiles[0]?.relativePath || null,
@@ -790,18 +911,24 @@ export async function syncCoursesContent() {
   const sectionsManifest = await writeSectionManifests({
     sections,
     sectionManualMap,
+    outlineBySectionNumber,
     generatedAt,
     sectionSummaryOutputs,
   });
+  const searchIndex = await generateLessonSearchIndex();
 
   return {
     generatedAt,
     sectionCount: sectionsManifest.sectionCount,
     lessonCount: sections.reduce(
-      (total, section) => total + section.lessons.length,
+      (total, section) =>
+        total + section.lessons.filter((lesson) => lesson.published).length,
       0
     ),
+    unpublishedLessonCount: unpublishedLessons.length,
+    unpublishedLessons,
     notesCopied,
+    notesSummariesCopied,
     lessonSummariesConverted,
     sectionSummariesConverted,
     resourceFilesCopied,
@@ -811,6 +938,7 @@ export async function syncCoursesContent() {
     playlistRefreshStatus,
     playlistSnapshotPath: playlistSnapshot ? PLAYLIST_SNAPSHOT_PATH : null,
     conversionErrors,
+    searchIndex,
     sectionsManifestPath: path.join(CONTENT_ROOT, "sections.json"),
     contentRoot: CONTENT_ROOT,
     publicResourcesRoot: PUBLIC_RESOURCES_ROOT,

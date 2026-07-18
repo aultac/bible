@@ -66,9 +66,6 @@ function buildFeatureStyle(feature?: GeoJSON.Feature): L.PathOptions {
   };
 }
 
-function formatMapError(error: string | null) {
-  return error || "Map data could not be loaded.";
-}
 
 export default function LessonMapPanel({
   lessonTitle,
@@ -110,6 +107,7 @@ export default function LessonMapPanel({
         }
       } catch (error) {
         if (!cancelled) {
+          console.error(`Unable to load the map for "${lessonTitle}".`, error);
           setGeoJsonState({
             status: "error",
             data: null,
@@ -129,7 +127,7 @@ export default function LessonMapPanel({
     return () => {
       cancelled = true;
     };
-  }, [map.geoJsonHref]);
+  }, [lessonTitle, map.geoJsonHref]);
 
   useEffect(() => {
     if (
@@ -187,48 +185,38 @@ export default function LessonMapPanel({
     };
   }, [geoJsonState]);
 
+  if (geoJsonState.status !== "loaded" || !geoJsonState.data) {
+    return null;
+  }
+
   return (
-    <article className="sidebar-card">
-      <p className="eyebrow">Map</p>
-      <h2>Lesson geography</h2>
-      <p className="sidebar-copy">
-        Satellite imagery and the lesson’s geographic overlays are loaded only when
-        this lesson page is opened.
+    <section className="study-panel map-panel standalone-study-panel">
+      <div className="section-title">
+        <p className="eyebrow">Geography</p>
+        <h2>Lesson map</h2>
+      </div>
+      <p className="map-intro">
+        Explore the places and movements connected to this passage.
       </p>
 
-      {geoJsonState.status === "loaded" ? (
-        <div className="map-frame">
-          <div
-            ref={mapContainerRef}
-            className="map-canvas"
-            aria-label={`${lessonTitle} lesson map`}
-          />
-        </div>
-      ) : geoJsonState.status === "loading" ? (
-        <p className="sidebar-copy">Loading lesson map…</p>
-      ) : (
-        <p className="sidebar-copy">{formatMapError(geoJsonState.error)}</p>
-      )}
+      <div className="map-frame">
+        <div
+          ref={mapContainerRef}
+          className="map-canvas"
+          aria-label={`${lessonTitle} lesson map`}
+        />
+      </div>
 
       <div className="map-meta">
-        <div className="pill-row">
-          <span className="pill">{map.featureCount} features</span>
-          <span className="pill">{map.geometryTypes.join(", ") || "GeoJSON"}</span>
-          <span className="pill">{map.sourceFormat.toUpperCase()}</span>
-        </div>
-        <div className="card-actions">
-          <a className="button-link button-link-secondary" href={map.sourceHref}>
+        <div className="map-actions">
+          <a className="text-link" href={map.sourceHref}>
             Download original map
-          </a>
-          <a className="subtle-link" href={map.geoJsonHref} target="_blank" rel="noreferrer">
-            Open GeoJSON
           </a>
         </div>
         <p className="map-disclaimer">
-          Satellite basemap: EOX Sentinel-2 cloudless 2024, free for non-commercial
-          use with attribution.
+          Satellite basemap: EOX Sentinel-2 cloudless 2024.
         </p>
       </div>
-    </article>
+    </section>
   );
 }

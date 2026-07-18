@@ -3,11 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sunday School Courses</title>
+    <title>Know Your Bible</title>
     <meta
       name="description"
-      content="Verse-by-verse Sunday School notes, summaries, and resources organized by biblical narrative section."
+      content="Reading through the Bible start to finish, with videos, context, commentary, maps, and class resources."
     />
+    <script>
+      (function () {
+        var storageKey = "know-your-bible:route-redirect";
+        var payload = null;
+
+        try {
+          payload = window.sessionStorage.getItem(storageKey);
+          window.sessionStorage.removeItem(storageKey);
+        } catch (_error) {
+          // Fall back to the temporary query parameter below.
+        }
+
+        if (!payload) {
+          payload = new URLSearchParams(window.location.search).get(
+            "__know_your_bible_route"
+          );
+        }
+
+        if (payload) {
+          try {
+            var redirect = JSON.parse(payload);
+            window.__KNOW_YOUR_BIBLE_BASE_PATH__ = redirect.basePath || "";
+            window.history.replaceState(
+              null,
+              "",
+              (redirect.basePath || "") + (redirect.destination || "/")
+            );
+            return;
+          } catch (_error) {
+            // Continue at the course root if a stale payload cannot be parsed.
+          }
+        }
+
+        if (window.location.hostname.endsWith(".github.io")) {
+          var firstSegment = window.location.pathname
+            .split("/")
+            .filter(Boolean)[0];
+          window.__KNOW_YOUR_BIBLE_BASE_PATH__ = firstSegment
+            ? "/" + firstSegment
+            : "";
+        } else {
+          window.__KNOW_YOUR_BIBLE_BASE_PATH__ = "";
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

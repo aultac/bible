@@ -55,6 +55,9 @@ and writes a local snapshot into the configured notes cache directory. It also s
 Markdown note-backup candidates for any canonical lesson folders whose notes.md file
 would be new or changed.
 
+This is the export/staging portion of yarn courses:weekly. It does not alter
+canonical lesson files; review candidates before running the apply phase.
+
 Defaults:
   --account from .env COURSES_NOTES_ACCOUNT (fallback iCloud)
   --folder from .env COURSES_NOTES_FOLDER (fallback "FBT Sunday School")

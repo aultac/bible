@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Opening Know Your Bible</title>
+    <script>
+      (function () {
+        var location = window.location;
+        var pathSegments = location.pathname.split("/").filter(Boolean);
+        var isGitHubProjectPage =
+          location.hostname.endsWith(".github.io") && pathSegments.length > 0;
+        var basePath = isGitHubProjectPage ? "/" + pathSegments[0] : "";
+        var routePath = isGitHubProjectPage
+          ? "/" + pathSegments.slice(1).join("/")
+          : location.pathname;
+        var destination =
+          (routePath || "/") + location.search + location.hash;
+        var payload = JSON.stringify({
+          basePath: basePath,
+          destination: destination,
+        });
+
+        try {
+          window.sessionStorage.setItem(
+            "know-your-bible:route-redirect",
+            payload
+          );
+        } catch (_error) {
+          // The query-string fallback below works when storage is unavailable.
+        }
+
+        location.replace(
+          location.origin +
+            basePath +
+            "/?__know_your_bible_route=" +
+            encodeURIComponent(payload)
+        );
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Opening Know Your Bible…</p>
+  </body>
+</html>

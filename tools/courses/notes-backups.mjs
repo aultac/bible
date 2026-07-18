@@ -1,5 +1,13 @@
 import { createHash } from "node:crypto";
-import { copyFile, mkdir, readFile, rm, writeFile, stat } from "node:fs/promises";
+import {
+  copyFile,
+  mkdir,
+  readFile,
+  rename,
+  rm,
+  writeFile,
+  stat,
+} from "node:fs/promises";
 import path from "node:path";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import {
@@ -31,6 +39,22 @@ async function pathExists(targetPath) {
 
 function hashContent(content) {
   return createHash("md5").update(content).digest("hex");
+}
+
+function hashSummarySource(content) {
+  return createHash("sha256").update(content).digest("hex");
+}
+
+async function copyFileAtomically(sourcePath, destinationPath) {
+  await mkdir(path.dirname(destinationPath), { recursive: true });
+  const temporaryPath = `${destinationPath}.tmp-${process.pid}-${Date.now()}`;
+
+  try {
+    await copyFile(sourcePath, temporaryPath);
+    await rename(temporaryPath, destinationPath);
+  } finally {
+    await rm(temporaryPath, { force: true });
+  }
 }
 
 function normalizeMarkdown(markdown) {
@@ -175,6 +199,7 @@ export async function prepareCanonicalNoteBackups({
     });
   }
 
+
   await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
   return {
     report,
@@ -183,13 +208,51 @@ export async function prepareCanonicalNoteBackups({
   };
 }
 
-export async function applyCanonicalNoteBackups({ reportPath }) {
+export async function applyCanonicalNoteBackups({
+  reportPath,
+  applySummaries = true,
+}) {
   const report = await loadCanonicalNoteBackupReport(reportPath);
   const applied = [];
+  const summariesApplied = [];
 
   for (const update of report.updates) {
-    await mkdir(path.dirname(update.canonicalNotesPath), { recursive: true });
-    await copyFile(update.stagedNotesPath, update.canonicalNotesPath);
+    const stagedNotes = await readFile(update.stagedNotesPath, "utf8");
+    if (hashContent(stagedNotes) !== update.sourceMarkdownHash) {
+      throw new Error(
+        `Staged notes changed after review: ${update.stagedNotesPath}`
+      );
+    }
+  }
+
+  for (const update of applySummaries ? report.summaryUpdates || [] : []) {
+    const sourceNotes = await readFile(update.sourceNotesPath, "utf8");
+    if (hashSummarySource(sourceNotes) !== update.sourceNotesHash) {
+      throw new Error(
+        `Summary source notes changed after generation: ${update.sourceNotesPath}`
+      );
+    }
+
+    const stagedSummary = await readFile(update.stagedSummaryPath, "utf8");
+    if (!stagedSummary.trim()) {
+      throw new Error(`Staged summary is empty: ${update.stagedSummaryPath}`);
+    }
+    const metadata = JSON.parse(
+      await readFile(update.stagedMetadataPath, "utf8")
+    );
+    if (
+      metadata.sourceNotesHash !== update.sourceNotesHash ||
+      metadata.promptVersion !== update.promptVersion ||
+      metadata.model !== update.model
+    ) {
+      throw new Error(
+        `Staged summary metadata does not match the report: ${update.stagedMetadataPath}`
+      );
+    }
+  }
+
+  for (const update of report.updates) {
+    await copyFileAtomically(update.stagedNotesPath, update.canonicalNotesPath);
     applied.push({
       title: update.title,
       changeType: update.changeType,
@@ -197,8 +260,25 @@ export async function applyCanonicalNoteBackups({ reportPath }) {
     });
   }
 
+  for (const update of report.summaryUpdates || []) {
+    await copyFileAtomically(
+      update.stagedSummaryPath,
+      update.canonicalSummaryPath
+    );
+    await copyFileAtomically(
+      update.stagedMetadataPath,
+      update.canonicalMetadataPath
+    );
+    summariesApplied.push({
+      title: update.title,
+      canonicalSummaryPath: update.canonicalSummaryPath,
+      canonicalMetadataPath: update.canonicalMetadataPath,
+    });
+  }
+
   return {
     report,
     applied,
+    summariesApplied,
   };
 }
