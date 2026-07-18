@@ -12,7 +12,7 @@ import path from "node:path";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import {
   buildCanonicalLessonIndex,
-  canonicalLessonDirectoryNameFromNoteTitle,
+  resolveCanonicalLessonDirectory,
 } from "./lesson-paths.mjs";
 
 const CANONICAL_NOTES_FILENAME = "notes.md";
@@ -130,18 +130,28 @@ export async function prepareCanonicalNoteBackups({
       missingCanonicalLessonFolder: 0,
     },
     updates: [],
+    unchangedNotes: [],
     missingCanonicalLessonFolders: [],
   };
 
   for (const note of manifest.notes) {
-    const expectedLessonDirectoryName = canonicalLessonDirectoryNameFromNoteTitle(note.title);
-    const canonicalLessonDirectoryPath = lessonIndex.get(expectedLessonDirectoryName);
+    const lessonMatch = resolveCanonicalLessonDirectory(
+      lessonIndex,
+      note.title,
+      canonicalBase
+    );
+    const canonicalLessonDirectoryPath =
+      lessonMatch.canonicalLessonDirectoryPath;
 
     if (!canonicalLessonDirectoryPath) {
       report.totals.missingCanonicalLessonFolder += 1;
       report.missingCanonicalLessonFolders.push({
         title: note.title,
-        expectedLessonDirectoryName,
+        expectedLessonDirectoryName: lessonMatch.expectedLessonDirectoryName,
+        expectedRelativeLessonDirectory:
+          lessonMatch.expectedRelativeLessonDirectory,
+        expectedLessonDirectoryPath: lessonMatch.expectedLessonDirectoryPath,
+        sequenceCandidates: lessonMatch.sequenceCandidates,
       });
       continue;
     }
@@ -163,19 +173,29 @@ export async function prepareCanonicalNoteBackups({
     const existingMarkdownHash = existingMarkdown
       ? hashContent(existingMarkdown)
       : null;
+    const relativeLessonDirectory = lessonMatch.relativeLessonDirectory;
 
     if (existingMarkdownHash === sourceMarkdownHash) {
       report.totals.unchanged += 1;
+      report.unchangedNotes.push({
+        title: note.title,
+        noteId: note.id,
+        noteUpdatedAt: note.updatedAt,
+        relativeLessonDirectory,
+        matchedBy: lessonMatch.matchedBy,
+        expectedLessonDirectoryName: lessonMatch.expectedLessonDirectoryName,
+        actualLessonDirectoryName: lessonMatch.actualLessonDirectoryName,
+        expectedRelativeLessonDirectory:
+          lessonMatch.expectedRelativeLessonDirectory,
+        canonicalLessonDirectoryPath,
+        canonicalNotesPath,
+        sourceMarkdownHash,
+      });
       continue;
     }
 
     const changeType = existingMarkdownHash ? "updated" : "new";
     report.totals[changeType] += 1;
-
-    const relativeLessonDirectory = path.relative(
-      canonicalBase,
-      canonicalLessonDirectoryPath
-    );
     const stagedNotesPath = path.join(
       candidatesRoot,
       relativeLessonDirectory,
@@ -190,6 +210,12 @@ export async function prepareCanonicalNoteBackups({
       noteId: note.id,
       noteUpdatedAt: note.updatedAt,
       changeType,
+      relativeLessonDirectory,
+      matchedBy: lessonMatch.matchedBy,
+      expectedLessonDirectoryName: lessonMatch.expectedLessonDirectoryName,
+      actualLessonDirectoryName: lessonMatch.actualLessonDirectoryName,
+      expectedRelativeLessonDirectory:
+        lessonMatch.expectedRelativeLessonDirectory,
       canonicalLessonDirectoryPath,
       canonicalNotesPath,
       stagedNotesPath,
@@ -243,6 +269,7 @@ export async function applyCanonicalNoteBackups({
     if (
       metadata.sourceNotesHash !== update.sourceNotesHash ||
       metadata.promptVersion !== update.promptVersion ||
+      (update.promptHash && metadata.promptHash !== update.promptHash) ||
       metadata.model !== update.model
     ) {
       throw new Error(

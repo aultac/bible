@@ -10,7 +10,7 @@ import {
 import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadCoursesEnv, resolveAgainstCanonicalBase } from "./config.mjs";
 import { buildCanonicalLessonIndex } from "./lesson-paths.mjs";
 import {
@@ -24,8 +24,13 @@ const execFileAsync = promisify(execFile);
 const SUMMARY_FILENAME = "notes-summary.md";
 const SUMMARY_METADATA_FILENAME = "notes-summary.meta.json";
 const MAX_SUMMARY_LENGTH = 8_000;
+const SUMMARY_WRAP_WIDTH = 88;
+const SUMMARY_PROMPT_PLACEHOLDER = "{{NOTES}}";
+const DEFAULT_SUMMARY_PROMPT_PATH = fileURLToPath(
+  new URL("./SUMMARY_PROMPT.md", import.meta.url)
+);
 
-export const NOTES_SUMMARY_PROMPT_VERSION = 1;
+export const NOTES_SUMMARY_PROMPT_VERSION = 2;
 
 async function pathExists(targetPath) {
   try {
@@ -39,23 +44,109 @@ async function pathExists(targetPath) {
   }
 }
 
+function createProgressLogger(onProgress) {
+  return typeof onProgress === "function" ? onProgress : () => {};
+}
+
 export function hashNotesSource(content) {
   return createHash("sha256").update(content).digest("hex");
 }
+export function hashPromptTemplate(promptTemplate) {
+  return createHash("sha256").update(promptTemplate).digest("hex");
+}
 
-export function buildNotesSummaryPrompt(notes) {
-  return `Create a concise factual overview of the lesson notes below.
+export async function loadSummaryPromptTemplate(
+  promptPath = DEFAULT_SUMMARY_PROMPT_PATH
+) {
+  return readFile(promptPath, "utf8");
+}
+function validateSummaryPromptTemplate(promptTemplate) {
+  if (!promptTemplate.includes(SUMMARY_PROMPT_PLACEHOLDER)) {
+    throw new Error(
+      `Summary prompt must include the ${SUMMARY_PROMPT_PLACEHOLDER} placeholder.`
+    );
+  }
+}
+export function buildNotesSummaryPrompt(notes, promptTemplate) {
+  validateSummaryPromptTemplate(promptTemplate);
 
-Requirements:
-- Use only information present in the notes.
-- Do not add theology, facts, titles, citations, applications, or conclusions.
-- Preserve uncertainty and nuance from the notes.
-- Return only plain Markdown body content with short paragraphs or bullets.
-- Do not wrap the response in a code fence.
-- Aim for 120-220 words.
+  return promptTemplate
+    .replaceAll(SUMMARY_PROMPT_PLACEHOLDER, notes)
+    .trimEnd();
+}
 
-LESSON NOTES
-${notes}`;
+function wrapWords(
+  text,
+  width,
+  firstPrefix = "",
+  continuationPrefix = firstPrefix
+) {
+  const words = text.trim().split(/\s+/u).filter(Boolean);
+  const lines = [];
+  let line = firstPrefix;
+  let lineContentLength = 0;
+
+  for (const word of words) {
+    const activePrefix =
+      lines.length === 0 ? firstPrefix : continuationPrefix;
+    const separatorLength = lineContentLength === 0 ? 0 : 1;
+    const nextLength =
+      activePrefix.length + lineContentLength + separatorLength + word.length;
+
+    if (lineContentLength > 0 && nextLength > width) {
+      lines.push(line);
+      line = continuationPrefix + word;
+      lineContentLength = word.length;
+      continue;
+    }
+
+    line += lineContentLength === 0 ? word : ` ${word}`;
+    lineContentLength += separatorLength + word.length;
+  }
+
+  if (lineContentLength > 0 || firstPrefix) {
+    lines.push(line);
+  }
+
+  return lines;
+}
+
+function wrapSummaryLine(line, width) {
+  const trimmedEnd = line.trimEnd();
+  if (!trimmedEnd.trim()) {
+    return [""];
+  }
+
+  const listMatch = trimmedEnd.match(/^(\s*(?:[-*+]|\d+[.)])\s+)(.+)$/u);
+  if (listMatch) {
+    return wrapWords(
+      listMatch[2],
+      width,
+      listMatch[1],
+      " ".repeat(listMatch[1].length)
+    );
+  }
+
+  if (/^\s{4,}/u.test(trimmedEnd) || /^#{1,6}\s/u.test(trimmedEnd)) {
+    return [trimmedEnd];
+  }
+
+  const leadingWhitespace = trimmedEnd.match(/^\s*/u)[0];
+  return wrapWords(
+    trimmedEnd.trim(),
+    width,
+    leadingWhitespace,
+    leadingWhitespace
+  );
+}
+
+export function wrapSummaryMarkdown(markdown, width = SUMMARY_WRAP_WIDTH) {
+  return markdown
+    .replace(/\r\n?/gu, "\n")
+    .split("\n")
+    .flatMap((line) => wrapSummaryLine(line, width))
+    .join("\n")
+    .trimEnd();
 }
 
 export function normalizeSummaryResponse(response) {
@@ -78,32 +169,51 @@ export function normalizeSummaryResponse(response) {
     throw new Error("Grok returned an unexpected Markdown code fence.");
   }
 
-  return `${summary}\n`;
+  return `${wrapSummaryMarkdown(summary)}\n`;
 }
 
 export async function preflightGrok({
   grokBin,
   env = process.env,
   homeDirectory = os.homedir(),
+  onProgress = null,
 }) {
+  const progress = createProgressLogger(onProgress);
+  progress(`Checking Grok executable: ${grokBin}`);
+  let versionText = "";
   try {
-    await execFileAsync(grokBin, ["--version"], {
+    const { stdout, stderr } = await execFileAsync(grokBin, ["--version"], {
       env,
       timeout: 10_000,
       maxBuffer: 1024 * 1024,
     });
+    versionText = String(stdout || stderr || "")
+      .trim()
+      .split("\n")[0];
   } catch (error) {
     throw new Error(
       `Grok CLI is unavailable at "${grokBin}". Install it or pass --grok-bin.`
     );
   }
+  progress(
+    versionText
+      ? `Grok executable responded: ${versionText}`
+      : "Grok executable responded."
+  );
 
   const cachedAuthPath = path.join(homeDirectory, ".grok", "auth.json");
-  if (!env.XAI_API_KEY && !(await pathExists(cachedAuthPath))) {
-    throw new Error(
-      "Grok authentication was not found. Run `grok login` or set XAI_API_KEY."
-    );
+  if (env.XAI_API_KEY) {
+    progress("Grok authentication found via XAI_API_KEY.");
+    return;
   }
+  if (await pathExists(cachedAuthPath)) {
+    progress("Grok authentication found via cached `grok login` credentials.");
+    return;
+  }
+
+  throw new Error(
+    "Grok authentication was not found. Run `grok login` or set XAI_API_KEY."
+  );
 }
 
 export async function runGrokSummary({
@@ -162,6 +272,7 @@ function buildSummaryUpdate({
   stagedSummaryPath,
   stagedMetadataPath,
   model,
+  promptHash,
 }) {
   return {
     title,
@@ -179,9 +290,24 @@ function buildSummaryUpdate({
       SUMMARY_METADATA_FILENAME
     ),
     promptVersion: NOTES_SUMMARY_PROMPT_VERSION,
+    promptHash,
     provider: "xAI Grok CLI",
     model: model || "cli-default",
   };
+}
+
+function generatedSummaryMetadataMatches({
+  metadata,
+  sourceNotesHash,
+  model,
+  promptHash,
+}) {
+  return (
+    metadata?.sourceNotesHash === sourceNotesHash &&
+    metadata?.promptVersion === NOTES_SUMMARY_PROMPT_VERSION &&
+    metadata?.promptHash === promptHash &&
+    metadata?.model === (model || "cli-default")
+  );
 }
 
 async function collectCandidates({
@@ -201,7 +327,6 @@ async function collectCandidates({
       stageNotes: false,
     });
   }
-
   if (allMissing) {
     const lessonIndex = await buildCanonicalLessonIndex(canonicalBase);
     for (const [title, canonicalLessonDirectoryPath] of [...lessonIndex].sort(
@@ -258,8 +383,20 @@ export async function generateNoteSummaries({
   grokBin = process.env.GROK_BIN || "grok",
   runSummary = runGrokSummary,
   preflight = preflightGrok,
+  onProgress = null,
+  promptPath = DEFAULT_SUMMARY_PROMPT_PATH,
+  promptTemplate = null,
 } = {}) {
+  const progress = createProgressLogger(onProgress);
+  const resolvedPromptPath = path.resolve(promptPath);
+  progress(`Loading notes-summary prompt: ${resolvedPromptPath}`);
+  const resolvedPromptTemplate =
+    promptTemplate || (await loadSummaryPromptTemplate(resolvedPromptPath));
+  validateSummaryPromptTemplate(resolvedPromptTemplate);
+  const promptHash = hashPromptTemplate(resolvedPromptTemplate);
+  progress(`Loading note backup report: ${reportPath}`);
   const report = await loadCanonicalNoteBackupReport(reportPath);
+  progress("Collecting notes-summary candidates.");
   const candidates = await collectCandidates({
     report,
     canonicalBase,
@@ -274,6 +411,8 @@ export async function generateNoteSummaries({
   const summaryUpdates = [];
   const result = {
     reportPath,
+    promptPath: resolvedPromptPath,
+    promptHash,
     dryRun,
     totals: {
       considered: candidates.length,
@@ -341,9 +480,12 @@ export async function generateNoteSummaries({
 
     if (
       !force &&
-      canonicalMetadata?.sourceNotesHash === sourceNotesHash &&
-      canonicalMetadata?.promptVersion === NOTES_SUMMARY_PROMPT_VERSION &&
-      canonicalMetadata?.model === (model || "cli-default")
+      generatedSummaryMetadataMatches({
+        metadata: canonicalMetadata,
+        sourceNotesHash,
+        model,
+        promptHash,
+      })
     ) {
       result.totals.skippedUnchanged += 1;
       result.skipped.push({
@@ -358,9 +500,12 @@ export async function generateNoteSummaries({
     const existingUpdate = existingUpdates.get(canonicalSummaryPath);
     if (
       !force &&
-      stagedMetadata?.sourceNotesHash === sourceNotesHash &&
-      stagedMetadata?.promptVersion === NOTES_SUMMARY_PROMPT_VERSION &&
-      stagedMetadata?.model === (model || "cli-default") &&
+      generatedSummaryMetadataMatches({
+        metadata: stagedMetadata,
+        sourceNotesHash,
+        model,
+        promptHash,
+      }) &&
       (await pathExists(stagedSummaryPath))
     ) {
       summaryUpdates.push(
@@ -374,6 +519,7 @@ export async function generateNoteSummaries({
             stagedSummaryPath,
             stagedMetadataPath,
             model,
+            promptHash,
           })
       );
       result.totals.staged += 1;
@@ -397,11 +543,21 @@ export async function generateNoteSummaries({
     });
   }
 
+  progress(
+    `Grok summary candidates: ${candidates.length} considered; ${eligible.length} need Grok call(s); ${result.totals.staged} already staged; ${result.totals.skippedManual} manual protected; ${result.totals.skippedNoPublish} NOPUBLISH skipped; ${result.totals.skippedUnchanged} unchanged.`
+  );
   if (eligible.length > 0 && !dryRun) {
-    await preflight({ grokBin });
+    progress(
+      `Ready to make ${eligible.length} Grok call(s) with ${Math.round(timeoutMs / 1000)}s timeout each.`
+    );
+    await preflight({ grokBin, onProgress: progress });
+  } else if (eligible.length === 0) {
+    progress("No Grok calls are needed.");
+  } else if (dryRun) {
+    progress(`Dry run: ${eligible.length} Grok call(s) would be made.`);
   }
 
-  for (const candidate of eligible) {
+  for (const [index, candidate] of eligible.entries()) {
     if (dryRun) {
       result.generated.push({
         title: candidate.title,
@@ -412,13 +568,19 @@ export async function generateNoteSummaries({
     }
 
     try {
+      progress(
+        `Grok summary ${index + 1}/${eligible.length}: ${candidate.title}`
+      );
       await mkdir(path.dirname(candidate.stagedNotesPath), { recursive: true });
       if (candidate.stageNotes) {
         await copyFile(candidate.sourceNotesPath, candidate.stagedNotesPath);
       }
       const response = await runSummary({
         grokBin,
-        prompt: buildNotesSummaryPrompt(candidate.notes),
+        prompt: buildNotesSummaryPrompt(
+          candidate.notes,
+          resolvedPromptTemplate
+        ),
         model,
         timeoutMs,
         cwd: path.dirname(candidate.stagedNotesPath),
@@ -429,6 +591,7 @@ export async function generateNoteSummaries({
         generatedAt: new Date().toISOString(),
         sourceNotesHash: candidate.sourceNotesHash,
         promptVersion: NOTES_SUMMARY_PROMPT_VERSION,
+        promptHash,
         provider: "xAI Grok CLI",
         model: model || "cli-default",
       };
@@ -448,6 +611,7 @@ export async function generateNoteSummaries({
           stagedSummaryPath: candidate.stagedSummaryPath,
           stagedMetadataPath: candidate.stagedMetadataPath,
           model,
+          promptHash,
         })
       );
       result.totals.generated += 1;
@@ -456,21 +620,32 @@ export async function generateNoteSummaries({
         title: candidate.title,
         stagedSummaryPath: candidate.stagedSummaryPath,
       });
+      progress(
+        `Grok summary ${index + 1}/${eligible.length} complete: ${candidate.title}`
+      );
     } catch (error) {
       result.totals.failed += 1;
       result.failures.push({
         title: candidate.title,
         error: error?.message || String(error),
       });
+      progress(
+        `Grok summary ${index + 1}/${eligible.length} failed: ${candidate.title}: ${error?.message || String(error)}`
+      );
     }
   }
 
   if (!dryRun) {
     report.summaryUpdates = summaryUpdates;
     report.summaryTotals = result.totals;
+    report.summaryPromptPath = resolvedPromptPath;
+    report.summaryPromptHash = promptHash;
     report.summaryGeneratedAt = new Date().toISOString();
     await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
   }
+  progress(
+    `Grok summary staging complete: ${result.totals.generated} generated, ${result.totals.staged} staged, ${result.totals.failed} failed.`
+  );
 
   return result;
 }
@@ -528,7 +703,11 @@ Options:
   --dry-run             Report work without files, authentication, or Grok usage
   --model <id>          Override the Grok CLI default model
   --timeout <seconds>   Per-summary timeout (default: 120)
-  --grok-bin <path>     Grok executable (default: GROK_BIN or grok)`);
+  --grok-bin <path>     Grok executable (default: GROK_BIN or grok)
+
+Prompt:
+  Edit tools/courses/SUMMARY_PROMPT.md to change the Grok prompt. Keep the
+  {{NOTES}} placeholder where the lesson notes should be inserted.`);
 }
 
 async function main() {
@@ -561,6 +740,8 @@ async function main() {
     model: cliOptions.model || null,
     timeoutMs: timeoutSeconds * 1000,
     grokBin: cliOptions.grokBin || process.env.GROK_BIN || "grok",
+    onProgress: (message) =>
+      process.stderr.write(`[courses:notes:summarize] ${message}\n`),
   });
   console.log(JSON.stringify(result, null, 2));
   if (result.totals.failed > 0) {

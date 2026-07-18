@@ -10,8 +10,12 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  NOTES_SUMMARY_PROMPT_VERSION,
+  buildNotesSummaryPrompt,
   generateNoteSummaries,
+  hashPromptTemplate,
   normalizeSummaryResponse,
+  wrapSummaryMarkdown,
 } from "./generate-note-summaries.mjs";
 import { applyCanonicalNoteBackups } from "./notes-backups.mjs";
 
@@ -50,10 +54,16 @@ async function summaryFixture(stagedNotes = "New lesson notes\n") {
   );
   const stagedNotesPath = path.join(stagedLessonDirectory, "notes.md");
   const reportPath = path.join(root, "report.json");
+  const summaryPromptPath = path.join(root, "SUMMARY_PROMPT.md");
   await mkdir(canonicalLessonDirectoryPath, { recursive: true });
   await mkdir(stagedLessonDirectory, { recursive: true });
   await writeFile(canonicalNotesPath, "Old lesson notes\n", "utf8");
   await writeFile(stagedNotesPath, stagedNotes, "utf8");
+  await writeFile(
+    summaryPromptPath,
+    "Custom summary prompt.\n\n{{NOTES}}\n\nEnd custom prompt.\n",
+    "utf8"
+  );
   const report = {
     schemaVersion: 1,
     candidatesRoot,
@@ -78,6 +88,7 @@ async function summaryFixture(stagedNotes = "New lesson notes\n") {
     canonicalLessonDirectoryPath,
     canonicalNotesPath,
     stagedNotesPath,
+    summaryPromptPath,
     reportPath,
   };
 }
@@ -85,20 +96,29 @@ async function summaryFixture(stagedNotes = "New lesson notes\n") {
 describe("Grok notes-summary staging", () => {
   it("stages a validated summary once and reuses it idempotently", async () => {
     const fixture = await summaryFixture();
-    const runSummary = vi.fn(async () => "A factual lesson overview.");
+    const runSummary = vi.fn(async ({ prompt }) => {
+      expect(prompt).toBe(
+        "Custom summary prompt.\n\nNew lesson notes\n\n\nEnd custom prompt."
+      );
+      return "A factual lesson overview.";
+    });
     const preflight = vi.fn(async () => {});
+    const progressMessages = [];
 
     const first = await generateNoteSummaries({
       reportPath: fixture.reportPath,
       canonicalBase: fixture.canonicalBase,
       runSummary,
       preflight,
+      promptPath: fixture.summaryPromptPath,
+      onProgress: (message) => progressMessages.push(message),
     });
     const second = await generateNoteSummaries({
       reportPath: fixture.reportPath,
       canonicalBase: fixture.canonicalBase,
       runSummary,
       preflight,
+      promptPath: fixture.summaryPromptPath,
     });
 
     expect(first.totals.generated).toBe(1);
@@ -106,6 +126,17 @@ describe("Grok notes-summary staging", () => {
     expect(second.totals.staged).toBe(1);
     expect(runSummary).toHaveBeenCalledTimes(1);
     expect(preflight).toHaveBeenCalledTimes(1);
+    expect(progressMessages).toEqual(
+      expect.arrayContaining([
+        `Loading note backup report: ${fixture.reportPath}`,
+        "Collecting notes-summary candidates.",
+        "Grok summary candidates: 1 considered; 1 need Grok call(s); 0 already staged; 0 manual protected; 0 NOPUBLISH skipped; 0 unchanged.",
+        "Ready to make 1 Grok call(s) with 120s timeout each.",
+        "Grok summary 1/1: 001_Test1-Test2",
+        "Grok summary 1/1 complete: 001_Test1-Test2",
+        "Grok summary staging complete: 1 generated, 1 staged, 0 failed.",
+      ])
+    );
     expect(
       await readFile(
         path.join(path.dirname(fixture.stagedNotesPath), "notes-summary.md"),
@@ -178,6 +209,7 @@ describe("Grok notes-summary staging", () => {
       canonicalBase: fixture.canonicalBase,
       runSummary: async () => "Generated summary.",
       preflight: async () => {},
+      promptPath: fixture.summaryPromptPath,
     });
     await writeFile(fixture.stagedNotesPath, "Changed after review\n", "utf8");
 
@@ -196,6 +228,7 @@ describe("Grok notes-summary staging", () => {
       canonicalBase: fixture.canonicalBase,
       runSummary: async () => "Generated summary.",
       preflight: async () => {},
+      promptPath: fixture.summaryPromptPath,
     });
 
     const result = await applyCanonicalNoteBackups({
@@ -222,13 +255,50 @@ describe("Grok notes-summary staging", () => {
     expect(metadata).toMatchObject({
       schemaVersion: 1,
       provider: "xAI Grok CLI",
-      promptVersion: 1,
+      promptVersion: NOTES_SUMMARY_PROMPT_VERSION,
+      promptHash: hashPromptTemplate(
+        await readFile(fixture.summaryPromptPath, "utf8")
+      ),
     });
+  });
+
+  it("builds prompts from a SUMMARY_PROMPT.md-style template", () => {
+    expect(
+      buildNotesSummaryPrompt("Lesson notes", "Prefix\n{{NOTES}}\nSuffix")
+    ).toBe("Prefix\nLesson notes\nSuffix");
+    expect(() =>
+      buildNotesSummaryPrompt("Lesson notes", "No placeholder")
+    ).toThrow("{{NOTES}}");
+  });
+  it("wraps generated summary Markdown for reviewable files", () => {
+    expect(
+      wrapSummaryMarkdown(
+        "This sentence should wrap into multiple shorter lines while preserving words.",
+        32
+      )
+    ).toBe(
+      "This sentence should wrap into\nmultiple shorter lines while\npreserving words."
+    );
+    expect(
+      wrapSummaryMarkdown(
+        "- This bullet should wrap with indentation for continuation lines so Markdown remains readable.",
+        44
+      )
+    ).toBe(
+      "- This bullet should wrap with indentation\n  for continuation lines so Markdown remains\n  readable."
+    );
   });
 
   it("strips an accidental outer fence but rejects empty or nested fences", () => {
     expect(normalizeSummaryResponse("```markdown\nSummary.\n```")).toBe(
       "Summary.\n"
+    );
+    expect(
+      normalizeSummaryResponse(
+        "This generated summary contains enough words to exceed the default wrap width so the resulting Markdown is easier to review in source control."
+      )
+    ).toBe(
+      "This generated summary contains enough words to exceed the default wrap width so the\nresulting Markdown is easier to review in source control.\n"
     );
     expect(() => normalizeSummaryResponse("   ")).toThrow("empty");
     expect(() => normalizeSummaryResponse("Text\n```\ncode\n```")).toThrow(

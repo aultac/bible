@@ -1,6 +1,8 @@
 # Know Your Bible Weekly Workflow
 
-The weekly refresh is intentionally review-gated. Preparing, applying, building, and deploying are separate steps so that exported notes and AI-generated summaries can be inspected before they reach the website.
+The weekly refresh is intentionally review-gated. Preparing, applying, building,
+and deploying are separate steps so that exported notes and AI-generated summaries
+can be inspected before they reach the website.
 
 ## 1. Prepare the weekly update
 
@@ -18,9 +20,11 @@ This command:
 - stages only new or changed notes;
 - identifies lessons marked `NOPUBLISH`;
 - generates eligible `notes-summary.md` candidates with Grok; and
-- prints the snapshot, report, and candidate paths.
+- prints a readable apply preview showing what is new, what will be updated, what already exists, and what will be skipped.
 
 It does **not** change canonical lesson files, regenerate the site, build, or deploy.
+
+Use `yarn courses:weekly --json` when you want the machine-readable version of the same report.
 
 ## 2. Review the staged candidates
 
@@ -153,6 +157,21 @@ yarn courses:notes:summarize --force
 - `NOPUBLISH` notes are never sent to Grok by the normal workflow.
 
 The workflow uses the official authenticated Grok CLI. Run `grok login` or set `XAI_API_KEY` if authentication is missing. Automated Grok or API usage is not guaranteed to be free and may count against a paid plan or metered API usage.
+
+### Hand-editing AI summaries
+
+You can hand-edit generated summaries in either the staged candidates before apply or the canonical lesson folder after apply.
+
+If you edit a staged `notes-summary.md` candidate before running `yarn courses:weekly --apply`, the edited candidate is what will be copied into the canonical lesson folder. Keep the adjacent `notes-summary.meta.json` file unless you want to make the canonical summary fully manual after apply.
+
+After apply, each canonical generated summary normally has two files:
+
+- `notes-summary.md`
+- `notes-summary.meta.json`
+
+Keep `notes-summary.meta.json` when you want the summary to remain AI-managed. The workflow will leave it alone while the source notes, prompt hash, prompt version, and model metadata still match. If the notes or prompt change later, the workflow may generate a replacement candidate for review.
+
+Delete `notes-summary.meta.json` when you want the hand-edited `notes-summary.md` to become manually protected. A canonical summary without generation metadata is reported as a manual summary and is skipped by default. It will only be replaced if you intentionally run summary generation with `--force`.
 
 To skip AI during an urgent weekly refresh:
 
