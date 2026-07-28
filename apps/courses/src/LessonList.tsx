@@ -1,16 +1,19 @@
 import { Link } from "react-router-dom";
-import type { HydratedLesson } from "./courseData";
+import {
+  formatLessonSequenceBadge,
+  formatLessonSequenceLabel,
+  type HydratedLesson,
+} from "./courseData";
 
 export function LessonListItem({ lesson }: { lesson: HydratedLesson }) {
-  const weekNumber =
-    lesson.youtube?.weekNumber ??
-    lesson.youtube?.position ??
-    lesson.sequenceNumber;
+  const sequenceLabel = formatLessonSequenceLabel(lesson);
 
   return (
     <li className="lesson-row">
       <Link className="lesson-row-main" to={lesson.canonicalPath}>
-        <span className="lesson-number">{String(weekNumber).padStart(2, "0")}</span>
+        <span className="lesson-number" aria-label={sequenceLabel}>
+          {formatLessonSequenceBadge(lesson)}
+        </span>
         <span className="lesson-row-copy">
           <strong>{lesson.title}</strong>
           <span>

@@ -170,6 +170,9 @@ function canonicalLessonPath(lesson, fallbackBookName) {
     lesson.passage?.start?.bookName || fallbackBookName || "course";
   const bookSlug = slugify(bookName);
 
+  if (lesson.lessonKind === "promo") {
+    return `/${bookSlug}/0/0`;
+  }
   if (lesson.lessonKind === "intro") {
     return `/${bookSlug}/1/0`;
   }

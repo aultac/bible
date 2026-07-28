@@ -1,537 +1,557 @@
-import { spawn } from "node:child_process";
+import {
+  copyFile,
+  cp,
+  mkdir,
+  mkdtemp,
+  readFile,
+  rename,
+  rm,
+  stat,
+} from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { auditCourses } from "./audit-courses.mjs";
-import { loadCoursesEnv, resolveAgainstCanonicalBase } from "./config.mjs";
+import { REPO_ROOT, loadCoursesEnv } from "./config.mjs";
 import {
-  generateNoteSummaries,
-  preflightGrok,
-} from "./generate-note-summaries.mjs";
+  loadDocumentSummaries,
+  prepareDocumentSummaries,
+} from "./document-summaries.mjs";
 import {
   applyCanonicalNoteBackups,
   getCanonicalNoteBackupReportPath,
   loadCanonicalNoteBackupReport,
-  loadLatestSnapshotRoot,
+  prepareCanonicalNoteBackups,
 } from "./notes-backups.mjs";
+import { createNotesSnapshot } from "./notes-snapshot.mjs";
 import { syncCoursesContent } from "./repo-content.mjs";
+import {
+  CACHE_COMPONENT_NAMES,
+  CACHED_PLAYLIST_FILENAME,
+  computeComponentsFingerprint,
+  createWeeklyCache,
+  findReusableNotesSnapshotRoot,
+  hashContent,
+  loadCacheState,
+  prepareSourceInventory,
+  recordCacheComponent,
+  resolveWeeklyCache,
+  updateLatestPointer,
+  writeCacheState,
+  writeJsonAtomic,
+} from "./weekly-cache.mjs";
+import {
+  auditWeeklyCache,
+  formatCacheAudit,
+} from "./weekly-cache-audit.mjs";
+import { fetchPlaylistSnapshot } from "./youtube-playlist.mjs";
 
-const NOTES_SNAPSHOT_SCRIPT = new URL("./notes-snapshot.mjs", import.meta.url);
+const NOTES_REPORT_FILENAME = "canonical-note-backup-report.json";
 
-export function metadataBehavior(report) {
-  return {
-    preserved:
-      "Manual title, description, status, and tags are retained when the canonical lesson folder path is unchanged.",
-    renamed:
-      "A renamed source lesson folder receives a new key/slug; metadata does not silently follow it.",
-    unmatchedCandidates: report.missingCanonicalLessonFolders || [],
-  };
-}
-
-async function resolveReportPath(options, coursesEnv) {
-  if (options.reportPath) {
-    return resolveAgainstCanonicalBase(
-      coursesEnv.canonicalBase,
-      options.reportPath
-    );
+async function pathExists(targetPath) {
+  try {
+    await stat(targetPath);
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return false;
+    }
+    throw error;
   }
-  return getCanonicalNoteBackupReportPath(
-    await loadLatestSnapshotRoot(coursesEnv.notesCacheRoot)
-  );
 }
 
 function createProgressLogger(onProgress) {
   return typeof onProgress === "function" ? onProgress : () => {};
 }
 
-async function runNotesSnapshot({ streamStderr = false } = {}) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [NOTES_SNAPSHOT_SCRIPT.pathname], {
-      cwd: path.dirname(new URL(import.meta.url).pathname),
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    let stdout = "";
-    let stderr = "";
-
-    child.stdout.setEncoding("utf8");
-    child.stderr.setEncoding("utf8");
-    child.stdout.on("data", (chunk) => {
-      stdout += chunk;
-    });
-    child.stderr.on("data", (chunk) => {
-      stderr += chunk;
-      if (streamStderr) {
-        process.stderr.write(chunk);
-      }
-    });
-    child.on("error", reject);
-    child.on("close", (code) => {
-      if (!streamStderr && stderr) {
-        process.stderr.write(stderr);
-      }
-      if (code !== 0) {
-        const error = new Error(
-          `Apple Notes snapshot failed with exit code ${code}.`
-        );
-        error.stderr = stderr;
-        reject(error);
-        return;
-      }
-
-      try {
-        resolve(JSON.parse(stdout));
-      } catch (error) {
-        error.message = `Could not parse Apple Notes snapshot output: ${error.message}`;
-        error.stdout = stdout;
-        error.stderr = stderr;
-        reject(error);
-      }
-    });
-  });
+function normalizeComponents(components) {
+  if (!components || components.length === 0) {
+    return [...CACHE_COMPONENT_NAMES];
+  }
+  const unique = [...new Set(components)];
+  const unknown = unique.filter(
+    (component) => !CACHE_COMPONENT_NAMES.includes(component)
+  );
+  if (unknown.length > 0) {
+    throw new Error(`Unknown cache component(s): ${unknown.join(", ")}`);
+  }
+  return unique;
 }
 
-async function prepareWeeklyRefresh(options, coursesEnv, dependencies) {
-  const progress = createProgressLogger(options.onProgress);
-  const grokBin = options.grokBin || process.env.GROK_BIN || "grok";
-  if (!options.skipAi) {
-    progress(`Checking Grok CLI and authentication with "${grokBin}".`);
-    await dependencies.preflightGrok({
-      grokBin,
-      onProgress: progress,
-    });
-    progress("Grok CLI and authentication check succeeded.");
-  } else {
-    progress("Skipping Grok CLI/authentication check because --skip-ai is set.");
+async function replaceDirectory(sourceDirectory, destinationDirectory) {
+  const nextDirectory = `${destinationDirectory}.next-${process.pid}`;
+  const backupDirectory = `${destinationDirectory}.backup-${process.pid}`;
+  await rm(nextDirectory, { recursive: true, force: true });
+  await rm(backupDirectory, { recursive: true, force: true });
+  await cp(sourceDirectory, nextDirectory, { recursive: true });
+  if (await pathExists(destinationDirectory)) {
+    await rename(destinationDirectory, backupDirectory);
   }
+  try {
+    await rename(nextDirectory, destinationDirectory);
+    await rm(backupDirectory, { recursive: true, force: true });
+  } catch (error) {
+    await rm(destinationDirectory, { recursive: true, force: true });
+    if (await pathExists(backupDirectory)) {
+      await rename(backupDirectory, destinationDirectory);
+    }
+    throw error;
+  }
+}
 
-  progress("Exporting Apple Notes and preparing notes.md candidates.");
-  const snapshot = await dependencies.runNotesSnapshot({
-    streamStderr: Boolean(options.onProgress),
-  });
-  progress(
-    `Apple Notes export complete: ${snapshot.noteCount ?? "unknown"} note(s); report ${snapshot.canonicalNoteBackupReportPath}.`
-  );
-  const reportPath = snapshot.canonicalNoteBackupReportPath;
-  progress("Loading canonical note backup report.");
-  const report = await dependencies.loadReport(reportPath);
-  progress(
-    `Notes candidate report: ${report.totals?.processed ?? 0} processed, ${report.totals?.new ?? 0} new, ${report.totals?.updated ?? 0} updated, ${report.totals?.unchanged ?? 0} unchanged, ${report.totals?.missingCanonicalLessonFolder ?? 0} missing canonical folder.`
-  );
-  let summaries = null;
+async function preserveLegacySummaryCandidates(cacheRoot) {
+  const reportPath = path.join(cacheRoot, NOTES_REPORT_FILENAME);
+  if (!(await pathExists(reportPath))) {
+    return [];
+  }
+  const report = await loadCanonicalNoteBackupReport(reportPath);
+  const legacyUpdates =
+    report.legacySummaryUpdates || report.summaryUpdates || [];
+  const preserved = [];
 
-  if (!options.skipAi) {
-    progress("Preparing Grok notes-summary.md candidates.");
-    summaries = await dependencies.generateNoteSummaries({
-      reportPath,
-      canonicalBase: coursesEnv.canonicalBase,
-      model: options.model || null,
-      timeoutMs: options.timeoutMs,
-      grokBin,
-      preflight: async () => {},
-      onProgress: progress,
-    });
-    progress(
-      `Grok summary generation complete: ${summaries.totals.generated} generated, ${summaries.totals.staged} staged, ${summaries.totals.failed} failed.`
+  for (const [index, update] of legacyUpdates.entries()) {
+    if (
+      !update.stagedSummaryPath ||
+      !(await pathExists(update.stagedSummaryPath))
+    ) {
+      preserved.push({ ...update });
+      continue;
+    }
+    const lessonName =
+      path.basename(path.dirname(update.canonicalSummaryPath || "")) ||
+      `summary-${index + 1}`;
+    const destinationDirectory = path.join(
+      cacheRoot,
+      "legacy-ai-summaries",
+      lessonName
     );
-    if (summaries.totals.failed > 0) {
-      throw new Error(
-        `${summaries.totals.failed} Grok summary candidate(s) failed. Review the report before applying.`
+    await mkdir(destinationDirectory, { recursive: true });
+    const stagedSummaryPath = path.join(
+      destinationDirectory,
+      path.basename(update.stagedSummaryPath)
+    );
+    await copyFile(update.stagedSummaryPath, stagedSummaryPath);
+    let stagedMetadataPath = null;
+    if (
+      update.stagedMetadataPath &&
+      (await pathExists(update.stagedMetadataPath))
+    ) {
+      stagedMetadataPath = path.join(
+        destinationDirectory,
+        path.basename(update.stagedMetadataPath)
+      );
+      await copyFile(update.stagedMetadataPath, stagedMetadataPath);
+    }
+    preserved.push({
+      ...update,
+      stagedSummaryPath,
+      stagedMetadataPath,
+    });
+  }
+  return preserved;
+}
+
+async function prepareNotesComponent({
+  cacheRoot,
+  coursesEnv,
+  fullNotesExport,
+  previousSnapshotRoot,
+  progress,
+  dependencies,
+}) {
+  const legacySummaryUpdates =
+    await preserveLegacySummaryCandidates(cacheRoot);
+  const temporaryOutput = await mkdtemp(
+    path.join(os.tmpdir(), "bible-weekly-notes-")
+  );
+  try {
+    progress("Refreshing Apple Notes and staging changed notes.md files.");
+    const snapshot = await dependencies.createNotesSnapshot(
+      {
+        coursesEnv,
+        account: coursesEnv.notesAccount,
+        folder: coursesEnv.notesFolder,
+        output: temporaryOutput,
+        fullExport: Boolean(fullNotesExport),
+        previousSnapshotRoot,
+        prepareBackups: false,
+      },
+      dependencies.notesSnapshotDependencies || {}
+    );
+    if (snapshot.exportStats) {
+      progress(
+        `Apple Notes bodies: ${snapshot.exportStats.exported} exported, ${snapshot.exportStats.reused} reused.`
       );
     }
+    await replaceDirectory(
+      path.join(snapshot.snapshotRoot, "notes"),
+      path.join(cacheRoot, "notes")
+    );
+    await copyFile(
+      path.join(snapshot.snapshotRoot, "manifest.json"),
+      path.join(cacheRoot, "manifest.json")
+    );
+    await copyFile(
+      path.join(snapshot.snapshotRoot, "titles.txt"),
+      path.join(cacheRoot, "titles.txt")
+    );
+    const backups = await dependencies.prepareCanonicalNoteBackups({
+      snapshotRoot: cacheRoot,
+      canonicalBase: coursesEnv.canonicalBase,
+    });
+    progress(
+      `Canonical notes comparison: ${
+        backups.report.totals.new + backups.report.totals.updated
+      } staged, ${backups.report.totals.unchanged} unchanged.`
+    );
+    if (legacySummaryUpdates.length > 0) {
+      backups.report.legacySummaryUpdates = legacySummaryUpdates;
+      delete backups.report.summaryUpdates;
+      await writeJsonAtomic(backups.reportPath, backups.report);
+    }
+    return {
+      snapshot,
+      report: backups.report,
+      reportPath: backups.reportPath,
+    };
+  } finally {
+    await rm(temporaryOutput, { recursive: true, force: true });
   }
+}
+
+async function prepareWeeklyCache(options, coursesEnv, dependencies) {
+  const progress = createProgressLogger(options.onProgress);
+  const components = normalizeComponents(options.components);
+  let cacheRoot = options.cacheRoot
+    ? await resolveWeeklyCache(coursesEnv.notesCacheRoot, options.cacheRoot)
+    : null;
+  let state;
+  let created = false;
+
+  if (!cacheRoot) {
+    const cache = await dependencies.createWeeklyCache(
+      coursesEnv.notesCacheRoot
+    );
+    cacheRoot = cache.cacheRoot;
+    state = cache.state;
+    created = true;
+  } else {
+    state = await dependencies.loadCacheState(cacheRoot);
+    if (state.status === "applied") {
+      throw new Error(
+        "Applied caches are immutable. Create a new cache instead."
+      );
+    }
+    await updateLatestPointer(coursesEnv.notesCacheRoot, cacheRoot);
+  }
+  const previousNotesSnapshotRoot =
+    components.includes("notes") && !options.fullNotesExport
+      ? await dependencies.findReusableNotesSnapshotRoot(
+          coursesEnv.notesCacheRoot,
+          { preferredCacheRoot: cacheRoot }
+        )
+      : null;
+
+  const componentResults = {};
+  if (components.includes("documents")) {
+    progress("Parsing Word summaries and extracting video titles.");
+    const documents = await dependencies.prepareDocumentSummaries({
+      cacheRoot,
+      canonicalBase: coursesEnv.canonicalBase,
+    });
+    state = await dependencies.recordCacheComponent({
+      cacheRoot,
+      state,
+      componentName: "documents",
+      outputPath: documents.manifestPath,
+      summary: {
+        records: documents.manifest.recordCount,
+        titles: documents.manifest.records.filter(
+          (record) => record.videoSummary
+        ).length,
+      },
+    });
+    componentResults.documents = documents;
+  }
+
+  if (components.includes("notes")) {
+    const notes = await prepareNotesComponent({
+      cacheRoot,
+      coursesEnv,
+      fullNotesExport: options.fullNotesExport,
+      previousSnapshotRoot: previousNotesSnapshotRoot,
+      progress,
+      dependencies,
+    });
+    state = await dependencies.recordCacheComponent({
+      cacheRoot,
+      state,
+      componentName: "notes",
+      outputPath: notes.reportPath,
+      summary: notes.report.totals,
+    });
+    componentResults.notes = notes;
+  }
+
+  if (components.includes("youtube")) {
+    if (!coursesEnv.youtubePlaylistUrl) {
+      throw new Error(
+        "COURSES_YOUTUBE_PLAYLIST_URL is required to refresh YouTube."
+      );
+    }
+    progress("Refreshing the YouTube playlist snapshot.");
+    const playlist = await dependencies.fetchPlaylistSnapshot(
+      coursesEnv.youtubePlaylistUrl,
+      { onRetry: (message) => progress(message) }
+    );
+    const playlistPath = path.join(cacheRoot, CACHED_PLAYLIST_FILENAME);
+    await writeJsonAtomic(playlistPath, playlist);
+    state = await dependencies.recordCacheComponent({
+      cacheRoot,
+      state,
+      componentName: "youtube",
+      outputPath: playlistPath,
+      summary: { videos: playlist.videoCount },
+    });
+    componentResults.youtube = { playlist, playlistPath };
+  }
+
+  if (components.includes("inventory")) {
+    progress("Scanning lesson folders, assets, and publication markers.");
+    const inventory = await dependencies.prepareSourceInventory({
+      cacheRoot,
+      canonicalBase: coursesEnv.canonicalBase,
+    });
+    state = await dependencies.recordCacheComponent({
+      cacheRoot,
+      state,
+      componentName: "inventory",
+      outputPath: inventory.inventoryPath,
+      summary: {
+        sections: inventory.inventory.sectionCount,
+        files: inventory.inventory.fileCount,
+      },
+    });
+    componentResults.inventory = inventory;
+  }
+
+  progress("Auditing the prepared cache.");
+  const audited = await dependencies.auditWeeklyCache({
+    cacheRoot,
+    canonicalBase: coursesEnv.canonicalBase,
+  });
   return {
     phase: "prepare",
-    deployRun: false,
+    cacheId: path.basename(cacheRoot),
+    cacheRoot,
+    created,
+    refreshedComponents: components,
+    componentResults,
+    state: audited.state,
+    audit: audited.audit,
     reviewRequired: true,
-    snapshotRoot: snapshot.snapshotRoot,
-    reportPath,
-    candidatesRoot: snapshot.canonicalNoteBackupCandidatesRoot,
-    noteTotals: report.totals,
-    summaryTotals: summaries?.totals || null,
-    summarySkipped: summaries?.skipped || [],
-    review: buildPrepareReview({
-      report,
-      summaries,
-      skipAi: options.skipAi,
-    }),
-    metadataBehavior: metadataBehavior(report),
-    next:
-      "Review the staged candidates and report, then run `yarn courses:weekly --apply`. Deployment remains a separate command.",
+    deployRun: false,
   };
 }
 
-
-function noteItem(update) {
-  return {
-    title: update.title,
-    lesson: update.relativeLessonDirectory || null,
-    noteUpdatedAt: update.noteUpdatedAt || null,
-    matchedBy: update.matchedBy || null,
-    expectedLessonDirectoryName: update.expectedLessonDirectoryName || null,
-    actualLessonDirectoryName: update.actualLessonDirectoryName || null,
-    expectedRelativeLessonDirectory:
-      update.expectedRelativeLessonDirectory || null,
-    canonicalNotesPath: update.canonicalNotesPath || null,
-    stagedNotesPath: update.stagedNotesPath || null,
-  };
-}
-
-function summaryItem(update) {
-  return {
-    title: update.title,
-    reason: update.reason || null,
-    stagedSummaryPath: update.stagedSummaryPath || null,
-    canonicalSummaryPath: update.canonicalSummaryPath || null,
-    publishReasons: update.publishReasons || [],
-    error: update.error || null,
-  };
-}
-
-function buildPrepareReview({ report, summaries, skipAi }) {
-  const noteUpdates = report.updates || [];
-  const newNotes = noteUpdates
-    .filter((update) => update.changeType === "new")
-    .map(noteItem);
-  const updatedNotes = noteUpdates
-    .filter((update) => update.changeType === "updated")
-    .map(noteItem);
-  const alreadyCurrentNotes = (report.unchangedNotes || []).map(noteItem);
-  const unmatchedNotes = report.missingCanonicalLessonFolders || [];
-  const summarySkipped = summaries?.skipped || [];
-  const alreadyStagedSummaries = summarySkipped
-    .filter((item) => item.reason === "unchanged-staged")
-    .map(summaryItem);
-  const generatedSummaries = (summaries?.generated || []).map(summaryItem);
-  const summariesToApply = [
-    ...generatedSummaries,
-    ...alreadyStagedSummaries,
-  ];
-
-  return {
-    noteBackups: {
-      totals: report.totals,
-      new: newNotes,
-      updated: updatedNotes,
-      alreadyCurrent: alreadyCurrentNotes,
-      unmatched: unmatchedNotes,
-    },
-    notesSummaries: {
-      skippedByOption: skipAi,
-      totals: summaries?.totals || null,
-      generated: generatedSummaries,
-      alreadyStaged: alreadyStagedSummaries,
-      alreadyCurrent: summarySkipped
-        .filter((item) => item.reason === "unchanged-canonical")
-        .map(summaryItem),
-      manualProtected: summarySkipped
-        .filter((item) => item.reason === "manual-summary")
-        .map(summaryItem),
-      noPublishSkipped: summarySkipped
-        .filter((item) => item.reason === "NOPUBLISH")
-        .map(summaryItem),
-      failures: (summaries?.failures || []).map(summaryItem),
-    },
-    applyPreview: {
-      notesToApply: noteUpdates.length,
-      notesToCreate: newNotes.length,
-      notesToUpdate: updatedNotes.length,
-      summariesToApply: summariesToApply.length,
-      willRegenerateCourseContent: true,
-      willRunOfflineAudit: true,
-      willBuild: false,
-      willDeploy: false,
-    },
-  };
-}
-
-function itemLabel(item) {
-  return item.lesson ? `${item.title} (${item.lesson})` : item.title;
-}
-
-function formatList(lines, title, items, renderItem, emptyText = "none") {
-  lines.push(`${title}: ${items.length}`);
-  if (items.length === 0) {
-    lines.push(`  - ${emptyText}`);
-    return;
-  }
-
-  for (const item of items) {
-    lines.push(`  - ${renderItem(item)}`);
-  }
-}
-
-function formatNoteItem(item) {
-  const pathText = item.stagedNotesPath
-    ? ` -> staged ${item.stagedNotesPath}`
-    : "";
-  const sequenceText =
-    item.matchedBy === "sequence" &&
-    item.expectedLessonDirectoryName !== item.actualLessonDirectoryName
-      ? ` [matched by week number: expected ${item.expectedLessonDirectoryName}, found ${item.actualLessonDirectoryName}]`
-      : "";
-  return `${itemLabel(item)}${sequenceText}${pathText}`;
-}
-
-function formatSummaryItem(item) {
-  if (item.error) {
-    return `${item.title}: ${item.error}`;
-  }
-  if (item.reason === "NOPUBLISH") {
-    const reasons = item.publishReasons
-      .map((reason) => `${reason.type}:${reason.path}`)
-      .join(", ");
-    return `${item.title}${reasons ? ` (${reasons})` : ""}`;
-  }
-  return item.stagedSummaryPath
-    ? `${item.title} -> staged ${item.stagedSummaryPath}`
-    : item.canonicalSummaryPath
-      ? `${item.title} -> ${item.canonicalSummaryPath}`
-      : item.title;
-}
-
-function formatPrepareResult(result) {
-  const lines = [
-    "Know Your Bible weekly prepare",
-    "No canonical lesson files have been changed yet.",
-    "",
-    "Paths",
-    `  Report: ${result.reportPath}`,
-    `  Candidates: ${result.candidatesRoot}`,
-    `  Snapshot: ${result.snapshotRoot}`,
-    "",
-    "Apple Notes -> notes.md",
-    `  Processed: ${result.review.noteBackups.totals?.processed ?? 0}`,
-  ];
-
-  formatList(
-    lines,
-    "  New notes that --apply will create",
-    result.review.noteBackups.new,
-    formatNoteItem
-  );
-  formatList(
-    lines,
-    "  Existing notes that --apply will update",
-    result.review.noteBackups.updated,
-    formatNoteItem
-  );
-  formatList(
-    lines,
-    "  Already current notes; --apply will leave them alone",
-    result.review.noteBackups.alreadyCurrent,
-    itemLabel
-  );
-  formatList(
-    lines,
-    "  Apple Notes without a matching canonical lesson folder",
-    result.review.noteBackups.unmatched,
-    (item) =>
-      `${item.title} -> expected ${item.expectedRelativeLessonDirectory || item.expectedLessonDirectoryName}`
-  );
-
-  lines.push("", "Grok notes-summary.md candidates");
-  if (result.review.notesSummaries.skippedByOption) {
-    lines.push("  Skipped by --skip-ai; no summaries will be generated or applied.");
-  } else {
-    formatList(
-      lines,
-      "  Generated now; --apply will copy them",
-      result.review.notesSummaries.generated,
-      formatSummaryItem
-    );
-    formatList(
-      lines,
-      "  Already staged; --apply will copy them",
-      result.review.notesSummaries.alreadyStaged,
-      formatSummaryItem
-    );
-    formatList(
-      lines,
-      "  Already current in canonical lessons; --apply will leave them alone",
-      result.review.notesSummaries.alreadyCurrent,
-      formatSummaryItem
-    );
-    formatList(
-      lines,
-      "  Manual canonical summaries protected from overwrite",
-      result.review.notesSummaries.manualProtected,
-      formatSummaryItem
-    );
-    formatList(
-      lines,
-      "  NOPUBLISH lessons skipped; not sent to Grok",
-      result.review.notesSummaries.noPublishSkipped,
-      formatSummaryItem
-    );
-    formatList(
-      lines,
-      "  Summary failures that need review",
-      result.review.notesSummaries.failures,
-      formatSummaryItem
+async function loadReadyCache(cacheRoot) {
+  const state = await loadCacheState(cacheRoot);
+  if (state.status !== "ready" || !state.latestAudit?.ready) {
+    throw new Error(
+      "The selected cache is not ready. Run the cache audit and fix its errors first."
     );
   }
-
-  lines.push(
-    "",
-    "What `yarn courses:weekly --apply` will do",
-    `  - Copy ${result.review.applyPreview.notesToApply} notes.md candidate(s): ${result.review.applyPreview.notesToCreate} new, ${result.review.applyPreview.notesToUpdate} updated.`,
-    `  - Copy ${result.review.applyPreview.summariesToApply} notes-summary.md candidate(s).`,
-    "  - Regenerate course content, resources, maps, playlist matches, and search.",
-    "  - Run the offline course audit.",
-    "  - It will not build or deploy.",
-    "",
-    result.next
-  );
-
-  return lines.join("\n");
+  const currentFingerprint = computeComponentsFingerprint(state.components);
+  if (currentFingerprint !== state.latestAudit.componentsFingerprint) {
+    throw new Error(
+      "The selected cache changed after its successful audit. Audit it again."
+    );
+  }
+  return state;
 }
 
-function formatApplyResult(result) {
-  const lines = [
-    "Know Your Bible weekly apply",
-    "Canonical lesson files were updated from the reviewed staging report.",
-    "",
-    `Report: ${result.reportPath}`,
-  ];
-
-  formatList(
-    lines,
-    "Applied notes.md files",
-    result.appliedNotes || [],
-    (item) => `${item.title} -> ${item.canonicalNotesPath}`
-  );
-  formatList(
-    lines,
-    "Applied notes-summary.md files",
-    result.appliedSummaries || [],
-    (item) => `${item.title} -> ${item.canonicalSummaryPath}`
-  );
-  lines.push(
-    "",
-    "Regeneration",
-    `  Published lessons: ${result.refresh?.lessonCount ?? 0}`,
-    `  Unpublished lessons: ${result.refresh?.unpublishedLessonCount ?? 0}`,
-    `  Notes copied: ${result.refresh?.notesCopied ?? 0}`,
-    `  Notes summaries copied: ${result.refresh?.notesSummariesCopied ?? 0}`,
-    "",
-    "Audit",
-    `  Errors: ${result.audit?.errors ?? 0}`,
-    `  Warnings: ${result.audit?.warnings ?? 0}`,
-    "",
-    "Build/deploy: not run.",
-    result.next
-  );
-
-  return lines.join("\n");
+async function collectAppliedNoteHashes(report) {
+  const notes = [];
+  for (const update of report.updates || []) {
+    notes.push({
+      path: update.canonicalNotesPath,
+      hash: hashContent(await readFile(update.canonicalNotesPath)),
+    });
+  }
+  return notes;
 }
 
-export function formatWeeklyRefreshResult(result) {
-  return result.phase === "prepare"
-    ? formatPrepareResult(result)
-    : formatApplyResult(result);
-}
-
-async function applyWeeklyRefresh(options, coursesEnv, dependencies) {
+async function applyWeeklyCache(options, coursesEnv, dependencies) {
   const progress = createProgressLogger(options.onProgress);
-  const reportPath = await resolveReportPath(options, coursesEnv);
-  progress(`Applying reviewed candidates from ${reportPath}.`);
-  const backups = await dependencies.applyBackups({
-    reportPath,
-    applySummaries: !options.skipAi,
-  });
-  progress(
-    `Applied ${backups.applied.length} notes.md file(s) and ${backups.summariesApplied.length} notes-summary.md file(s).`
+  const cacheRoot = await resolveWeeklyCache(
+    coursesEnv.notesCacheRoot,
+    options.cacheRoot
   );
-  progress("Regenerating course content, assets, maps, playlist matches, and search.");
-  const refresh = await dependencies.syncContent();
-  progress(
-    `Course content regenerated: ${refresh.lessonCount ?? 0} published lesson(s), ${refresh.unpublishedLessonCount ?? 0} unpublished lesson(s).`
-  );
-  progress(
-    options.onlineAudit
-      ? "Running course audit with bounded online link checks."
-      : "Running offline course audit."
-  );
-  const audit = await dependencies.auditCourses({
-    online: options.onlineAudit,
-  });
-  progress(
-    `Course audit complete: ${audit.totals.errors} error(s), ${audit.totals.warnings} warning(s).`
-  );
+  const existingState = await loadCacheState(cacheRoot);
+  if (existingState.status === "applied" && existingState.applied) {
+    return {
+      phase: "apply",
+      cacheId: path.basename(cacheRoot),
+      cacheRoot,
+      alreadyApplied: true,
+      notesApplied: 0,
+      appliedNotes: [],
+      state: existingState,
+      deployRun: false,
+    };
+  }
+  const state = await loadReadyCache(cacheRoot);
+  const reportPath = getCanonicalNoteBackupReportPath(cacheRoot);
 
+  progress(`Applying reviewed notes from ${path.basename(cacheRoot)}.`);
+  const backups = await dependencies.applyCanonicalNoteBackups({
+    reportPath,
+  });
+  const [documentSummaries, playlistSnapshot] = await Promise.all([
+    loadDocumentSummaries(cacheRoot),
+    JSON.parse(
+      await readFile(path.join(cacheRoot, CACHED_PLAYLIST_FILENAME), "utf8")
+    ),
+  ]);
+
+  progress("Regenerating course content from audited cached inputs.");
+  const refresh = await dependencies.syncCoursesContent({
+    documentSummaries,
+    documentCacheRoot: cacheRoot,
+    playlistSnapshot,
+  });
+  progress("Running the repository course audit.");
+  const audit = await dependencies.auditCourses({
+    online: Boolean(options.onlineAudit),
+  });
   if (audit.totals.errors > 0) {
     const error = new Error(
-      `Course refresh completed, but the audit found ${audit.totals.errors} error(s).`
+      `Course regeneration completed, but the audit found ${audit.totals.errors} error(s).`
     );
     error.result = { audit, refresh };
     throw error;
   }
 
+  const appliedAt = new Date().toISOString();
+  const playlistPath = path.join(
+    REPO_ROOT,
+    "apps",
+    "courses",
+    "content",
+    "playlist.json"
+  );
+  const nextState = {
+    ...state,
+    updatedAt: appliedAt,
+    status: "applied",
+    applied: {
+      appliedAt,
+      componentsFingerprint: computeComponentsFingerprint(state.components),
+      notes: await collectAppliedNoteHashes(backups.report),
+      playlist: {
+        path: playlistPath,
+        hash: hashContent(await readFile(playlistPath)),
+      },
+      documentsFingerprint:
+        state.components.documents?.fingerprint || null,
+      repositoryAudit: audit.totals,
+    },
+    release: null,
+  };
+  await writeCacheState(cacheRoot, nextState);
+
   return {
     phase: "apply",
-    deployRun: false,
+    cacheId: path.basename(cacheRoot),
+    cacheRoot,
     reportPath,
     notesApplied: backups.applied.length,
-    summariesApplied: backups.summariesApplied.length,
     appliedNotes: backups.applied,
-    appliedSummaries: backups.summariesApplied,
-    summaryApplySkipped: options.skipAi,
     refresh,
     audit: audit.totals,
-    metadataBehavior: metadataBehavior(backups.report),
-    next:
-      "Review generated content and audit warnings. Build or deploy separately when ready.",
+    state: nextState,
+    deployRun: false,
   };
 }
 
-export async function runWeeklyRefresh(options = {}, injectedDependencies = {}) {
+export function formatWeeklyRefreshResult(result) {
+  if (result.phase === "prepare") {
+    return [
+      `Prepared cache ${result.cacheId}`,
+      `Cache folder: ${result.cacheRoot}`,
+      `Refreshed: ${result.refreshedComponents.join(", ")}`,
+      formatCacheAudit(result.audit),
+      "",
+      result.audit.ready
+        ? "Next: apply this cache or review its warnings."
+        : "Fix the reported errors, refresh the affected component, and rerun the audit.",
+    ].join("\n");
+  }
+  if (result.alreadyApplied) {
+    return [
+      `Cache ${result.cacheId} is already applied. No files were changed.`,
+      "",
+      "Next: build and test locally.",
+    ].join("\n");
+  }
+  return [
+    `Applied cache ${result.cacheId}`,
+    `Applied notes: ${result.notesApplied}`,
+    `Published lessons: ${result.refresh.lessonCount}`,
+    `YouTube matches: ${result.refresh.matchedYoutubeLessons}`,
+    `Repository audit: ${result.audit.errors} errors, ${result.audit.warnings} warnings`,
+    "",
+    "Next: build and test locally.",
+  ].join("\n");
+}
+
+export async function runWeeklyRefresh(
+  options = {},
+  injectedDependencies = {}
+) {
   const coursesEnv = options.coursesEnv || (await loadCoursesEnv());
-  const normalizedOptions = {
-    apply: Boolean(options.apply),
-    skipAi: Boolean(options.skipAi),
-    onlineAudit: Boolean(options.onlineAudit),
-    reportPath: options.reportPath || null,
-    model: options.model || null,
-    grokBin: options.grokBin || null,
-    timeoutMs: options.timeoutMs || 120_000,
-    onProgress: options.onProgress || null,
-  };
   const dependencies = {
-    preflightGrok,
-    runNotesSnapshot,
-    loadReport: loadCanonicalNoteBackupReport,
-    generateNoteSummaries,
-    applyBackups: applyCanonicalNoteBackups,
-    syncContent: syncCoursesContent,
+    createWeeklyCache,
+    findReusableNotesSnapshotRoot,
+    loadCacheState,
+    recordCacheComponent,
+    prepareDocumentSummaries,
+    createNotesSnapshot,
+    prepareCanonicalNoteBackups,
+    fetchPlaylistSnapshot,
+    prepareSourceInventory,
+    auditWeeklyCache,
+    applyCanonicalNoteBackups,
+    syncCoursesContent,
     auditCourses,
     ...injectedDependencies,
   };
-
-  return normalizedOptions.apply
-    ? applyWeeklyRefresh(normalizedOptions, coursesEnv, dependencies)
-    : prepareWeeklyRefresh(normalizedOptions, coursesEnv, dependencies);
+  return options.apply
+    ? applyWeeklyCache(options, coursesEnv, dependencies)
+    : prepareWeeklyCache(options, coursesEnv, dependencies);
 }
 
 function parseArgs(argv) {
   const options = {};
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
-    if (["--report", "--model", "--grok-bin", "--timeout"].includes(arg)) {
+    if (arg === "--cache") {
+      options.cacheRoot = argv[index + 1];
+      if (!options.cacheRoot) {
+        throw new Error("--cache requires a folder or cache ID.");
+      }
+      index += 1;
+    } else if (arg === "--components") {
       const value = argv[index + 1];
       if (!value) {
-        throw new Error(`${arg} requires a value.`);
+        throw new Error("--components requires a comma-separated value.");
       }
-      const key = {
-        "--report": "reportPath",
-        "--model": "model",
-        "--grok-bin": "grokBin",
-        "--timeout": "timeoutSeconds",
-      }[arg];
-      options[key] = value;
+      options.components = value.split(",").map((item) => item.trim());
       index += 1;
     } else if (arg === "--apply") {
       options.apply = true;
-    } else if (arg === "--skip-ai") {
-      options.skipAi = true;
+    } else if (arg === "--full-notes-export") {
+      options.fullNotesExport = true;
     } else if (arg === "--online-audit") {
       options.onlineAudit = true;
     } else if (arg === "--json") {
@@ -548,35 +568,16 @@ function parseArgs(argv) {
 function printHelp() {
   console.log(`Usage: yarn courses:weekly [options]
 
-Without --apply, exports Apple Notes, stages changed notes.md files, classifies
-NOPUBLISH lessons, and creates Grok notes-summary.md candidates. It does not
-change canonical lessons.
-
-After reviewing the report and staged files, use --apply to validate and copy
-approved candidates, regenerate course content/search/assets, and run the
-offline audit. This command never builds or deploys the site.
+Lower-level selected-cache prepare/apply command. Use yarn weekly for the guided
+six-step workflow.
 
 Options:
-  --apply             Apply the latest reviewed staging report
-  --report <path>     Apply a specific report instead of the latest
-  --skip-ai           Prepare/apply notes without generating/applying summaries
-  --online-audit      Add bounded remote link checks during --apply
-  --json              Print machine-readable JSON instead of the readable report
-  --model <id>        Override the Grok CLI default model during prepare
-  --timeout <seconds> Per-summary timeout (default: 120)
-  --grok-bin <path>   Grok executable (default: GROK_BIN or grok)
-
-Progress is printed to stderr in readable mode. Use --json for quiet,
-machine-readable stdout.
-
-Grok summary prompt:
-  Edit tools/courses/SUMMARY_PROMPT.md to change the prompt. Keep the
-  {{NOTES}} placeholder where the lesson notes should be inserted.
-
-Name handling:
-  Existing manual metadata is preserved while the canonical lesson folder path
-  stays the same. Renaming a source folder creates a new key/slug, so unmatched
-  candidates are reported rather than silently moving metadata.`);
+  --cache <id|path>       Refresh or apply a specific cache
+  --components <list>     documents,notes,youtube,inventory
+  --apply                 Apply a ready cache (requires --cache)
+  --full-notes-export     Re-export every Apple Note body
+  --online-audit          Check remote links after apply
+  --json                  Print machine-readable JSON`);
 }
 
 async function main() {
@@ -585,13 +586,8 @@ async function main() {
     printHelp();
     return;
   }
-  const timeoutSeconds = Number(options.timeoutSeconds || 120);
-  if (!Number.isFinite(timeoutSeconds) || timeoutSeconds <= 0) {
-    throw new Error("--timeout must be a positive number of seconds.");
-  }
   const result = await runWeeklyRefresh({
     ...options,
-    timeoutMs: timeoutSeconds * 1000,
     onProgress: options.json
       ? null
       : (message) => process.stderr.write(`[courses:weekly] ${message}\n`),

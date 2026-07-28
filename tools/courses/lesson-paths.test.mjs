@@ -4,6 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   buildCanonicalLessonIndex,
+  parseLessonDirectoryName,
   parseSectionDirectoryName,
   resolveCanonicalLessonDirectory,
 } from "./lesson-paths.mjs";
@@ -50,6 +51,28 @@ async function makeCanonicalBase() {
 }
 
 describe("canonical lesson path matching", () => {
+  it("models Promo and Intro without passages and rejects unknown non-passage labels", () => {
+    expect(parseLessonDirectoryName("000-Promo")).toMatchObject({
+      sequenceNumber: 0,
+      lessonKind: "promo",
+      passage: null,
+      displayTitle: "Why Know Your Bible?",
+    });
+    expect(parseLessonDirectoryName("001-Intro")).toMatchObject({
+      sequenceNumber: 1,
+      lessonKind: "intro",
+      passage: null,
+      displayTitle: "Intro",
+    });
+    expect(parseLessonDirectoryName("002_Genesis1-2")).toMatchObject({
+      sequenceNumber: 2,
+      lessonKind: "passage",
+      passage: { display: "Genesis 1-2" },
+    });
+    expect(() => parseLessonDirectoryName("002-Overview")).toThrow(
+      "neither a known special lesson nor a valid passage"
+    );
+  });
   it("accepts Bucket source sections while keeping generated section slugs stable", () => {
     expect(parseSectionDirectoryName("01-Bucket-Genesis1-11")).toMatchObject({
       directoryKind: "Bucket",

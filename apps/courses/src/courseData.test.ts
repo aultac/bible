@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { parseBibleReference } from "./bibleReferences";
-import { courseLibrary } from "./courseData";
+import {
+  courseLibrary,
+  formatLessonSequenceBadge,
+  formatLessonSequenceLabel,
+  selectFeaturedLesson,
+} from "./courseData";
 
 describe("canonical course outline hydration", () => {
   it("keeps all eleven authored sections, including future sections", () => {
@@ -51,5 +56,25 @@ describe("canonical course outline hydration", () => {
       : null;
 
     expect(lesson?.slug).toBe("017-genesis36-37-29");
+  });
+
+  it("prefers a video-backed Promo for the featured slot and labels it semantically", () => {
+    const latest = {
+      lessonKind: "passage" as const,
+      sequenceNumber: 34,
+      youtube: { videoId: "latest" },
+    };
+    const promo = {
+      lessonKind: "promo" as const,
+      sequenceNumber: 0,
+      youtube: { videoId: "promo" },
+    };
+
+    expect(selectFeaturedLesson([latest, promo], latest)).toBe(promo);
+    expect(selectFeaturedLesson([latest], latest)).toBe(latest);
+    expect(formatLessonSequenceLabel(promo)).toBe("Promo");
+    expect(formatLessonSequenceBadge(promo)).toBe("00");
+    expect(formatLessonSequenceLabel(latest)).toBe("Week 34");
+    expect(formatLessonSequenceBadge(latest)).toBe("34");
   });
 });

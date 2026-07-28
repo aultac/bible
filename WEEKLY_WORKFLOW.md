@@ -1,204 +1,311 @@
 # Know Your Bible Weekly Workflow
 
-The weekly refresh is intentionally review-gated. Preparing, applying, building,
-and deploying are separate steps so that exported notes and AI-generated summaries
-can be inspected before they reach the website.
+`yarn weekly` is a review-gated, six-step workflow. Source documents are first
+copied or converted into a selected cache. Nothing reaches canonical lesson
+folders or generated website content until that cache passes its audit and is
+explicitly applied.
 
-## 1. Prepare the weekly update
-
-From the repository root, run:
-
-```bash
-yarn courses:weekly
-```
-
-This command:
-
-- checks that the Grok CLI is installed and authenticated;
-- exports the configured Apple Notes folder;
-- compares exported notes with canonical lesson `notes.md` files;
-- stages only new or changed notes;
-- identifies lessons marked `NOPUBLISH`;
-- generates eligible `notes-summary.md` candidates with Grok; and
-- prints a readable apply preview showing what is new, what will be updated, what already exists, and what will be skipped.
-
-It does **not** change canonical lesson files, regenerate the site, build, or deploy.
-
-Use `yarn courses:weekly --json` when you want the machine-readable version of the same report.
-
-## 2. Review the staged candidates
-
-Open the candidate directory and report printed by the prepare command. Review:
-
-- every staged `notes.md`;
-- every staged `notes-summary.md`;
-- each `notes-summary.meta.json` generation record;
-- lessons reported as unmatched or renamed;
-- lessons skipped because of `NOPUBLISH`; and
-- any Grok failures or protected manual summaries.
-
-Do not apply the update until the staged notes and summaries are acceptable.
-
-## 3. Apply and regenerate
-
-After reviewing the candidates, run:
+Run the guided workflow from the repository root:
 
 ```bash
-yarn courses:weekly --apply
+yarn weekly
 ```
 
-This command:
+The menu remembers the selected cache for the current session. Every direct
+command instead requires `--cache <id|path>` when it operates on an existing
+cache, so an old or unintended cache is never selected implicitly.
 
-- validates that staged notes have not changed since the report was created;
-- validates each summary against the SHA-256 hash of its source notes;
-- applies the reviewed notes and summaries to the canonical lesson folders;
-- regenerates manifests, Markdown, resources, maps, playlist matches, and search data;
-- archives `NOPUBLISH` lessons outside the published frontend content; and
-- runs the required offline course audit.
+## 1. Prepare cache from source documents
 
-It still does **not** deploy the website.
+The default guided action creates a new timestamped cache and refreshes all four
+components:
 
-To apply a specific report instead of the latest one:
+1. `documents` converts section and lesson Word summaries to cached Markdown and
+   extracts each lesson's `Title:` as its `videoSummary`.
+2. `notes` exports Apple Notes, reuses unchanged note bodies from the selected
+   cache or newest prior cache, and stages only candidates that differ from
+   canonical `notes.md`.
+3. `youtube` stores a validated playlist snapshot.
+4. `inventory` fingerprints canonical lesson folders, publication markers, and
+   assets.
+
+The cache is audited automatically after preparation. Preparation does not
+change canonical lessons or generated repository content.
+
+To create a new full cache directly:
 
 ```bash
-yarn courses:weekly --apply --report /path/to/canonical-note-backup-report.json
+yarn weekly --prepare
 ```
 
-## 4. Review the generated repository changes
-
-Inspect the working tree:
+To refresh an existing unapplied cache, select it in the guided menu or name it
+directly:
 
 ```bash
-git status --short
-git diff
+yarn weekly --prepare --cache <cache-id>
 ```
 
-Pay particular attention to:
+An existing cache can refresh only the affected components:
 
-- lesson manifests and Markdown under `apps/courses/content/`;
-- archived lessons under `apps/courses/content/unpublished/`;
-- copied assets under `apps/courses/public/resources/`;
-- generated maps under `apps/courses/public/maps/`;
-- `apps/courses/public/search/notes-index.json.gz`; and
-- the audit totals and findings.
+```bash
+yarn weekly --prepare --cache <cache-id> --components documents
+yarn weekly --prepare --cache <cache-id> --components notes,youtube
+```
 
-Missing optional content is reported as a warning. Broken declared files, invalid routes, and publication leaks are errors.
+Valid component names are `documents`, `notes`, `youtube`, and `inventory`.
+Refreshing any component returns the cache to `draft` and invalidates its
+previous successful audit.
 
-## 5. Validate before deployment
+Use `--full-notes-export` with preparation when every Apple Note body should be
+read again instead of reusing unchanged bodies from the selected cache or the
+newest prior cache.
 
-Run:
+### Word summary titles
+
+A lesson Word summary should include a line such as:
+
+```text
+Title: God Creates the Heavens and the Earth
+```
+
+Heading and bold formatting produced by Word conversion are accepted. A missing
+Word summary or missing `Title:` is an audit warning rather than an apply
+blocker. The generated lesson then has no `videoSummary` and the UI uses its
+generic fallback copy.
+
+### Special lessons and YouTube matching
+
+The course starts with two lessons that do not represent Bible passages:
+
+- `000-Promo` is a course preview. It has the canonical route
+  `/genesis/0/0`, is omitted from normal Bible-reference and book indexes, and
+  is featured on the home page when its video is available.
+- `001-Intro` is the course introduction. It remains the first numbered week
+  and uses the existing `/genesis/1/0` route.
+
+Each folder can contain notes and a Word summary without defining a verse
+range. A lesson summary normally follows `<lesson-folder>_summary.docx`; the
+separator after the three-digit sequence may be either a hyphen or underscore.
+For example, both `000-Promo_summary.docx` and `000_Promo_summary.docx` match
+`000-Promo`. Providing both forms is ambiguous and fails preparation.
+
+Playlist schema version 2 matches videos to lessons explicitly from the video
+title. A title containing `Promo` maps to lesson sequence `0`; a title
+containing `Week N` maps to lesson sequence `N`. Playlist position controls
+display order only and is never used as a lesson match fallback. Unmatched
+titles produce an audit warning, while duplicate explicit lesson matches are an
+error.
+
+## 2. Audit cache until ready
+
+Run the audit after reviewing or repairing a cache:
+
+```bash
+yarn weekly --audit --cache <cache-id>
+```
+
+The audit verifies:
+
+- all four required components are present;
+- recorded component files still match their preparation fingerprints;
+- Word source documents and converted Markdown are unchanged;
+- staged Apple Notes candidates still match their hashes and map to canonical
+  lesson folders;
+- the cached YouTube playlist is non-empty and has valid, unique video IDs; and
+- canonical source files still match the cached inventory.
+
+Errors keep the cache in `draft`. Warnings are shown for review but do not block
+readiness. Fix the source or cached candidate, refresh the affected component,
+and rerun the audit until the cache is `ready`.
+
+## 3. Apply the selected cache
+
+Apply only after reviewing a ready cache:
+
+```bash
+yarn weekly --apply --cache <cache-id>
+```
+
+Apply:
+
+- refuses caches whose successful audit fingerprint is stale;
+- validates and copies staged `notes.md` candidates;
+- uses only the cached Word conversions and cached YouTube playlist;
+- regenerates course manifests, Markdown, resources, maps, and search data;
+- records `videoSummary` from each Word document's `Title:` field;
+- preserves unpublished lessons under generated unpublished content; and
+- runs the repository course audit.
+
+Apply does not fetch YouTube or reconvert Word documents. If either input needs
+to change, return to step 1 and refresh that component. A successfully applied
+cache becomes immutable.
+
+Use `--online-audit` with apply when remote links should also be checked:
+
+```bash
+yarn weekly --apply --cache <cache-id> --online-audit
+```
+
+## 4. Delete an applied cache safely
+
+Cache deletion first reconciles every retained candidate against what was
+applied:
+
+```bash
+yarn weekly --delete-cache --cache <cache-id> --yes
+```
+
+The reconciliation checks:
+
+- the applied component fingerprint still matches the cache;
+- applied canonical notes still match their recorded hashes;
+- the generated repository playlist still matches;
+- every generated lesson `videoSummary` matches the cached Word title; and
+- any legacy summary candidates retained from an older cache were not lost.
+
+Deletion is refused on any mismatch or when the cache has no successful applied
+marker. A successful deletion writes a small tombstone under the cache history
+folder and repairs `latest.json`; it does not silently discard unmatched
+candidates.
+
+The guided menu shows reconciliation results and asks for confirmation before
+deleting.
+
+## 5. Build and test locally with Vite
+
+Validate an applied cache:
+
+```bash
+yarn weekly --validate --cache <cache-id>
+```
+
+This runs, in order:
 
 ```bash
 yarn test:courses
 yarn courses:audit
-yarn build:courses
+yarn build
 ```
 
-Optional stricter or remote checks:
+After all three pass, the workflow records a fingerprint of generated course
+content, public assets, and `dist/`. The release step refuses to proceed if
+those files change afterward.
+
+Use `--preview` in direct mode to start the built site on
+`http://127.0.0.1:4173/`:
 
 ```bash
-yarn courses:audit --strict
-yarn courses:audit --online
+yarn weekly --validate --cache <cache-id> --preview
 ```
 
-- `--strict` makes content-gap warnings fail the audit.
-- `--online` checks YouTube, ESV, and Markdown HTTP links. Remote failures are reported separately because they can be transient.
+In guided mode, the CLI offers to start the preview after validation.
 
-## 6. Deploy when ready
+## 6. Version, commit, and deploy
 
-The weekly command never deploys. Use the repository's normal deployment command only after reviewing and validating all changes:
+Release a validated applied cache:
 
 ```bash
-yarn deploy
+yarn weekly --release --cache <cache-id> --yes
 ```
+
+An optional commit message can be supplied:
+
+```bash
+yarn weekly --release --cache <cache-id> --yes \
+  --commit-message "Publish Know Your Bible weekly update"
+```
+
+Release refuses to run unless:
+
+- the selected cache still reconciles with its applied outputs;
+- step 5's fingerprint still matches;
+- the current branch is `main`;
+- no merge is in progress;
+- weekly generated changes exist; and
+- every working-tree change is under `apps/courses/content/`,
+  `apps/courses/public/`, or `dist/`.
+
+The command patch-bumps `package.json`, stages only those generated paths plus
+`package.json`, commits, pushes `main`, and deploys the already validated
+`dist/` folder. It does not rebuild during deployment.
+
+If a push or deployment fails after the commit succeeds, retry only that stage:
+
+```bash
+yarn weekly --retry-push --cache <cache-id>
+yarn weekly --retry-deploy --cache <cache-id>
+```
+
+Implementation, documentation, or other unrelated working-tree changes must be
+committed separately before using the weekly release step.
+
+## Cache status and lifecycle
+
+Show all caches and their lifecycle state:
+
+```bash
+yarn weekly --status
+```
+
+Managed caches live under:
+
+```text
+<notes-cache-root>/snapshots/<timestamp>/
+```
+
+Important files include:
+
+- `cache-state.json`: component fingerprints and lifecycle state;
+- `cache-audit.json`: the latest detailed readiness report;
+- `document-summaries.json` and `documents/`: Word metadata and Markdown;
+- `manifest.json`, `notes/`, and
+  `canonical-note-backup-report.json`: Apple Notes staging;
+- `playlist.json`: the cached YouTube snapshot; and
+- `source-inventory.json`: canonical source fingerprints.
+
+Lifecycle states are:
+
+- `draft`: incomplete, changed, or failing audit;
+- `ready`: successfully audited and eligible to apply;
+- `applied`: applied successfully and immutable;
+- `legacy`: an older cache without current lifecycle metadata; and
+- `invalid`: an incomplete folder that cannot be selected.
+
+Legacy caches must be refreshed into the current component structure and pass
+the audit before they can be applied.
 
 ## NOPUBLISH rules
 
 A lesson is excluded from the website when either condition is true:
 
-1. Any file anywhere in the canonical lesson folder has `NOPUBLISH` in its filename, case-insensitively.
+1. Any file anywhere in the canonical lesson folder has `NOPUBLISH` in its
+   filename, case-insensitively.
 2. The lesson's `notes.md` contains `NOPUBLISH`, case-insensitively.
 
-During regeneration, unpublished lesson manifests and Markdown are stored under `apps/courses/content/unpublished/`. They remain available to commit to GitHub but are excluded from:
+During regeneration, unpublished lesson manifests and Markdown are stored under
+`apps/courses/content/unpublished/`. They are excluded from published section
+manifests, routes, navigation, public resources, maps, search data, and the
+production application bundle.
 
-- published section manifests;
-- book, section, and direct navigation;
-- lesson routes;
-- adjacent/latest lesson selection;
-- copied public resources and maps;
-- notes search data; and
-- the production application bundle.
-
-Remove every filename and notes-content marker, then run the apply/regenerate workflow again to republish the lesson.
-
-## AI summary commands
-
-The normal weekly prepare phase summarizes only new or changed staged notes.
-
-To create candidates for all canonical notes that do not yet have a notes summary:
-
-```bash
-yarn courses:notes:summarize --all-missing
-```
-
-Other useful options:
-
-```bash
-yarn courses:notes:summarize --dry-run
-yarn courses:notes:summarize --model MODEL_ID
-yarn courses:notes:summarize --timeout 180
-yarn courses:notes:summarize --force
-```
-
-- `--dry-run` reports work without authenticating, writing candidates, or using Grok.
-- `--force` may replace a manually authored summary, so use it carefully.
-- Canonical summaries without generation metadata are treated as manual and are protected by default.
-- Unchanged generated summaries are skipped using their source hash, prompt version, and model metadata.
-- `NOPUBLISH` notes are never sent to Grok by the normal workflow.
-
-The workflow uses the official authenticated Grok CLI. Run `grok login` or set `XAI_API_KEY` if authentication is missing. Automated Grok or API usage is not guaranteed to be free and may count against a paid plan or metered API usage.
-
-### Hand-editing AI summaries
-
-You can hand-edit generated summaries in either the staged candidates before apply or the canonical lesson folder after apply.
-
-If you edit a staged `notes-summary.md` candidate before running `yarn courses:weekly --apply`, the edited candidate is what will be copied into the canonical lesson folder. Keep the adjacent `notes-summary.meta.json` file unless you want to make the canonical summary fully manual after apply.
-
-After apply, each canonical generated summary normally has two files:
-
-- `notes-summary.md`
-- `notes-summary.meta.json`
-
-Keep `notes-summary.meta.json` when you want the summary to remain AI-managed. The workflow will leave it alone while the source notes, prompt hash, prompt version, and model metadata still match. If the notes or prompt change later, the workflow may generate a replacement candidate for review.
-
-Delete `notes-summary.meta.json` when you want the hand-edited `notes-summary.md` to become manually protected. A canonical summary without generation metadata is reported as a manual summary and is skipped by default. It will only be replaced if you intentionally run summary generation with `--force`.
-
-To skip AI during an urgent weekly refresh:
-
-```bash
-yarn courses:weekly --skip-ai
-yarn courses:weekly --apply --skip-ai
-```
-
-In apply mode, `--skip-ai` applies reviewed notes without applying staged AI summaries, preserving existing canonical summaries.
-
-## Lesson names and metadata
-
-Manual lesson title, description, status, and tags survive regeneration while the canonical lesson folder path remains unchanged.
-
-Renaming a canonical source lesson folder changes its lookup key and generated slug. Existing metadata does not automatically follow the renamed folder. The prepare report lists unmatched or renamed candidates so the metadata can be moved deliberately rather than silently attached to the wrong lesson.
+Remove every filename and notes-content marker, prepare and audit a new cache,
+then apply it to republish the lesson.
 
 ## Lower-level troubleshooting commands
 
-The individual commands remain available when diagnosing one part of the workflow:
+The individual commands remain available for diagnosing one part of the
+workflow:
 
 ```bash
 yarn courses:notes:snapshot
+yarn courses:notes:snapshot --full-export
 yarn courses:notes:backups:prepare
-yarn courses:notes:summarize
 yarn courses:notes:backups:apply
+yarn courses:weekly
 yarn courses:update
 yarn courses:audit
 ```
 
-Use `--help` with any command to see its supported options.
+`yarn courses:weekly` is the lower-level selected-cache prepare/apply command.
+`yarn courses:update` regenerates directly from live source inputs and is not
+the review-gated weekly apply path. Use `--help` with a command to see its
+supported options.

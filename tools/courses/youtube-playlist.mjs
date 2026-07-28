@@ -6,6 +6,51 @@ const PLAYLIST_JSON_MARKERS = [
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36";
 const WEEK_NUMBER_PATTERN = /\bweek\s+(\d+)\b/iu;
+const PROMO_PATTERN = /\bpromo\b/iu;
+const DEFAULT_RETRY_DELAYS_MS = [250, 1000];
+const RETRYABLE_HTTP_STATUSES = new Set([408, 429, 500, 502, 503, 504]);
+
+function sleep(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+function describeTransportError(error) {
+  const queue = [error];
+  const visited = new Set();
+  const details = [];
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (!current || visited.has(current)) {
+      continue;
+    }
+    visited.add(current);
+    if (current.code) {
+      details.push(
+        current.message
+          ? `${current.code}: ${current.message}`
+          : String(current.code)
+      );
+    } else if (
+      current.message &&
+      current.message !== "fetch failed"
+    ) {
+      details.push(current.message);
+    }
+    if (current.cause) {
+      queue.push(current.cause);
+    }
+    if (Array.isArray(current.errors)) {
+      queue.push(...current.errors);
+    }
+  }
+
+  return [...new Set(details)].join("; ") || error?.message || String(error);
+}
+
+function formatAttemptCount(attemptCount) {
+  return `${attemptCount} attempt${attemptCount === 1 ? "" : "s"}`;
+}
 
 function extractPlaylistId(value) {
   if (!value) {
@@ -30,6 +75,26 @@ function parsePositiveInteger(value) {
   return Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : null;
 }
 
+function classifyVideoLesson(title) {
+  if (PROMO_PATTERN.test(title)) {
+    return {
+      videoKind: "promo",
+      weekNumber: null,
+      lessonSequenceNumber: 0,
+    };
+  }
+
+  const weekNumberMatch = title.match(WEEK_NUMBER_PATTERN);
+  const weekNumber = parsePositiveInteger(
+    weekNumberMatch ? weekNumberMatch[1] : null
+  );
+  return {
+    videoKind: weekNumber ? "lesson" : "unmatched",
+    weekNumber,
+    lessonSequenceNumber: weekNumber,
+  };
+}
+
 function readText(value) {
   if (!value) {
     return "";
@@ -45,6 +110,9 @@ function readText(value) {
 
   if (typeof value.simpleText === "string") {
     return value.simpleText;
+  }
+  if (typeof value.content === "string") {
+    return value.content;
   }
 
   if (Array.isArray(value.runs)) {
@@ -126,28 +194,42 @@ function extractInitialPlaylistData(html) {
   throw new Error("Could not locate ytInitialData in the playlist page response.");
 }
 
-function collectPlaylistVideoRenderers(value, renderers = []) {
+function collectPlaylistVideoEntries(value, entries = []) {
   if (!value || typeof value !== "object") {
-    return renderers;
+    return entries;
   }
 
   if (Array.isArray(value)) {
     for (const entry of value) {
-      collectPlaylistVideoRenderers(entry, renderers);
+      collectPlaylistVideoEntries(entry, entries);
     }
-    return renderers;
+    return entries;
   }
 
   if (value.playlistVideoRenderer && typeof value.playlistVideoRenderer === "object") {
-    renderers.push(value.playlistVideoRenderer);
-    return renderers;
+    entries.push({
+      type: "playlistVideoRenderer",
+      value: value.playlistVideoRenderer,
+    });
+    return entries;
+  }
+
+  if (
+    value.lockupViewModel &&
+    typeof value.lockupViewModel === "object" &&
+    value.lockupViewModel.contentType === "LOCKUP_CONTENT_TYPE_VIDEO"
+  ) {
+    entries.push({
+      type: "lockupViewModel",
+      value: value.lockupViewModel,
+    });
+    return entries;
   }
 
   for (const nestedValue of Object.values(value)) {
-    collectPlaylistVideoRenderers(nestedValue, renderers);
+    collectPlaylistVideoEntries(nestedValue, entries);
   }
-
-  return renderers;
+  return entries;
 }
 
 function buildCanonicalPlaylistUrl(playlistId) {
@@ -162,10 +244,7 @@ function normalizePlaylistVideo(renderer, playlistId) {
 
   const title = readText(renderer.title).trim();
   const position = parsePositiveInteger(readText(renderer.index));
-  const weekNumberMatch = title.match(WEEK_NUMBER_PATTERN);
-  const weekNumber = parsePositiveInteger(
-    weekNumberMatch ? weekNumberMatch[1] : position
-  );
+  const lessonMatch = classifyVideoLesson(title);
   const thumbnails = renderer.thumbnail?.thumbnails || [];
   const lastThumbnail = thumbnails[thumbnails.length - 1] || null;
 
@@ -175,42 +254,98 @@ function normalizePlaylistVideo(renderer, playlistId) {
     url: `https://www.youtube.com/watch?v=${videoId}&list=${playlistId}`,
     playlistId,
     position,
-    weekNumber,
+    ...lessonMatch,
     durationText: readText(renderer.lengthText).trim() || null,
     thumbnailUrl:
       typeof lastThumbnail?.url === "string" ? lastThumbnail.url : null,
   };
 }
 
-export async function fetchPlaylistSnapshot(playlistUrlOrId) {
+function normalizePlaylistLockup(lockup, playlistId) {
+  const watchCommand =
+    lockup.rendererContext?.commandContext?.onTap?.innertubeCommand;
+  const watchEndpoint = watchCommand?.watchEndpoint || {};
+  const videoId = watchEndpoint.videoId || lockup.contentId;
+
+  if (!videoId) {
+    return null;
+  }
+
+  const title = readText(
+    lockup.metadata?.lockupMetadataViewModel?.title
+  ).trim();
+  const rawIndex = Number.parseInt(String(watchEndpoint.index), 10);
+  let position =
+    Number.isFinite(rawIndex) && rawIndex >= 0 ? rawIndex + 1 : null;
+
+  if (!position) {
+    try {
+      const relativeUrl =
+        watchCommand?.commandMetadata?.webCommandMetadata?.url || "";
+      position = parsePositiveInteger(
+        new URL(relativeUrl, "https://www.youtube.com").searchParams.get(
+          "index"
+        )
+      );
+    } catch {
+      position = null;
+    }
+  }
+
+  const lessonMatch = classifyVideoLesson(title);
+  const thumbnailSources =
+    lockup.contentImage?.thumbnailViewModel?.image?.sources || [];
+  const lastThumbnail =
+    thumbnailSources[thumbnailSources.length - 1] || null;
+  const overlays = lockup.contentImage?.thumbnailViewModel?.overlays || [];
+  let durationText = null;
+
+  for (const overlay of overlays) {
+    const badges =
+      overlay.thumbnailBottomOverlayViewModel?.badges || [];
+    const durationBadge = badges.find(
+      (badge) => badge.thumbnailBadgeViewModel?.text
+    );
+
+    if (durationBadge) {
+      durationText = durationBadge.thumbnailBadgeViewModel.text;
+      break;
+    }
+  }
+
+  return {
+    videoId,
+    title,
+    url: `https://www.youtube.com/watch?v=${videoId}&list=${playlistId}`,
+    playlistId,
+    position,
+    ...lessonMatch,
+    durationText,
+    thumbnailUrl:
+      typeof lastThumbnail?.url === "string" ? lastThumbnail.url : null,
+  };
+}
+
+export function parsePlaylistSnapshotHtml(
+  html,
+  playlistUrlOrId,
+  { fetchedAt = new Date().toISOString() } = {}
+) {
   const playlistId = extractPlaylistId(playlistUrlOrId);
 
   if (!playlistId) {
     throw new Error("A valid YouTube playlist URL or playlist ID is required.");
   }
-
-  const response = await fetch(`${buildCanonicalPlaylistUrl(playlistId)}&hl=en`, {
-    headers: {
-      "user-agent": USER_AGENT,
-      "accept-language": "en-US,en;q=0.9",
-    },
-    redirect: "follow",
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      `YouTube playlist request failed with status ${response.status}.`
-    );
-  }
-
-  const html = await response.text();
   const initialData = extractInitialPlaylistData(html);
-  const renderers = collectPlaylistVideoRenderers(initialData);
+  const entries = collectPlaylistVideoEntries(initialData);
   const videos = [];
   const seenVideoIds = new Set();
 
-  for (const renderer of renderers) {
-    const normalizedVideo = normalizePlaylistVideo(renderer, playlistId);
+  for (const entry of entries) {
+    const normalizedVideo =
+      entry.type === "lockupViewModel"
+        ? normalizePlaylistLockup(entry.value, playlistId)
+        : normalizePlaylistVideo(entry.value, playlistId);
 
     if (!normalizedVideo || seenVideoIds.has(normalizedVideo.videoId)) {
       continue;
@@ -225,10 +360,15 @@ export async function fetchPlaylistSnapshot(playlistUrlOrId) {
     const rightPosition = right.position ?? Number.MAX_SAFE_INTEGER;
     return leftPosition - rightPosition;
   });
+  if (videos.length === 0) {
+    throw new Error(
+      "YouTube playlist response contained no recognizable videos; keeping the previous cached playlist."
+    );
+  }
 
   return {
-    schemaVersion: 1,
-    fetchedAt: new Date().toISOString(),
+    schemaVersion: 2,
+    fetchedAt,
     source: "youtube-playlist-page",
     playlistId,
     playlistUrl: buildCanonicalPlaylistUrl(playlistId),
@@ -242,15 +382,99 @@ export async function fetchPlaylistSnapshot(playlistUrlOrId) {
   };
 }
 
+export async function fetchPlaylistSnapshot(
+  playlistUrlOrId,
+  {
+    fetchImpl = fetch,
+    retryDelaysMs = DEFAULT_RETRY_DELAYS_MS,
+    sleepFn = sleep,
+    onRetry = () => {},
+  } = {}
+) {
+  const playlistId = extractPlaylistId(playlistUrlOrId);
+
+  if (!playlistId) {
+    throw new Error("A valid YouTube playlist URL or playlist ID is required.");
+  }
+  const requestUrl = `${buildCanonicalPlaylistUrl(playlistId)}&hl=en`;
+  let response;
+  let requestAttempts = 0;
+  for (
+    let attemptIndex = 0;
+    attemptIndex <= retryDelaysMs.length;
+    attemptIndex += 1
+  ) {
+    const attemptCount = attemptIndex + 1;
+    requestAttempts = attemptCount;
+    try {
+      response = await fetchImpl(requestUrl, {
+        headers: {
+          "user-agent": USER_AGENT,
+          "accept-language": "en-US,en;q=0.9",
+        },
+        redirect: "follow",
+      });
+    } catch (error) {
+      if (attemptIndex === retryDelaysMs.length) {
+        throw new Error(
+          `YouTube playlist request failed after ${formatAttemptCount(
+            attemptCount
+          )}: ${describeTransportError(
+            error
+          )}. Check the network connection and retry; no playlist snapshot was written.`,
+          { cause: error }
+        );
+      }
+      const delayMs = retryDelaysMs[attemptIndex];
+      onRetry(
+        `YouTube request failed (${describeTransportError(
+          error
+        )}); retrying in ${delayMs}ms.`
+      );
+      await sleepFn(delayMs);
+      continue;
+    }
+
+    if (
+      response.ok ||
+      !RETRYABLE_HTTP_STATUSES.has(response.status) ||
+      attemptIndex === retryDelaysMs.length
+    ) {
+      break;
+    }
+    const delayMs = retryDelaysMs[attemptIndex];
+    onRetry(
+      `YouTube returned status ${response.status}; retrying in ${delayMs}ms.`
+    );
+    await sleepFn(delayMs);
+  }
+
+  if (!response?.ok) {
+    throw new Error(
+      `YouTube playlist request failed with status ${
+        response?.status ?? "unknown"
+      } after ${formatAttemptCount(requestAttempts)}.`
+    );
+  }
+
+  return parsePlaylistSnapshotHtml(await response.text(), playlistId);
+}
+
 export function buildPlaylistVideoMatchMap(playlistSnapshot) {
   const matchedVideos = new Map();
 
   for (const video of playlistSnapshot?.videos || []) {
-    const matchKey = video.weekNumber ?? video.position;
+    const matchKey = video.lessonSequenceNumber;
 
-    if (matchKey && !matchedVideos.has(matchKey)) {
-      matchedVideos.set(matchKey, video);
+    if (!Number.isInteger(matchKey) || matchKey < 0) {
+      continue;
     }
+    if (matchedVideos.has(matchKey)) {
+      throw new Error(
+        `Multiple YouTube videos map to lesson sequence ${matchKey}.`
+      );
+    }
+    matchedVideos.set(matchKey, video);
   }
 
   return matchedVideos;

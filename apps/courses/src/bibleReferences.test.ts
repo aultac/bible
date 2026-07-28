@@ -13,9 +13,10 @@ function lesson(
   startVerse: number | null,
   endChapter: number,
   endVerse: number | null,
-  lessonKind = "passage"
+  lessonKind: RoutableLesson["lessonKind"] = "passage"
 ): RoutableLesson {
   return {
+    slug: `${String(sequenceNumber).padStart(3, "0")}-${lessonKind}`,
     sequenceNumber,
     lessonKind,
     bookSlug: "genesis",
@@ -37,6 +38,7 @@ function lesson(
 describe("Bible reference parsing", () => {
   it.each([
     ["Genesis", { bookSlug: "genesis", chapter: null, verse: null }],
+    ["/genesis/0/0", { bookSlug: "genesis", chapter: 0, verse: 0 }],
     ["gen/1/24", { bookSlug: "genesis", chapter: 1, verse: 24 }],
     ["Genesis 1:24", { bookSlug: "genesis", chapter: 1, verse: 24 }],
     ["1 Sam 3:4", { bookSlug: "1-samuel", chapter: 3, verse: 4 }],
@@ -45,7 +47,15 @@ describe("Bible reference parsing", () => {
     expect(parseBibleReference(input)).toEqual(expected);
   });
 
-  it.each(["", "Genesis zero", "Genesis 0", "Unknown 1", "Genesis 1:"])(
+  it.each([
+    "",
+    "Genesis zero",
+    "Genesis 0",
+    "Genesis 0:1",
+    "Exodus 0:0",
+    "Unknown 1",
+    "Genesis 1:",
+  ])(
     "rejects %s",
     (input) => {
       expect(parseBibleReference(input)).toBeNull();
@@ -65,6 +75,13 @@ describe("Bible reference parsing", () => {
 
 describe("lesson canonical paths and resolution", () => {
   it("uses the intro special case and passage start paths", () => {
+    expect(
+      canonicalLessonPath({
+        ...lesson(0, 1, null, 1, null, "promo"),
+        slug: "000-promo",
+        passage: null,
+      })
+    ).toBe("/genesis/0/0");
     expect(canonicalLessonPath(lesson(1, 1, null, 1, null, "intro"))).toBe(
       "/genesis/1/0"
     );
@@ -103,11 +120,22 @@ describe("lesson canonical paths and resolution", () => {
   });
 
   it("resolves book, chapter, and intro references consistently", () => {
+    const promo = {
+      ...lesson(0, 1, null, 1, null, "promo"),
+      passage: null,
+    };
     const intro = lesson(1, 1, null, 1, null, "intro");
     const firstPassage = lesson(2, 1, null, 2, null);
     const laterPassage = lesson(3, 3, null, 4, null);
-    const lessons = [intro, firstPassage, laterPassage];
+    const lessons = [promo, intro, firstPassage, laterPassage];
 
+    expect(
+      resolveLessonByReference(lessons, {
+        bookSlug: "genesis",
+        chapter: 0,
+        verse: 0,
+      })
+    ).toBe(promo);
     expect(
       resolveLessonByReference(lessons, {
         bookSlug: "genesis",

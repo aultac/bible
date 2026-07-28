@@ -1,11 +1,16 @@
 import { readdir } from "node:fs/promises";
 import path from "node:path";
+
 const BUCKET_DIRECTORY_PATTERN = /^\d{2}-(?:Section|Bucket)-/u;
 const LESSON_DIRECTORY_PATTERN = /^\d{3}[-_]/u;
 const BUCKET_NAME_PATTERN = /^(?<sectionnum>\d{2})-(?<directoryKind>Section|Bucket)-(?<label>.+)$/u;
 const LESSON_NAME_PATTERN = /^(?<sequence>\d{3})(?<separator>[-_])(?<label>.+)$/u;
 const START_SEGMENT_PATTERN = /^(?<book>[1-3]?[A-Za-z]+)(?<chapter>\d+)(?:_(?<verse>\d+))?$/u;
 const END_SEGMENT_PATTERN = /^(?:(?<book>[1-3]?[A-Za-z]+))?(?<chapter>\d+)(?:_(?<verse>\d+))?$/u;
+const SPECIAL_LESSON_TITLES = {
+  promo: "Why Know Your Bible?",
+  intro: "Intro",
+};
 
 export function isSectionDirectory(name) {
   return BUCKET_DIRECTORY_PATTERN.test(name);
@@ -153,11 +158,23 @@ export function parseLessonDirectoryName(name) {
   if (!match?.groups) {
     return null;
   }
-
+  const normalizedLabel = match.groups.label.toLowerCase();
   const lessonKind =
-    match.groups.label.toLowerCase() === "intro" ? "intro" : "passage";
+    normalizedLabel === "promo"
+      ? "promo"
+      : normalizedLabel === "intro"
+        ? "intro"
+        : "passage";
   const passage =
-    lessonKind === "intro" ? null : parsePassageLabel(match.groups.label);
+    lessonKind === "passage"
+      ? parsePassageLabel(match.groups.label)
+      : null;
+
+  if (lessonKind === "passage" && !passage) {
+    throw new Error(
+      `Lesson directory is neither a known special lesson nor a valid passage: ${name}`
+    );
+  }
 
   return {
     sequenceNumber: Number.parseInt(match.groups.sequence, 10),
@@ -168,9 +185,9 @@ export function parseLessonDirectoryName(name) {
     lessonKind,
     passage,
     displayTitle:
-      lessonKind === "intro"
-        ? "Intro"
-        : passage?.display || humanizeSourceLabel(match.groups.label),
+      lessonKind === "passage"
+        ? passage.display
+        : SPECIAL_LESSON_TITLES[lessonKind],
   };
 }
 

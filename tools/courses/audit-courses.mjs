@@ -78,6 +78,9 @@ function canonicalLessonPath(lesson, fallbackBookName = "course") {
     .replace(/[^a-z0-9]+/gu, "-")
     .replace(/^-|-$/gu, "");
 
+  if (lesson.lessonKind === "promo") {
+    return `/${bookSlug}/0/0`;
+  }
   if (lesson.lessonKind === "intro") {
     return `/${bookSlug}/1/0`;
   }
@@ -381,6 +384,26 @@ export async function auditCourses({
           { lessonKey, path: lessonManifestPath }
         );
       }
+      if (!["promo", "intro", "passage"].includes(lesson.lessonKind)) {
+        add(
+          "error",
+          "manifest",
+          "lesson-kind-invalid",
+          `${lessonKey} has an unsupported lesson kind.`,
+          { lessonKey, lessonKind: lesson.lessonKind }
+        );
+      } else if (
+        lesson.lessonKind === "passage" &&
+        (!lesson.passage?.start || !lesson.passage?.end)
+      ) {
+        add(
+          "error",
+          "manifest",
+          "passage-missing",
+          `${lessonKey} is a passage lesson without a complete passage.`,
+          { lessonKey }
+        );
+      }
 
       const route = canonicalLessonPath(
         lesson,
@@ -401,19 +424,15 @@ export async function auditCourses({
 
       for (const [field, content] of [
         ["notes", lesson.notes],
-        ["notesSummary", lesson.notesSummary],
         ["summary", lesson.summary],
       ]) {
         if (content?.available && content.path) {
           const filePath = path.resolve(repoRoot, content.path);
           await checkDeclaredFile({ filePath, lessonKey, field });
-          if (field !== "notesSummary" || filePath.endsWith(".md")) {
-            markdownFiles.push({ filePath, lessonKey, field });
-          }
+          markdownFiles.push({ filePath, lessonKey, field });
         } else {
           const label = {
             notes: "lesson notes",
-            notesSummary: "notes summary",
             summary: "storyline summary",
           }[field];
           add(
@@ -424,6 +443,15 @@ export async function auditCourses({
             { lessonKey, field }
           );
         }
+      }
+      if (lesson.summary?.available && !lesson.videoSummary) {
+        add(
+          "warning",
+          "content-gap",
+          "video-summary-missing",
+          `${lessonKey} storyline summary has no parseable Title: field.`,
+          { lessonKey, field: "videoSummary" }
+        );
       }
 
       if (!lesson.youtube?.url) {

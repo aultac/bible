@@ -990,11 +990,6 @@
     line-height: 1.7;
   }
 
-  .notes-summary .pending-copy {
-    padding-left: 18px;
-    border-left: 2px solid var(--gold-soft);
-  }
-
 
   .study-panel {
     min-width: 0;

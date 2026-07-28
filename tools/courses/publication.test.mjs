@@ -8,7 +8,10 @@ import {
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { classifyLessonPublication } from "./repo-content.mjs";
+import {
+  classifyLessonPublication,
+  resolveLessonTitle,
+} from "./repo-content.mjs";
 
 const temporaryDirectories = [];
 
@@ -29,6 +32,22 @@ async function lessonFixture(notes = "Published notes\n") {
   await writeFile(notesPath, notes, "utf8");
   return { lessonPath, notesPath };
 }
+
+describe("lesson title resolution", () => {
+  it("replaces the legacy Promo heading without discarding explicit custom titles", () => {
+    const promo = {
+      lessonKind: "promo",
+      displayTitle: "Why Know Your Bible?",
+    };
+
+    expect(resolveLessonTitle(promo, { title: "Promo" })).toBe(
+      "Why Know Your Bible?"
+    );
+    expect(resolveLessonTitle(promo, { title: "Custom Promo" })).toBe(
+      "Custom Promo"
+    );
+  });
+});
 
 describe("NOPUBLISH classification", () => {
   it("publishes a lesson with no marker", async () => {

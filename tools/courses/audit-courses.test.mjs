@@ -46,8 +46,8 @@ function lessonManifest({
       esvUrl: "https://www.esv.org/Genesis+1-2/",
     },
     notes: { available: false, path: null },
-    notesSummary: { available: false, path: null },
     summary: { available: false, path: null },
+    videoSummary: null,
     youtube: null,
     map: null,
     resources,
@@ -105,11 +105,10 @@ describe("course audit", () => {
     const result = await auditCourses(fixture);
 
     expect(result.totals.errors).toBe(0);
-    expect(result.totals.warnings).toBe(4);
+    expect(result.totals.warnings).toBe(3);
     expect(result.findings.map((finding) => finding.code)).toEqual(
       expect.arrayContaining([
         "notes-missing",
-        "notesSummary-missing",
         "summary-missing",
         "video-missing",
       ])
@@ -117,6 +116,39 @@ describe("course audit", () => {
     expect(getAuditExitCode(result)).toBe(0);
     expect(getAuditExitCode(result, { strict: true })).toBe(1);
     expect(() => JSON.parse(JSON.stringify(result))).not.toThrow();
+  });
+
+  it("allows Promo without a passage and rejects passage lessons without ranges", async () => {
+    const promo = {
+      ...lessonManifest({ slug: "000-promo" }),
+      sequenceNumber: 0,
+      lessonKind: "promo",
+      title: "Promo",
+      passage: null,
+    };
+    const invalidPassage = {
+      ...lessonManifest({ slug: "002-missing-passage" }),
+      sequenceNumber: 2,
+      passage: null,
+    };
+    const fixture = await auditFixture({
+      lessons: [promo, invalidPassage],
+    });
+
+    const result = await auditCourses(fixture);
+    const passageFindings = result.findings.filter(
+      (finding) => finding.code === "passage-missing"
+    );
+
+    expect(passageFindings).toHaveLength(1);
+    expect(passageFindings[0].lessonKey).toContain("002-missing-passage");
+    expect(
+      result.findings.some(
+        (finding) =>
+          finding.code === "passage-missing" &&
+          finding.lessonKey.includes("000-promo")
+      )
+    ).toBe(false);
   });
 
   it("reports invalid images, broken maps, duplicate routes, and publication leaks", async () => {

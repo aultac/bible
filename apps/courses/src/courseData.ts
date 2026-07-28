@@ -67,7 +67,7 @@ export interface SectionLessonEntry {
   slug: string;
   sequenceNumber: number;
   title: string;
-  lessonKind: string;
+  lessonKind: "promo" | "intro" | "passage";
   startVerse: string | null;
   endVerse: string | null;
   passage: PassageRecord | null;
@@ -121,7 +121,9 @@ export interface LessonVideo {
   url: string;
   playlistId: string;
   position: number | null;
+  videoKind: "promo" | "lesson" | "unmatched";
   weekNumber: number | null;
+  lessonSequenceNumber: number | null;
   durationText: string | null;
   thumbnailUrl: string | null;
 }
@@ -134,9 +136,10 @@ export interface LessonManifest {
   sectionId: string;
   sectionSlug: string;
   sequenceNumber: number;
-  lessonKind: string;
+  lessonKind: "promo" | "intro" | "passage";
   title: string;
   description: string;
+  videoSummary: string | null;
   status: string;
   startVerse: string | null;
   endVerse: string | null;
@@ -145,13 +148,6 @@ export interface LessonManifest {
     path: string | null;
     sourcePath: string | null;
     available: boolean;
-  };
-  notesSummary?: {
-    path: string | null;
-    sourcePath: string | null;
-    sourceFormat: string | null;
-    available: boolean;
-    error: string | null;
   };
   summary: {
     path: string | null;
@@ -412,6 +408,9 @@ const allLessons = sections.flatMap((section) => section.lessonsDetailed);
 const bookMap = new Map<string, CourseBook>();
 
 for (const lesson of allLessons) {
+  if (lesson.lessonKind === "promo") {
+    continue;
+  }
   const existingBook = bookMap.get(lesson.bookSlug);
 
   if (existingBook) {
@@ -457,7 +456,38 @@ const latestLesson =
   null;
 const latestVideoLesson =
   [...allLessons].reverse().find((lesson) => Boolean(lesson.youtube)) || null;
+
+export function selectFeaturedLesson<
+  TLesson extends {
+    lessonKind: LessonManifest["lessonKind"];
+    youtube: unknown;
+  },
+>(lessons: TLesson[], fallback: TLesson | null) {
+  return (
+    lessons.find(
+      (lesson) => lesson.lessonKind === "promo" && Boolean(lesson.youtube)
+    ) || fallback
+  );
+}
+
+const featuredLesson = selectFeaturedLesson(allLessons, latestVideoLesson);
 const startHereLesson = sections[0]?.lessonsDetailed[0] || null;
+
+export function formatLessonSequenceLabel(
+  lesson: Pick<LessonManifest, "lessonKind" | "sequenceNumber">
+) {
+  return lesson.lessonKind === "promo"
+    ? "Promo"
+    : `Week ${lesson.sequenceNumber}`;
+}
+
+export function formatLessonSequenceBadge(
+  lesson: Pick<LessonManifest, "lessonKind" | "sequenceNumber">
+) {
+  return lesson.lessonKind === "promo"
+    ? "00"
+    : String(lesson.sequenceNumber).padStart(2, "0");
+}
 
 export const courseLibrary = {
   generatedAt: sectionsIndex.generatedAt,
@@ -468,6 +498,7 @@ export const courseLibrary = {
   currentSection,
   latestLesson,
   latestVideoLesson,
+  featuredLesson,
   startHereLesson,
   getBook(bookSlug: string) {
     return bookMap.get(bookSlug) || null;

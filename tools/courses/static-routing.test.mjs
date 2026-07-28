@@ -40,7 +40,7 @@ describe("GitHub Pages clean-route fallback", () => {
     let redirectedUrl = "";
     const fallbackLocation = {
       hostname: "aultac.github.io",
-      pathname: "/bible/genesis/1/24",
+      pathname: "/bible/genesis/0/0",
       search: "?source=shared",
       hash: "#notes",
       origin: "https://aultac.github.io",
@@ -84,7 +84,7 @@ describe("GitHub Pages clean-route fallback", () => {
 
     expect(appWindow.__KNOW_YOUR_BIBLE_BASE_PATH__).toBe("/bible");
     expect(restoredUrl).toBe(
-      "/bible/genesis/1/24?source=shared#notes"
+      "/bible/genesis/0/0?source=shared#notes"
     );
   });
 });

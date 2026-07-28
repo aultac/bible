@@ -18,6 +18,7 @@ function lesson(overrides: Partial<HydratedLesson> = {}) {
     resolvedMap: null,
     passage: null,
     description: "",
+    videoSummary: null,
     ...overrides,
   };
 }
@@ -28,13 +29,11 @@ describe("content-driven lesson pages", () => {
       getLessonPageContent({
         lesson: lesson(),
         notesState: hiddenState,
-        notesSummaryState: hiddenState,
         storylineState: hiddenState,
       })
     ).toEqual({
       storylineTitle: null,
       storylineBody: null,
-      notesSummary: null,
       lessonNotes: null,
       hasVideo: false,
       hasSummaries: false,
@@ -43,40 +42,31 @@ describe("content-driven lesson pages", () => {
     });
   });
 
-  it("shows a notes summary by itself at full-grid eligibility", () => {
+  it("uses the Word title as the video summary without inventing a body", () => {
     const content = getLessonPageContent({
-      lesson: lesson(),
+      lesson: lesson({ videoSummary: "A concise video description." }),
       notesState: hiddenState,
-      notesSummaryState: {
-        status: "loaded",
-        markdown: "A concise notes overview.",
-      },
       storylineState: hiddenState,
     });
 
-    expect(content.notesSummary).toBe("A concise notes overview.");
+    expect(content.storylineTitle).toBe("A concise video description.");
     expect(content.storylineBody).toBeNull();
-    expect(content.hasSummaries).toBe(true);
+    expect(content.hasSummaries).toBe(false);
   });
 
-  it("shows both distinct summaries without title metadata in the storyline body", () => {
+  it("shows the storyline body without repeating its title metadata", () => {
     const content = getLessonPageContent({
-      lesson: lesson(),
+      lesson: lesson({ videoSummary: "The Promised Son" }),
       notesState: hiddenState,
-      notesSummaryState: {
-        status: "loaded",
-        markdown: "Notes overview",
-      },
       storylineState: {
         status: "loaded",
         markdown:
-          "**Title:** The Promised Son\n**Summary:** Metadata\n\nThe class traced the promise.",
+          "**Title:** Different converted title\n**Summary:** Metadata\n\nThe class traced the promise.",
       },
     });
 
     expect(content.storylineTitle).toBe("The Promised Son");
     expect(content.storylineBody).toBe("The class traced the promise.");
-    expect(content.notesSummary).toBe("Notes overview");
     expect(content.hasSummaries).toBe(true);
   });
 
@@ -85,7 +75,6 @@ describe("content-driven lesson pages", () => {
       const content = getLessonPageContent({
         lesson: lesson(),
         notesState: { status, markdown: null },
-        notesSummaryState: { status, markdown: null },
         storylineState: { status, markdown: null },
       });
       expect(content.lessonNotes).toBeNull();
@@ -94,20 +83,37 @@ describe("content-driven lesson pages", () => {
   });
 
   it("tracks full-width notes/maps and available lesson actions independently", () => {
-    const source = courseLibrary.allLessons.find(
-      (candidate) => candidate.youtube && candidate.resolvedMap
-    );
-    if (!source) {
-      throw new Error("Course fixture requires a mapped video lesson.");
-    }
-
     const content = getLessonPageContent({
-      lesson: source,
+      lesson: lesson({
+        youtube: {
+          videoId: "fixture-video",
+          title: "Fixture video",
+          url: "https://www.youtube.com/watch?v=fixture-video",
+          playlistId: "fixture-playlist",
+          position: 1,
+          videoKind: "lesson",
+          weekNumber: 1,
+          lessonSequenceNumber: 1,
+          durationText: "42:00",
+          thumbnailUrl: "https://example.test/fixture.jpg",
+        },
+        resolvedMap: {
+          sourcePath: "fixture/map.kml",
+          sourceFormat: "kml",
+          sourcePublicUrl: "/fixture/map.kml",
+          geoJsonPath: "fixture/map.geojson",
+          geoJsonPublicUrl: "/fixture/map.geojson",
+          available: true,
+          featureCount: 1,
+          geometryTypes: ["Point"],
+          sourceHref: "/fixture/map.kml",
+          geoJsonHref: "/fixture/map.geojson",
+        },
+      }),
       notesState: {
         status: "loaded",
         markdown: "# Lesson notes",
       },
-      notesSummaryState: hiddenState,
       storylineState: hiddenState,
     });
 

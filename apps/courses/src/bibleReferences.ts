@@ -17,8 +17,9 @@ interface LessonPassagePoint {
 }
 
 export interface RoutableLesson {
+  slug: string;
   sequenceNumber: number;
-  lessonKind: string;
+  lessonKind: "promo" | "intro" | "passage";
   bookSlug: string;
   passage: {
     start?: LessonPassagePoint;
@@ -167,8 +168,10 @@ export function parseBibleReference(value: string): BibleReference | null {
     const verse = referenceMatch.groups.verse
       ? Number.parseInt(referenceMatch.groups.verse, 10)
       : null;
+    const isPromoReference =
+      book.slug === "genesis" && chapter === 0 && verse === 0;
 
-    if (chapter < 1 || verse !== null && verse < 0) {
+    if (!isPromoReference && (chapter < 1 || verse !== null && verse < 0)) {
       return null;
     }
 
@@ -227,6 +230,9 @@ function lessonPointToReference(point: LessonPassagePoint): BibleReference | nul
 }
 
 export function canonicalLessonPath(lesson: RoutableLesson) {
+  if (lesson.lessonKind === "promo") {
+    return `/${lesson.bookSlug}/0/0`;
+  }
   if (lesson.lessonKind === "intro") {
     return `/${lesson.bookSlug}/1/0`;
   }
@@ -331,9 +337,19 @@ export function resolveLessonByReference<TLesson extends RoutableLesson>(
   lessons: TLesson[],
   reference: BibleReference
 ): TLesson | null {
-  const bookLessons = lessons
+  const allBookLessons = lessons
     .filter((lesson) => lesson.bookSlug === reference.bookSlug)
     .sort((left, right) => left.sequenceNumber - right.sequenceNumber);
+
+  if (reference.chapter === 0 && reference.verse === 0) {
+    return (
+      allBookLessons.find((lesson) => lesson.lessonKind === "promo") || null
+    );
+  }
+
+  const bookLessons = allBookLessons.filter(
+    (lesson) => lesson.lessonKind !== "promo"
+  );
 
   if (reference.chapter === null) {
     return bookLessons[0] || null;

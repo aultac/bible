@@ -31,7 +31,7 @@ function parseArgs(argv) {
 function printHelp() {
   console.log(`Usage: yarn courses:notes:backups:apply [--report <path>]
 
-Validates and applies the latest staged notes.md and notes-summary.md candidates.
+Validates and applies the latest staged notes.md candidates.
 Run this only after reviewing and approving every pending update.`);
 }
 
@@ -50,15 +50,13 @@ async function main() {
         await loadLatestSnapshotRoot(coursesEnv.notesCacheRoot)
       );
 
-  const { applied, summariesApplied, report } =
-    await applyCanonicalNoteBackups({ reportPath });
+  const { applied, report } = await applyCanonicalNoteBackups({ reportPath });
 
   console.log(
     JSON.stringify(
       {
         reportPath,
         appliedCount: applied.length,
-        summariesAppliedCount: summariesApplied.length,
         totals: report.totals,
       },
       null,

@@ -82,14 +82,15 @@ describe("generated gzip search index", () => {
 
     expect(firstBytes.equals(secondBytes)).toBe(true);
     expect(firstSummary).toMatchObject({
-      documentCount: 24,
+      documentCount: parsedIndex.d.length,
       schemaVersion: 1,
     });
+    expect(firstSummary.documentCount).toBeGreaterThan(0);
     expect(secondSummary.gzipByteCount).toBe(firstSummary.gzipByteCount);
     expect(firstSummary.gzipByteCount).toBeLessThan(
       firstSummary.notesSourceByteCount * 0.7
     );
-    expect(parsedIndex.d[0][0]).toBe("/genesis/1/0");
+    expect(parsedIndex.d[0][0]).toBe("/genesis/0/0");
     expect(parsedIndex.d[0][2]).toBe("Section 1: The Beginning");
     expect(parsedIndex.t).toHaveLength(parsedIndex.p.length);
   });

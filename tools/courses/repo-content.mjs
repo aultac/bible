@@ -1,19 +1,20 @@
-import { execFile } from "node:child_process";
 import {
   copyFile,
   mkdir,
-  mkdtemp,
   readFile,
   readdir,
   rm,
   stat,
   writeFile,
 } from "node:fs/promises";
-import os from "node:os";
 import path from "node:path";
-import { promisify } from "node:util";
-import { NodeHtmlMarkdown } from "node-html-markdown";
 import { REPO_ROOT, loadCoursesEnv } from "./config.mjs";
+import {
+  buildDocumentSummaryMaps,
+  convertDocxToMarkdown,
+  extractVideoSummaryTitle,
+  resolveLessonSummaryDocumentPath,
+} from "./document-summaries.mjs";
 import {
   convertMapSourceToGeoJson,
   isLessonMapFileName,
@@ -32,13 +33,6 @@ import {
   fetchPlaylistSnapshot,
 } from "./youtube-playlist.mjs";
 import { generateLessonSearchIndex } from "./search-index.mjs";
-
-const execFileAsync = promisify(execFile);
-
-const markdownConverter = new NodeHtmlMarkdown({
-  bulletMarker: "-",
-  codeBlockStyle: "fenced",
-});
 
 const COURSES_APP_ROOT = path.join(REPO_ROOT, "apps", "courses");
 const CONTENT_ROOT = path.join(COURSES_APP_ROOT, "content");
@@ -213,15 +207,15 @@ function pickFields(source, fieldNames) {
   return picked;
 }
 
-function normalizeMarkdown(markdown) {
-  return (
-    markdown
-      .replace(/\r\n/gu, "\n")
-      .replace(/\u00a0/gu, " ")
-      .replace(/[ \t]+\n/gu, "\n")
-      .replace(/\n{3,}/gu, "\n\n")
-      .trimEnd() + "\n"
-  );
+export function resolveLessonTitle(lesson, manualFields = {}) {
+  if (
+    lesson.lessonKind === "promo" &&
+    (!manualFields.title || manualFields.title === "Promo")
+  ) {
+    return lesson.displayTitle;
+  }
+
+  return manualFields.title || lesson.displayTitle;
 }
 
 async function writeJson(targetPath, value) {
@@ -232,25 +226,6 @@ async function writeJson(targetPath, value) {
 async function writeText(targetPath, value) {
   await mkdir(path.dirname(targetPath), { recursive: true });
   await writeFile(targetPath, value, "utf8");
-}
-
-async function convertDocxToMarkdown(docxPath) {
-  const tempRoot = await mkdtemp(path.join(os.tmpdir(), "bible-courses-"));
-
-  try {
-    const htmlPath = path.join(tempRoot, "converted.html");
-    await execFileAsync("textutil", [
-      "-convert",
-      "html",
-      "-output",
-      htmlPath,
-      docxPath,
-    ]);
-    const html = await readFile(htmlPath, "utf8");
-    return normalizeMarkdown(markdownConverter.translate(html));
-  } finally {
-    await rm(tempRoot, { recursive: true, force: true });
-  }
 }
 
 function deriveDefaultSectionStatus(sectionnum) {
@@ -376,14 +351,15 @@ async function discoverCanonicalSourceTree(canonicalBase) {
       }
 
       const notesSourcePath = path.join(lessonPath, "notes.md");
-      const notesSummarySourcePath = path.join(lessonPath, "notes-summary.md");
-      const summaryDocxPath = path.join(lessonPath, `${lessonName}_summary.docx`);
+      const summaryDocxPath = await resolveLessonSummaryDocumentPath(
+        lessonPath,
+        lessonName
+      );
       const resourcesDirectoryPath = path.join(lessonPath, "resources");
       const mapFiles = await listLessonRootMapFiles(canonicalBase, lessonPath);
 
       const hasNotes = await pathExists(notesSourcePath);
-      const hasNotesSummary = await pathExists(notesSummarySourcePath);
-      const hasSummaryDocx = await pathExists(summaryDocxPath);
+      const hasSummaryDocx = Boolean(summaryDocxPath);
       const hasResourcesDirectory = await pathExists(resourcesDirectoryPath);
       const publication = await classifyLessonPublication(
         lessonPath,
@@ -397,10 +373,6 @@ async function discoverCanonicalSourceTree(canonicalBase) {
         notesSourcePath: hasNotes ? notesSourcePath : null,
         notesSourcePathRelative: hasNotes
           ? toCanonicalRelativePath(canonicalBase, notesSourcePath)
-          : null,
-        notesSummarySourcePath: hasNotesSummary ? notesSummarySourcePath : null,
-        notesSummarySourcePathRelative: hasNotesSummary
-          ? toCanonicalRelativePath(canonicalBase, notesSummarySourcePath)
           : null,
         summaryDocxPath: hasSummaryDocx ? summaryDocxPath : null,
         summaryDocxPathRelative: hasSummaryDocx
@@ -591,7 +563,6 @@ async function writeSectionManifests({
       passage: buildPassageRecord(lesson.passage),
       lessonPath: `apps/courses/content/sections/${section.slug}/lessons/${lesson.slug}/lesson.json`,
       notesAvailable: Boolean(lesson.notesSourcePath),
-      notesSummaryAvailable: Boolean(lesson.notesSummarySourcePath),
       summaryAvailable: Boolean(lesson.summaryDocxPath),
       resourceCount: lesson.resourceFiles.length,
       source: {
@@ -664,7 +635,27 @@ export async function syncSectionManifests() {
   };
 }
 
-export async function syncCoursesContent() {
+async function resolveSummaryMarkdown({
+  sourcePath,
+  cachedRecord,
+  documentCacheRoot,
+}) {
+  if (cachedRecord) {
+    if (cachedRecord.error) {
+      throw new Error(cachedRecord.error);
+    }
+    if (!cachedRecord.markdownPath) {
+      return null;
+    }
+    return readFile(
+      path.join(documentCacheRoot, cachedRecord.markdownPath),
+      "utf8"
+    );
+  }
+  return sourcePath ? convertDocxToMarkdown(sourcePath) : null;
+}
+
+export async function syncCoursesContent(options = {}) {
   const coursesEnv = await loadCoursesEnv();
   const generatedAt = new Date().toISOString();
   const sections = await discoverCanonicalSourceTree(coursesEnv.canonicalBase);
@@ -672,10 +663,21 @@ export async function syncCoursesContent() {
   const lessonManualMap = await loadExistingLessonManualMap();
   const outlineBySectionNumber = await loadCourseOutlineMap();
   const conversionErrors = [];
-  let playlistSnapshot = await readJsonIfExists(PLAYLIST_SNAPSHOT_PATH);
-  let playlistRefreshStatus = playlistSnapshot ? "cached" : "not-configured";
+  const cachedDocumentMaps = options.documentSummaries
+    ? buildDocumentSummaryMaps(options.documentSummaries)
+    : null;
+  let playlistSnapshot =
+    options.playlistSnapshot ??
+    (await readJsonIfExists(PLAYLIST_SNAPSHOT_PATH));
+  let playlistRefreshStatus = options.playlistSnapshot
+    ? "audited-cache"
+    : playlistSnapshot
+      ? "cached"
+      : "not-configured";
 
-  if (coursesEnv.youtubePlaylistUrl) {
+  if (options.playlistSnapshot) {
+    await writeJson(PLAYLIST_SNAPSHOT_PATH, playlistSnapshot);
+  } else if (coursesEnv.youtubePlaylistUrl) {
     try {
       playlistSnapshot = await fetchPlaylistSnapshot(coursesEnv.youtubePlaylistUrl);
       await writeJson(PLAYLIST_SNAPSHOT_PATH, playlistSnapshot);
@@ -705,7 +707,6 @@ export async function syncCoursesContent() {
   const sectionSummaryOutputs = new Map();
 
   let notesCopied = 0;
-  let notesSummariesCopied = 0;
   let lessonSummariesConverted = 0;
   let sectionSummariesConverted = 0;
   let resourceFilesCopied = 0;
@@ -725,13 +726,25 @@ export async function syncCoursesContent() {
     let sectionSummaryRepoPath = null;
     let sectionSummaryError = null;
 
-    if (section.sectionSummaryDocxPath) {
+    const cachedSectionSummary = cachedDocumentMaps?.sections.get(
+      section.folderName
+    );
+    if (section.sectionSummaryDocxPath || cachedSectionSummary) {
       try {
-        const markdown = await convertDocxToMarkdown(section.sectionSummaryDocxPath);
-        const outputPath = path.join(sectionDirectory, "section-summary.md");
-        await writeText(outputPath, markdown);
-        sectionSummaryRepoPath = toRepoRelativePath(outputPath);
-        sectionSummariesConverted += 1;
+        const markdown = await resolveSummaryMarkdown({
+          sourcePath: section.sectionSummaryDocxPath,
+          cachedRecord: cachedSectionSummary,
+          documentCacheRoot: options.documentCacheRoot,
+        });
+        if (markdown) {
+          const outputPath = path.join(
+            sectionDirectory,
+            "section-summary.md"
+          );
+          await writeText(outputPath, markdown);
+          sectionSummaryRepoPath = toRepoRelativePath(outputPath);
+          sectionSummariesConverted += 1;
+        }
       } catch (error) {
         sectionSummaryError = error?.message || String(error);
         conversionErrors.push({
@@ -760,9 +773,9 @@ export async function syncCoursesContent() {
       await mkdir(lessonDirectory, { recursive: true });
 
       let notesRepoPath = null;
-      let notesSummaryRepoPath = null;
       let summaryRepoPath = null;
       let summaryError = null;
+      let videoSummary = null;
       let resources = [];
       let map = null;
 
@@ -773,20 +786,25 @@ export async function syncCoursesContent() {
         notesCopied += 1;
       }
 
-      if (lesson.notesSummarySourcePath) {
-        const outputPath = path.join(lessonDirectory, "notes-summary.md");
-        await copyFile(lesson.notesSummarySourcePath, outputPath);
-        notesSummaryRepoPath = toRepoRelativePath(outputPath);
-        notesSummariesCopied += 1;
-      }
-
-      if (lesson.summaryDocxPath) {
+      const cachedLessonSummary = cachedDocumentMaps?.lessons.get(
+        `${section.folderName}/${lesson.folderName}`
+      );
+      if (lesson.summaryDocxPath || cachedLessonSummary) {
         try {
-          const markdown = await convertDocxToMarkdown(lesson.summaryDocxPath);
-          const outputPath = path.join(lessonDirectory, "summary.md");
-          await writeText(outputPath, markdown);
-          summaryRepoPath = toRepoRelativePath(outputPath);
-          lessonSummariesConverted += 1;
+          const markdown = await resolveSummaryMarkdown({
+            sourcePath: lesson.summaryDocxPath,
+            cachedRecord: cachedLessonSummary,
+            documentCacheRoot: options.documentCacheRoot,
+          });
+          if (markdown) {
+            const outputPath = path.join(lessonDirectory, "summary.md");
+            await writeText(outputPath, markdown);
+            summaryRepoPath = toRepoRelativePath(outputPath);
+            videoSummary =
+              cachedLessonSummary?.videoSummary ??
+              extractVideoSummaryTitle(markdown);
+            lessonSummariesConverted += 1;
+          }
         } catch (error) {
           summaryError = error?.message || String(error);
           conversionErrors.push({
@@ -860,8 +878,9 @@ export async function syncCoursesContent() {
         sectionSlug: section.slug,
         sequenceNumber: lesson.sequenceNumber,
         lessonKind: lesson.lessonKind,
-        title: manualLessonFields.title || lesson.displayTitle,
+        title: resolveLessonTitle(lesson, manualLessonFields),
         description: manualLessonFields.description || "",
+        videoSummary,
         status: lessonStatus,
         publishReasons: lesson.publishReasons,
         startVerse: buildVerseString(lesson.passage?.start),
@@ -871,13 +890,6 @@ export async function syncCoursesContent() {
           path: notesRepoPath,
           sourcePath: lesson.notesSourcePathRelative,
           available: Boolean(notesRepoPath),
-        },
-        notesSummary: {
-          path: notesSummaryRepoPath,
-          sourcePath: lesson.notesSummarySourcePathRelative,
-          sourceFormat: lesson.notesSummarySourcePath ? "markdown" : null,
-          available: Boolean(notesSummaryRepoPath),
-          error: null,
         },
         summary: {
           path: summaryRepoPath,
@@ -897,7 +909,6 @@ export async function syncCoursesContent() {
           relativeLessonDirectory: lesson.relativeLessonDirectory,
           folderName: lesson.folderName,
           notesPath: lesson.notesSourcePathRelative,
-          notesSummaryPath: lesson.notesSummarySourcePathRelative,
           summaryDocxPath: lesson.summaryDocxPathRelative,
           resourcesDirectory: lesson.resourcesDirectoryPathRelative,
           mapPath: lesson.mapFiles[0]?.relativePath || null,
@@ -928,7 +939,6 @@ export async function syncCoursesContent() {
     unpublishedLessonCount: unpublishedLessons.length,
     unpublishedLessons,
     notesCopied,
-    notesSummariesCopied,
     lessonSummariesConverted,
     sectionSummariesConverted,
     resourceFilesCopied,

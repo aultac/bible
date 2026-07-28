@@ -14,6 +14,7 @@ import { CourseSelector } from "./CourseSelector";
 import { HeaderSearch } from "./HeaderSearch";
 import {
   courseLibrary,
+  formatLessonSequenceLabel,
   loadMarkdownContent,
   type HydratedLesson,
 } from "./courseData";
@@ -29,7 +30,6 @@ type MarkdownLoadState = {
 type ResolvedResource = HydratedLesson["resolvedResources"][number];
 
 const IMAGE_RESOURCE_PATTERN = /\.(?:avif|gif|jpe?g|png|svg|webp)$/iu;
-
 
 function bookPath(bookSlug: string) {
   return `/?view=book&book=${encodeURIComponent(bookSlug)}`;
@@ -100,22 +100,17 @@ function getStorylineBody(markdown: string | null) {
 export function getLessonPageContent({
   lesson,
   notesState,
-  notesSummaryState,
   storylineState,
 }: {
   lesson: HydratedLesson;
   notesState: MarkdownLoadState;
-  notesSummaryState: MarkdownLoadState;
   storylineState: MarkdownLoadState;
 }) {
-  const storylineTitle = extractStorylineTitle(storylineState.markdown);
+  const storylineTitle =
+    lesson.videoSummary || extractStorylineTitle(storylineState.markdown);
   const storylineBody =
     storylineState.status === "loaded"
       ? getStorylineBody(storylineState.markdown)
-      : null;
-  const notesSummary =
-    notesSummaryState.status === "loaded"
-      ? notesSummaryState.markdown?.trim() || null
       : null;
   const lessonNotes =
     notesState.status === "loaded" ? notesState.markdown?.trim() || null : null;
@@ -123,10 +118,9 @@ export function getLessonPageContent({
   return {
     storylineTitle,
     storylineBody,
-    notesSummary,
     lessonNotes,
     hasVideo: Boolean(lesson.youtube),
-    hasSummaries: Boolean(notesSummary || storylineBody),
+    hasSummaries: Boolean(storylineBody),
     hasMap: Boolean(lesson.resolvedMap),
     hasActions: Boolean(lesson.passage?.esvUrl || lesson.youtube),
   };
@@ -156,14 +150,13 @@ function MarkdownBlock({ markdown }: { markdown: string }) {
     </div>
   );
 }
+
 function SiteHeader() {
   const location = useLocation();
   const latestLesson = courseLibrary.latestVideoLesson;
   const lesson = courseLibrary.getLessonByCanonicalPath(location.pathname);
-  const weekNumber = lesson
-    ? lesson.youtube?.weekNumber ??
-      lesson.youtube?.position ??
-      lesson.sequenceNumber
+  const sequenceLabel = lesson
+    ? formatLessonSequenceLabel(lesson)
     : null;
 
   return (
@@ -191,13 +184,17 @@ function SiteHeader() {
           </nav>
         </div>
       </div>
-      {lesson && weekNumber !== null ? (
+      {lesson && sequenceLabel ? (
         <nav className="header-context breadcrumbs" aria-label="Breadcrumb">
           <Link to="/">Course</Link>
+          {lesson.lessonKind !== "promo" ? (
+            <>
+              <span aria-hidden="true">/</span>
+              <Link to={bookPath(lesson.bookSlug)}>{lesson.bookName}</Link>
+            </>
+          ) : null}
           <span aria-hidden="true">/</span>
-          <Link to={bookPath(lesson.bookSlug)}>{lesson.bookName}</Link>
-          <span aria-hidden="true">/</span>
-          <span>Week {weekNumber}</span>
+          <span>{sequenceLabel}</span>
         </nav>
       ) : null}
     </header>
@@ -323,46 +320,44 @@ function VideoPlayer({
   );
 }
 
-
 function HomePage() {
-  const latestLesson = courseLibrary.latestVideoLesson;
+  const featuredLesson = courseLibrary.featuredLesson;
 
   return (
     <div className="home-page">
-      {latestLesson ? (
-        <section className="billboard" aria-labelledby="latest-lesson-title">
+      {featuredLesson ? (
+        <section className="billboard" aria-labelledby="featured-lesson-title">
           <div className="billboard-media">
-            <VideoPlayer lesson={latestLesson} eager />
+            <VideoPlayer lesson={featuredLesson} eager />
           </div>
           <div className="billboard-copy">
-            <p className="eyebrow">Latest course</p>
-            <h1 id="latest-lesson-title">{latestLesson.title}</h1>
+            <p className="eyebrow">
+              {featuredLesson.lessonKind === "promo"
+                ? "Course preview"
+                : "Latest course"}
+            </p>
+            <h1 id="featured-lesson-title">{featuredLesson.title}</h1>
             <p className="billboard-description">
-              Follow the Bible’s storyline in order, with the historical and
-              literary context that makes each passage easier to understand.
+              {featuredLesson.videoSummary ||
+                "Follow the Bible’s storyline in order, with the historical and literary context that makes each passage easier to understand."}
             </p>
             <div className="billboard-meta">
-              <span>
-                Week{" "}
-                {latestLesson.youtube?.weekNumber ??
-                  latestLesson.youtube?.position ??
-                  latestLesson.sequenceNumber}
-              </span>
-              {latestLesson.youtube?.durationText ? (
-                <span>{latestLesson.youtube.durationText}</span>
+              <span>{formatLessonSequenceLabel(featuredLesson)}</span>
+              {featuredLesson.youtube?.durationText ? (
+                <span>{featuredLesson.youtube.durationText}</span>
               ) : null}
             </div>
             <div className="button-row">
               <Link
                 className="button button-primary"
-                to={latestLesson.canonicalPath}
+                to={featuredLesson.canonicalPath}
               >
                 Explore this lesson
               </Link>
-              {latestLesson.passage?.esvUrl ? (
+              {featuredLesson.passage?.esvUrl ? (
                 <a
                   className="button button-quiet"
-                  href={latestLesson.passage.esvUrl}
+                  href={featuredLesson.passage.esvUrl}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -409,11 +404,7 @@ function SectionRedirect() {
   return (
     <Navigate
       replace
-      to={
-        section
-          ? `/?view=section&section=${section.sectionnum}`
-          : "/"
-      }
+      to={section ? `/?view=section&section=${section.sectionnum}` : "/"}
     />
   );
 }
@@ -432,7 +423,7 @@ function LessonResources({ lesson }: { lesson: HydratedLesson }) {
     <section className="lesson-section resources-section">
       <div className="section-title">
         <p className="eyebrow">Further study</p>
-        <h2>Resources from this week</h2>
+        <h2>Resources from this lesson</h2>
       </div>
 
       {imageResources.length > 0 ? (
@@ -468,11 +459,7 @@ function LessonResources({ lesson }: { lesson: HydratedLesson }) {
   );
 }
 
-function NotesPanel({
-  markdown,
-}: {
-  markdown: string;
-}) {
+function NotesPanel({ markdown }: { markdown: string }) {
   return (
     <section className="study-panel notes-panel standalone-study-panel">
       <div className="section-title">
@@ -486,16 +473,10 @@ function NotesPanel({
 
 function LessonPage({ lesson }: { lesson: HydratedLesson }) {
   const notesState = useMarkdownContent(lesson?.notes.path);
-  const notesSummaryState = useMarkdownContent(lesson?.notesSummary?.path);
   const storylineState = useMarkdownContent(lesson?.summary.path);
   useEffect(() => {
     for (const [label, state, available] of [
       ["lesson notes", notesState, lesson.notes.available],
-      [
-        "notes summary",
-        notesSummaryState,
-        Boolean(lesson.notesSummary?.available),
-      ],
       ["storyline summary", storylineState, lesson.summary.available],
     ] as const) {
       if (available && state.status === "error") {
@@ -504,11 +485,9 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
     }
   }, [
     lesson.notes.available,
-    lesson.notesSummary?.available,
     lesson.summary.available,
     lesson.title,
     notesState,
-    notesSummaryState,
     storylineState,
   ]);
 
@@ -519,7 +498,6 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
   const content = getLessonPageContent({
     lesson,
     notesState,
-    notesSummaryState,
     storylineState,
   });
 
@@ -563,15 +541,6 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
 
       {content.hasSummaries ? (
         <div className="summary-grid">
-          {content.notesSummary ? (
-            <section className="lesson-section summary-card notes-summary">
-              <div className="section-title">
-                <p className="eyebrow">At a glance</p>
-                <h2>Summary of the notes</h2>
-              </div>
-              <MarkdownBlock markdown={content.notesSummary} />
-            </section>
-          ) : null}
           {content.storylineBody ? (
             <section className="lesson-section summary-card storyline-section">
               <div className="section-title">
@@ -601,9 +570,7 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
           {adjacentLessons.previous ? (
             <>
               <span>Previous</span>
-              <Link
-                to={adjacentLessons.previous.canonicalPath}
-              >
+              <Link to={adjacentLessons.previous.canonicalPath}>
                 ← {adjacentLessons.previous.title}
               </Link>
             </>
@@ -613,9 +580,7 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
           {adjacentLessons.next ? (
             <>
               <span>Next</span>
-              <Link
-                to={adjacentLessons.next.canonicalPath}
-              >
+              <Link to={adjacentLessons.next.canonicalPath}>
                 {adjacentLessons.next.title} →
               </Link>
             </>
@@ -631,7 +596,10 @@ function NotFoundPage() {
     <section className="not-found">
       <p className="eyebrow">Not found</p>
       <h1>That lesson is not available.</h1>
-      <p>The link may be out of date, or the course content is still being prepared.</p>
+      <p>
+        The link may be out of date, or the course content is still being
+        prepared.
+      </p>
       <Link className="button button-primary" to="/">
         Return to the course
       </Link>
@@ -640,7 +608,6 @@ function NotFoundPage() {
 }
 
 export default function App() {
-
   return (
     <BrowserRouter basename={getSiteBasePath() || undefined}>
       <a className="skip-link" href="#main-content">

@@ -41,9 +41,6 @@ function hashContent(content) {
   return createHash("md5").update(content).digest("hex");
 }
 
-function hashSummarySource(content) {
-  return createHash("sha256").update(content).digest("hex");
-}
 
 async function copyFileAtomically(sourcePath, destinationPath) {
   await mkdir(path.dirname(destinationPath), { recursive: true });
@@ -234,13 +231,9 @@ export async function prepareCanonicalNoteBackups({
   };
 }
 
-export async function applyCanonicalNoteBackups({
-  reportPath,
-  applySummaries = true,
-}) {
+export async function applyCanonicalNoteBackups({ reportPath }) {
   const report = await loadCanonicalNoteBackupReport(reportPath);
   const applied = [];
-  const summariesApplied = [];
 
   for (const update of report.updates) {
     const stagedNotes = await readFile(update.stagedNotesPath, "utf8");
@@ -251,32 +244,6 @@ export async function applyCanonicalNoteBackups({
     }
   }
 
-  for (const update of applySummaries ? report.summaryUpdates || [] : []) {
-    const sourceNotes = await readFile(update.sourceNotesPath, "utf8");
-    if (hashSummarySource(sourceNotes) !== update.sourceNotesHash) {
-      throw new Error(
-        `Summary source notes changed after generation: ${update.sourceNotesPath}`
-      );
-    }
-
-    const stagedSummary = await readFile(update.stagedSummaryPath, "utf8");
-    if (!stagedSummary.trim()) {
-      throw new Error(`Staged summary is empty: ${update.stagedSummaryPath}`);
-    }
-    const metadata = JSON.parse(
-      await readFile(update.stagedMetadataPath, "utf8")
-    );
-    if (
-      metadata.sourceNotesHash !== update.sourceNotesHash ||
-      metadata.promptVersion !== update.promptVersion ||
-      (update.promptHash && metadata.promptHash !== update.promptHash) ||
-      metadata.model !== update.model
-    ) {
-      throw new Error(
-        `Staged summary metadata does not match the report: ${update.stagedMetadataPath}`
-      );
-    }
-  }
 
   for (const update of report.updates) {
     await copyFileAtomically(update.stagedNotesPath, update.canonicalNotesPath);
@@ -287,25 +254,10 @@ export async function applyCanonicalNoteBackups({
     });
   }
 
-  for (const update of report.summaryUpdates || []) {
-    await copyFileAtomically(
-      update.stagedSummaryPath,
-      update.canonicalSummaryPath
-    );
-    await copyFileAtomically(
-      update.stagedMetadataPath,
-      update.canonicalMetadataPath
-    );
-    summariesApplied.push({
-      title: update.title,
-      canonicalSummaryPath: update.canonicalSummaryPath,
-      canonicalMetadataPath: update.canonicalMetadataPath,
-    });
-  }
 
   return {
     report,
     applied,
-    summariesApplied,
+    summariesApplied: [],
   };
 }
