@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "024-genesis47-27-50-14",
+  "slug": "024-genesis47-27-50-14",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 24,
+  "lessonKind": "passage",
+  "title": "Genesis 47:27-50:14",
+  "description": "",
+  "videoSummary": "Jacob blesses Manasseh and Ephraim as his owns sons, Jacob calls his 12 sons together to give them blessings/prophecies of what will happen in the days to come, Jacob dies and they travel back to Canaan for the burial.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Genesis 47:27",
+  "endVerse": "Genesis 50:14",
+  "passage": {
+    "display": "Genesis 47:27-50:14",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 47,
+      "verse": 27,
+      "raw": "Genesis47_27",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 50,
+      "verse": 14,
+      "raw": "50_14",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 47:27",
+    "endVerse": "Genesis 50:14",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+47:27-50:14/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/024-genesis47-27-50-14/notes.md",
+    "sourcePath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/024-genesis47-27-50-14/summary.md",
+    "sourcePath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/024_Genesis47_27-50_14_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/024_Genesis47_27-50.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/024-genesis47-27-50-14/024_Genesis47_27-50.kmz",
+    "geoJsonPath": "apps/courses/public/maps/02-section-genesis12-50/024-genesis47-27-50-14/024_Genesis47_27-50.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/024-genesis47-27-50-14/024_Genesis47_27-50.geojson",
+    "available": true,
+    "featureCount": 31,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "5sUT9VtXH10",
+    "title": "Know Your Bible - Week 24",
+    "url": "https://www.youtube.com/watch?v=5sUT9VtXH10&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 25,
+    "videoKind": "lesson",
+    "weekNumber": 24,
+    "lessonSequenceNumber": 24,
+    "durationText": "52:41",
+    "thumbnailUrl": "https://i.ytimg.com/vi/5sUT9VtXH10/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLOvC4dtLFVIGeqPYNLhUzpEtAeA"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14",
+    "folderName": "024_Genesis47_27-50_14",
+    "notesPath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/notes.md",
+    "summaryDocxPath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/024_Genesis47_27-50_14_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/024_Genesis47_27-50.kmz"
+  }
+}

@@ -1,0 +1,443 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.6065,
+          31.3821,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Gerar",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landpoint00332010",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-scale": 2,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.48408157374987,
+          30.58337607984953,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Kadesh-Barnea",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landrepresentativepoint00022",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.956667,
+          30.493333,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Shur",
+        "visibility": false,
+        "styleUrl": "#msn_red-diamond",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-diamond.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              34.61892,
+              31.20876,
+              0
+            ],
+            [
+              34.61892,
+              31.1819,
+              0
+            ],
+            [
+              34.68121,
+              31.04757,
+              0
+            ],
+            [
+              34.71235,
+              31.02071,
+              0
+            ],
+            [
+              34.77464,
+              30.99384,
+              0
+            ],
+            [
+              34.80579,
+              30.99384,
+              0
+            ],
+            [
+              34.83693,
+              30.99384,
+              0
+            ],
+            [
+              34.99265,
+              31.07444,
+              0
+            ],
+            [
+              34.99265,
+              31.1013,
+              0
+            ],
+            [
+              34.99265,
+              31.15503,
+              0
+            ],
+            [
+              34.99265,
+              31.1819,
+              0
+            ],
+            [
+              34.96151,
+              31.20876,
+              0
+            ],
+            [
+              34.93036,
+              31.20876,
+              0
+            ],
+            [
+              34.89922,
+              31.20876,
+              0
+            ],
+            [
+              34.86807,
+              31.20876,
+              0
+            ],
+            [
+              34.83693,
+              31.20876,
+              0
+            ],
+            [
+              34.80579,
+              31.20876,
+              0
+            ],
+            [
+              34.77464,
+              31.20876,
+              0
+            ],
+            [
+              34.7435,
+              31.20876,
+              0
+            ],
+            [
+              34.71235,
+              31.20876,
+              0
+            ],
+            [
+              34.68121,
+              31.20876,
+              0
+            ],
+            [
+              34.65006,
+              31.20876,
+              0
+            ],
+            [
+              34.61892,
+              31.20876,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Negeb",
+        "visibility": false,
+        "styleUrl": "#landisobands6",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#fd8008",
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.840833,
+          31.244722,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Beersheba",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landpoint500001",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-scale": 2,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.40843,
+              29.15769,
+              0
+            ],
+            [
+              33.52003,
+              29.10893,
+              0
+            ],
+            [
+              34.41277,
+              29.35272,
+              0
+            ],
+            [
+              34.69176,
+              29.49899,
+              0
+            ],
+            [
+              34.80335,
+              29.64527,
+              0
+            ],
+            [
+              35.02654,
+              30.03534,
+              0
+            ],
+            [
+              35.08233,
+              30.27913,
+              0
+            ],
+            [
+              35.08233,
+              30.32789,
+              0
+            ],
+            [
+              35.08233,
+              30.37664,
+              0
+            ],
+            [
+              35.02654,
+              30.52292,
+              0
+            ],
+            [
+              34.85915,
+              30.57168,
+              0
+            ],
+            [
+              34.13379,
+              30.62043,
+              0
+            ],
+            [
+              34.07799,
+              30.62043,
+              0
+            ],
+            [
+              34.0222,
+              30.57168,
+              0
+            ],
+            [
+              33.9664,
+              30.52292,
+              0
+            ],
+            [
+              33.79901,
+              30.23037,
+              0
+            ],
+            [
+              33.63162,
+              29.93781999999999,
+              0
+            ],
+            [
+              33.40843,
+              29.30396,
+              0
+            ],
+            [
+              33.40843,
+              29.2552,
+              0
+            ],
+            [
+              33.40843,
+              29.20645,
+              0
+            ],
+            [
+              33.40843,
+              29.15769,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Paran",
+        "visibility": false,
+        "styleUrl": "#landisobands2252221",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#fc02ff",
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.235556,
+          31.777778,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Moriah",
+        "visibility": false,
+        "styleUrl": "#msn_red-circle",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.22975,
+          31.778444,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Golgotha",
+        "visibility": false,
+        "styleUrl": "#msn_red-circle",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.10222,
+          31.525087,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Kiriath-Arba (Hebron)",
+        "visibility": false,
+        "styleUrl": "#landpoint00332002",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-scale": 2,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    }
+  ]
+}

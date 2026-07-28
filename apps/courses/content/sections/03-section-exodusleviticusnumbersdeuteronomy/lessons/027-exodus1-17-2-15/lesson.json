@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "027-exodus1-17-2-15",
+  "slug": "027-exodus1-17-2-15",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 27,
+  "lessonKind": "passage",
+  "title": "Exodus 1:17-2:15",
+  "description": "",
+  "videoSummary": "The midwives feared God and the Hebrews multiplied despite pharaoh's efforts. Moses is spared and is raised by pharaoh’s daughter. Moses later fights evil and then flees to Midian.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 1:17",
+  "endVerse": "Exodus 2:15",
+  "passage": {
+    "display": "Exodus 1:17-2:15",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 1,
+      "verse": 17,
+      "raw": "Exodus1_17",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 2,
+      "verse": 15,
+      "raw": "2_15",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 1:17",
+    "endVerse": "Exodus 2:15",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+1:17-2:15/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/027-exodus1-17-2-15/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/027-exodus1-17-2-15/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15/027_Exodus1_17-2_15_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15/027_Exodus1_17-2.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/027-exodus1-17-2-15/027_Exodus1_17-2.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/027-exodus1-17-2-15/027_Exodus1_17-2.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/027-exodus1-17-2-15/027_Exodus1_17-2.geojson",
+    "available": true,
+    "featureCount": 22,
+    "geometryTypes": [
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "jpfWdPS0q8k",
+    "title": "Know Your Bible - Week 27",
+    "url": "https://www.youtube.com/watch?v=jpfWdPS0q8k&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 28,
+    "videoKind": "lesson",
+    "weekNumber": 27,
+    "lessonSequenceNumber": 27,
+    "durationText": "48:55",
+    "thumbnailUrl": "https://i.ytimg.com/vi/jpfWdPS0q8k/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgNMl0ZV1EFwKnSA8vXtb87lMxqg"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15",
+    "folderName": "027_Exodus1_17-2_15",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15/027_Exodus1_17-2_15_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15/027_Exodus1_17-2.kmz"
+  }
+}

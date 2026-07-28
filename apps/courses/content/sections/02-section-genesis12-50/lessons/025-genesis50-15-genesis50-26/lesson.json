@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "025-genesis50-15-genesis50-26",
+  "slug": "025-genesis50-15-genesis50-26",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 25,
+  "lessonKind": "passage",
+  "title": "Genesis 50:15-50:26",
+  "description": "",
+  "videoSummary": null,
+  "status": "current",
+  "publishReasons": [],
+  "startVerse": "Genesis 50:15",
+  "endVerse": "Genesis 50:26",
+  "passage": {
+    "display": "Genesis 50:15-50:26",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 50,
+      "verse": 15,
+      "raw": "Genesis50_15",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 50,
+      "verse": 26,
+      "raw": "Genesis50_26",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 50:15",
+    "endVerse": "Genesis 50:26",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+50:15-50:26/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/025-genesis50-15-genesis50-26/notes.md",
+    "sourcePath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/025_Genesis50_15-50_26.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/025-genesis50-15-genesis50-26/025_Genesis50_15-50_26.kmz",
+    "geoJsonPath": "apps/courses/public/maps/02-section-genesis12-50/025-genesis50-15-genesis50-26/025_Genesis50_15-50_26.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/025-genesis50-15-genesis50-26/025_Genesis50_15-50_26.geojson",
+    "available": true,
+    "featureCount": 4,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "95ObrA5FoYo",
+    "title": "Know Your Bible - Week 25",
+    "url": "https://www.youtube.com/watch?v=95ObrA5FoYo&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 26,
+    "videoKind": "lesson",
+    "weekNumber": 25,
+    "lessonSequenceNumber": 25,
+    "durationText": "49:44",
+    "thumbnailUrl": "https://i.ytimg.com/vi/95ObrA5FoYo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBA4Z1a4RHGQMqcEFwZqtlpofBfbw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26",
+    "folderName": "025_Genesis50_15-Genesis50_26",
+    "notesPath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": null,
+    "mapPath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/025_Genesis50_15-50_26.kmz"
+  }
+}

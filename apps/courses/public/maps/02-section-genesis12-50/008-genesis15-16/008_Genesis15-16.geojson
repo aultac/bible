@@ -1,0 +1,401 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.105336,
+          31.556536,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mamre / Ramat el Khalil",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landpoint003318",
+        "icon-opacity": 1,
+        "icon-color": "#21ff06",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.12978,
+          30.76286,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Beer-lahai-roi",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#waterrepresentativepoint0",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.956667,
+          30.493333,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Bered (Shur)",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landrepresentativepoint000471",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.48408157374987,
+          30.58337607984953,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Kadesh-Barnea",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landrepresentativepoint000220",
+        "icon-opacity": 1,
+        "icon-color": "#ffff0a",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              32.71864,
+              29.93733,
+              0
+            ],
+            [
+              32.80992,
+              29.89769,
+              0
+            ],
+            [
+              32.94683,
+              29.89769,
+              0
+            ],
+            [
+              32.99246,
+              29.89769,
+              0
+            ],
+            [
+              33.67701,
+              30.25447,
+              0
+            ],
+            [
+              33.85955,
+              30.3734,
+              0
+            ],
+            [
+              33.90519,
+              30.41304,
+              0
+            ],
+            [
+              33.90519,
+              30.45268,
+              0
+            ],
+            [
+              33.90519,
+              30.49232,
+              0
+            ],
+            [
+              33.90519,
+              30.53196,
+              0
+            ],
+            [
+              33.90519,
+              30.57161,
+              0
+            ],
+            [
+              33.90519,
+              30.61124999999999,
+              0
+            ],
+            [
+              33.90519,
+              30.65089,
+              0
+            ],
+            [
+              33.90519,
+              30.69053,
+              0
+            ],
+            [
+              33.90519,
+              30.73017,
+              0
+            ],
+            [
+              33.90519,
+              30.76982,
+              0
+            ],
+            [
+              33.90519,
+              30.88874,
+              0
+            ],
+            [
+              33.67701,
+              30.96803,
+              0
+            ],
+            [
+              33.40319,
+              30.96803,
+              0
+            ],
+            [
+              33.35755,
+              30.96803,
+              0
+            ],
+            [
+              33.31192,
+              30.96803,
+              0
+            ],
+            [
+              32.80992,
+              30.92838,
+              0
+            ],
+            [
+              32.62737,
+              30.76982,
+              0
+            ],
+            [
+              32.58173,
+              30.41304,
+              0
+            ],
+            [
+              32.71864,
+              29.93733,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Shur",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landisobands225221",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#21ff06",
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.104444,
+          30.962222,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Ur",
+        "visibility": false,
+        "open": "1",
+        "styleUrl": "#landpoint50",
+        "icon-scale": 0.75,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              32.41032519773745,
+              31.08292546511978,
+              0
+            ],
+            [
+              32.40214322528293,
+              30.66074699645298,
+              0
+            ],
+            [
+              32.49665337828895,
+              30.25374425710134,
+              0
+            ],
+            [
+              32.64210246609372,
+              29.93183471136373,
+              0
+            ],
+            [
+              33.25061513458839,
+              29.90927434189592,
+              0
+            ],
+            [
+              34.04211364799179,
+              29.95156982980835,
+              0
+            ],
+            [
+              35.24247874322528,
+              30.06451499024316,
+              0
+            ],
+            [
+              35.49849181428084,
+              30.85630944157111,
+              0
+            ],
+            [
+              35.7234988998861,
+              31.62420982311079,
+              0
+            ],
+            [
+              35.7159262631573,
+              32.40519538870254,
+              0
+            ],
+            [
+              35.95789154221131,
+              32.98454146832544,
+              0
+            ],
+            [
+              36.64847316647496,
+              33.3893783887291,
+              0
+            ],
+            [
+              37.24527614453476,
+              34.46598430473986,
+              0
+            ],
+            [
+              37.63299710338914,
+              35.15194222335379,
+              0
+            ],
+            [
+              38.17528915439762,
+              35.90753803773961,
+              0
+            ],
+            [
+              38.216567032417,
+              36.46682911566054,
+              0
+            ],
+            [
+              38.14720794000486,
+              36.60702225735144,
+              0
+            ],
+            [
+              37.94592589539498,
+              36.80296477468334,
+              0
+            ],
+            [
+              36.32641815952989,
+              36.67502549843129,
+              0
+            ],
+            [
+              36.0472343965216,
+              35.79361019497998,
+              0
+            ],
+            [
+              35.90503716193346,
+              34.55504988273008,
+              0
+            ],
+            [
+              35.44047896942209,
+              33.60307789801207,
+              0
+            ],
+            [
+              34.74742167406284,
+              31.97274376703075,
+              0
+            ],
+            [
+              34.14138639646571,
+              31.17848270857799,
+              0
+            ],
+            [
+              32.41032519773745,
+              31.08292546511978,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Egypt To Euphrates",
+        "visibility": false,
+        "styleUrl": "#m_ylw-pushpin10",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#8000ff",
+        "stroke-width": 2,
+        "icon-scale": 1.1,
+        "icon-offset": [
+          20,
+          2
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png"
+      }
+    }
+  ]
+}

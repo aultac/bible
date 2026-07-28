@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "031-exodus5-10-6-9",
+  "slug": "031-exodus5-10-6-9",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 31,
+  "lessonKind": "passage",
+  "title": "Exodus 5:10-6:9",
+  "description": "",
+  "videoSummary": "After meeting with Moses, Pharoah takes away the straw so Israelites cannot make bricks and beats them for it. Hebrew foremen blame Moses, Moses blames God, God promises their deliverance.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 5:10",
+  "endVerse": "Exodus 6:9",
+  "passage": {
+    "display": "Exodus 5:10-6:9",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 5,
+      "verse": 10,
+      "raw": "Exodus5_10",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 6,
+      "verse": 9,
+      "raw": "6_9",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 5:10",
+    "endVerse": "Exodus 6:9",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+5:10-6:9/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/031-exodus5-10-6-9/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/031_Exodus5_10-6_9/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/031-exodus5-10-6-9/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/031_Exodus5_10-6_9/031_Exodus5_10-6_9_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": {
+    "videoId": "4F8TmJYc0iM",
+    "title": "Know Your Bible: Week 31",
+    "url": "https://www.youtube.com/watch?v=4F8TmJYc0iM&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 32,
+    "videoKind": "lesson",
+    "weekNumber": 31,
+    "lessonSequenceNumber": 31,
+    "durationText": "53:38",
+    "thumbnailUrl": "https://i.ytimg.com/vi/4F8TmJYc0iM/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB3JnaLs-nD6ehNLWhx84x1hhreCA"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/031_Exodus5_10-6_9",
+    "folderName": "031_Exodus5_10-6_9",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/031_Exodus5_10-6_9/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/031_Exodus5_10-6_9/031_Exodus5_10-6_9_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": null
+  }
+}

@@ -1,0 +1,121 @@
+# 030_Exodus4_18-5_9
+
+- DO NOT MAKE UP A GOD: we learned last week that God will be who he will be, so we have to learn about him from scripture. First, that’s exciting! Let’s keep reading! Who doesn’t want to know more about the creator of the universe? Second, **don’t make up a God like one who would never kill the Egyptian firstborn, and then try to judge the real God by your imaginary god.** You can’t know about God without him telling you. Ehyeh Asher Ehyeh.
+- TRIBAL ELOHIM: Notice God does NOT identify himself as creator of the universe. He identifies as Moses’ tribal Elohim from among all the Elohim. He does NOT say “All the Elohim of Egypt are fake, I am the only Elohim.” He says “My essence is existence and I am YOUR Elohim.” He doesn’t even say “I created all the other Elohim, but I kept you for myself,” even though that’s what we learn at Babel. He just proceeds to show by his actions that he is completely above the gods of Egypt, the Most High Elohim. As we will see, each plague is a direct attack on a specific god in the Egyptian pantheon.
+- MOSES/PHAROAH FRACTAL WITH JESUS/ANTICHRIST: The contrast in this story as we go meet Pharaoh could not be more stark between Moses, the reluctant Man of God, and Pharaoh, the eager Man of Power. One more fractal pattern: Moses vs. the Anti-Moses, and Christ who did not seek his own glory vs. the antichrist who does nothing but seek his own glory.
+- WHY DID GOD PICK MOSES? Clearly it is not because of his ability to take orders. We have already seen his intolerance or injustice to the point of action. Write on the board:
+  - BROKEN VESSELS: only God carries water in broken vessels, it proves he is acting. Picking a poor speaker is just like something he would do.
+  - HE DIDN’T WANT THE JOB: The only people truly fit to lead are those who do not want to. **Those who seek power are inevitably corrupted by it.**
+  - OUTSIDER: And the third reason God chose Moses, might be that he had to choose somebody, and a prophet is respected everywhere except in his hometown. **He needed a Hebrew that had not grown up among the Hebrews.** If he had grown up a slave, they never would have listened to him because just like Jesus’s hometown, he would’ve been too familiar for greatness.
+    - HUMAN NATURE: This is unavoidable human nature. An expert is someone who travels more than 50 miles to speak. I have seen this myself: before an audience of a thousand people as an “expert” from Purdue, people hang on my every word. But consider this class: I suspect the more familiarly you know me the less impact the content of the class has. For example, my wife is not particularly moved :). Because I’m not the expert from far away, I’m just the guy you knew from before who farms over by Nyona Lake.
+    - The trick in life is to try to find the best ideas on their own merit, regardless of where they come from. So just because someone is an “expert” doesn’t meant mean they know anything worth learning, and sometimes the people in your own house might have something useful to learn. I have learned tremendous truths from familiar people, and I have learned nothing but nonsense from some of the greatest intellectuals in history.
+    - So the Jews never would have listened to Moses if he had grown up with them.
+  - INSIDER: But if he were not a Hebrew, they also would never have listened to him because he was not one of them. **So God masterfully picks someone who is remote enough to be respected, but close enough to be related and therefore trustworthy.**
+  - NO SLAVE MENTALITY: The fourth reason pointed out by Dennis Prager related to Moses, not growing up a slave that he did not have a slave mentality.
+    - ESCAPING SLAVERY DOES NOT ESCAPE SLAVE MENTALITY: You can take the human out of slavery, but you cannot take the slavery out of the human. The human who has been a slave their entire life cannot simply escape slavery and thrive under freedom. Their entire worldview and way of dealing with life is derived from and dependent on slavery. **Learning how to live in freedom, where you need to control yourself instead of being controlled by another, is a very difficult thing to learn.** In fact, the Jews, who escaped Egypt as slaves, never make it into the promised land. God has to start over with an entire new generation. Only two people of the original 2 million actually make it there: Caleb and Joshua.
+    - ESCAPING VICTIMHOOD: **If Moses had a slave mentality, and he became leader, all he would do is stoke the anger of the Israelites against the Egyptians. He could not lead them to freedom, he could only lead them to victimhood.** You can see this in America even today to the extent that black leaders have the slave mentality of seeing all whites as devils. All they do is keep their followers in the slavery of victimhood. **All the wrong things that happen in your life are someone else’s fault when you have a slave mentality. So there’s nothing you can do to fix them.** When you are free, the wrong things that happen to you are likely your own fault, so you work to fix them. You don’t feel the despair of helplessness against a slavery beyond your control.
+
+**Exodus 4:18-20 > ask Jethro, donkey express to Egypt**
+
+- RESPECT FOR JETHRO: Moses shows great respect for Jethro and asking him if he can return to Egypt. It is strange that the story does not record Moses telling Jethro about why he is going. But since Jethro is the head of the household that Moses has married into, and Moses has not spun out his own household, yet, it makes sense that he would talk to Jethro about it before he leaves.
+- SON-IN-LAW DOES NOT MENTION GOD: but he does not tell him whole truth. Imagine your son-in-law coming home and saying that God has spoken to him and he was supposed to rescue the modern Christian Iranians from their oppressive regime with nothing but a snake staff and a prayer….
+
+**Exodus 4:21-23 > Harden Pharoah’s heart, kill his firstborn**
+
+- WHY DOES GOD TELL MOSES AGAIN? It may be that Moses was not exactly moving quickly to get the job done.
+- HARDEN HEART MEANS GIVING FREE WILL: Many people think think this means God took away Pharoah’s free will. Does God make Pharoah sin and then punish him for the sin he made him commit? Is God the source of the Hebrews’ pain? No, this doesn’t mean God made Pharoah do something he didn’t want to do. What it means is he strengthened Pharoah’s heart to do what Pharoah really wanted even in the face of miraculous punishments. **He is not taking away Pharoah’s free will, it is the opposite: he is giving him back him free will in the face of having a gun to his head.**
+- HEART = MIND: today we think the mind lives in the brain and our emotions live in the heart. But in that day, the belief was that the mind lives in the heart and the feelings live in the kidneys. **So strengthening Pharaoh’s heart really means strengthening his mind or his resolve.**  I think it is still OK to read it as heart even in our modern opinion, because certainly the emotions go weak as well under the threat of God‘s punishment.
+- FIRSTBORN WAS GOING TO DIE FROM THE START: don’t forget as we go through this story that Moses knew going in that they would inevitably end up at the killing of the firstborn. **Which was fitting punishment for the people who killed all the Hebrew boys.**
+- DO ALL THE MIRACLES FIRST: God tells Moses to do all the miracles first before giving Pharoah the ultimatum that if Pharoah takes Yahweh’s son from Yahweh, then Yahweh will take Pharoah’s son from Pharoah.
+
+**Exodus 4:24-26 > Zipporah circumcision bridegroom of blood**
+
+- QUESTIONS QUESTIONS QUESTIONS: this is one of the most confusing passages in the entire Bible. I have no idea what it means. We don’t know who God was going to kill, we don’t know why he was going to kill him, we don’t know what circumcision has to do with it, we don’t know why their son was not circumcised already, and we don’t know if “bridegroom of blood” is positive or negative. But other than that, makes perfect sense.
+- WHO WAS DYING? Hebrew literally says that God made “him” sick. If you are 100% sure it’s Moses, consider how did Zipporah know to circumcise the son then? We just finished learning that if Pharoah doesn’t do what God wants, he will kill Pharoah’s firstborn son, and now we have an issue with Moses’s firstborn son, so it would fit with the context that it was Gershom. But, if it was the son and Moses was healthy, why didn’t he do it? Mothers don’t typically circumcise their boys, the father did it.
+- MY GUESS: if I have to guess, I think Moses wanted to circumcise their son since it was his people’s custom, and Zipporah did not since it was not her people’s custom and they were living with her people. They argued about it, and it reached a point of impasse where God was going to come down and kill Moses. So Zipporah finally gave in, did the circumcision herself, and threw it on Moses‘s feet, blaming him for the whole thing. If this is the case, it would seem to indicate that Moses and Zipporah did not have a great relationship.
+- VALID ALTERNATIVE: the Lord appeared to show how serious he took his covenant of circumcision. God did it to show Moses that he is not above the law: if God will kill Pharoah’s firstborn, then God is willing to kill Moses’ firstborn. Moses was still waffling about it, and so Zipporah took matters into her own hands and completed the ritual. She then tells Moses that they are now tightly bound together through the blood of their son’s circumcision that assuaged the Lord‘s anger and saved them all. Prior to this, she may not have had much exposure to the God of the Hebrews, and now she sees her relationship with her husband and his God as one of protection, sealed by this ritual in which case bridegroom of blood is a positive thing.
+- WHAT WE CAN SAY: leaders have to follow the rules like everyone else, in fact more so. Moses, despite being God’s chosen vessel, is not exempt from the law or the covenant.
+
+**Exodus 4:27-end > Moses and Aaron reunited, speak to elders**
+
+- GOD ALREADY KNEW MOSES WOULD SAY THIS: Aaron is already on his way out to see him. God has already met with Aaron to tell him to go see Moses. **God was one step ahead of every excuse Moses had.**
+- ELDERS: would you believe somebody who walked in here and said “The God of your ancestor 400 years ago who has been completely silent while the Egyptians tortured you has appeared to me in the desert in Saudi Arabia and told me to come overthrow the government and take you to a land that neither you, nor your parents, nor your grandparents, nor your great grandparents have ever seen.” **Yeah, we’re gonna need some signs.**
+- BLEEDING NILE: I think the sign of the bleeding Nile would have the most impact. The staff/snake is the most terrifying, but the bleeding Nile is the most symbolic. The Nile is the lifeblood of Egypt, the very gift of Egypt’s gods who rule us. And our God will make all of Egypt bleed at it’s core. He will sever the artery that gives Egypt life. And the Hebrews watched Egypt bleed out on the ground before their eyes.
+- BELIEVED AND WORSHIPPED: can you imagine the feeling of freedom and hope you would have the minute each Hebrew person finally believed it? There is a God out there who cares about our suffering? He is providing a miraculous way out? For all of us? We don’t have to fight? **I will fall on my knees and worship that God.**
+- THEY KNOW NOTHING ABOUT GOD: they know about the Egyptian gods, the ornate giant temples and statues, the thousands of priests, the holy parades and processionals, the spectacle. They must expect a god like that to be saving them. It will take a long time before they figure out their God is not like the Egyptian gods.
+- PEOPLE VS ELDERS: they spoke originally to the elders, but showed all the signs to the people. The only way that happens is if they do them repeatedly as people come up to watch.
+- STOKED FOR TOMORROW: everybody is so stoked for tomorrow. Moses is excited, Aaron is excited, the elders are excited, the 2 million people are excited. Anticipation is high. **Tomorrow is the day.** Excerpts from two songs of anticipation from from Les Miserable before the big battle for the freedom of the people captures the sentiment well:
+  - _Do you hear the people sing?_
+
+ _Singing a song of angry men?_
+
+ _It is the music of a people_
+
+ _Who will not be slaves again!_
+
+ _When the beating of your heart_
+
+ _Echoes the beating of the drums_
+
+ _There is a life about to start_
+
+ _when tomorrow comes!_
+
+  - _Tomorrow is the judgement day,_
+
+ _tomorrow we’ll discover_
+
+ _what our God in heaven has in store._
+
+ _One more dawn,_
+
+ _one more day,_
+
+ _one day more_.
+
+  - And so Moses and Aaron, their hearts full, head to the palace to totally dominate Pharoah and save their people.
+
+# —— END OF EXODUS 4 ——
+
+**Exodus 5:1-9> First Pharaoh Meeting, make bricks without straw**
+
+- HOW DID THEY GET THE MEETING? Did Moses still know somebody in the palace?
+- AHMENHOTEP II DOES NOT KNOW MOSES: who was in his late 20s at this point, about 27. Moses had been gone for 40 years. That means the pharaoh had not been born when Moses left. They did not know each other.
+- COMPARE TO WHAT GOD TOLD HIM TO DO: PUT THIS UP SIDE-BY-SIDE IN WORD DOCUMENT SCREENSHOT Exodus 3:18-20 and 4:21-23
+  - Go with the elders, say your God has met with you, say please, ask for 3 days, do all the miracles, he will say no, tell him I’ll kill his son.
+  - MOSES ENDS WITH PLEA TO PHAROAH TO PREVENT HARM TO HEBREWS: What did Moses do instead? No elders, no explanation that the God of the Hebrews met with him, no please, no time period specified, no miracles, no threat of killing his son, INSTEAD he said a threat of harm to the Hebrews! The whole point of Pharoah’s treatment of the Hebrews was to hurt them and break their spirit! Now Moses says if you keep them here their own God will do that for you! This could not have gone worse.
+  - WHAT HAPPENED TO ELDERS? Midrash has a story that the Elders are explained by the Berenstein Bears Spooky Old Tree: they started out with Moses and Aaron but they each got scared of meeting Pharoah and one by one they dropped off.
+  - ALTERNATIVE ELDERS EXPLANATION: Alternative that fits it all is just that Moses and Aaron just came off the high of cheers and encouragement from 2 million people all putting their support behind them. They got excited and rushed into it without the elders, forgetting to carefully review what God had said to do. They just jumped in running on excitement and adrenaline. And it all broke when they had to respond to Pharoah.
+- WHY NOT JUST SAY DIRECTLY “LET MY PEOPLE GO” AS MOSES DID AT FIRST? God may have been showing Israel, Egypt, Pharoah, and even us today that **no matter how small the ask was, Pharoah was never going to do it.** God intends from the start to take them out completely, but he shows that the complete emancipation was not the issue, even 3 days was denied.
+- COMPARE MOSES RESPONSE TO YAHWEH TO PHAROAH’S RESPONSE: Nachum Sarna, the Jewish commentator points out that Moses didn’t know who Yahweh was either. But when God spoke to him, his first response was who am I? But when God‘s words are told to pharaoh, he responds. Who is this Yahweh, I don’t know him. **As in, he is not worth my time.** **Moses said that Moses was not worth God’s time**.
+- LEAVE TO SACRIFICE ANIMALS:
+  - WEBPAGE: showing Egyptian gods. PUT EXODUS 8:25-28 on webpage header!!!!
+  - IF SHEPHERDS ARE ABOMINATIONS, IMAGINE GOD KILLERS! Remember how the Hebrews were abominations because they were shepherds? That was because the gods of Egypt had animal-like features, and manifested through certain animals, like female cows, bulls, and Rams. And since the shepherds kill and eat some of those animals, they were an abomination to the Egyptians. Now imagine killing them and burning them as a sacrifice to another God!
+  - EGYPTIANS HAD MORE PROCESSIONALS THAN SACRIFICES: The Egyptian rituals were more like processionals, where the animals could be paraded and worshiped as images of the various gods. Sometimes animals were killed as part of worship, but not the sacred animals who were paraded in the processional, and the animals that were killed were generally killed as food for the gods.
+  - SERAPEUM OF SAQQARA BULL MUMMIES: In 1851, an Egyptologist named Auguste Marriette was hunting for earlier Coptic christian manuscripts and began exploring the Saqqara desert cemetery region when he noticed the head of a sphinx head poking up out of the sand. He cleared away the sand, and discovered another sphinx. And another. He found an entire avenue of sphinx’s. At the end of the avenue they uncovered a huge underground network of caverns. In the caverns, he found 24 ENORMOUS granite-cut sarcophagi weighing 80 tons each. The lids alone weight 25 tons. Once they finally got a lid off, they found a mummified bull in them! When the sacred Apis bull died, they would embalm and mummify it, and bury it with a great ceremony in this Serapeum. I have some pictures, and you can visit this in Egypt.
+  - WHAT MOSES IS ASKING: What Moses is asking here is to go out in the wilderness and literally burn the gods of Egypt into smoke before the eyes of the Hebrews as an offering to Yahweh. We now see why God would want this for his people: could there be any stronger symbol to bring them back to him?
+  - NOTICE SOMETHING MISSING FROM THE WEBPAGE OF GODS:Yahweh. Now you understand just a little of the unbelievable innovation introduced to the world here by the Torah. All other gods ever conceived had physical representations. They were drawn in pictures, turned into statues, carried around as figurines. But Yahweh forbids even attempting to create a graven image of him. We have no pictures of our God. Just one more way the Torah completely revolutionized human history out of nowhere. A God who cannot be drawn.
+  - NATURE WORSHIP: All the pagan gods had a nature worship component. They were a part of nature. That is why they all have animal like features in their images. Yahweh is not. He is outside of nature. It also completely transformed human history when this book came onto the scene introducing a God who is outside of nature. Seeing these pictures in this webpage, the verse from **Romans 1:25: “… they exchanged the truth about God for a lie and worshiped and served the creature rather than the Creator, who is blessed forever! Amen.”** All pagan religions worshipped gods who are part of creation even while they often claimed to have taken part in creation. **The end of nature worship was probably the single greatest leap forward from mankind that has ever occurred.**
+  - WHAT HAPPENS WHEN GOD LEAVES: When Yahweh diminishes in culture, nature worship inevitably rises. Today we call nature worship “science” in the West. You will either worship nature or Yahweh. You will either worship the creature or the creator. As we become more and more secular, you will see more and more worship of nature.
+  - PANTHEISM: nature worship is known an “pantheism”, with “pan” meaning “everything” like “everything-ism”. It is the idea that God is in nature rather than outside of nature, and therefore by worshiping nature you worship God. “God is in you” so you worship yourself. God is in that tree so you worship the tree. Basically, that nature has a divine element.
+    - PANTHEISM MOVIES: And you can see this in our movies. Pantheism is the de-facto worldview of nearly every movie you watch. There is some “force” out there in nature that will right the wrongs, but it’s not God. When they want to convey a desire for justice to the oppressed, as it should be given our Christian roots. But they refuse to mention the name of Jesus or God.
+    - NO CHRISTIAN JUDGMENT: They don’t say “God will judge you” or “God sees what your are doing”, or “Aren’t you scared of justice after you die on judgment day?” No, they replace God with the “universe” in true New Age Pantheistic fashion. The “Universe” will punish you, as if it is an agent with the ability to act. We can’t acknowledge the Christian God who gave us the idea of ultimate justice, so we just give some of his attributes to something in nature, like “the universe.” The “universe” will sort it out after you die.
+  - WHAT’S WRONG WITH NATURE? And what is so bad about nature? Dennis Prager points out that it is not just incorrect to worship nature, it is fundamentally bad. And he explained it by listing four characteristics of God: outside of nature, personal, moral, and holy. The reason it is bad to worship nature is that it is neither personal, nor moral, nor holy. **Leaving the personal, moral, holy God means moving to the impersonal, a moral, profane nature.** It does not care about you, it does not relate to you, it’s only good is survival, and it has no use for holy things like music, cleanliness, and order. Try explaining to your child why they should not eat their food off of a bowl on the floor by licking it like a dog without resorting to an appeal to holiness, that such behavior is “beneath” humans because of the status given to us by the creator.
+  - WHAT IT MEANS TO BE AMORAL: nature is not the opposite of God. It is not immoral. It is amoral. Meaning that nature does not accept God’s definition of right and wrong and then always choose the wrong. It simply always chooses survival and instinct, regardless of whether that is right or wrong. When the German shepherds tore apart the Jewish prisoners in the concentration camps, the dogs were not evil, they were simply tools. No more than a hammer is good when it hammers nails but evil when it smashes an innocent person in the head. It is simply a tool. A dog that jumps into the river to save its owner is also not good. They were conditioned to treat humans a certain way by treats and experiences. In the same way, if you love God only because of what he will do for you with rewards in this life, or purely because you are afraid of punishment, you are just as amoral as the dogs. We are to love God for who he is, and out of gratitude for saving us even though we did not deserve it. Not because he gives us a bunch of treats or beats us over the head. Nature is amoral. God is moral.
+  - WHY WE HAVE NATURE PLAGUES: and for now maybe you can understand a little why God chose to enact these 10 awful plagues of nature. He is not only repudiating the Egyptian gods, he is introducing himself to all of humanity as a God outside of nature in a spectacular, judgmental manner. That is why the plagues we’re about to read have such a natural disaster flavor and maybe be part of why God chose to enact to them in this way. This Torah was revolutionary and completely unique in history.
+
+#
+
+Bull sarcophagus and Serepeam images:
+
+https://www.egypttoursportal.com/images/2025/04/Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
+
+https://www.egypttoursportal.com/images/2025/04/Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
+
+https://www.egypttoursportal.com/images/2025/04/Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
+
+https://www.egypttoursportal.com/images/2025/04/Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
+
+https://egyptunitedtours.com/wp-content/uploads/2025/10/Apis-Bull-Mummy-1024x768.webp
+
+https://www.youregypttours.com/storage/facts-about-apis-bull.jpg

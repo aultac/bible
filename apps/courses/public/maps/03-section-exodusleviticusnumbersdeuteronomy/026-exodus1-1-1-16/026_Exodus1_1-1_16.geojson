@@ -1,0 +1,222 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.834217,
+          30.79937,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Rameses",
+        "styleUrl": "#landpoint1005",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.963611,
+          30.5475,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Pithom",
+        "styleUrl": "#landpoint100",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.76607731068698,
+          30.62565472203823,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Goshen",
+        "styleUrl": "#landpoint003320014",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.56946,
+              30.86821,
+              0
+            ],
+            [
+              31.44489,
+              30.83224,
+              0
+            ],
+            [
+              31.40337,
+              30.72432,
+              0
+            ],
+            [
+              31.40337,
+              30.47251,
+              0
+            ],
+            [
+              31.40337,
+              30.43654,
+              0
+            ],
+            [
+              31.40337,
+              30.40057,
+              0
+            ],
+            [
+              31.61098,
+              30.32862,
+              0
+            ],
+            [
+              31.6525,
+              30.32862,
+              0
+            ],
+            [
+              31.69401999999999,
+              30.32862,
+              0
+            ],
+            [
+              31.73555,
+              30.32862,
+              0
+            ],
+            [
+              31.77707,
+              30.32862,
+              0
+            ],
+            [
+              31.81859,
+              30.32862,
+              0
+            ],
+            [
+              31.98468,
+              30.40057,
+              0
+            ],
+            [
+              32.15077,
+              30.68835,
+              0
+            ],
+            [
+              32.15077,
+              30.72432,
+              0
+            ],
+            [
+              32.10925,
+              30.83224,
+              0
+            ],
+            [
+              32.06772,
+              30.94015,
+              0
+            ],
+            [
+              32.0262,
+              30.94015,
+              0
+            ],
+            [
+              31.98468,
+              30.94015,
+              0
+            ],
+            [
+              31.90164,
+              30.94015,
+              0
+            ],
+            [
+              31.81859,
+              30.94015,
+              0
+            ],
+            [
+              31.56946,
+              30.86821,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Goshen",
+        "styleUrl": "#landisobands2252222223",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#20ffff",
+        "stroke-width": 2
+      }
+    }
+  ]
+}

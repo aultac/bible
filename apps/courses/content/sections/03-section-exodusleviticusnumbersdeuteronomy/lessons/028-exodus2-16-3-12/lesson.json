@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "028-exodus2-16-3-12",
+  "slug": "028-exodus2-16-3-12",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 28,
+  "lessonKind": "passage",
+  "title": "Exodus 2:16-3:12",
+  "description": "",
+  "videoSummary": "Moses saves Reuel’s daughters and gets a wife from among them. God hears Israel's cries and calls Moses out of a burning bush that he will be used to bring the children of Israel out of Egypt.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 2:16",
+  "endVerse": "Exodus 3:12",
+  "passage": {
+    "display": "Exodus 2:16-3:12",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 2,
+      "verse": 16,
+      "raw": "Exodus2_16",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 3,
+      "verse": 12,
+      "raw": "3_12",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 2:16",
+    "endVerse": "Exodus 3:12",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+2:16-3:12/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/028-exodus2-16-3-12/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/028-exodus2-16-3-12/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12/028_Exodus2_16-3_12_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12/028_Exodus2_16-3_12.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/028-exodus2-16-3-12/028_Exodus2_16-3_12.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/028-exodus2-16-3-12/028_Exodus2_16-3_12.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/028-exodus2-16-3-12/028_Exodus2_16-3_12.geojson",
+    "available": true,
+    "featureCount": 22,
+    "geometryTypes": [
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "kwcLuB_3FAM",
+    "title": "Know Your Bible - Week 28",
+    "url": "https://www.youtube.com/watch?v=kwcLuB_3FAM&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 29,
+    "videoKind": "lesson",
+    "weekNumber": 28,
+    "lessonSequenceNumber": 28,
+    "durationText": "45:48",
+    "thumbnailUrl": "https://i.ytimg.com/vi/kwcLuB_3FAM/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAm5IfX_qALx5ljOo7iwy77qLTvYA"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12",
+    "folderName": "028_Exodus2_16-3_12",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12/028_Exodus2_16-3_12_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12/028_Exodus2_16-3_12.kmz"
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "032-exodus6-10-7",
+  "slug": "032-exodus6-10-7",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 32,
+  "lessonKind": "passage",
+  "title": "Exodus 6:10-7",
+  "description": "",
+  "videoSummary": "Moses and Aaron go before Pharaoh with the sign of their staff turning into a serpent, the magicians do the same and Pharaohs heart is hardened. Next the water of the land is turned to blood, the magicians once again replicate and Pharaohs heart is hardened even further.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 6:10",
+  "endVerse": "Exodus 7",
+  "passage": {
+    "display": "Exodus 6:10-7",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 6,
+      "verse": 10,
+      "raw": "Exodus6_10",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 7,
+      "verse": null,
+      "raw": "7",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 6:10",
+    "endVerse": "Exodus 7",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+6:10-7/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/032-exodus6-10-7/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/032-exodus6-10-7/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/032_Exodus6_10-7_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": null,
+  "resources": [
+    {
+      "name": "Geb-Nut-Shu.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/Geb-Nut-Shu.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/Geb-Nut-Shu.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/Geb-Nut-Shu.jpg"
+    },
+    {
+      "name": "01_nile-blood.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/01_nile-blood.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/01_nile-blood.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/01_nile-blood.jpg"
+    },
+    {
+      "name": "02_1frogs.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/02_1frogs.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/02_1frogs.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/02_1frogs.png"
+    },
+    {
+      "name": "02_2frogs.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/02_2frogs.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/02_2frogs.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/02_2frogs.jpg"
+    },
+    {
+      "name": "03_1gnats.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/03_1gnats.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/03_1gnats.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/03_1gnats.png"
+    },
+    {
+      "name": "03_2gnats.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/03_2gnats.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/03_2gnats.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/03_2gnats.jpg"
+    },
+    {
+      "name": "04_1flies.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/04_1flies.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/04_1flies.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/04_1flies.jpg"
+    },
+    {
+      "name": "04_2scarabs.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/04_2scarabs.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/04_2scarabs.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/04_2scarabs.jpg"
+    },
+    {
+      "name": "04_3split-land.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/04_3split-land.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/04_3split-land.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/04_3split-land.jpg"
+    },
+    {
+      "name": "05_1livestock.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/05_1livestock.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_1livestock.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_1livestock.jpg"
+    },
+    {
+      "name": "05_2livestock_temple.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/05_2livestock_temple.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_2livestock_temple.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_2livestock_temple.jpg"
+    },
+    {
+      "name": "05_3livestock-split-land.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/05_3livestock-split-land.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_3livestock-split-land.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_3livestock-split-land.jpg"
+    },
+    {
+      "name": "05_4livestock-tablet-guy.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/05_4livestock-tablet-guy.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_4livestock-tablet-guy.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/05_4livestock-tablet-guy.jpg"
+    },
+    {
+      "name": "06_1boils-court.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/06_1boils-court.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/06_1boils-court.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/06_1boils-court.jpg"
+    },
+    {
+      "name": "06_2boils-apis-temple.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/06_2boils-apis-temple.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/06_2boils-apis-temple.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/06_2boils-apis-temple.jpg"
+    },
+    {
+      "name": "07_1hail.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/07_1hail.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/07_1hail.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/07_1hail.jpg"
+    },
+    {
+      "name": "07_2hail.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/07_2hail.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/07_2hail.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/07_2hail.png"
+    },
+    {
+      "name": "07_3hail-funny-fist.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/07_3hail-funny-fist.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/07_3hail-funny-fist.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/07_3hail-funny-fist.jpg"
+    },
+    {
+      "name": "08_2locusts-madagascar.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/08_2locusts-madagascar.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_2locusts-madagascar.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_2locusts-madagascar.jpg"
+    },
+    {
+      "name": "08_3locusts-madagascar.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/08_3locusts-madagascar.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_3locusts-madagascar.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_3locusts-madagascar.jpg"
+    },
+    {
+      "name": "08_4locusts-madagascar.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/08_4locusts-madagascar.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_4locusts-madagascar.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_4locusts-madagascar.jpg"
+    },
+    {
+      "name": "08_5locusts-madagascar.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/08_5locusts-madagascar.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_5locusts-madagascar.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_5locusts-madagascar.jpg"
+    },
+    {
+      "name": "08_locusts.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/08_locusts.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_locusts.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/08_locusts.png"
+    },
+    {
+      "name": "09_1darkness.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/09_1darkness.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/09_1darkness.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/09_1darkness.png"
+    },
+    {
+      "name": "09_2darkness.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/09_2darkness.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/09_2darkness.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/09_2darkness.png"
+    },
+    {
+      "name": "10_firstborn.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources/plague_pictures/10_firstborn.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/10_firstborn.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/032-exodus6-10-7/plague_pictures/10_firstborn.png"
+    }
+  ],
+  "youtube": {
+    "videoId": "hvTyzIhZjaU",
+    "title": "Know Your Bible: Week 32",
+    "url": "https://www.youtube.com/watch?v=hvTyzIhZjaU&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 33,
+    "videoKind": "lesson",
+    "weekNumber": 32,
+    "lessonSequenceNumber": 32,
+    "durationText": "51:43",
+    "thumbnailUrl": "https://i.ytimg.com/vi/hvTyzIhZjaU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCJCUyHYA3-maAUqyZD4lgUPi5ihw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7",
+    "folderName": "032_Exodus6_10-7",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/032_Exodus6_10-7_summary.docx",
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7/resources",
+    "mapPath": null
+  }
+}

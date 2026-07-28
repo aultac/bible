@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "03-section-exodusleviticusnumbersdeuteronomy",
+  "slug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionnum": 3,
+  "title": "Section 3: Exodus Leviticus Numbers Deuteronomy",
+  "info": "",
+  "startYear": null,
+  "endYear": null,
+  "status": "upcoming",
+  "startVerse": null,
+  "endVerse": null,
+  "passage": null,
+  "outlineTitle": "The Rules",
+  "periodLabel": "c. 1400–1050 BC",
+  "rangeLabel": "Exodus–Judges",
+  "descriptors": [
+    "Exodus",
+    "Law and Blood",
+    "Conquest",
+    "Judges"
+  ],
+  "lessonCount": 8,
+  "lessons": [
+    {
+      "id": "026-exodus1-1-1-16",
+      "slug": "026-exodus1-1-1-16",
+      "sequenceNumber": 26,
+      "title": "Exodus 1:1-1:16",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 1:1",
+      "endVerse": "Exodus 1:16",
+      "passage": {
+        "display": "Exodus 1:1-1:16",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 1,
+          "verse": 1,
+          "raw": "Exodus1_1",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 1,
+          "verse": 16,
+          "raw": "1_16",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 1:1",
+        "endVerse": "Exodus 1:16",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+1:1-1:16/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/026-exodus1-1-1-16/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 4,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16",
+        "folderName": "026_Exodus1_1-1_16"
+      }
+    },
+    {
+      "id": "027-exodus1-17-2-15",
+      "slug": "027-exodus1-17-2-15",
+      "sequenceNumber": 27,
+      "title": "Exodus 1:17-2:15",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 1:17",
+      "endVerse": "Exodus 2:15",
+      "passage": {
+        "display": "Exodus 1:17-2:15",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 1,
+          "verse": 17,
+          "raw": "Exodus1_17",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 2,
+          "verse": 15,
+          "raw": "2_15",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 1:17",
+        "endVerse": "Exodus 2:15",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+1:17-2:15/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/027-exodus1-17-2-15/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15",
+        "folderName": "027_Exodus1_17-2_15"
+      }
+    },
+    {
+      "id": "028-exodus2-16-3-12",
+      "slug": "028-exodus2-16-3-12",
+      "sequenceNumber": 28,
+      "title": "Exodus 2:16-3:12",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 2:16",
+      "endVerse": "Exodus 3:12",
+      "passage": {
+        "display": "Exodus 2:16-3:12",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 2,
+          "verse": 16,
+          "raw": "Exodus2_16",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 3,
+          "verse": 12,
+          "raw": "3_12",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 2:16",
+        "endVerse": "Exodus 3:12",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+2:16-3:12/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/028-exodus2-16-3-12/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12",
+        "folderName": "028_Exodus2_16-3_12"
+      }
+    },
+    {
+      "id": "029-exodus3-13-4-17",
+      "slug": "029-exodus3-13-4-17",
+      "sequenceNumber": 29,
+      "title": "Exodus 3:13-4:17",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 3:13",
+      "endVerse": "Exodus 4:17",
+      "passage": {
+        "display": "Exodus 3:13-4:17",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 3,
+          "verse": 13,
+          "raw": "Exodus3_13",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 4,
+          "verse": 17,
+          "raw": "4_17",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 3:13",
+        "endVerse": "Exodus 4:17",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+3:13-4:17/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/029-exodus3-13-4-17/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 1,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/029_Exodus3_13-4_17",
+        "folderName": "029_Exodus3_13-4_17"
+      }
+    },
+    {
+      "id": "030-exodus4-18-5-9",
+      "slug": "030-exodus4-18-5-9",
+      "sequenceNumber": 30,
+      "title": "Exodus 4:18-5:9",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 4:18",
+      "endVerse": "Exodus 5:9",
+      "passage": {
+        "display": "Exodus 4:18-5:9",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 4,
+          "verse": 18,
+          "raw": "Exodus4_18",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 5,
+          "verse": 9,
+          "raw": "5_9",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 4:18",
+        "endVerse": "Exodus 5:9",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+4:18-5:9/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/030-exodus4-18-5-9/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 7,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9",
+        "folderName": "030_Exodus4_18-5_9"
+      }
+    },
+    {
+      "id": "031-exodus5-10-6-9",
+      "slug": "031-exodus5-10-6-9",
+      "sequenceNumber": 31,
+      "title": "Exodus 5:10-6:9",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 5:10",
+      "endVerse": "Exodus 6:9",
+      "passage": {
+        "display": "Exodus 5:10-6:9",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 5,
+          "verse": 10,
+          "raw": "Exodus5_10",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 6,
+          "verse": 9,
+          "raw": "6_9",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 5:10",
+        "endVerse": "Exodus 6:9",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+5:10-6:9/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/031-exodus5-10-6-9/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/031_Exodus5_10-6_9",
+        "folderName": "031_Exodus5_10-6_9"
+      }
+    },
+    {
+      "id": "032-exodus6-10-7",
+      "slug": "032-exodus6-10-7",
+      "sequenceNumber": 32,
+      "title": "Exodus 6:10-7",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 6:10",
+      "endVerse": "Exodus 7",
+      "passage": {
+        "display": "Exodus 6:10-7",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 6,
+          "verse": 10,
+          "raw": "Exodus6_10",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 7,
+          "verse": null,
+          "raw": "7",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 6:10",
+        "endVerse": "Exodus 7",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+6:10-7/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/032-exodus6-10-7/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 26,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7",
+        "folderName": "032_Exodus6_10-7"
+      }
+    },
+    {
+      "id": "033-exodus8-9-12",
+      "slug": "033-exodus8-9-12",
+      "sequenceNumber": 33,
+      "title": "Exodus 8-9:12",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 8",
+      "endVerse": "Exodus 9:12",
+      "passage": {
+        "display": "Exodus 8-9:12",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 8,
+          "verse": null,
+          "raw": "Exodus8",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 9,
+          "verse": 12,
+          "raw": "9_12",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 8",
+        "endVerse": "Exodus 9:12",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+8-9:12/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/033-exodus8-9-12/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12",
+        "folderName": "033_Exodus8-9_12"
+      }
+    }
+  ],
+  "sectionSummary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "source": {
+    "relativeSectionDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy",
+    "folderName": "03-Bucket-ExodusLeviticusNumbersDeuteronomy",
+    "sectionSummaryDocxPath": null
+  }
+}

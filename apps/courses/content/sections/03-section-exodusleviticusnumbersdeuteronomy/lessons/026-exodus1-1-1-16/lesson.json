@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "026-exodus1-1-1-16",
+  "slug": "026-exodus1-1-1-16",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 26,
+  "lessonKind": "passage",
+  "title": "Exodus 1:1-1:16",
+  "description": "",
+  "videoSummary": "A Pharoah arose that did not know Joseph and he enslaves the Hebrews.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 1:1",
+  "endVerse": "Exodus 1:16",
+  "passage": {
+    "display": "Exodus 1:1-1:16",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 1,
+      "verse": 1,
+      "raw": "Exodus1_1",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 1,
+      "verse": 16,
+      "raw": "1_16",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 1:1",
+    "endVerse": "Exodus 1:16",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+1:1-1:16/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/026-exodus1-1-1-16/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/026-exodus1-1-1-16/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/026_Exodus1_1-1_16_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/026_Exodus1_1-1_16.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/026_Exodus1_1-1_16.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/026_Exodus1_1-1_16.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/026_Exodus1_1-1_16.geojson",
+    "available": true,
+    "featureCount": 4,
+    "geometryTypes": [
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "AmenhotepII.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/resources/AmenhotepII.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/AmenhotepII.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/AmenhotepII.png"
+    },
+    {
+      "name": "LBS+Timeline.pdf",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/resources/LBS+Timeline.pdf",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/LBS+Timeline.pdf",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/LBS+Timeline.pdf"
+    },
+    {
+      "name": "Merenptah_stele.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/resources/Merenptah_stele.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/Merenptah_stele.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/Merenptah_stele.jpg"
+    },
+    {
+      "name": "WebensenuTrio.png",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/resources/WebensenuTrio.png",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/WebensenuTrio.png",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16/WebensenuTrio.png"
+    }
+  ],
+  "youtube": {
+    "videoId": "qd4Dmd4nR8E",
+    "title": "Know Your Bible - Week 26",
+    "url": "https://www.youtube.com/watch?v=qd4Dmd4nR8E&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 27,
+    "videoKind": "lesson",
+    "weekNumber": 26,
+    "lessonSequenceNumber": 26,
+    "durationText": "46:28",
+    "thumbnailUrl": "https://i.ytimg.com/vi/qd4Dmd4nR8E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAzg2p0mzzDCSRTzyYLZrRHtPCjZw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16",
+    "folderName": "026_Exodus1_1-1_16",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/026_Exodus1_1-1_16_summary.docx",
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/resources",
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16/026_Exodus1_1-1_16.kmz"
+  }
+}

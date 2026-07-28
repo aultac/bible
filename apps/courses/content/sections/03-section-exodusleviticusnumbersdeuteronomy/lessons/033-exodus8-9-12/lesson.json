@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "033-exodus8-9-12",
+  "slug": "033-exodus8-9-12",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 33,
+  "lessonKind": "passage",
+  "title": "Exodus 8-9:12",
+  "description": "",
+  "videoSummary": "Frogs and gnats plague Egyptians and Hebrews alike but then the flies, death of livestock in the fields and terrible boils attack only the Egyptians. The Egyptian priests and their gods quickly fall short of power and pharaoh seems to relent, but instead his heart is hardened.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 8",
+  "endVerse": "Exodus 9:12",
+  "passage": {
+    "display": "Exodus 8-9:12",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 8,
+      "verse": null,
+      "raw": "Exodus8",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 9,
+      "verse": 12,
+      "raw": "9_12",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 8",
+    "endVerse": "Exodus 9:12",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+8-9:12/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/033-exodus8-9-12/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/033-exodus8-9-12/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12/033_Exodus8-9_12_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": {
+    "videoId": "nKC48zTqAic",
+    "title": "Know Your Bible - Week 33",
+    "url": "https://www.youtube.com/watch?v=nKC48zTqAic&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 34,
+    "videoKind": "lesson",
+    "weekNumber": 33,
+    "lessonSequenceNumber": 33,
+    "durationText": "52:07",
+    "thumbnailUrl": "https://i.ytimg.com/vi/nKC48zTqAic/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBeixAPAOU-qaMv2o-0gzqSOMPwUQ"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12",
+    "folderName": "033_Exodus8-9_12",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12/033_Exodus8-9_12_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": null
+  }
+}

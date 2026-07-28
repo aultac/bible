@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "030-exodus4-18-5-9",
+  "slug": "030-exodus4-18-5-9",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 30,
+  "lessonKind": "passage",
+  "title": "Exodus 4:18-5:9",
+  "description": "",
+  "videoSummary": "Moses returns to Egypt with Aaron, convinces the Hebrews with the signs, and fails at their first meeting with Pharoah.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 4:18",
+  "endVerse": "Exodus 5:9",
+  "passage": {
+    "display": "Exodus 4:18-5:9",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 4,
+      "verse": 18,
+      "raw": "Exodus4_18",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 5,
+      "verse": 9,
+      "raw": "5_9",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 4:18",
+    "endVerse": "Exodus 5:9",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+4:18-5:9/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/030-exodus4-18-5-9/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/030-exodus4-18-5-9/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/030_Exodus4_18-5_9_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": null,
+  "resources": [
+    {
+      "name": "01_Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources/01_Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/01_Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/01_Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg"
+    },
+    {
+      "name": "02_Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources/02_Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/02_Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/02_Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg"
+    },
+    {
+      "name": "03_Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources/03_Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/03_Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/03_Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg"
+    },
+    {
+      "name": "04_Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources/04_Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/04_Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/04_Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg"
+    },
+    {
+      "name": "05_Apis-Bull-Mummy-1024x768.webp",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources/05_Apis-Bull-Mummy-1024x768.webp",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/05_Apis-Bull-Mummy-1024x768.webp",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/05_Apis-Bull-Mummy-1024x768.webp"
+    },
+    {
+      "name": "06_facts-about-apis-bull.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources/06_facts-about-apis-bull.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/06_facts-about-apis-bull.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/06_facts-about-apis-bull.jpg"
+    },
+    {
+      "name": "MosesMeetingWithPharoah.docx",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources/MosesMeetingWithPharoah.docx",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/MosesMeetingWithPharoah.docx",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/030-exodus4-18-5-9/MosesMeetingWithPharoah.docx"
+    }
+  ],
+  "youtube": {
+    "videoId": "flBafGXPOh4",
+    "title": "Know Your Bible: Week 30",
+    "url": "https://www.youtube.com/watch?v=flBafGXPOh4&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 31,
+    "videoKind": "lesson",
+    "weekNumber": 30,
+    "lessonSequenceNumber": 30,
+    "durationText": "51:27",
+    "thumbnailUrl": "https://i.ytimg.com/vi/flBafGXPOh4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPNwB-pZ7Y2oSiHvmTG4K7CUK-dw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9",
+    "folderName": "030_Exodus4_18-5_9",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/030_Exodus4_18-5_9_summary.docx",
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9/resources",
+    "mapPath": null
+  }
+}

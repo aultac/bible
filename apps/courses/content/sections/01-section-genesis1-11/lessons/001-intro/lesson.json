@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "id": "001-intro",
+  "slug": "001-intro",
+  "sectionId": "01-section-genesis1-11",
+  "sectionSlug": "01-section-genesis1-11",
+  "sequenceNumber": 1,
+  "lessonKind": "intro",
+  "title": "Intro",
+  "description": "",
+  "videoSummary": "Preparing to read the Bible: motivation and geography",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": null,
+  "endVerse": null,
+  "passage": null,
+  "notes": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/001-intro/notes.md",
+    "sourcePath": "01-Bucket-Genesis1-11/001-Intro/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/001-intro/summary.md",
+    "sourcePath": "01-Bucket-Genesis1-11/001-Intro/001_Intro_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "01-Bucket-Genesis1-11/001-Intro/001-Intro.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/01-section-genesis1-11/001-intro/001-Intro.kmz",
+    "geoJsonPath": "apps/courses/public/maps/01-section-genesis1-11/001-intro/001-Intro.geojson",
+    "geoJsonPublicUrl": "/courses/maps/01-section-genesis1-11/001-intro/001-Intro.geojson",
+    "available": true,
+    "featureCount": 26,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "GodCreatedMan_Inclusio.docx",
+      "sourcePath": "01-Bucket-Genesis1-11/001-Intro/resources/GodCreatedMan_Inclusio.docx",
+      "path": "apps/courses/public/resources/01-section-genesis1-11/001-intro/GodCreatedMan_Inclusio.docx",
+      "publicUrl": "/courses/resources/01-section-genesis1-11/001-intro/GodCreatedMan_Inclusio.docx"
+    }
+  ],
+  "youtube": {
+    "videoId": "IWMeBnGqI7U",
+    "title": "Know Your Bible - Week 1",
+    "url": "https://www.youtube.com/watch?v=IWMeBnGqI7U&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 2,
+    "videoKind": "lesson",
+    "weekNumber": 1,
+    "lessonSequenceNumber": 1,
+    "durationText": "43:13",
+    "thumbnailUrl": "https://i.ytimg.com/vi/IWMeBnGqI7U/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCOfP-pHmSNsxTpQ0w5N1MSe4SPdA"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "01-Bucket-Genesis1-11/001-Intro",
+    "folderName": "001-Intro",
+    "notesPath": "01-Bucket-Genesis1-11/001-Intro/notes.md",
+    "summaryDocxPath": "01-Bucket-Genesis1-11/001-Intro/001_Intro_summary.docx",
+    "resourcesDirectory": "01-Bucket-Genesis1-11/001-Intro/resources",
+    "mapPath": "01-Bucket-Genesis1-11/001-Intro/001-Intro.kmz"
+  }
+}
