@@ -1,0 +1,74 @@
+import packageJson from "../../../package.json";
+import { toolsData } from "./toolsData";
+
+export interface ToolCatalogEntry {
+  path: string;
+  title: string;
+  relatedLessonIds: readonly string[];
+}
+
+const TOOL_LINK_MARKER = "TOOL_LINK:";
+const RESOURCE_LINK_MARKER = "RESOURCE_LINK:";
+
+export const toolCatalog = toolsData as readonly ToolCatalogEntry[];
+export const productionHomepage = packageJson.homepage.replace(/\/+$/u, "");
+
+function normalizeToolPath(value: string) {
+  const path = `/${value.split("/").filter(Boolean).join("/")}`;
+  return /\.[^/]+$/u.test(path) ? path : `${path}/`;
+}
+
+function getDirectiveToolPath(line: string) {
+  const markerIndex = line.indexOf(TOOL_LINK_MARKER);
+  if (markerIndex === -1) {
+    return null;
+  }
+
+  const remainder = line
+    .slice(markerIndex + TOOL_LINK_MARKER.length)
+    .trim()
+    .replace(/^[*_]{1,3}\s*/u, "");
+  const token = remainder
+    .match(/^\S+/u)?.[0]
+    ?.replace(/[*_]{1,3}$/u, "")
+    .trim();
+
+  return token?.startsWith("/") ? normalizeToolPath(token) : null;
+}
+
+export function getToolsForLesson(
+  lessonId: string,
+  catalog: readonly ToolCatalogEntry[] = toolCatalog
+) {
+  return catalog.filter((tool) => tool.relatedLessonIds.includes(lessonId));
+}
+
+export function transformLessonNotes(
+  markdown: string,
+  catalog: readonly ToolCatalogEntry[] = toolCatalog,
+  homepage = productionHomepage
+) {
+  const toolByPath = new Map(catalog.map((tool) => [tool.path, tool]));
+
+  return markdown
+    .replace(/\r\n?/gu, "\n")
+    .split("\n")
+    .flatMap((line) => {
+      if (line.includes(RESOURCE_LINK_MARKER)) {
+        return [];
+      }
+      if (!line.includes(TOOL_LINK_MARKER)) {
+        return [line];
+      }
+
+      const toolPath = getDirectiveToolPath(line);
+      const tool = toolPath ? toolByPath.get(toolPath) : null;
+      if (!tool) {
+        return [];
+      }
+      const url = new URL(tool.path, `${homepage}/`).href;
+      return [`${tool.title}: [${url}](${url})`];
+    })
+    .join("\n")
+    .trim();
+}
