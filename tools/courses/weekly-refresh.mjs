@@ -440,6 +440,12 @@ async function applyWeeklyCache(options, coursesEnv, dependencies) {
     "content",
     "playlist.json"
   );
+  const toolsData = refresh.toolsDataPath
+    ? {
+        path: refresh.toolsDataPath,
+        hash: hashContent(await readFile(refresh.toolsDataPath)),
+      }
+    : null;
   const nextState = {
     ...state,
     updatedAt: appliedAt,
@@ -452,6 +458,7 @@ async function applyWeeklyCache(options, coursesEnv, dependencies) {
         path: playlistPath,
         hash: hashContent(await readFile(playlistPath)),
       },
+      toolsData,
       documentsFingerprint:
         state.components.documents?.fingerprint || null,
       repositoryAudit: audit.totals,

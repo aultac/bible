@@ -2,6 +2,7 @@
   "name": "bible",
   "version": "3.1.3",
   "private": true,
+  "homepage": "https://knowyourbible.study",
   "scripts": {
     "clean": "node tools/clean-dist.mjs",
     "build": "yarn clean && yarn build:static && yarn build:mandelbrot && yarn build:courses",
@@ -22,6 +23,7 @@
     "weekly": "node tools/courses/weekly.mjs",
     "courses:sections:update": "node tools/courses/update-sections.mjs",
     "courses:update": "node tools/courses/update-courses.mjs",
+    "courses:maps:update": "node tools/courses/update-maps.mjs",
     "courses:notes:snapshot": "node tools/courses/notes-snapshot.mjs",
     "courses:notes:compare": "node tools/courses/compare-notes-to-source.mjs",
     "courses:notes:backups:prepare": "node tools/courses/prepare-note-backups.mjs",

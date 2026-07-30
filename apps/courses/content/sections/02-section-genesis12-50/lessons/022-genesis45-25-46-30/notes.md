@@ -63,5 +63,4 @@
 # —— START FRACTAL———
 
 - FRACTAL EXPLAINER: There is a visualization I want everyone to understand and be able to call to mind as we take the telescope view through history. It is how you see the finger of God on everything. There is a mathematical structure called a “Fractal”: a pattern that repeats to infinity as you zoom in on particular areas, but not quite the same. The pattern alters in different areas, but the infinite zooming still produces repetitive structure.
-
-https://aaronault.com/bible/mandelbrot.html
+- TOOL_LINK: /mandelbrot/

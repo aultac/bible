@@ -98,6 +98,7 @@ export interface LessonResource {
   sourcePath: string;
   path: string;
   publicUrl: string;
+  sourceUrl?: string;
 }
 export interface LessonMap {
   sourcePath: string;
@@ -430,6 +431,9 @@ const books = [...bookMap.values()];
 const lessonByKey = new Map<string, HydratedLesson>(
   allLessons.map((lesson) => [`${lesson.sectionSlug}:${lesson.slug}`, lesson])
 );
+const lessonById = new Map<string, HydratedLesson>(
+  allLessons.map((lesson) => [lesson.id, lesson])
+);
 const lessonByCanonicalPath = new Map<string, HydratedLesson>();
 
 for (const lesson of allLessons) {
@@ -469,8 +473,39 @@ export function selectFeaturedLesson<
     ) || fallback
   );
 }
+export function selectBillboardLessons<
+  TLesson extends {
+    id: string;
+    lessonKind: LessonManifest["lessonKind"];
+    youtube: unknown;
+  },
+>(lessons: TLesson[]) {
+  const promo =
+    lessons.find(
+      (lesson) => lesson.lessonKind === "promo" && Boolean(lesson.youtube)
+    ) || null;
+  const latestCourse =
+    [...lessons]
+      .reverse()
+      .find(
+        (lesson) =>
+          lesson.lessonKind !== "promo" && Boolean(lesson.youtube)
+      ) || null;
+  const selected = [];
+  const selectedIds = new Set<string>();
+
+  for (const lesson of [promo, latestCourse]) {
+    if (lesson && !selectedIds.has(lesson.id)) {
+      selected.push(lesson);
+      selectedIds.add(lesson.id);
+    }
+  }
+
+  return selected;
+}
 
 const featuredLesson = selectFeaturedLesson(allLessons, latestVideoLesson);
+const billboardLessons = selectBillboardLessons(allLessons);
 const startHereLesson = sections[0]?.lessonsDetailed[0] || null;
 
 export function formatLessonSequenceLabel(
@@ -499,6 +534,7 @@ export const courseLibrary = {
   latestLesson,
   latestVideoLesson,
   featuredLesson,
+  billboardLessons,
   startHereLesson,
   getBook(bookSlug: string) {
     return bookMap.get(bookSlug) || null;
@@ -515,6 +551,9 @@ export const courseLibrary = {
   },
   getLesson(sectionSlug: string, lessonSlug: string) {
     return lessonByKey.get(`${sectionSlug}:${lessonSlug}`) || null;
+  },
+  getLessonById(lessonId: string) {
+    return lessonById.get(lessonId) || null;
   },
   getLessonByCanonicalPath(pathname: string) {
     return lessonByCanonicalPath.get(pathname) || null;

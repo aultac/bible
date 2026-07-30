@@ -15,6 +15,7 @@
 
 **Genesis 5:19-end**
 
+- TOOL_LINK: /ages/
 - Genealogy App: https://knowyourbible.study/ages/
   - Notice Methuselah dies right before the flood.
   - Cain’s descendants aren’t on here because they don’t have ages.

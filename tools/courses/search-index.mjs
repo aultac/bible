@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { REPO_ROOT } from "./config.mjs";
+import { isNoteDirectiveLine } from "./note-directives.mjs";
 
 const DEFAULT_CONTENT_ROOT = path.join(
   REPO_ROOT,
@@ -128,6 +129,10 @@ export function markdownToSearchBlocks(markdown) {
   }
 
   for (const rawLine of markdown.replace(/\r\n?/gu, "\n").split("\n")) {
+    if (isNoteDirectiveLine(rawLine)) {
+      flushParagraph();
+      continue;
+    }
     const line = rawLine.trim();
 
     if (!line || /^```/u.test(line)) {

@@ -29,6 +29,12 @@ import {
   parseLessonDirectoryName,
 } from "./lesson-paths.mjs";
 import {
+  buildToolsData,
+  matchResourceSourceUrls,
+  parseNoteDirectives,
+  writeToolsData,
+} from "./note-directives.mjs";
+import {
   buildPlaylistVideoMatchMap,
   fetchPlaylistSnapshot,
 } from "./youtube-playlist.mjs";
@@ -46,6 +52,7 @@ const PUBLIC_RESOURCES_ROOT = path.join(
 const PUBLIC_MAPS_ROOT = path.join(COURSES_APP_ROOT, "public", "maps");
 const PLAYLIST_SNAPSHOT_PATH = path.join(CONTENT_ROOT, "playlist.json");
 const COURSE_OUTLINE_PATH = path.join(CONTENT_ROOT, "course-outline.json");
+const TOOLS_DATA_PATH = path.join(COURSES_APP_ROOT, "src", "toolsData.ts");
 
 const BUCKET_MANUAL_FIELDS = [
   "title",
@@ -113,6 +120,73 @@ function buildDiscoveredFileRecord(canonicalBase, absolutePath) {
     absolutePath,
     relativePath: toCanonicalRelativePath(canonicalBase, absolutePath),
     fileName: path.basename(absolutePath),
+  };
+}
+
+export async function syncLessonMaps() {
+  const coursesEnv = await loadCoursesEnv();
+  const mapRecords = [];
+
+  for (const sectionSlug of await listDirectories(BUCKETS_ROOT)) {
+    const lessonsRoot = path.join(BUCKETS_ROOT, sectionSlug, "lessons");
+    if (!(await pathExists(lessonsRoot))) {
+      continue;
+    }
+
+    for (const lessonSlug of await listDirectories(lessonsRoot)) {
+      const manifestPath = path.join(
+        lessonsRoot,
+        lessonSlug,
+        "lesson.json"
+      );
+      const manifest = await readJsonIfExists(manifestPath);
+      const sourcePath =
+        manifest?.source?.mapPath || manifest?.map?.sourcePath || null;
+
+      if (!sourcePath) {
+        continue;
+      }
+
+      const absolutePath = path.resolve(coursesEnv.canonicalBase, sourcePath);
+      if (!(await pathExists(absolutePath))) {
+        throw new Error(`Published map source does not exist: ${sourcePath}`);
+      }
+
+      mapRecords.push({
+        sectionSlug,
+        lessonSlug,
+        manifest,
+        manifestPath,
+        mapFile: {
+          absolutePath,
+          relativePath: sourcePath,
+          fileName: path.basename(sourcePath),
+        },
+      });
+    }
+  }
+
+  await rm(PUBLIC_MAPS_ROOT, { recursive: true, force: true });
+  await mkdir(PUBLIC_MAPS_ROOT, { recursive: true });
+
+  let updatedManifestCount = 0;
+
+  for (const record of mapRecords) {
+    const map = await generateLessonMapAsset(record);
+
+    if (JSON.stringify(record.manifest.map) !== JSON.stringify(map)) {
+      await writeJson(record.manifestPath, {
+        ...record.manifest,
+        map,
+      });
+      updatedManifestCount += 1;
+    }
+  }
+
+  return {
+    mapAssetCount: mapRecords.length,
+    updatedManifestCount,
+    publicMapsRoot: PUBLIC_MAPS_ROOT,
   };
 }
 
@@ -361,6 +435,41 @@ async function discoverCanonicalSourceTree(canonicalBase) {
       const hasNotes = await pathExists(notesSourcePath);
       const hasSummaryDocx = Boolean(summaryDocxPath);
       const hasResourcesDirectory = await pathExists(resourcesDirectoryPath);
+      const resourceFiles = hasResourcesDirectory
+        ? await collectFilesRecursive(resourcesDirectoryPath)
+        : [];
+      const directives = hasNotes
+        ? parseNoteDirectives(await readFile(notesSourcePath, "utf8"), {
+            source: toCanonicalRelativePath(canonicalBase, notesSourcePath),
+          })
+        : {
+            toolLinks: [],
+            resourceLinks: [],
+            findings: [],
+          };
+      const resourceMatches = matchResourceSourceUrls(
+        resourceFiles,
+        directives.resourceLinks,
+        {
+          source: hasNotes
+            ? toCanonicalRelativePath(canonicalBase, notesSourcePath)
+            : `${parsedLesson.folderName}/notes.md`,
+        }
+      );
+      const directiveFindings = [
+        ...directives.findings,
+        ...resourceMatches.findings,
+      ];
+      if (directiveFindings.length > 0) {
+        throw new Error(
+          directiveFindings
+            .map(
+              (item) =>
+                `${item.source}:${item.lineNumber} [${item.code}] ${item.message}`
+            )
+            .join("\n")
+        );
+      }
       const publication = await classifyLessonPublication(
         lessonPath,
         hasNotes ? notesSourcePath : null
@@ -382,9 +491,9 @@ async function discoverCanonicalSourceTree(canonicalBase) {
         resourcesDirectoryPathRelative: hasResourcesDirectory
           ? toCanonicalRelativePath(canonicalBase, resourcesDirectoryPath)
           : null,
-        resourceFiles: hasResourcesDirectory
-          ? await collectFilesRecursive(resourcesDirectoryPath)
-          : [],
+        resourceFiles,
+        directives,
+        resourceSourceUrlByName: resourceMatches.sourceUrlByFileName,
         mapFiles,
       });
     }
@@ -477,7 +586,13 @@ function buildSectionListEntry(sectionManifest) {
   };
 }
 
-async function copyLessonResources({ sectionSlug, lessonSlug, resourceFiles, canonicalBase }) {
+async function copyLessonResources({
+  sectionSlug,
+  lessonSlug,
+  resourceFiles,
+  resourceSourceUrlByName,
+  canonicalBase,
+}) {
   const outputs = [];
 
   for (const resourceFile of resourceFiles) {
@@ -491,6 +606,7 @@ async function copyLessonResources({ sectionSlug, lessonSlug, resourceFiles, can
     await mkdir(path.dirname(destinationPath), { recursive: true });
     await copyFile(resourceFile.absolutePath, destinationPath);
 
+    const sourceUrl = resourceSourceUrlByName.get(resourceFile.fileName);
     outputs.push({
       name: resourceFile.fileName,
       sourcePath: toCanonicalRelativePath(canonicalBase, resourceFile.absolutePath),
@@ -498,13 +614,14 @@ async function copyLessonResources({ sectionSlug, lessonSlug, resourceFiles, can
       publicUrl: encodeURI(
         `/courses/resources/${sectionSlug}/${lessonSlug}/${resourceFile.relativePath}`
       ),
+      ...(sourceUrl ? { sourceUrl } : {}),
     });
   }
 
   return outputs;
 }
 
-async function generateLessonMapAsset({
+export async function generateLessonMapAsset({
   sectionSlug,
   lessonSlug,
   mapFile,
@@ -659,6 +776,15 @@ export async function syncCoursesContent(options = {}) {
   const coursesEnv = await loadCoursesEnv();
   const generatedAt = new Date().toISOString();
   const sections = await discoverCanonicalSourceTree(coursesEnv.canonicalBase);
+  const toolsData = await buildToolsData(
+    sections.flatMap((section) =>
+      section.lessons.map((lesson) => ({
+        id: lesson.slug,
+        published: lesson.published,
+        directives: lesson.directives,
+      }))
+    )
+  );
   const sectionManualMap = await loadExistingSectionManualMap();
   const lessonManualMap = await loadExistingLessonManualMap();
   const outlineBySectionNumber = await loadCourseOutlineMap();
@@ -820,6 +946,7 @@ export async function syncCoursesContent(options = {}) {
           sectionSlug: section.slug,
           lessonSlug: lesson.slug,
           resourceFiles: lesson.resourceFiles,
+          resourceSourceUrlByName: lesson.resourceSourceUrlByName,
           canonicalBase: coursesEnv.canonicalBase,
         });
         resourceFilesCopied += resources.length;
@@ -926,6 +1053,7 @@ export async function syncCoursesContent(options = {}) {
     generatedAt,
     sectionSummaryOutputs,
   });
+  await writeToolsData(toolsData, TOOLS_DATA_PATH);
   const searchIndex = await generateLessonSearchIndex();
 
   return {
@@ -943,6 +1071,12 @@ export async function syncCoursesContent(options = {}) {
     sectionSummariesConverted,
     resourceFilesCopied,
     mapAssetsGenerated,
+    toolCount: toolsData.length,
+    toolRelationshipCount: toolsData.reduce(
+      (total, tool) => total + tool.relatedLessonIds.length,
+      0
+    ),
+    toolsDataPath: TOOLS_DATA_PATH,
     playlistVideoCount: playlistSnapshot?.videoCount || 0,
     matchedYoutubeLessons,
     playlistRefreshStatus,

@@ -19,8 +19,20 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 2,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -45,8 +57,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -71,8 +95,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -97,8 +133,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 5,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -123,8 +171,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 6,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
     },
     {
       "type": "Feature",
@@ -149,8 +209,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0006"
     },
     {
       "type": "Feature",
@@ -282,8 +354,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 8,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
     },
     {
       "type": "Feature",
@@ -308,8 +392,117 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/A.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "009_Genesis17-19"
+          ],
+          "sourceOrder": 9,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "009_Genesis17-19.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "009_Genesis17-19",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Mamre",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "Bab edh-Dhra (Sodom)",
+              "sourceOrder": 3,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0003",
+              "name": "Numeira (Gomorrah)",
+              "sourceOrder": 4,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0004",
+              "name": "Feifa (Admah)",
+              "sourceOrder": 5,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0005",
+              "name": "Khanazir (Zeboiim)",
+              "sourceOrder": 6,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0006",
+              "name": "Safi (Zoar)",
+              "sourceOrder": 7,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0007",
+              "name": "Safi Cemetery",
+              "sourceOrder": 8,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0008",
+              "name": "Lot's Cave",
+              "sourceOrder": 9,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

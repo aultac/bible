@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "generatedAt": "2026-07-30T11:47:27.661Z",
   "id": "01-section-genesis1-11",
   "slug": "01-section-genesis1-11",
   "sectionnum": 1,
@@ -47,7 +47,7 @@
       "id": "000-promo",
       "slug": "000-promo",
       "sequenceNumber": 0,
-      "title": "Promo",
+      "title": "Why Know Your Bible?",
       "lessonKind": "promo",
       "startVerse": null,
       "endVerse": null,
@@ -73,7 +73,7 @@
       "lessonPath": "apps/courses/content/sections/01-section-genesis1-11/lessons/001-intro/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
-      "resourceCount": 1,
+      "resourceCount": 0,
       "source": {
         "relativeLessonDirectory": "01-Bucket-Genesis1-11/001-Intro",
         "folderName": "001-Intro"

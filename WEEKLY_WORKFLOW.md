@@ -73,6 +73,42 @@ Word summary or missing `Title:` is an audit warning rather than an apply
 blocker. The generated lesson then has no `videoSummary` and the UI uses its
 generic fallback copy.
 
+### Tool and resource link directives
+
+Apple Notes is the source of truth for lesson-to-tool relationships and
+resource provenance. Add either case-sensitive marker on its own line anywhere
+in a lesson note:
+
+```text
+TOOL_LINK: /ages/
+RESOURCE_LINK: family-tree.png: https://example.org/family-tree
+```
+
+`TOOL_LINK:` takes the first non-whitespace value after the marker. It must be a
+root-relative served tool path. Directory paths are normalized with a trailing
+slash. The tool title is read from the tool itself, preferring
+`meta[name="application-name"]`, then its first `h1`, then `title`; titles are
+not authored in lesson relationship data.
+
+`RESOURCE_LINK:` takes an exact resource filename up to the next colon and an
+absolute HTTP(S) source URL after it. The filename must match exactly one file
+under that lesson's `resources/` folder. Duplicate filenames, duplicate or
+conflicting declarations, missing files, malformed paths, and invalid URLs
+block cache readiness.
+
+Markdown wrappers and list prefixes are allowed around a directive. During
+prepare, staged candidates are validated without changing repository files.
+During apply, every published canonical `notes.md` is rescanned so relationships
+from unchanged lessons remain present. The generated
+`apps/courses/src/toolsData.ts` groups each tool with all related lesson IDs;
+unpublished lessons are excluded.
+
+Generated notes remain byte-for-byte copies of the authored Markdown. In the
+lesson UI, a tool directive is displayed as the discovered title plus the full
+`https://knowyourbible.study` tool URL. Resource directives are hidden, and a
+matching resource displays a separate `Source` link. Both directive types are
+excluded from the lesson search index.
+
 ### Special lessons and YouTube matching
 
 The course starts with two lessons that do not represent Bible passages:
@@ -111,6 +147,8 @@ The audit verifies:
 - Word source documents and converted Markdown are unchanged;
 - staged Apple Notes candidates still match their hashes and map to canonical
   lesson folders;
+- staged `TOOL_LINK:` and `RESOURCE_LINK:` declarations are valid and resolve
+  to authored tool documents and exact lesson resource filenames;
 - the cached YouTube playlist is non-empty and has valid, unique video IDs; and
 - canonical source files still match the cached inventory.
 
@@ -131,7 +169,8 @@ Apply:
 - refuses caches whose successful audit fingerprint is stale;
 - validates and copies staged `notes.md` candidates;
 - uses only the cached Word conversions and cached YouTube playlist;
-- regenerates course manifests, Markdown, resources, maps, and search data;
+- regenerates course manifests, Markdown, resources, maps, search data, and
+  `apps/courses/src/toolsData.ts` from all published canonical notes;
 - records `videoSummary` from each Word document's `Title:` field;
 - preserves unpublished lessons under generated unpublished content; and
 - runs the repository course audit.
@@ -160,6 +199,7 @@ The reconciliation checks:
 - the applied component fingerprint still matches the cache;
 - applied canonical notes still match their recorded hashes;
 - the generated repository playlist still matches;
+- the generated tool catalog still matches its applied hash;
 - every generated lesson `videoSummary` matches the cached Word title; and
 - any legacy summary candidates retained from an older cache were not lost.
 
@@ -188,8 +228,9 @@ yarn build
 ```
 
 After all three pass, the workflow records a fingerprint of generated course
-content, public assets, and `dist/`. The release step refuses to proceed if
-those files change afterward.
+content, public assets, the exact generated
+`apps/courses/src/toolsData.ts` source file, and `dist/`. The release step
+refuses to proceed if those files change afterward.
 
 Use `--preview` in direct mode to start the built site on
 `http://127.0.0.1:4173/`:
@@ -223,11 +264,12 @@ Release refuses to run unless:
 - no merge is in progress;
 - weekly generated changes exist; and
 - every working-tree change is under `apps/courses/content/`,
-  `apps/courses/public/`, or `dist/`.
+  `apps/courses/public/`, or `dist/`, or is the exact generated
+  `apps/courses/src/toolsData.ts` file.
 
-The command patch-bumps `package.json`, stages only those generated paths plus
-`package.json`, commits, pushes `main`, and deploys the already validated
-`dist/` folder. It does not rebuild during deployment.
+The command patch-bumps `package.json`, stages only those generated paths, the
+generated tool catalog, and `package.json`, commits, pushes `main`, and deploys
+the already validated `dist/` folder. It does not rebuild during deployment.
 
 If a push or deployment fails after the commit succeeds, retry only that stage:
 

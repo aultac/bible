@@ -92,8 +92,20 @@
         "styleUrl": "#landisobands80",
         "fill-opacity": 0.5019607843137255,
         "fill": "#20ffff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "014_Genesis29-30"
+          ],
+          "sourceOrder": 2,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -116,8 +128,20 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 2,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "014_Genesis29-30"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -497,8 +521,20 @@
         "styleUrl": "#inline00",
         "stroke-opacity": 1,
         "stroke": "#ffff0a",
-        "stroke-width": 10
-      }
+        "stroke-width": 10,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "014_Genesis29-30"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -643,8 +679,81 @@
         "styleUrl": "#path",
         "stroke-opacity": 1,
         "stroke": "#fc02ff",
-        "stroke-width": 5
-      }
+        "stroke-width": 5,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "014_Genesis29-30"
+          ],
+          "sourceOrder": 5,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "014_Genesis29-30.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "014_Genesis29-30",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Hill Country of Gilead",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "Nahor/Haran/Paddan-aram",
+              "sourceOrder": 3,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0003",
+              "name": "3 Days Journey",
+              "sourceOrder": 4,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0004",
+              "name": "King's Highway",
+              "sourceOrder": 5,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

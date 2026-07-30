@@ -162,6 +162,7 @@ describe("course audit", () => {
           path: brokenResourcePath,
           publicUrl:
             "/courses/resources/01-section-genesis1-11/001-genesis1-2/broken.jpg",
+          sourceUrl: "ftp://example.test/broken.jpg",
         },
       ],
       sourceMapPath: "source/map.kmz",
@@ -206,8 +207,80 @@ describe("course audit", () => {
         "unpublished-key-leak",
         "unpublished-asset-leak",
         "orphan-public-file",
+        "resource-source-url-invalid",
       ])
     );
     expect(getAuditExitCode(result)).toBe(1);
+  });
+
+  it("rejects generated maps with invalid layer-tree references", async () => {
+    const lesson = lessonManifest();
+    const relativeMapRoot =
+      "apps/courses/public/maps/01-section-genesis1-11/001-genesis1-2";
+    lesson.map = {
+      sourcePath: "source/fixture.kml",
+      sourceFormat: "kml",
+      sourcePublicUrl:
+        "/courses/maps/01-section-genesis1-11/001-genesis1-2/fixture.kml",
+      geoJsonPath: `${relativeMapRoot}/fixture.geojson`,
+      geoJsonPublicUrl:
+        "/courses/maps/01-section-genesis1-11/001-genesis1-2/fixture.geojson",
+      available: true,
+      featureCount: 1,
+      geometryTypes: ["Point"],
+    };
+    const fixture = await auditFixture({ lessons: [lesson] });
+    const publicMapRoot = path.join(
+      fixture.publicRoot,
+      "maps",
+      "01-section-genesis1-11",
+      "001-genesis1-2"
+    );
+    await mkdir(publicMapRoot, { recursive: true });
+    await writeFile(path.join(publicMapRoot, "fixture.kml"), "<kml />");
+    await writeJson(path.join(publicMapRoot, "fixture.geojson"), {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          id: "feature-0001",
+          properties: {},
+          geometry: { type: "Point", coordinates: [0, 0] },
+        },
+      ],
+      layerTree: {
+        schemaVersion: 1,
+        root: {
+          type: "root",
+          id: "root",
+          name: "Broken fixture",
+          sourceOrder: 0,
+          visibility: null,
+          initiallyVisible: true,
+          open: null,
+          children: [
+            {
+              type: "feature",
+              id: "missing-feature",
+              name: "Missing",
+              sourceOrder: 1,
+              visibility: null,
+              initiallyVisible: true,
+              geometryType: "Point",
+            },
+          ],
+        },
+      },
+    });
+
+    const result = await auditCourses(fixture);
+    const finding = result.findings.find(
+      (candidate) => candidate.code === "geojson-invalid"
+    );
+
+    expect(finding).toBeTruthy();
+    expect(finding.error).toContain(
+      "Layer tree references missing feature: missing-feature."
+    );
   });
 });

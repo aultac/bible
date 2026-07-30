@@ -1,9 +1,10 @@
-import { mkdir, mkdtemp, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   assertOnlyWeeklyReleaseChanges,
+  computeReleaseFingerprint,
   nextPatchVersion,
   releaseWeeklyUpdate,
   retryWeeklyRelease,
@@ -126,12 +127,46 @@ describe("weekly validation and release", () => {
     expect(() =>
       assertOnlyWeeklyReleaseChanges([
         "apps/courses/content/lesson.json",
+        "apps/courses/src/toolsData.ts",
         "dist/index.html",
       ])
     ).not.toThrow();
     expect(() =>
+      assertOnlyWeeklyReleaseChanges([
+        "apps/courses/src/toolsData.ts.backup",
+      ])
+    ).toThrow("unrelated working-tree changes");
+    expect(() =>
       assertOnlyWeeklyReleaseChanges(["WEEKLY_WORKFLOW.md"])
     ).toThrow("unrelated working-tree changes");
+  });
+
+  it("fingerprints the exact generated tools data file but not siblings", async () => {
+    const repoRoot = await mkdtemp(
+      path.join(os.tmpdir(), "weekly-release-fingerprint-")
+    );
+    temporaryRoots.push(repoRoot);
+    const toolsDataPath = path.join(
+      repoRoot,
+      "apps",
+      "courses",
+      "src",
+      "toolsData.ts"
+    );
+    await mkdir(path.dirname(toolsDataPath), { recursive: true });
+    await writeFile(toolsDataPath, "export const toolsData = [] as const;\n");
+    const first = await computeReleaseFingerprint(repoRoot);
+
+    await writeFile(
+      toolsDataPath,
+      "export const toolsData = [{ path: '/ages/' }] as const;\n"
+    );
+    const second = await computeReleaseFingerprint(repoRoot);
+    await writeFile(`${toolsDataPath}.backup`, "unrelated\n");
+    const third = await computeReleaseFingerprint(repoRoot);
+
+    expect(second).not.toBe(first);
+    expect(third).toBe(second);
   });
 
   it("commits, pushes, and deploys only after a matching validation", async () => {
@@ -183,6 +218,9 @@ describe("weekly validation and release", () => {
         ["commit", "-m", "Publish weekly course"],
         ["push", "origin", "main"],
       ])
+    );
+    expect(gitCalls.find((call) => call[0] === "add")).toContain(
+      "apps/courses/src/toolsData.ts"
     );
     expect(runCommand).toHaveBeenCalledWith(
       "yarn",

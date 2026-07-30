@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import {
   BrowserRouter,
@@ -12,6 +12,7 @@ import {
 import { parseBibleReference } from "./bibleReferences";
 import { CourseSelector } from "./CourseSelector";
 import { HeaderSearch } from "./HeaderSearch";
+import { HomeBillboard } from "./HomeBillboard";
 import {
   courseLibrary,
   formatLessonSequenceLabel,
@@ -19,6 +20,12 @@ import {
   type HydratedLesson,
 } from "./courseData";
 import { getSiteBasePath, sitePath } from "./routerBase";
+import {
+  getToolsForLesson,
+  toolCatalog,
+  transformLessonNotes,
+} from "./tools";
+import { VideoPlayer } from "./VideoPlayer";
 
 const LessonMapPanel = lazy(() => import("./LessonMapPanel"));
 
@@ -35,11 +42,6 @@ function bookPath(bookSlug: string) {
   return `/?view=book&book=${encodeURIComponent(bookSlug)}`;
 }
 
-function getYoutubeEmbedUrl(videoId: string) {
-  return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(
-    videoId
-  )}?rel=0`;
-}
 
 function formatResourceName(name: string) {
   return name
@@ -113,7 +115,9 @@ export function getLessonPageContent({
       ? getStorylineBody(storylineState.markdown)
       : null;
   const lessonNotes =
-    notesState.status === "loaded" ? notesState.markdown?.trim() || null : null;
+    notesState.status === "loaded" && notesState.markdown
+      ? transformLessonNotes(notesState.markdown) || null
+      : null;
 
   return {
     storylineTitle,
@@ -153,11 +157,32 @@ function MarkdownBlock({ markdown }: { markdown: string }) {
 
 function SiteHeader() {
   const location = useLocation();
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const latestLesson = courseLibrary.latestVideoLesson;
   const lesson = courseLibrary.getLessonByCanonicalPath(location.pathname);
   const sequenceLabel = lesson
     ? formatLessonSequenceLabel(lesson)
     : null;
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname, location.search]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   return (
     <header className="site-header">
@@ -171,16 +196,52 @@ function SiteHeader() {
             Reading through the Bible start to finish, with context.
           </p>
         </div>
-        <div className="header-actions">
+        <button
+          ref={menuButtonRef}
+          className="header-menu-toggle"
+          type="button"
+          aria-controls="mobile-primary-menu"
+          aria-expanded={mobileMenuOpen}
+          aria-label={
+            mobileMenuOpen
+              ? "Close site navigation"
+              : "Open site navigation"
+          }
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            {mobileMenuOpen ? (
+              <path d="m5 5 14 14M19 5 5 19" />
+            ) : (
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+        <div
+          className={`header-actions${
+            mobileMenuOpen ? " header-actions-open" : ""
+          }`}
+          id="mobile-primary-menu"
+        >
           <HeaderSearch />
           <nav className="site-nav" aria-label="Primary">
-            <Link to="/">Course</Link>
+            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+              Course
+            </Link>
             {latestLesson ? (
-              <Link to={latestLesson.canonicalPath}>
+              <Link
+                to={latestLesson.canonicalPath}
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 Latest lesson
               </Link>
             ) : null}
-            <a href={sitePath("/tools/")}>Tools</a>
+            <Link
+              to="/tools"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Tools
+            </Link>
           </nav>
         </div>
       </div>
@@ -290,94 +351,12 @@ function useMarkdownContent(
   return state;
 }
 
-function VideoPlayer({
-  lesson,
-  eager = false,
-}: {
-  lesson: HydratedLesson;
-  eager?: boolean;
-}) {
-  if (!lesson.youtube) {
-    return (
-      <div className="video-placeholder">
-        <span>Video coming soon</span>
-        <p>This lesson is ready to read while the class recording is prepared.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="video-frame">
-      <iframe
-        src={getYoutubeEmbedUrl(lesson.youtube.videoId)}
-        title={`${lesson.title} course video`}
-        loading={eager ? "eager" : "lazy"}
-        referrerPolicy="strict-origin-when-cross-origin"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-    </div>
-  );
-}
 
 function HomePage() {
-  const featuredLesson = courseLibrary.featuredLesson;
 
   return (
     <div className="home-page">
-      {featuredLesson ? (
-        <section className="billboard" aria-labelledby="featured-lesson-title">
-          <div className="billboard-media">
-            <VideoPlayer lesson={featuredLesson} eager />
-          </div>
-          <div className="billboard-copy">
-            <p className="eyebrow">
-              {featuredLesson.lessonKind === "promo"
-                ? "Course preview"
-                : "Latest course"}
-            </p>
-            <h1 id="featured-lesson-title">{featuredLesson.title}</h1>
-            <p className="billboard-description">
-              {featuredLesson.videoSummary ||
-                "Follow the Bible’s storyline in order, with the historical and literary context that makes each passage easier to understand."}
-            </p>
-            <div className="billboard-meta">
-              <span>{formatLessonSequenceLabel(featuredLesson)}</span>
-              {featuredLesson.youtube?.durationText ? (
-                <span>{featuredLesson.youtube.durationText}</span>
-              ) : null}
-            </div>
-            <div className="button-row">
-              <Link
-                className="button button-primary"
-                to={featuredLesson.canonicalPath}
-              >
-                Explore this lesson
-              </Link>
-              {featuredLesson.passage?.esvUrl ? (
-                <a
-                  className="button button-quiet"
-                  href={featuredLesson.passage.esvUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Read in ESV
-                </a>
-              ) : null}
-            </div>
-          </div>
-        </section>
-      ) : (
-        <section className="billboard billboard-empty">
-          <div>
-            <p className="eyebrow">Know Your Bible</p>
-            <h1>Start at the beginning.</h1>
-            <p className="billboard-description">
-              Course videos will appear here as they are published.
-            </p>
-          </div>
-        </section>
-      )}
+      <HomeBillboard lessons={courseLibrary.billboardLessons} />
 
       <section className="library-section" id="course-library">
         <div className="section-intro">
@@ -430,14 +409,31 @@ function LessonResources({ lesson }: { lesson: HydratedLesson }) {
         <div className="resource-gallery">
           {imageResources.map((resource) => (
             <figure key={resource.path} className="resource-image">
-              <a href={resource.href} target="_blank" rel="noreferrer">
+              <a
+                className="resource-asset-link"
+                href={resource.href}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   src={resource.href}
                   alt={formatResourceName(resource.name)}
                   loading="lazy"
                 />
               </a>
-              <figcaption>{formatResourceName(resource.name)}</figcaption>
+              <figcaption>
+                <span>{formatResourceName(resource.name)}</span>
+                {resource.sourceUrl ? (
+                  <a
+                    className="resource-source"
+                    href={resource.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Source
+                  </a>
+                ) : null}
+              </figcaption>
             </figure>
           ))}
         </div>
@@ -447,15 +443,52 @@ function LessonResources({ lesson }: { lesson: HydratedLesson }) {
         <ul className="resource-downloads">
           {fileResources.map((resource) => (
             <li key={resource.path}>
-              <a href={resource.href} target="_blank" rel="noreferrer">
+              <a
+                className="resource-download"
+                href={resource.href}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <span>{formatResourceName(resource.name)}</span>
                 <small>{getResourceType(resource.name)}</small>
               </a>
+              {resource.sourceUrl ? (
+                <a
+                  className="resource-source"
+                  href={resource.sourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Source
+                </a>
+              ) : null}
             </li>
           ))}
         </ul>
       ) : null}
     </section>
+  );
+}
+
+function LessonTools({ lesson }: { lesson: HydratedLesson }) {
+  const tools = getToolsForLesson(lesson.id);
+
+  if (tools.length === 0) {
+    return null;
+  }
+
+  return (
+    <aside className="lesson-tools" aria-label="Related lesson tools">
+      <strong>Tools</strong>
+      <span aria-hidden="true">·</span>
+      <div>
+        {tools.map((tool) => (
+          <a key={tool.path} href={sitePath(tool.path)}>
+            {tool.title}
+          </a>
+        ))}
+      </div>
+    </aside>
   );
 }
 
@@ -552,6 +585,7 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
           ) : null}
         </div>
       ) : null}
+      <LessonTools lesson={lesson} />
 
       {content.hasMap && lesson.resolvedMap ? (
         <Suspense fallback={null}>
@@ -591,6 +625,60 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
   );
 }
 
+function ToolsPage() {
+  return (
+    <section className="tools-page">
+      <header className="tools-hero">
+        <p className="eyebrow">Interactive study</p>
+        <h1>Lesson tools</h1>
+        <p>
+          Open visual guides and interactive references, then return to the
+          lessons where they are used.
+        </p>
+        <Link className="button button-primary" to="/">
+          Back to Courses
+        </Link>
+      </header>
+
+      {toolCatalog.length > 0 ? (
+        <div className="tools-grid">
+          {toolCatalog.map((tool) => {
+            const relatedLessons = tool.relatedLessonIds
+              .map((lessonId) => courseLibrary.getLessonById(lessonId))
+              .filter((lesson): lesson is HydratedLesson => Boolean(lesson));
+
+            return (
+              <article key={tool.path} className="tool-card">
+                <p className="eyebrow">Study tool</p>
+                <h2>
+                  <a href={sitePath(tool.path)}>{tool.title}</a>
+                </h2>
+                <a className="tool-open-link" href={sitePath(tool.path)}>
+                  Open tool →
+                </a>
+                {relatedLessons.length > 0 ? (
+                  <div className="tool-lessons">
+                    <strong>Related lessons</strong>
+                    <ul>
+                      {relatedLessons.map((lesson) => (
+                        <li key={lesson.id}>
+                          <Link to={lesson.canonicalPath}>{lesson.title}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <p className="empty-state">No lesson tools are published yet.</p>
+      )}
+    </section>
+  );
+}
+
 function NotFoundPage() {
   return (
     <section className="not-found">
@@ -619,6 +707,7 @@ export default function App() {
         <main className="page-shell" id="main-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/tools" element={<ToolsPage />} />
             <Route path="/sections/:sectionSlug" element={<SectionRedirect />} />
             <Route
               path="/lessons/:sectionSlug/:lessonSlug"

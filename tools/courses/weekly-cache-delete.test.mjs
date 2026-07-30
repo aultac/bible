@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -9,6 +9,7 @@ import {
 import {
   computeComponentsFingerprint,
   createWeeklyCache,
+  hashContent,
   loadCacheState,
   recordCacheComponent,
   writeCacheState,
@@ -67,6 +68,16 @@ async function createAppliedCacheFixture() {
     componentName: "documents",
     outputPath: documentManifestPath,
   });
+  const toolsDataPath = path.join(
+    repoRoot,
+    "apps",
+    "courses",
+    "src",
+    "toolsData.ts"
+  );
+  const toolsData = "export const toolsData = [] as const;\n";
+  await mkdir(path.dirname(toolsDataPath), { recursive: true });
+  await writeFile(toolsDataPath, toolsData);
   const applied = {
     ...draft,
     status: "applied",
@@ -75,6 +86,10 @@ async function createAppliedCacheFixture() {
       componentsFingerprint: computeComponentsFingerprint(draft.components),
       notes: [],
       playlist: null,
+      toolsData: {
+        path: toolsDataPath,
+        hash: hashContent(toolsData),
+      },
       documentsFingerprint: draft.components.documents.fingerprint,
     },
   };
@@ -85,6 +100,7 @@ async function createAppliedCacheFixture() {
     notesCacheRoot,
     repoRoot,
     lessonManifestPath,
+    toolsDataPath,
   };
 }
 
@@ -142,5 +158,25 @@ describe("safe weekly cache deletion", () => {
       deletedAt: "2026-07-23T02:00:00.000Z",
       appliedAt: "2026-07-23T00:00:00.000Z",
     });
+  });
+
+  it("blocks deletion when generated tool relationships change", async () => {
+    const fixture = await createAppliedCacheFixture();
+    await writeFile(
+      fixture.toolsDataPath,
+      "export const toolsData = [{ path: '/ages/' }] as const;\n"
+    );
+
+    const result = await reconcileWeeklyCache({
+      cacheRoot: fixture.cacheRoot,
+      repoRoot: fixture.repoRoot,
+    });
+
+    expect(result.safeToDelete).toBe(false);
+    expect(result.mismatches).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "applied-tools-data-changed" }),
+      ])
+    );
   });
 });

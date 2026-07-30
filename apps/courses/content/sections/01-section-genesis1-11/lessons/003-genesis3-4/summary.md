@@ -6,15 +6,10 @@
 
 **Storyline Summary:**
 
-- Satan’s playbook: Did God really say, For God knows..., You can be like God
-- Cain and Abel: murder
-- Cain’s descendants
-- Cain’s descendants terminate in “women are property” and “kill people for insulting us”
-- Abel’s blood**s**
+- **Satan’s playbook: Did God really say, For God knows..., You can be like God**
+- **Cain and Abel: murder**
+- **Cain’s descendants**
+- **Cain’s descendants terminate in “women are property” and “kill people for insulting us”**
+- **Abel’s bloods**
 - **Seth was born**
-
-**Interesting Points or Clarifications:**
-
-- Read scripture as if you are the perpetrator: we are all Cain
-
-**Related Verses Help Explain:**
+- **Read scripture as if you are the perpetrator: we are all Cain**

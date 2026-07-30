@@ -14,6 +14,7 @@ import {
   writeJsonAtomic,
 } from "./weekly-cache.mjs";
 import { DOCUMENT_SUMMARIES_FILENAME } from "./document-summaries.mjs";
+import { validateNoteDirectiveCandidate } from "./note-directives.mjs";
 
 const NOTES_REPORT_FILENAME = "canonical-note-backup-report.json";
 
@@ -237,6 +238,28 @@ async function auditNotes({ cacheRoot, findings }) {
         "staged-note-changed",
         `${update.title} staged notes changed after preparation.`,
         { path: update.stagedNotesPath }
+      );
+      continue;
+    }
+
+    const directiveValidation = await validateNoteDirectiveCandidate({
+      markdown: await readFile(update.stagedNotesPath, "utf8"),
+      lessonDirectory:
+        update.canonicalLessonDirectoryPath ||
+        path.dirname(update.canonicalNotesPath || update.stagedNotesPath),
+      source: update.stagedNotesPath,
+    });
+    for (const directiveFinding of directiveValidation.findings) {
+      addFinding(
+        findings,
+        "error",
+        "notes",
+        directiveFinding.code,
+        directiveFinding.message,
+        {
+          path: directiveFinding.source,
+          lineNumber: directiveFinding.lineNumber,
+        }
       );
     }
   }

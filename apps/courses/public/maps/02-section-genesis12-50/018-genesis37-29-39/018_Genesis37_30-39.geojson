@@ -240,8 +240,20 @@
         "styleUrl": "#routeStyle00",
         "stroke-opacity": 1,
         "stroke": "#ff0000",
-        "stroke-width": 4
-      }
+        "stroke-width": 4,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 2,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -387,8 +399,20 @@
         "styleUrl": "#path2",
         "stroke-opacity": 1,
         "stroke": "#fc02ff",
-        "stroke-width": 6
-      }
+        "stroke-width": 6,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -495,8 +519,20 @@
         "styleUrl": "#landisobands2252222224",
         "fill-opacity": 0.5019607843137255,
         "fill": "#66ff66",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -588,8 +624,20 @@
         "styleUrl": "#landisobands80",
         "fill-opacity": 0.5019607843137255,
         "fill": "#20ffff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 5,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -834,8 +882,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 6,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
     },
     {
       "type": "Feature",
@@ -865,8 +925,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0006"
     },
     {
       "type": "Feature",
@@ -888,8 +960,20 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 2,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 8,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
     },
     {
       "type": "Feature",
@@ -919,8 +1003,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 9,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
     },
     {
       "type": "Feature",
@@ -950,8 +1046,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 10,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0009"
     },
     {
       "type": "Feature",
@@ -981,8 +1089,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 11,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0010"
     },
     {
       "type": "Feature",
@@ -1012,8 +1132,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 12,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0011"
     },
     {
       "type": "Feature",
@@ -1125,8 +1257,20 @@
         "styleUrl": "#landisobands2252222222",
         "fill-opacity": 0.5019607843137255,
         "fill": "#ffff66",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 13,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0012"
     },
     {
       "type": "Feature",
@@ -1156,8 +1300,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 14,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0013"
     },
     {
       "type": "Feature",
@@ -1187,8 +1343,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 15,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0014"
     },
     {
       "type": "Feature",
@@ -1218,8 +1386,180 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "018_Genesis37_30-39"
+          ],
+          "sourceOrder": 16,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0015"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "018_Genesis37_30-39.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "018_Genesis37_30-39",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Via Maris Route",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "King's Highway",
+              "sourceOrder": 3,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0003",
+              "name": "Egypt",
+              "sourceOrder": 4,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0004",
+              "name": "Hill Country of Gilead",
+              "sourceOrder": 5,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0005",
+              "name": "Gilead to Via Maris",
+              "sourceOrder": 6,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0006",
+              "name": "Gilead",
+              "sourceOrder": 7,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0007",
+              "name": "Dothan",
+              "sourceOrder": 8,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0008",
+              "name": "Hebron",
+              "sourceOrder": 9,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0009",
+              "name": "Shechem",
+              "sourceOrder": 10,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0010",
+              "name": "Chezib",
+              "sourceOrder": 11,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0011",
+              "name": "Adullam",
+              "sourceOrder": 12,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0012",
+              "name": "Midian",
+              "sourceOrder": 13,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0013",
+              "name": "Midian",
+              "sourceOrder": 14,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0014",
+              "name": "On (Heliopolis)",
+              "sourceOrder": 15,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0015",
+              "name": "Possible Pharoah's Palace",
+              "sourceOrder": 16,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

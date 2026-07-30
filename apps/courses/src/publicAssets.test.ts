@@ -83,4 +83,31 @@ describe("deployment-aware course assets", () => {
     );
     expect(cave?.href).not.toContain("./");
   });
+
+  it("resolves every Exodus 1 resource from the public asset root", () => {
+    stubWindow({
+      hostname: "localhost",
+      pathname: "/exodus/1/1",
+    });
+    const lesson = courseLibrary.allLessons.find(
+      (candidate) => candidate.slug === "026-exodus1-1-1-16"
+    );
+    const resources = new Map(
+      lesson?.resolvedResources.map((resource) => [
+        resource.name,
+        resource.href,
+      ])
+    );
+    const resourceRoot =
+      "/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16";
+
+    expect(resources).toEqual(
+      new Map([
+        ["AmenhotepII.png", `${resourceRoot}/AmenhotepII.png`],
+        ["LBS+Timeline.pdf", `${resourceRoot}/LBS+Timeline.pdf`],
+        ["Merenptah_stele.jpg", `${resourceRoot}/Merenptah_stele.jpg`],
+        ["WebensenuTrio.png", `${resourceRoot}/WebensenuTrio.png`],
+      ])
+    );
+  });
 });

@@ -16,8 +16,22 @@
         "visibility": false,
         "styleUrl": "#landrepresentativepoint00",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -35,8 +49,22 @@
         "styleUrl": "#landpoint500",
         "icon-opacity": 1,
         "icon-color": "#21ff06",
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -55,8 +83,22 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 5,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -148,8 +190,22 @@
         "styleUrl": "#landisobands22523",
         "fill-opacity": 0.5019607843137255,
         "fill": "#cc66ff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 6,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -471,8 +527,22 @@
         "styleUrl": "#region004",
         "fill-opacity": 0.5019607843137255,
         "fill": "#ccff66",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
     },
     {
       "type": "Feature",
@@ -491,8 +561,22 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 8,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0006"
     },
     {
       "type": "Feature",
@@ -511,8 +595,22 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 9,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
     },
     {
       "type": "Feature",
@@ -531,8 +629,22 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 10,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
     },
     {
       "type": "Feature",
@@ -664,8 +776,22 @@
         "styleUrl": "#landisobands6",
         "fill-opacity": 0.5019607843137255,
         "fill": "#fd8008",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Abraham's Route"
+          ],
+          "sourceOrder": 11,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0009"
     },
     {
       "type": "Feature",
@@ -684,8 +810,22 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Covenant and Lot"
+          ],
+          "sourceOrder": 13,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0010"
     },
     {
       "type": "Feature",
@@ -704,8 +844,22 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Covenant and Lot"
+          ],
+          "sourceOrder": 14,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0011"
     },
     {
       "type": "Feature",
@@ -724,8 +878,22 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Covenant and Lot"
+          ],
+          "sourceOrder": 15,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0012"
     },
     {
       "type": "Feature",
@@ -744,8 +912,22 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Covenant and Lot"
+          ],
+          "sourceOrder": 16,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0013"
     },
     {
       "type": "Feature",
@@ -764,8 +946,22 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "Covenant and Lot"
+          ],
+          "sourceOrder": 17,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0014"
     },
     {
       "type": "Feature",
@@ -784,8 +980,24 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0005"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Bad Guys"
+          ],
+          "sourceOrder": 20,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0015"
     },
     {
       "type": "Feature",
@@ -804,8 +1016,24 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0005"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Bad Guys"
+          ],
+          "sourceOrder": 21,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0016"
     },
     {
       "type": "Feature",
@@ -824,8 +1052,24 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0005"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Bad Guys"
+          ],
+          "sourceOrder": 22,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0017"
     },
     {
       "type": "Feature",
@@ -844,8 +1088,24 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0005"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Bad Guys"
+          ],
+          "sourceOrder": 23,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0018"
     },
     {
       "type": "Feature",
@@ -910,8 +1170,24 @@
         "styleUrl": "#path0",
         "stroke-opacity": 1,
         "stroke": "#fc02ff",
-        "stroke-width": 5
-      }
+        "stroke-width": 5,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 25,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0019"
     },
     {
       "type": "Feature",
@@ -930,8 +1206,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 26,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0020"
     },
     {
       "type": "Feature",
@@ -950,8 +1242,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 27,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0021"
     },
     {
       "type": "Feature",
@@ -970,8 +1278,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 28,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0022"
     },
     {
       "type": "Feature",
@@ -990,8 +1314,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 29,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0023"
     },
     {
       "type": "Feature",
@@ -1010,8 +1350,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 30,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0024"
     },
     {
       "type": "Feature",
@@ -1030,8 +1386,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 31,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0025"
     },
     {
       "type": "Feature",
@@ -1050,8 +1422,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 32,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0026"
     },
     {
       "type": "Feature",
@@ -1070,8 +1458,24 @@
         "icon-opacity": 1,
         "icon-color": "#ffff0a",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0006"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Losers"
+          ],
+          "sourceOrder": 33,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0027"
     },
     {
       "type": "Feature",
@@ -1113,8 +1517,24 @@
         "styleUrl": "#region002",
         "fill-opacity": 0.5019607843137255,
         "fill": "#ffff0a",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0007"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Lot's Guys"
+          ],
+          "sourceOrder": 35,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0028"
     },
     {
       "type": "Feature",
@@ -1133,8 +1553,24 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0007"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Lot's Guys"
+          ],
+          "sourceOrder": 36,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0029"
     },
     {
       "type": "Feature",
@@ -1153,8 +1589,24 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0007"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Lot's Guys"
+          ],
+          "sourceOrder": 37,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0030"
     },
     {
       "type": "Feature",
@@ -1173,8 +1625,24 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0007"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Lot's Guys"
+          ],
+          "sourceOrder": 38,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0031"
     },
     {
       "type": "Feature",
@@ -1193,8 +1661,24 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0007"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Lot's Guys"
+          ],
+          "sourceOrder": 39,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0032"
     },
     {
       "type": "Feature",
@@ -1213,8 +1697,24 @@
         "icon-opacity": 1,
         "icon-color": "#20ffff",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/wht-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0007"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Lot's Guys"
+          ],
+          "sourceOrder": 40,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0033"
     },
     {
       "type": "Feature",
@@ -1233,8 +1733,24 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0008"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Abram's Route"
+          ],
+          "sourceOrder": 42,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0034"
     },
     {
       "type": "Feature",
@@ -1494,8 +2010,24 @@
         "styleUrl": "#routeStyle0",
         "stroke-opacity": 1,
         "stroke": "#ff0000",
-        "stroke-width": 4
-      }
+        "stroke-width": 4,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0008"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Abram's Route"
+          ],
+          "sourceOrder": 43,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0035"
     },
     {
       "type": "Feature",
@@ -1514,8 +2046,24 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0008"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Abram's Route"
+          ],
+          "sourceOrder": 44,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0036"
     },
     {
       "type": "Feature",
@@ -1636,8 +2184,24 @@
         "visibility": false,
         "styleUrl": "#region6",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#fd6666"
-      }
+        "fill": "#fd6666",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0008"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Abram's Route"
+          ],
+          "sourceOrder": 45,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0037"
     },
     {
       "type": "Feature",
@@ -1656,8 +2220,468 @@
         "icon-opacity": 1,
         "icon-color": "#21ff06",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004",
+            "folder-0008"
+          ],
+          "folderPath": [
+            "007_Genesis12-14",
+            "War",
+            "Abram's Route"
+          ],
+          "sourceOrder": 46,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0038"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "007_Genesis12-14.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "007_Genesis12-14",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "folder",
+              "id": "folder-0002",
+              "name": "Abraham's Route",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": null,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0001",
+                  "name": "Ararat / Urartu",
+                  "sourceOrder": 3,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0002",
+                  "name": "Ur",
+                  "sourceOrder": 4,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0003",
+                  "name": "Haran",
+                  "sourceOrder": 5,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0004",
+                  "name": "Canaan",
+                  "sourceOrder": 6,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0005",
+                  "name": "Oak of Moreh",
+                  "sourceOrder": 7,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0006",
+                  "name": "Shechem",
+                  "sourceOrder": 8,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0007",
+                  "name": "Bethel",
+                  "sourceOrder": 9,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0008",
+                  "name": "Ai",
+                  "sourceOrder": 10,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0009",
+                  "name": "Negeb",
+                  "sourceOrder": 11,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                }
+              ]
+            },
+            {
+              "type": "folder",
+              "id": "folder-0003",
+              "name": "Covenant and Lot",
+              "sourceOrder": 12,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": null,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0010",
+                  "name": "Overlook Street View",
+                  "sourceOrder": 13,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0011",
+                  "name": "Mount Hermon",
+                  "sourceOrder": 14,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0012",
+                  "name": "Gomorrah",
+                  "sourceOrder": 15,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0013",
+                  "name": "Sodom",
+                  "sourceOrder": 16,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0014",
+                  "name": "Zoar",
+                  "sourceOrder": 17,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                }
+              ]
+            },
+            {
+              "type": "folder",
+              "id": "folder-0004",
+              "name": "War",
+              "sourceOrder": 18,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": null,
+              "children": [
+                {
+                  "type": "folder",
+                  "id": "folder-0005",
+                  "name": "Bad Guys",
+                  "sourceOrder": 19,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "open": null,
+                  "children": [
+                    {
+                      "type": "feature",
+                      "id": "feature-0015",
+                      "name": "Shinar",
+                      "sourceOrder": 20,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0016",
+                      "name": "Ellasar",
+                      "sourceOrder": 21,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0017",
+                      "name": "Elam",
+                      "sourceOrder": 22,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0018",
+                      "name": "Goiim",
+                      "sourceOrder": 23,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    }
+                  ]
+                },
+                {
+                  "type": "folder",
+                  "id": "folder-0006",
+                  "name": "Losers",
+                  "sourceOrder": 24,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "open": null,
+                  "children": [
+                    {
+                      "type": "feature",
+                      "id": "feature-0019",
+                      "name": "King's Highway",
+                      "sourceOrder": 25,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "LineString"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0020",
+                      "name": "Ashteroth-karnaim",
+                      "sourceOrder": 26,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0021",
+                      "name": "Ham",
+                      "sourceOrder": 27,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0022",
+                      "name": "Shaveh-kiriathaim",
+                      "sourceOrder": 28,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0023",
+                      "name": "Amalek",
+                      "sourceOrder": 29,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0024",
+                      "name": "Mount Seir",
+                      "sourceOrder": 30,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0025",
+                      "name": "El Paran",
+                      "sourceOrder": 31,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0026",
+                      "name": "En-Mishpat (Kadesh-Barnea)",
+                      "sourceOrder": 32,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0027",
+                      "name": "Hazazon-tamar",
+                      "sourceOrder": 33,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    }
+                  ]
+                },
+                {
+                  "type": "folder",
+                  "id": "folder-0007",
+                  "name": "Lot's Guys",
+                  "sourceOrder": 34,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "open": true,
+                  "children": [
+                    {
+                      "type": "feature",
+                      "id": "feature-0028",
+                      "name": "Valley of Siddim",
+                      "sourceOrder": 35,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0029",
+                      "name": "Sodom",
+                      "sourceOrder": 36,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0030",
+                      "name": "Gomorrah",
+                      "sourceOrder": 37,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0031",
+                      "name": "Admah",
+                      "sourceOrder": 38,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0032",
+                      "name": "Zeboiim",
+                      "sourceOrder": 39,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0033",
+                      "name": "Zoar",
+                      "sourceOrder": 40,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    }
+                  ]
+                },
+                {
+                  "type": "folder",
+                  "id": "folder-0008",
+                  "name": "Abram's Route",
+                  "sourceOrder": 41,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "open": true,
+                  "children": [
+                    {
+                      "type": "feature",
+                      "id": "feature-0034",
+                      "name": "Mamre / Ramat el Khalil",
+                      "sourceOrder": 42,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0035",
+                      "name": "Via Maris",
+                      "sourceOrder": 43,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "LineString"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0036",
+                      "name": "Megiddo",
+                      "sourceOrder": 44,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0037",
+                      "name": "Jezreel Valley",
+                      "sourceOrder": 45,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0038",
+                      "name": "Hobah",
+                      "sourceOrder": 46,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

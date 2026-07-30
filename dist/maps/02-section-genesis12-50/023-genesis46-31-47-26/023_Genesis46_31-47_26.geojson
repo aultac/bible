@@ -240,8 +240,22 @@
         "styleUrl": "#routeStyle00",
         "stroke-opacity": 1,
         "stroke": "#ff0000",
-        "stroke-width": 4
-      }
+        "stroke-width": 4,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "023_Genesis46_31-47_26",
+            "Inodus"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -272,8 +286,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "023_Genesis46_31-47_26",
+            "Inodus"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -304,8 +332,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "023_Genesis46_31-47_26",
+            "Inodus"
+          ],
+          "sourceOrder": 5,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -433,8 +475,22 @@
         "styleUrl": "#landisobands2252222223",
         "fill-opacity": 0.5019607843137255,
         "fill": "#20ffff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "023_Genesis46_31-47_26",
+            "Inodus"
+          ],
+          "sourceOrder": 6,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -464,8 +520,103 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "023_Genesis46_31-47_26",
+            "Inodus"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "023_Genesis46_31-47_26.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "023_Genesis46_31-47_26",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "folder",
+              "id": "folder-0002",
+              "name": "Inodus",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": null,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0001",
+                  "name": "Via Maris Route",
+                  "sourceOrder": 3,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "LineString"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0002",
+                  "name": "Goshen",
+                  "sourceOrder": 4,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0003",
+                  "name": "Hebron",
+                  "sourceOrder": 5,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0004",
+                  "name": "Goshen",
+                  "sourceOrder": 6,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0005",
+                  "name": "Tomb of Patriarchs",
+                  "sourceOrder": 7,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

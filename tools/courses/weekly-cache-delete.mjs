@@ -121,6 +121,32 @@ export async function reconcileWeeklyCache({
     }
   }
 
+  const appliedToolsData = state.applied.toolsData;
+  if (appliedToolsData) {
+    if (!(await pathExists(appliedToolsData.path))) {
+      mismatches.push(
+        mismatch(
+          "tools",
+          "applied-tools-data-missing",
+          "Generated tool relationships are missing.",
+          { path: appliedToolsData.path }
+        )
+      );
+    } else if (
+      hashContent(await readFile(appliedToolsData.path)) !==
+      appliedToolsData.hash
+    ) {
+      mismatches.push(
+        mismatch(
+          "tools",
+          "applied-tools-data-changed",
+          "Generated tool relationships no longer match this cache.",
+          { path: appliedToolsData.path }
+        )
+      );
+    }
+  }
+
   const documentSummaries = await loadDocumentSummaries(cacheRoot);
   const lessonManifests = await collectLessonManifests(
     path.join(repoRoot, "apps", "courses", "content")

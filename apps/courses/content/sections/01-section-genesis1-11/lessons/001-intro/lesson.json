@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-28T13:34:02.224Z",
+  "generatedAt": "2026-07-30T11:47:27.661Z",
   "id": "001-intro",
   "slug": "001-intro",
   "sectionId": "01-section-genesis1-11",
@@ -41,14 +41,7 @@
       "Polygon"
     ]
   },
-  "resources": [
-    {
-      "name": "GodCreatedMan_Inclusio.docx",
-      "sourcePath": "01-Bucket-Genesis1-11/001-Intro/resources/GodCreatedMan_Inclusio.docx",
-      "path": "apps/courses/public/resources/01-section-genesis1-11/001-intro/GodCreatedMan_Inclusio.docx",
-      "publicUrl": "/courses/resources/01-section-genesis1-11/001-intro/GodCreatedMan_Inclusio.docx"
-    }
-  ],
+  "resources": [],
   "youtube": {
     "videoId": "IWMeBnGqI7U",
     "title": "Know Your Bible - Week 1",
@@ -70,7 +63,7 @@
     "folderName": "001-Intro",
     "notesPath": "01-Bucket-Genesis1-11/001-Intro/notes.md",
     "summaryDocxPath": "01-Bucket-Genesis1-11/001-Intro/001_Intro_summary.docx",
-    "resourcesDirectory": "01-Bucket-Genesis1-11/001-Intro/resources",
+    "resourcesDirectory": null,
     "mapPath": "01-Bucket-Genesis1-11/001-Intro/001-Intro.kmz"
   }
 }

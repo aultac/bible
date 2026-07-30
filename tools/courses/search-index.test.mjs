@@ -34,6 +34,22 @@ describe("search index normalization", () => {
     );
   });
 
+  it("omits authored tool and resource directives from search text", () => {
+    const blocks = markdownToSearchBlocks(
+      [
+        "Visible lesson context.",
+        "TOOL_LINK: /ages/",
+        "RESOURCE_LINK: chart.png: https://example.test/chart",
+        "More visible context.",
+      ].join("\n")
+    );
+
+    expect(blocks).toEqual([
+      "Visible lesson context.",
+      "More visible context.",
+    ]);
+  });
+
   it("normalizes tokens and omits stop words", () => {
     expect(tokenizeSearchText("The Messiah’s résumé")).toEqual([
       "messiah",

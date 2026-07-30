@@ -240,8 +240,22 @@
         "styleUrl": "#routeStyle00",
         "stroke-opacity": 1,
         "stroke": "#ff0000",
-        "stroke-width": 4
-      }
+        "stroke-width": 4,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Inodus"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -272,8 +286,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Inodus"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -304,8 +332,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Inodus"
+          ],
+          "sourceOrder": 5,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -433,8 +475,22 @@
         "styleUrl": "#landisobands2252222223",
         "fill-opacity": 0.5019607843137255,
         "fill": "#20ffff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Inodus"
+          ],
+          "sourceOrder": 6,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -464,8 +520,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Inodus"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
     },
     {
       "type": "Feature",
@@ -781,8 +851,22 @@
         "visibility": false,
         "styleUrl": "#region4",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#ffff0a"
-      }
+        "fill": "#ffff0a",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Translations"
+          ],
+          "sourceOrder": 9,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0006"
     },
     {
       "type": "Feature",
@@ -1034,8 +1118,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Translations"
+          ],
+          "sourceOrder": 10,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
     },
     {
       "type": "Feature",
@@ -1065,8 +1163,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Translations"
+          ],
+          "sourceOrder": 11,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
     },
     {
       "type": "Feature",
@@ -1097,8 +1209,150 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "022_Genesis45_25-46_30",
+            "Translations"
+          ],
+          "sourceOrder": 12,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0009"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "022_Genesis45_25-46_30.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "022_Genesis45_25-46_30",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "folder",
+              "id": "folder-0002",
+              "name": "Inodus",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": null,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0001",
+                  "name": "Via Maris Route",
+                  "sourceOrder": 3,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "LineString"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0002",
+                  "name": "Goshen",
+                  "sourceOrder": 4,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0003",
+                  "name": "Hebron",
+                  "sourceOrder": 5,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0004",
+                  "name": "Goshen",
+                  "sourceOrder": 6,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0005",
+                  "name": "Tomb of Patriarchs",
+                  "sourceOrder": 7,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                }
+              ]
+            },
+            {
+              "type": "folder",
+              "id": "folder-0003",
+              "name": "Translations",
+              "sourceOrder": 8,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": null,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0006",
+                  "name": "Alexander the Great",
+                  "sourceOrder": 9,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0007",
+                  "name": "Roman Empire",
+                  "sourceOrder": 10,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0008",
+                  "name": "Rome",
+                  "sourceOrder": 11,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0009",
+                  "name": "Constantinople",
+                  "sourceOrder": 12,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

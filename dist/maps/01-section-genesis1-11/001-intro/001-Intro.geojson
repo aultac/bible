@@ -90,8 +90,20 @@
         "visibility": false,
         "styleUrl": "#landisobands1",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#80ff07"
-      }
+        "fill": "#80ff07",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 2,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -262,8 +274,20 @@
         "visibility": false,
         "styleUrl": "#region8",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#20ffff"
-      }
+        "fill": "#20ffff",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -379,8 +403,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -526,8 +562,20 @@
         "visibility": false,
         "styleUrl": "#landisobands",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#800002"
-      }
+        "fill": "#800002",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 5,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -703,8 +751,20 @@
         "visibility": false,
         "styleUrl": "#landisobands20",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#408002"
-      }
+        "fill": "#408002",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 6,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
     },
     {
       "type": "Feature",
@@ -1165,8 +1225,20 @@
         "visibility": false,
         "styleUrl": "#region5",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#fd8008"
-      }
+        "fill": "#fd8008",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0006"
     },
     {
       "type": "Feature",
@@ -1482,8 +1554,20 @@
         "visibility": false,
         "styleUrl": "#region4",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#ffff0a"
-      }
+        "fill": "#ffff0a",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 8,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
     },
     {
       "type": "Feature",
@@ -1704,8 +1788,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 9,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
     },
     {
       "type": "Feature",
@@ -1723,8 +1819,20 @@
         "open": "1",
         "styleUrl": "#landpoint22",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 10,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0009"
     },
     {
       "type": "Feature",
@@ -2261,8 +2369,20 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 11,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0010"
     },
     {
       "type": "Feature",
@@ -2279,8 +2399,20 @@
         "visibility": false,
         "styleUrl": "#landpoint22",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 12,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0011"
     },
     {
       "type": "Feature",
@@ -2297,8 +2429,20 @@
         "visibility": false,
         "styleUrl": "#landpoint22",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 13,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0012"
     },
     {
       "type": "Feature",
@@ -2538,8 +2682,20 @@
         "styleUrl": "#routeStyle00",
         "stroke-opacity": 1,
         "stroke": "#ff0000",
-        "stroke-width": 4
-      }
+        "stroke-width": 4,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 14,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0013"
     },
     {
       "type": "Feature",
@@ -2553,8 +2709,20 @@
       },
       "properties": {
         "name": "Gaza",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 15,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0014"
     },
     {
       "type": "Feature",
@@ -2568,8 +2736,20 @@
       },
       "properties": {
         "name": "Ashkelon",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 16,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0015"
     },
     {
       "type": "Feature",
@@ -2583,8 +2763,20 @@
       },
       "properties": {
         "name": "Ashdod",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 17,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0016"
     },
     {
       "type": "Feature",
@@ -2598,8 +2790,20 @@
       },
       "properties": {
         "name": "Aphek",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 18,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0017"
     },
     {
       "type": "Feature",
@@ -2613,8 +2817,20 @@
       },
       "properties": {
         "name": "Dor",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 19,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0018"
     },
     {
       "type": "Feature",
@@ -2628,8 +2844,20 @@
       },
       "properties": {
         "name": "Megiddo",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 20,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0019"
     },
     {
       "type": "Feature",
@@ -2643,8 +2871,20 @@
       },
       "properties": {
         "name": "Tiberias",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 21,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0020"
     },
     {
       "type": "Feature",
@@ -2658,8 +2898,20 @@
       },
       "properties": {
         "name": "Capernaum",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 22,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0021"
     },
     {
       "type": "Feature",
@@ -2673,8 +2925,20 @@
       },
       "properties": {
         "name": "Hazor",
-        "visibility": false
-      }
+        "visibility": false,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 23,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0022"
     },
     {
       "type": "Feature",
@@ -2739,8 +3003,20 @@
         "styleUrl": "#path0",
         "stroke-opacity": 1,
         "stroke": "#fc02ff",
-        "stroke-width": 5
-      }
+        "stroke-width": 5,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 24,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0023"
     },
     {
       "type": "Feature",
@@ -2757,8 +3033,20 @@
         "visibility": false,
         "styleUrl": "#landpoint0",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 25,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0024"
     },
     {
       "type": "Feature",
@@ -2880,8 +3168,20 @@
         "open": "1",
         "styleUrl": "#region6",
         "fill-opacity": 0.5019607843137255,
-        "fill": "#fd6666"
-      }
+        "fill": "#fd6666",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 26,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0025"
     },
     {
       "type": "Feature",
@@ -2898,8 +3198,279 @@
         "visibility": false,
         "styleUrl": "#landpoint1",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "001-Intro"
+          ],
+          "sourceOrder": 27,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0026"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "001-Intro.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "001-Intro",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Egypt",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "Fertile Crescent",
+              "sourceOrder": 3,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0003",
+              "name": "Mesopotamia",
+              "sourceOrder": 4,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0004",
+              "name": "Assyria",
+              "sourceOrder": 5,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0005",
+              "name": "Babylon",
+              "sourceOrder": 6,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0006",
+              "name": "Persia",
+              "sourceOrder": 7,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0007",
+              "name": "Alexander the Great",
+              "sourceOrder": 8,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0008",
+              "name": "Israel",
+              "sourceOrder": 9,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0009",
+              "name": "Jerusalem",
+              "sourceOrder": 10,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0010",
+              "name": "Jordan 1 / Jordan River",
+              "sourceOrder": 11,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0011",
+              "name": "Tyre",
+              "sourceOrder": 12,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0012",
+              "name": "Caesarea / Caesarea Maritima",
+              "sourceOrder": 13,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0013",
+              "name": "Via Maris Route",
+              "sourceOrder": 14,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0014",
+              "name": "Gaza",
+              "sourceOrder": 15,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0015",
+              "name": "Ashkelon",
+              "sourceOrder": 16,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0016",
+              "name": "Ashdod",
+              "sourceOrder": 17,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0017",
+              "name": "Aphek",
+              "sourceOrder": 18,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0018",
+              "name": "Dor",
+              "sourceOrder": 19,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0019",
+              "name": "Megiddo",
+              "sourceOrder": 20,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0020",
+              "name": "Tiberias",
+              "sourceOrder": 21,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0021",
+              "name": "Capernaum",
+              "sourceOrder": 22,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0022",
+              "name": "Hazor",
+              "sourceOrder": 23,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0023",
+              "name": "King's Highway",
+              "sourceOrder": 24,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "LineString"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0024",
+              "name": "Damascus",
+              "sourceOrder": 25,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0025",
+              "name": "Jezreel Valley",
+              "sourceOrder": 26,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0026",
+              "name": "Megiddo",
+              "sourceOrder": 27,
+              "visibility": false,
+              "initiallyVisible": false,
+              "geometryType": "Point"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

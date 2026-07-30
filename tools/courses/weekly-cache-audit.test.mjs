@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -200,6 +201,60 @@ describe("weekly cache readiness audit", () => {
       expect.arrayContaining([
         "lesson-sequence-duplicate",
         "video-lesson-unmatched",
+      ])
+    );
+  });
+
+  it("rejects malformed directives in staged Apple Notes candidates", async () => {
+    const fixture = await createAuditableCache();
+    const stagedNotesPath = path.join(fixture.cacheRoot, "staged", "notes.md");
+    const canonicalLessonDirectoryPath = path.join(
+      fixture.canonicalBase,
+      "01-Bucket-Genesis1-11",
+      "001-Genesis1_1-2_3"
+    );
+    const markdown = "TOOL_LINK: https://example.test/ages/\n";
+    await mkdir(path.dirname(stagedNotesPath), { recursive: true });
+    await mkdir(canonicalLessonDirectoryPath, { recursive: true });
+    await writeFile(stagedNotesPath, markdown);
+    const reportPath = path.join(
+      fixture.cacheRoot,
+      "canonical-note-backup-report.json"
+    );
+    await writeJsonAtomic(reportPath, {
+      totals: { processed: 1 },
+      updates: [
+        {
+          title: "Lesson One",
+          stagedNotesPath,
+          canonicalLessonDirectoryPath,
+          sourceMarkdownHash: createHash("md5")
+            .update(markdown)
+            .digest("hex"),
+        },
+      ],
+      missingCanonicalLessonFolders: [],
+    });
+    await recordCacheComponent({
+      cacheRoot: fixture.cacheRoot,
+      state: await loadCacheState(fixture.cacheRoot),
+      componentName: "notes",
+      outputPath: reportPath,
+    });
+
+    const result = await auditWeeklyCache({
+      cacheRoot: fixture.cacheRoot,
+      canonicalBase: fixture.canonicalBase,
+    });
+
+    expect(result.audit.ready).toBe(false);
+    expect(result.audit.findings).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          component: "notes",
+          code: "tool-link-invalid",
+          lineNumber: 1,
+        }),
       ])
     );
   });

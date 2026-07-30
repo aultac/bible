@@ -2,7 +2,7 @@
 
 **Summary: Promo**
 
-**Title:** **God creates the universe and man.**
+**Title:** **The book that affected the world more than any other tells a cohesive story of reality that stretches from the beginning to the end of history.**
 
 **Storyline Summary:**
 

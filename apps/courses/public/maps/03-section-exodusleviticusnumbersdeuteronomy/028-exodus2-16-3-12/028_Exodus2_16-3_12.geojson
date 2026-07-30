@@ -111,8 +111,20 @@
         "styleUrl": "#landisobands22522222261",
         "fill-opacity": 0.5019607843137255,
         "fill": "#fc02ff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12"
+          ],
+          "sourceOrder": 2,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -142,8 +154,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12"
+          ],
+          "sourceOrder": 3,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -173,8 +197,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12"
+          ],
+          "sourceOrder": 4,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -301,8 +337,20 @@
         "styleUrl": "#landisobands2252222223",
         "fill-opacity": 0.5019607843137255,
         "fill": "#20ffff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12"
+          ],
+          "sourceOrder": 5,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -331,8 +379,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai"
+          ],
+          "sourceOrder": 7,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0005"
     },
     {
       "type": "Feature",
@@ -361,8 +423,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai"
+          ],
+          "sourceOrder": 8,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0006"
     },
     {
       "type": "Feature",
@@ -392,8 +468,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 10,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
     },
     {
       "type": "Feature",
@@ -423,8 +515,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 11,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
     },
     {
       "type": "Feature",
@@ -454,8 +562,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 12,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0009"
     },
     {
       "type": "Feature",
@@ -485,8 +609,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 13,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0010"
     },
     {
       "type": "Feature",
@@ -516,8 +656,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 14,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0011"
     },
     {
       "type": "Feature",
@@ -547,8 +703,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 15,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0012"
     },
     {
       "type": "Feature",
@@ -578,8 +750,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 16,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0013"
     },
     {
       "type": "Feature",
@@ -609,8 +797,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 17,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0014"
     },
     {
       "type": "Feature",
@@ -640,8 +844,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 18,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0015"
     },
     {
       "type": "Feature",
@@ -671,8 +891,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 19,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0016"
     },
     {
       "type": "Feature",
@@ -702,8 +938,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 20,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0017"
     },
     {
       "type": "Feature",
@@ -733,8 +985,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 21,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0018"
     },
     {
       "type": "Feature",
@@ -756,8 +1024,24 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 2,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 22,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0019"
     },
     {
       "type": "Feature",
@@ -787,8 +1071,24 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 23,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0020"
     },
     {
       "type": "Feature",
@@ -817,8 +1117,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai"
+          ],
+          "sourceOrder": 24,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0021"
     },
     {
       "type": "Feature",
@@ -847,8 +1161,267 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "028_Exodus2_16-3_12",
+            "Sinai"
+          ],
+          "sourceOrder": 25,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0022"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "028_Exodus2_16-3_12.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "028_Exodus2_16-3_12",
+          "sourceOrder": 1,
+          "visibility": null,
+          "initiallyVisible": true,
+          "open": true,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Midian",
+              "sourceOrder": 2,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "Midian",
+              "sourceOrder": 3,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0003",
+              "name": "Goshen",
+              "sourceOrder": 4,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0004",
+              "name": "Goshen",
+              "sourceOrder": 5,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "folder",
+              "id": "folder-0002",
+              "name": "Sinai",
+              "sourceOrder": 6,
+              "visibility": null,
+              "initiallyVisible": true,
+              "open": true,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0005",
+                  "name": "Sinai (Jabal Maqla)",
+                  "sourceOrder": 7,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0006",
+                  "name": "Sinai / Jebel Musa",
+                  "sourceOrder": 8,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "folder",
+                  "id": "folder-0003",
+                  "name": "Sinai - All Guesses",
+                  "sourceOrder": 9,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "open": null,
+                  "children": [
+                    {
+                      "type": "feature",
+                      "id": "feature-0007",
+                      "name": "Mount Sinai / Jebel Musa",
+                      "sourceOrder": 10,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0008",
+                      "name": "Mount Sinai / Ras es Safsafeh",
+                      "sourceOrder": 11,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0009",
+                      "name": "Mount Sinai / Jebel Sin Bishar",
+                      "sourceOrder": 12,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0010",
+                      "name": "Mount Sinai / Har Karkom",
+                      "sourceOrder": 13,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0011",
+                      "name": "Mount Sinai / Jebel Serbal",
+                      "sourceOrder": 14,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0012",
+                      "name": "Mount Sinai / Jebel Katherina",
+                      "sourceOrder": 15,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0013",
+                      "name": "Mount Sinai / Jebel Halal",
+                      "sourceOrder": 16,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0014",
+                      "name": "Mount Sinai / Jabal al Lawz",
+                      "sourceOrder": 17,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0015",
+                      "name": "Mount Sinai / Jebel Hashem el Tarif",
+                      "sourceOrder": 18,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0016",
+                      "name": "Mount Sinai / Jabal al Magharah",
+                      "sourceOrder": 19,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0017",
+                      "name": "Mount Sinai / Jebel Yeleq",
+                      "sourceOrder": 20,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0018",
+                      "name": "Mount Sinai / Har ‘Arif",
+                      "sourceOrder": 21,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0019",
+                      "name": "Mount Sinai / Al Manifa",
+                      "sourceOrder": 22,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0020",
+                      "name": "Mount Horeb / Jabal Harb",
+                      "sourceOrder": 23,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    }
+                  ]
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0021",
+                  "name": "Gulf of Suez",
+                  "sourceOrder": 24,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0022",
+                  "name": "Nuweiba",
+                  "sourceOrder": 25,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

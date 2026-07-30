@@ -240,6 +240,8 @@ describe("weekly cache preparation and apply", () => {
       report: { updates: [] },
       applied: [],
     }));
+    const toolsDataPath = path.join(coursesEnv.root, "toolsData.ts");
+    await writeFile(toolsDataPath, "export const toolsData = [] as const;\n");
     const syncCoursesContent = vi.fn(async (options) => {
       expect(options.playlistSnapshot.videos[0].videoId).toBe("cached-video");
       expect(options.documentSummaries.records[0].videoSummary).toBe(
@@ -250,6 +252,7 @@ describe("weekly cache preparation and apply", () => {
         sectionCount: 1,
         lessonCount: 1,
         matchedYoutubeLessons: 1,
+        toolsDataPath,
       };
     });
     const auditCourses = vi.fn(async () => ({
@@ -272,6 +275,10 @@ describe("weekly cache preparation and apply", () => {
     expect(result.phase).toBe("apply");
     expect(result.state.status).toBe("applied");
     expect(result.state.applied.componentsFingerprint).toBeTruthy();
+    expect(result.state.applied.toolsData).toMatchObject({
+      path: toolsDataPath,
+    });
+    expect(result.state.applied.toolsData.hash).toMatch(/^[a-f0-9]{64}$/u);
     expect(applyCanonicalNoteBackups).toHaveBeenCalledTimes(1);
     expect(syncCoursesContent).toHaveBeenCalledTimes(1);
     expect(auditCourses).toHaveBeenCalledTimes(1);

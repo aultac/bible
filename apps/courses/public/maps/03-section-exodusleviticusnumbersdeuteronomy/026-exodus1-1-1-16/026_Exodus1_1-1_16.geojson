@@ -28,8 +28,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "025_Exodus1_1-1_16"
+          ],
+          "sourceOrder": 2,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -58,8 +70,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "025_Exodus1_1-1_16"
+          ],
+          "sourceOrder": 3,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -88,8 +112,20 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "025_Exodus1_1-1_16"
+          ],
+          "sourceOrder": 4,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -215,8 +251,81 @@
         "styleUrl": "#landisobands2252222223",
         "fill-opacity": 0.5019607843137255,
         "fill": "#20ffff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "025_Exodus1_1-1_16"
+          ],
+          "sourceOrder": 5,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0004"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "025_Exodus1_1-1_16.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "025_Exodus1_1-1_16",
+          "sourceOrder": 1,
+          "visibility": null,
+          "initiallyVisible": true,
+          "open": null,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Rameses",
+              "sourceOrder": 2,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "Pithom",
+              "sourceOrder": 3,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0003",
+              "name": "Goshen",
+              "sourceOrder": 4,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0004",
+              "name": "Goshen",
+              "sourceOrder": 5,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Polygon"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

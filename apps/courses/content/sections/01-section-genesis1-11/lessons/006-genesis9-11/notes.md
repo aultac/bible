@@ -57,10 +57,12 @@
 - 70 NATIONS: 70 nations listed, 14 Japheth Europe and Asia Minor, 30 Ham Palestine and Africa, 26 Shem Fertile Crescent. This is why there may be 70 sons of God.
 - BABEL DURING PELEG: Earth was divided in the days of Peleg
 - At the descendants of Seth, we follow through to Abraham because this is one coherent story with a direction: Vietnam was not relevant so they aren’t mentioned. They are important, but not part of the narrative. This is the “orange juice” effect: Bible doesn’t mention orange juice, doesn’t mean it doesn’t exist. It is just focusing on the main narrative
+- TOOL_LINK: /ages/
 
 **Genesis 11:1-9**: 1:30
 
 - ZIGGURATS APP: Connect heaven and earth.
+- TOOL_LINK: /ziggurats/
 - FAME IS DESTRUCTIVE: Self-destructive quest for fame: Make a name for ourselves, or bring glory to ourselves. Instead of God. The least happy people are famous people.
 - THE MADE A NAME FOR THEMSELVES: They wanted to make a name for themselves, and in the end they did, just not the sort of name they intended. Thanks to the Torah of the God that they threw off, their name has forever, been associated with confusion. Babel because the languages sound like “babble”
 - COME DOWN: Note the joke that God had to “come down” to even see the supposedly amazing tower and city.

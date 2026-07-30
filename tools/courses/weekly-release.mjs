@@ -21,6 +21,9 @@ const WEEKLY_RELEASE_PATHS = [
   "apps/courses/public/",
   "dist/",
 ];
+const WEEKLY_RELEASE_FILES = new Set([
+  "apps/courses/src/toolsData.ts",
+]);
 
 function hash(value) {
   return createHash("sha256").update(value).digest("hex");
@@ -78,6 +81,15 @@ export async function computeReleaseFingerprint(repoRoot = REPO_ROOT) {
       files.push({
         path: path.posix.join(root, file.path),
         hash: file.hash,
+      });
+    }
+  }
+  for (const filePath of [...WEEKLY_RELEASE_FILES].sort()) {
+    const absolutePath = path.join(repoRoot, filePath);
+    if (await pathExists(absolutePath)) {
+      files.push({
+        path: filePath,
+        hash: hash(await readFile(absolutePath)),
       });
     }
   }
@@ -180,8 +192,9 @@ function parseStatusPaths(statusOutput) {
 }
 
 function isWeeklyReleasePath(filePath) {
-  return WEEKLY_RELEASE_PATHS.some((prefix) =>
-    filePath.startsWith(prefix)
+  return (
+    WEEKLY_RELEASE_FILES.has(filePath) ||
+    WEEKLY_RELEASE_PATHS.some((prefix) => filePath.startsWith(prefix))
   );
 }
 
@@ -354,6 +367,7 @@ export async function releaseWeeklyUpdate(
       "--",
       "apps/courses/content",
       "apps/courses/public",
+      "apps/courses/src/toolsData.ts",
       "dist",
       "package.json",
     ],

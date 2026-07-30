@@ -4,6 +4,7 @@ import {
   courseLibrary,
   formatLessonSequenceBadge,
   formatLessonSequenceLabel,
+  selectBillboardLessons,
   selectFeaturedLesson,
 } from "./courseData";
 
@@ -76,5 +77,35 @@ describe("canonical course outline hydration", () => {
     expect(formatLessonSequenceBadge(promo)).toBe("00");
     expect(formatLessonSequenceLabel(latest)).toBe("Week 34");
     expect(formatLessonSequenceBadge(latest)).toBe("34");
+  });
+
+  it("orders the Promo before the latest non-Promo video for the billboard", () => {
+    const promo = {
+      id: "promo",
+      lessonKind: "promo" as const,
+      youtube: { videoId: "promo" },
+    };
+    const older = {
+      id: "older",
+      lessonKind: "passage" as const,
+      youtube: { videoId: "older" },
+    };
+    const latest = {
+      id: "latest",
+      lessonKind: "passage" as const,
+      youtube: { videoId: "latest" },
+    };
+    const noVideo = {
+      id: "no-video",
+      lessonKind: "passage" as const,
+      youtube: null,
+    };
+
+    expect(
+      selectBillboardLessons([promo, older, latest, noVideo])
+    ).toEqual([promo, latest]);
+    expect(selectBillboardLessons([older, latest])).toEqual([latest]);
+    expect(selectBillboardLessons([promo])).toEqual([promo]);
+    expect(selectBillboardLessons([noVideo])).toEqual([]);
   });
 });

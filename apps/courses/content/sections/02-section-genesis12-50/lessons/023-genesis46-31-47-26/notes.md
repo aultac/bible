@@ -5,6 +5,7 @@
 **Joseph as a Type of Christ > Fractal History**:
 
 - HISTORY IS A FRACTAL: Now that your know what a fractal is, you can appreciate what I’m about to draw.
+- TOOL_LINK: /mandelbrot/
 
 - BUTTERFLY PICTURE: overarching linear structure. Jesus splits history in half. Inclusios as concentric circles within at
   - Joseph 3-level inclusio:

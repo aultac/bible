@@ -3,6 +3,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { gunzipSync } from "node:zlib";
 import { REPO_ROOT } from "./config.mjs";
+import { validateLayeredGeoJson } from "./lesson-maps.mjs";
 
 const DEFAULT_CONTENT_ROOT = path.join(
   REPO_ROOT,
@@ -495,6 +496,32 @@ export async function auditCourses({
             }
           );
         }
+        if (resource.sourceUrl) {
+          let sourceUrl;
+          try {
+            sourceUrl = new URL(resource.sourceUrl);
+          } catch {
+            sourceUrl = null;
+          }
+          if (
+            !sourceUrl ||
+            !["http:", "https:"].includes(sourceUrl.protocol)
+          ) {
+            add(
+              "error",
+              "link",
+              "resource-source-url-invalid",
+              `${lessonKey} resource source must be an absolute HTTP(S) URL.`,
+              {
+                lessonKey,
+                field: resource.name,
+                url: resource.sourceUrl,
+              }
+            );
+          } else {
+            onlineUrls.add(sourceUrl.href);
+          }
+        }
       }
 
       if (lesson.map) {
@@ -529,6 +556,10 @@ export async function auditCourses({
                 !Array.isArray(geoJson.features)
               ) {
                 throw new Error("Expected a GeoJSON FeatureCollection.");
+              }
+              const layerErrors = validateLayeredGeoJson(geoJson);
+              if (layerErrors.length > 0) {
+                throw new Error(layerErrors.join(" "));
               }
             } catch (error) {
               add(
@@ -821,7 +852,7 @@ links, content gaps, orphan assets, search data, and NOPUBLISH isolation.
 
   --strict  Fail on content-gap and other warnings as well as errors
   --json    Print the complete machine-readable result
-  --online  Also verify YouTube, ESV, and Markdown HTTP links`);
+  --online  Also verify YouTube, ESV, Markdown, and resource source links`);
 }
 
 function printHumanResult(result) {

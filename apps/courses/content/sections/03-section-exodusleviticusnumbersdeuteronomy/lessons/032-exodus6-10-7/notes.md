@@ -27,6 +27,7 @@ LEARNING TO LOVE GOD: last week I mentioned that the purpose of learning about G
 
 - INSIDER STATUS: we see now why we had this aside of Aaron and Moses’s lineage: to prove their Hebrew pedigree to their brothers. **It is the same Moses and Aaron.** The Moses to whom Yahweh said he made Moses a god to Aaron, and Aaron was his prophet.
 - INCLUSIO: the repeat of the uncircumcised lips here is the end of the inclusio from the previous mention, with the internal content being the pedigree of Moses and Aaron. Then, it picks the story back up with God’s response to Moses’s question.
+- TOOL_LINK: /ten-plagues/
 
 **Exodus 7:1-13 > Two old men go to Pharoah for Staff Into Snake miracle**
 

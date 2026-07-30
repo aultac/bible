@@ -21,8 +21,22 @@
         "icon-opacity": 1,
         "icon-color": "#fc0107",
         "icon-scale": 2,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac"
+          ],
+          "sourceOrder": 3,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0001"
     },
     {
       "type": "Feature",
@@ -64,8 +78,22 @@
         "styleUrl": "#water2",
         "fill-opacity": 0.5019607843137255,
         "fill": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac"
+          ],
+          "sourceOrder": 4,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0002"
     },
     {
       "type": "Feature",
@@ -390,8 +418,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 6,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0003"
     },
     {
       "type": "Feature",
@@ -409,8 +453,24 @@
         "description": "within 15 km of Gerar",
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0004"
     },
     {
       "type": "Feature",
@@ -735,8 +795,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 8,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
     },
     {
       "type": "Feature",
@@ -754,8 +830,24 @@
         "description": "within 15 km of Gerar",
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 9,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0006"
     },
     {
       "type": "Feature",
@@ -1080,8 +1172,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 10,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
     },
     {
       "type": "Feature",
@@ -1099,8 +1207,24 @@
         "description": "within 15 km of Gerar",
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 11,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
     },
     {
       "type": "Feature",
@@ -1425,8 +1549,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 12,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0009"
     },
     {
       "type": "Feature",
@@ -1444,8 +1584,24 @@
         "description": "within 15 km of Gerar",
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 13,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0010"
     },
     {
       "type": "Feature",
@@ -1770,8 +1926,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 14,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0011"
     },
     {
       "type": "Feature",
@@ -1789,8 +1961,24 @@
         "description": "within 15 km of Rehoboth 1",
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 15,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0012"
     },
     {
       "type": "Feature",
@@ -2114,8 +2302,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 16,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0013"
     },
     {
       "type": "Feature",
@@ -2132,8 +2336,24 @@
         "visibility": false,
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 17,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0014"
     },
     {
       "type": "Feature",
@@ -2177,8 +2397,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 18,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0015"
     },
     {
       "type": "Feature",
@@ -2195,8 +2431,24 @@
         "visibility": false,
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 19,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0016"
     },
     {
       "type": "Feature",
@@ -2713,8 +2965,24 @@
         "fill": "#0000cc",
         "stroke-opacity": 0.8,
         "stroke": "#0000cc",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 20,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0017"
     },
     {
       "type": "Feature",
@@ -2731,8 +2999,24 @@
         "visibility": false,
         "styleUrl": "#waterrepresentativepoint020",
         "icon-scale": 0.75,
-        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png"
-      }
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac",
+            "Sitnah"
+          ],
+          "sourceOrder": 21,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0018"
     },
     {
       "type": "Feature",
@@ -2762,8 +3046,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac"
+          ],
+          "sourceOrder": 22,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0019"
     },
     {
       "type": "Feature",
@@ -2855,8 +3153,22 @@
         "styleUrl": "#landisobands2252",
         "fill-opacity": 0.5019607843137255,
         "fill": "#66ffff",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac"
+          ],
+          "sourceOrder": 23,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0020"
     },
     {
       "type": "Feature",
@@ -2988,8 +3300,22 @@
         "styleUrl": "#landisobands6",
         "fill-opacity": 0.5019607843137255,
         "fill": "#fd8008",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac"
+          ],
+          "sourceOrder": 24,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0021"
     },
     {
       "type": "Feature",
@@ -3019,8 +3345,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Isaac"
+          ],
+          "sourceOrder": 25,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0022"
     },
     {
       "type": "Feature",
@@ -3050,8 +3390,22 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Esau"
+          ],
+          "sourceOrder": 27,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0023"
     },
     {
       "type": "Feature",
@@ -3173,8 +3527,22 @@
         "styleUrl": "#landisobands225222221",
         "fill-opacity": 0.5019607843137255,
         "fill": "#800080",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Esau"
+          ],
+          "sourceOrder": 28,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0024"
     },
     {
       "type": "Feature",
@@ -3221,8 +3589,22 @@
         "styleUrl": "#region1200",
         "fill-opacity": 0.5019607843137255,
         "fill": "#fc0280",
-        "stroke-width": 2
-      }
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Esau"
+          ],
+          "sourceOrder": 29,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0025"
     },
     {
       "type": "Feature",
@@ -3252,8 +3634,314 @@
           "pixels",
           "pixels"
         ],
-        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
-      }
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0004"
+          ],
+          "folderPath": [
+            "012_Genesis26-27",
+            "Esau"
+          ],
+          "sourceOrder": 30,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0026"
     }
-  ]
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "012_Genesis26-27.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "012_Genesis26-27",
+          "sourceOrder": 1,
+          "visibility": false,
+          "initiallyVisible": false,
+          "open": null,
+          "children": [
+            {
+              "type": "folder",
+              "id": "folder-0002",
+              "name": "Isaac",
+              "sourceOrder": 2,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": true,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0001",
+                  "name": "Gerar",
+                  "sourceOrder": 3,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0002",
+                  "name": "Esek / in the region between Gerar and Beersheba",
+                  "sourceOrder": 4,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "folder",
+                  "id": "folder-0003",
+                  "name": "Sitnah",
+                  "sourceOrder": 5,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "open": null,
+                  "children": [
+                    {
+                      "type": "feature",
+                      "id": "feature-0003",
+                      "name": "Sitnah / within 15 km of Tel Haror",
+                      "sourceOrder": 6,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0004",
+                      "name": "Sitnah / within 15 km of Tel Haror",
+                      "sourceOrder": 7,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0005",
+                      "name": "Sitnah / within 15 km of Tell esh Sharia",
+                      "sourceOrder": 8,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0006",
+                      "name": "Sitnah / within 15 km of Tell esh Sharia",
+                      "sourceOrder": 9,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0007",
+                      "name": "Sitnah / within 15 km of Tell Tuweiyil",
+                      "sourceOrder": 10,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0008",
+                      "name": "Sitnah / within 15 km of Tell Tuweiyil",
+                      "sourceOrder": 11,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0009",
+                      "name": "Sitnah / within 15 km of Tell Jemmeh",
+                      "sourceOrder": 12,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0010",
+                      "name": "Sitnah / within 15 km of Tell Jemmeh",
+                      "sourceOrder": 13,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0011",
+                      "name": "Sitnah / within 15 km of Ruheibeh",
+                      "sourceOrder": 14,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0012",
+                      "name": "Sitnah / within 15 km of Ruheibeh",
+                      "sourceOrder": 15,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0013",
+                      "name": "Sitnah / within 2 km of Sutnet er Ruheibeh",
+                      "sourceOrder": 16,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0014",
+                      "name": "Sitnah / within 2 km of Sutnet er Ruheibeh",
+                      "sourceOrder": 17,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0015",
+                      "name": "Sitnah / in the region between Gerar and Beersheba",
+                      "sourceOrder": 18,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Polygon"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0016",
+                      "name": "Sitnah / in the region between Gerar and Beersheba",
+                      "sourceOrder": 19,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0017",
+                      "name": "Sitnah / along Nahal Gerar",
+                      "sourceOrder": 20,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "LineString"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0018",
+                      "name": "Sitnah / along Nahal Gerar",
+                      "sourceOrder": 21,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    }
+                  ]
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0019",
+                  "name": "Rehoboth",
+                  "sourceOrder": 22,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0020",
+                  "name": "Canaan",
+                  "sourceOrder": 23,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0021",
+                  "name": "Negeb",
+                  "sourceOrder": 24,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0022",
+                  "name": "Beersheba",
+                  "sourceOrder": 25,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                }
+              ]
+            },
+            {
+              "type": "folder",
+              "id": "folder-0004",
+              "name": "Esau",
+              "sourceOrder": 26,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": true,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0023",
+                  "name": "Edom",
+                  "sourceOrder": 27,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0024",
+                  "name": "Edom",
+                  "sourceOrder": 28,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0025",
+                  "name": "Idumea",
+                  "sourceOrder": 29,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Polygon"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0026",
+                  "name": "Idumea",
+                  "sourceOrder": 30,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
