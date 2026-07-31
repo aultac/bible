@@ -10,7 +10,7 @@ const repoRoot = path.resolve(__dirname, "..", "..");
 export default defineConfig({
   plugins: [react()],
   root: __dirname,
-  base: "./",
+  base: "/",
   publicDir: path.resolve(__dirname, "public"),
   build: {
     outDir: path.resolve(repoRoot, "dist"),
