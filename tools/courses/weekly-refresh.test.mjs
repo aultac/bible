@@ -34,6 +34,14 @@ async function makeEnvironment() {
     root,
     canonicalBase,
     notesCacheRoot,
+    notesCheckpointPath: path.join(
+      root,
+      "repo",
+      "apps",
+      "courses",
+      "content",
+      "apple-notes-checkpoint.json"
+    ),
     notesAccount: "iCloud",
     notesFolder: "Know Your Bible",
     youtubePlaylistUrl: "https://www.youtube.com/playlist?list=test",
@@ -258,6 +266,17 @@ describe("weekly cache preparation and apply", () => {
     const auditCourses = vi.fn(async () => ({
       totals: { errors: 0, warnings: 0 },
     }));
+    const writeAppliedNotesCheckpoint = vi.fn(
+      async ({ checkpointPath }) => {
+        const checkpoint = {
+          schemaVersion: 1,
+          kind: "apple-notes-applied-checkpoint",
+          notes: [],
+        };
+        await writeJsonAtomic(checkpointPath, checkpoint);
+        return { checkpoint, checkpointPath };
+      }
+    );
 
     const result = await runWeeklyRefresh(
       {
@@ -267,6 +286,7 @@ describe("weekly cache preparation and apply", () => {
       },
       {
         applyCanonicalNoteBackups,
+        writeAppliedNotesCheckpoint,
         syncCoursesContent,
         auditCourses,
       }
@@ -279,7 +299,11 @@ describe("weekly cache preparation and apply", () => {
       path: toolsDataPath,
     });
     expect(result.state.applied.toolsData.hash).toMatch(/^[a-f0-9]{64}$/u);
+    expect(result.state.applied.notesCheckpoint).toMatchObject({
+      path: coursesEnv.notesCheckpointPath,
+    });
     expect(applyCanonicalNoteBackups).toHaveBeenCalledTimes(1);
+    expect(writeAppliedNotesCheckpoint).toHaveBeenCalledTimes(1);
     expect(syncCoursesContent).toHaveBeenCalledTimes(1);
     expect(auditCourses).toHaveBeenCalledTimes(1);
   });

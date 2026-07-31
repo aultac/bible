@@ -49,6 +49,7 @@
 - ORIGINAL SIN: Abram and God both implicitly speak like there is such a thing as a good man and an evil man. God could be answering knowing full well there are no “good men” in Sodom. But there is a difference between “all sin separates us from God” and “sin so bad that I will destroy the cities with fire from heaven.” **There seem here to indeed be better and worse sins**: God did not destroy the other cities, only these. Jesus speaks of how it will be worse on the day of judgement for those who saw him than for Sodom and Gomorrah.
 
 - PICTURE: put up picture of pillar of salt
+- RESOURCE_LINK: SaltPillarDeadSea.jpg: https://upload.wikimedia.org/wikipedia/commons/a/ab/SaltPillarDeadSea.jpg
 
 **Genesis 19:1-29 > Lot saved, Sodom destroyed**
 

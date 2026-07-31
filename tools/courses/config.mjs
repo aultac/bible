@@ -68,6 +68,13 @@ export async function loadCoursesEnv() {
     canonicalBase,
     notesAccount: env.COURSES_NOTES_ACCOUNT || "iCloud",
     notesFolder: env.COURSES_NOTES_FOLDER || "FBT Sunday School",
+    notesCheckpointPath: path.join(
+      REPO_ROOT,
+      "apps",
+      "courses",
+      "content",
+      "apple-notes-checkpoint.json"
+    ),
     notesCacheRoot: resolveAgainstCanonicalBase(
       canonicalBase,
       env.COURSES_NOTES_CACHE_DIR || "notes-cache"

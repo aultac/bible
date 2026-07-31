@@ -13,19 +13,31 @@ import { parseBibleReference } from "./bibleReferences";
 import { CourseSelector } from "./CourseSelector";
 import { HeaderSearch } from "./HeaderSearch";
 import { HomeBillboard } from "./HomeBillboard";
+import { ProgressMenu } from "./ProgressMenu";
+import { ProgressProvider, useProgress } from "./ProgressProvider";
 import {
   courseLibrary,
   formatLessonSequenceLabel,
   loadMarkdownContent,
+  selectBillboardLessons,
   type HydratedLesson,
 } from "./courseData";
-import { getSiteBasePath, sitePath } from "./routerBase";
+import { courseReferences } from "./courseReferences";
+import {
+  getSiteBasePath,
+  scrollToPageTop,
+  sitePath,
+} from "./routerBase";
 import {
   getToolsForLesson,
+  sortToolsByEarliestWeek,
   toolCatalog,
   transformLessonNotes,
 } from "./tools";
 import { VideoPlayer } from "./VideoPlayer";
+export const FULTON_BAPTIST_URL = "https://fultonbaptist.org";
+export const YOUTUBE_AD_DISCLAIMER =
+  "Please be aware that YouTube may show personalized advertisements while you watch. We are not responsible for or able to control these ads, and some may be inappropriate for the context of this course.";
 
 const LessonMapPanel = lazy(() => import("./LessonMapPanel"));
 
@@ -37,9 +49,23 @@ type MarkdownLoadState = {
 type ResolvedResource = HydratedLesson["resolvedResources"][number];
 
 const IMAGE_RESOURCE_PATTERN = /\.(?:avif|gif|jpe?g|png|svg|webp)$/iu;
+const orderedToolCatalog = sortToolsByEarliestWeek(
+  toolCatalog,
+  (lessonId) => courseLibrary.getLessonById(lessonId)?.sequenceNumber
+);
 
 function bookPath(bookSlug: string) {
   return `/?view=book&book=${encodeURIComponent(bookSlug)}`;
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    scrollToPageTop();
+  }, [pathname]);
+
+  return null;
 }
 
 
@@ -155,6 +181,61 @@ function MarkdownBlock({ markdown }: { markdown: string }) {
   );
 }
 
+function LessonNavigation({
+  lesson,
+  previous,
+  next,
+  position,
+}: {
+  lesson: HydratedLesson;
+  previous: HydratedLesson | null;
+  next: HydratedLesson | null;
+  position: "top" | "bottom";
+}) {
+  const { completedLessonIds, setCompleted } = useProgress();
+  const completed = completedLessonIds.has(lesson.id);
+
+  return (
+    <nav
+      className={`lesson-pagination lesson-pagination-${position}`}
+      aria-label={
+        position === "top"
+          ? "Lesson navigation before content"
+          : "Lesson navigation after content"
+      }
+    >
+      <div>
+        {previous ? (
+          <>
+            <span>Previous</span>
+            <Link to={previous.canonicalPath}>← {previous.title}</Link>
+          </>
+        ) : null}
+      </div>
+      <div className="lesson-completion">
+        {lesson.lessonKind !== "promo" ? (
+          <button
+            className="lesson-completion-toggle"
+            type="button"
+            aria-pressed={completed}
+            onClick={() => setCompleted(lesson.id, !completed)}
+          >
+            {completed ? "✓ Lesson done" : "Mark lesson done"}
+          </button>
+        ) : null}
+      </div>
+      <div>
+        {next ? (
+          <>
+            <span>Next</span>
+            <Link to={next.canonicalPath}>{next.title} →</Link>
+          </>
+        ) : null}
+      </div>
+    </nav>
+  );
+}
+
 function SiteHeader() {
   const location = useLocation();
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -188,7 +269,14 @@ function SiteHeader() {
     <header className="site-header">
       <div className="header-inner">
         <div className="brand-block">
-          <p className="organization-name">Fulton Baptist Temple</p>
+          <a
+            className="organization-name"
+            href={FULTON_BAPTIST_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Fulton Baptist Temple
+          </a>
           <Link className="brand-link" to="/">
             Know Your Bible
           </Link>
@@ -196,27 +284,30 @@ function SiteHeader() {
             Reading through the Bible start to finish, with context.
           </p>
         </div>
-        <button
-          ref={menuButtonRef}
-          className="header-menu-toggle"
-          type="button"
-          aria-controls="mobile-primary-menu"
-          aria-expanded={mobileMenuOpen}
-          aria-label={
-            mobileMenuOpen
-              ? "Close site navigation"
-              : "Open site navigation"
-          }
-          onClick={() => setMobileMenuOpen((open) => !open)}
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24">
-            {mobileMenuOpen ? (
-              <path d="m5 5 14 14M19 5 5 19" />
-            ) : (
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        <div className="header-controls">
+          <ProgressMenu />
+          <button
+            ref={menuButtonRef}
+            className="header-menu-toggle"
+            type="button"
+            aria-controls="mobile-primary-menu"
+            aria-expanded={mobileMenuOpen}
+            aria-label={
+              mobileMenuOpen
+                ? "Close site navigation"
+                : "Open site navigation"
+            }
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path d="m5 5 14 14M19 5 5 19" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
         <div
           className={`header-actions${
             mobileMenuOpen ? " header-actions-open" : ""
@@ -241,6 +332,12 @@ function SiteHeader() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Tools
+            </Link>
+            <Link
+              to="/refs"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Refs
             </Link>
           </nav>
         </div>
@@ -353,10 +450,14 @@ function useMarkdownContent(
 
 
 function HomePage() {
+  const { completedLessonIds } = useProgress();
+  const billboardItems = selectBillboardLessons(courseLibrary.allLessons, {
+    completedLessonIds,
+  });
 
   return (
     <div className="home-page">
-      <HomeBillboard lessons={courseLibrary.billboardLessons} />
+      <HomeBillboard items={billboardItems} />
 
       <section className="library-section" id="course-library">
         <div className="section-intro">
@@ -505,8 +606,14 @@ function NotesPanel({ markdown }: { markdown: string }) {
 }
 
 function LessonPage({ lesson }: { lesson: HydratedLesson }) {
+  const { recordViewed } = useProgress();
   const notesState = useMarkdownContent(lesson?.notes.path);
   const storylineState = useMarkdownContent(lesson?.summary.path);
+  useEffect(() => {
+    if (lesson.lessonKind !== "promo") {
+      recordViewed(lesson.id);
+    }
+  }, [lesson.id, lesson.lessonKind, recordViewed]);
   useEffect(() => {
     for (const [label, state, available] of [
       ["lesson notes", notesState, lesson.notes.available],
@@ -536,40 +643,49 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
 
   return (
     <article className="lesson-page">
-      <header className="lesson-header">
-        <h1>{lesson.title}</h1>
+      <header className="lesson-heading">
+        <div className="lesson-header">
+          <h1>{lesson.title}</h1>
+        </div>
+        <LessonNavigation
+          lesson={lesson}
+          previous={adjacentLessons.previous}
+          next={adjacentLessons.next}
+          position="top"
+        />
         {content.storylineTitle ? (
           <p className="lesson-tagline">{content.storylineTitle}</p>
-        ) : null}
-        {content.hasActions ? (
-          <div className="lesson-actions">
-            {lesson.passage?.esvUrl ? (
-              <a
-                className="button button-primary"
-                href={lesson.passage.esvUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Read {lesson.passage.display} in ESV
-              </a>
-            ) : null}
-            {lesson.youtube ? (
-              <a
-                className="text-link"
-                href={lesson.youtube.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Watch on YouTube
-              </a>
-            ) : null}
-          </div>
         ) : null}
       </header>
       {content.hasVideo ? (
         <section className="lesson-video" aria-label="Lesson video">
           <VideoPlayer lesson={lesson} eager />
+          <p className="video-disclaimer">{YOUTUBE_AD_DISCLAIMER}</p>
         </section>
+      ) : null}
+      {content.hasActions ? (
+        <div className="lesson-actions">
+          {lesson.passage?.esvUrl ? (
+            <a
+              className="button button-primary"
+              href={lesson.passage.esvUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read {lesson.passage.display} in ESV
+            </a>
+          ) : null}
+          {lesson.youtube ? (
+            <a
+              className="text-link"
+              href={lesson.youtube.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Watch on YouTube
+            </a>
+          ) : null}
+        </div>
       ) : null}
 
       {content.hasSummaries ? (
@@ -599,28 +715,12 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
 
       <LessonResources lesson={lesson} />
 
-      <nav className="lesson-pagination" aria-label="Adjacent lessons">
-        <div>
-          {adjacentLessons.previous ? (
-            <>
-              <span>Previous</span>
-              <Link to={adjacentLessons.previous.canonicalPath}>
-                ← {adjacentLessons.previous.title}
-              </Link>
-            </>
-          ) : null}
-        </div>
-        <div>
-          {adjacentLessons.next ? (
-            <>
-              <span>Next</span>
-              <Link to={adjacentLessons.next.canonicalPath}>
-                {adjacentLessons.next.title} →
-              </Link>
-            </>
-          ) : null}
-        </div>
-      </nav>
+      <LessonNavigation
+        lesson={lesson}
+        previous={adjacentLessons.previous}
+        next={adjacentLessons.next}
+        position="bottom"
+      />
     </article>
   );
 }
@@ -640,9 +740,9 @@ function ToolsPage() {
         </Link>
       </header>
 
-      {toolCatalog.length > 0 ? (
+      {orderedToolCatalog.length > 0 ? (
         <div className="tools-grid">
-          {toolCatalog.map((tool) => {
+          {orderedToolCatalog.map((tool) => {
             const relatedLessons = tool.relatedLessonIds
               .map((lessonId) => courseLibrary.getLessonById(lessonId))
               .filter((lesson): lesson is HydratedLesson => Boolean(lesson));
@@ -679,6 +779,47 @@ function ToolsPage() {
   );
 }
 
+export function RefsPage() {
+  return (
+    <section className="references-page">
+      <header className="references-hero">
+        <p className="eyebrow">With gratitude</p>
+        <h1>References</h1>
+        <p>
+          We are grateful for the many commentators who have come before us.
+          Their careful study and generous insights have been deeply helpful in
+          forming this course.  These are the commentaries relied on the most
+          throughout the course.  We typically try to mention when they are a 
+          direct reference for an idea, and we include them here to cover any
+          we may have missed.  We hope you will find their commentaries engaging
+          and fruitful for study.
+        </p>
+      </header>
+
+      <div className="references-list">
+        {courseReferences.map((reference) => (
+          <div className="reference-card" key={reference.name}>
+            <h2>{reference.name}</h2>
+            <p>
+              {reference.url ? (
+                <a
+                  href={reference.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {reference.attribution}
+                </a>
+              ) : (
+                reference.attribution
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function NotFoundPage() {
   return (
     <section className="not-found">
@@ -698,41 +839,45 @@ function NotFoundPage() {
 export default function App() {
   return (
     <BrowserRouter basename={getSiteBasePath() || undefined}>
-      <a className="skip-link" href="#main-content">
-        Skip to content
-      </a>
-      <div className="app-shell">
-        <SiteHeader />
+      <ProgressProvider>
+        <ScrollToTop />
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <div className="app-shell">
+          <SiteHeader />
 
-        <main className="page-shell" id="main-content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/tools" element={<ToolsPage />} />
-            <Route path="/sections/:sectionSlug" element={<SectionRedirect />} />
-            <Route
-              path="/lessons/:sectionSlug/:lessonSlug"
-              element={<LegacyLessonRedirect />}
-            />
-            <Route path="/:bookSlug" element={<ReferenceLessonRoute />} />
-            <Route path="/:bookSlug/:chapter" element={<ReferenceLessonRoute />} />
-            <Route
-              path="/:bookSlug/:chapter/:verse"
-              element={<ReferenceLessonRoute />}
-            />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </main>
+          <main className="page-shell" id="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/tools" element={<ToolsPage />} />
+              <Route path="/refs" element={<RefsPage />} />
+              <Route path="/sections/:sectionSlug" element={<SectionRedirect />} />
+              <Route
+                path="/lessons/:sectionSlug/:lessonSlug"
+                element={<LegacyLessonRedirect />}
+              />
+              <Route path="/:bookSlug" element={<ReferenceLessonRoute />} />
+              <Route path="/:bookSlug/:chapter" element={<ReferenceLessonRoute />} />
+              <Route
+                path="/:bookSlug/:chapter/:verse"
+                element={<ReferenceLessonRoute />}
+              />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
 
-        <footer className="site-footer">
-          <div>
-            <strong>Know Your Bible</strong>
-            <span>Videos, commentary, and resources from Genesis onward.</span>
-          </div>
-          <a href="https://fultonbaptist.org/" target="_blank" rel="noreferrer">
-            Fulton Baptist Temple
-          </a>
-        </footer>
-      </div>
+          <footer className="site-footer">
+            <div>
+              <strong>Know Your Bible</strong>
+              <span>Videos, commentary, and resources from Genesis onward.</span>
+            </div>
+            <a href={FULTON_BAPTIST_URL} target="_blank" rel="noreferrer">
+              Fulton Baptist Temple
+            </a>
+          </footer>
+        </div>
+      </ProgressProvider>
     </BrowserRouter>
   );
 }

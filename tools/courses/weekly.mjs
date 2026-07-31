@@ -7,6 +7,7 @@ import {
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadCoursesEnv } from "./config.mjs";
+import { exportLessonTitles } from "./lesson-title-export.mjs";
 import {
   formatCacheChoice,
   listWeeklyCaches,
@@ -26,7 +27,7 @@ import {
   releaseWeeklyUpdate,
   retryWeeklyRelease,
   runWeeklyValidation,
-  startLocalPreview,
+  startDevelopmentServer,
 } from "./weekly-release.mjs";
 import {
   formatWeeklyRefreshResult,
@@ -38,7 +39,10 @@ const EXECUTION_MODES = new Map([
   ["--audit", "audit"],
   ["--apply", "apply"],
   ["--delete-cache", "delete"],
+  ["--build-test", "validate"],
   ["--validate", "validate"],
+  ["--dev", "dev"],
+  ["--export-titles", "export-titles"],
   ["--release", "release"],
   ["--retry-push", "retry-push"],
   ["--retry-deploy", "retry-deploy"],
@@ -77,8 +81,6 @@ export function parseWeeklyArgs(argv) {
       options.fullNotesExport = true;
     } else if (arg === "--online-audit") {
       options.onlineAudit = true;
-    } else if (arg === "--preview") {
-      options.preview = true;
     } else if (arg === "--yes") {
       options.yes = true;
     } else if (arg === "--json") {
@@ -113,13 +115,17 @@ function promptContext(dependencies) {
 async function chooseCache(
   coursesEnv,
   dependencies,
-  { states = null, message = "Choose a weekly cache" } = {}
+  {
+    states = null,
+    message = "Choose a weekly cache",
+    includeInvalid = false,
+  } = {}
 ) {
   const caches = (await dependencies.listWeeklyCaches(
     coursesEnv.notesCacheRoot
   )).filter(
     (cache) =>
-      cache.selectable &&
+      (includeInvalid || cache.selectable) &&
       (!states || states.includes(cache.state.status))
   );
   if (caches.length === 0) {
@@ -129,7 +135,10 @@ async function chooseCache(
     {
       message,
       loop: false,
-      choices: caches.map(formatCacheChoice),
+      choices: caches.map((cache) => {
+        const choice = formatCacheChoice(cache);
+        return includeInvalid ? { ...choice, disabled: false } : choice;
+      }),
     },
     promptContext(dependencies)
   );
@@ -346,10 +355,13 @@ async function runDelete(
   selectedCacheRoot
 ) {
   const cacheRoot = await resolveSelectedCache(
-    selectedCacheRoot,
+    options.direct ? selectedCacheRoot : null,
     coursesEnv,
     dependencies,
-    { states: ["applied"] }
+    {
+      includeInvalid: true,
+      message: "Cache to delete",
+    }
   );
   const reconciliation = await dependencies.reconcileWeeklyCache({
     cacheRoot,
@@ -358,13 +370,12 @@ async function runDelete(
     dependencies.output,
     dependencies.formatCacheReconciliation(reconciliation)
   );
-  if (!reconciliation.safeToDelete) {
-    return { status: "blocked", cacheRoot, reconciliation };
-  }
   if (!options.yes) {
     const approved = await dependencies.confirmPrompt(
       {
-        message: `Permanently delete cache ${path.basename(cacheRoot)}?`,
+        message: reconciliation.safeToDelete
+          ? `Permanently delete cache ${path.basename(cacheRoot)}?`
+          : `Warning: cached data may be unapplied or changed. Permanently delete ${path.basename(cacheRoot)} anyway?`,
         default: false,
       },
       promptContext(dependencies)
@@ -377,9 +388,10 @@ async function runDelete(
   const result = await dependencies.deleteWeeklyCache({
     cacheRoot,
     notesCacheRoot: coursesEnv.notesCacheRoot,
+    allowUnsafe: !reconciliation.safeToDelete,
   });
   writeLine(dependencies.output, `Deleted cache ${result.cacheId}.`);
-  return { status: "deleted", ...result };
+  return { status: "deleted", cacheRoot, ...result };
 }
 
 async function runValidate(
@@ -407,25 +419,28 @@ async function runValidate(
       ? JSON.stringify(result, null, 2)
       : `Validation passed for cache ${path.basename(cacheRoot)}.`
   );
-  let preview = Boolean(options.preview);
-  if (!options.direct && !options.json) {
-    preview = await dependencies.confirmPrompt(
-      {
-        message: "Start the built site with Vite for local testing?",
-        default: true,
-      },
-      promptContext(dependencies)
-    );
-  }
-  if (preview) {
-    await dependencies.startLocalPreview(
-      {
-        onProgress: progressLogger(dependencies.errorOutput, true),
-      },
-      dependencies.validationDependencies || {}
-    );
-  }
-  return { ...result, cacheRoot, preview };
+  return { ...result, cacheRoot };
+}
+
+async function runDev(options, dependencies) {
+  await dependencies.startDevelopmentServer(
+    {
+      onProgress: progressLogger(dependencies.errorOutput, !options.json),
+    },
+    dependencies.validationDependencies || {}
+  );
+  return { status: "stopped" };
+}
+
+async function runExportTitles(options, dependencies) {
+  const result = await dependencies.exportLessonTitles();
+  writeLine(
+    dependencies.output,
+    options.json
+      ? JSON.stringify(result, null, 2)
+      : `Exported ${result.lessonCount} lessons to ${result.outputPath}.`
+  );
+  return result;
 }
 
 async function runRelease(
@@ -584,16 +599,24 @@ async function runInteractive(options, coursesEnv, dependencies) {
             value: "apply",
           },
           {
-            name: "4. Delete an applied cache safely",
-            value: "delete",
+            name: "4. Build and test",
+            value: "validate",
           },
           {
-            name: "5. Build and test locally with Vite",
-            value: "validate",
+            name: "5. Dev",
+            value: "dev",
           },
           {
             name: "6. Version, commit, and deploy",
             value: "release-menu",
+          },
+          {
+            name: "7. Delete a cache",
+            value: "delete",
+          },
+          {
+            name: "8. Export titles",
+            value: "export-titles",
           },
           {
             name: "Show all cache status",
@@ -642,7 +665,10 @@ async function runInteractive(options, coursesEnv, dependencies) {
         dependencies,
         selectedCacheRoot
       );
-      if (result.status === "deleted") {
+      if (
+        result.status === "deleted" &&
+        selectedCacheRoot === result.cacheRoot
+      ) {
         selectedCacheRoot = null;
       }
     } else if (action === "validate") {
@@ -653,6 +679,10 @@ async function runInteractive(options, coursesEnv, dependencies) {
         selectedCacheRoot
       );
       selectedCacheRoot = result.cacheRoot;
+    } else if (action === "dev") {
+      await runDev(options, dependencies);
+    } else if (action === "export-titles") {
+      await runExportTitles(options, dependencies);
     } else if (action === "release-menu") {
       const releaseAction = await dependencies.selectPrompt(
         {
@@ -695,7 +725,8 @@ function buildDependencies(dependencies) {
     formatCacheReconciliation,
     deleteWeeklyCache,
     runWeeklyValidation,
-    startLocalPreview,
+    startDevelopmentServer,
+    exportLessonTitles,
     releaseWeeklyUpdate,
     retryWeeklyRelease,
     selectPrompt: select,
@@ -722,6 +753,12 @@ export async function runWeeklyCommand(options = {}, dependencies = {}) {
       resolvedDependencies,
       options.cacheRoot || null
     );
+  }
+  if (options.mode === "dev") {
+    return runDev(directOptions, resolvedDependencies);
+  }
+  if (options.mode === "export-titles") {
+    return runExportTitles(directOptions, resolvedDependencies);
   }
   if (options.mode === "audit") {
     return runAudit(
@@ -773,16 +810,19 @@ export async function runWeeklyCommand(options = {}, dependencies = {}) {
 function printHelp() {
   console.log(`Usage: yarn weekly [options]
 
-With no execution option, opens the guided six-step workflow:
+With no execution option, opens the guided workflow:
   1. Prepare cache from source documents
   2. Audit cache until ready
   3. Apply selected cache
-  4. Delete an applied cache safely
-  5. Build and test locally with Vite
+  4. Build and test
+  5. Dev
   6. Version, commit, and deploy
+  7. Delete a cache
+  8. Export titles
 
 Direct execution:
-  --prepare | --audit | --apply | --delete-cache | --validate | --release
+  --prepare | --audit | --apply | --build-test | --validate | --dev
+  --release | --delete-cache | --export-titles
   --retry-push | --retry-deploy | --status
 
 Shared options:
@@ -790,9 +830,8 @@ Shared options:
   --components <list>     documents,notes,youtube,inventory
   --full-notes-export     Re-export every Apple Note body
   --online-audit          Check remote links after apply
-  --preview               Start Vite after direct validation
   --commit-message <text> Override the release commit message
-  --yes                   Confirm direct delete or release after safety checks
+  --yes                   Confirm direct delete or release
   --json                  Print machine-readable direct-mode output`);
 }
 

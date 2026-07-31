@@ -55,9 +55,3 @@
 - AMBIGUOUS MORALITY WITHOUT GOD’S LAW: the Hebrew’s taunt to Moses is jarring to him, and to us. How could the people he helped betray him like that? Didn’t they see how wrong the Egyptian was? This is the untethering of morality from God we talked about earlier. The Nietzschean superman of Pharaoh and the bureaucracy made it hard for even the victim to see objective good and evil. When the beaten man gets even a tiny amount of power over his fellow man, he wields it violently because it’s all he’s ever known. The beaten become the beaters. But Moses, great man that he was, saw the objective good and evil. And he not only saw it, he had the courage to speak up, driven by a hatred of that objective evil and injustice. Unlike Pharaoh, who uses evil as a means to power. **Moses, the anti-Pharaoh.**
 - NATURAL REACTION OF THE GUILTY: Dennis Prager points out that the guilty man’s reaction is normal: he doesn’t address Moses’s question, he knows he is guilty. Instead, he attacks Moses’s own character like “you’re no better than me.” It is actually a complete non-Sequitur to talk about Moses’s past. The correct answer is “I was wrong and I should do better.” The other man can also do better, but the fact that he doesn’t do better is irrelevant to whether you should do better. In your own life, when someone accuses you of something, make sure your first response is not jumping to the sins of your accuser but rather first asking yourself is it true?
 - WE NEED GOD’S LAW: are we not still begging God to give his law, to settle the question of good and evil? To tell Moses he was right and tell the Egyptian slave driver he was wrong? To tell the Hebrew he was ungrateful and evil, to treat his brother as he himself wants to be treated?
-
-**# —— TARGET A ——**
-
-#
-
-Stopped here in class

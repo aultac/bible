@@ -38,6 +38,29 @@ describe("canonical course outline hydration", () => {
     expect(canonicalPaths).toContain("/genesis/37/29");
   });
 
+  it("lists the Promo as Genesis lesson 00 without tracking its completion", () => {
+    const genesisLessons = courseLibrary.getBook("genesis")?.lessons || [];
+
+    expect(genesisLessons.slice(0, 2)).toMatchObject([
+      {
+        id: "000-promo",
+        lessonKind: "promo",
+        sequenceNumber: 0,
+      },
+      {
+        id: "001-intro",
+        lessonKind: "intro",
+        sequenceNumber: 1,
+      },
+    ]);
+    expect(formatLessonSequenceBadge(genesisLessons[0])).toBe("00");
+    expect(
+      courseLibrary.trackableLessons.some(
+        (lesson) => lesson.id === "000-promo"
+      )
+    ).toBe(false);
+  });
+
   it("uses exact-start precedence in the current overlapping lesson data", () => {
     const reference = parseBibleReference("Genesis 37:29");
     expect(reference).not.toBeNull();
@@ -57,6 +80,33 @@ describe("canonical course outline hydration", () => {
       : null;
 
     expect(lesson?.slug).toBe("017-genesis36-37-29");
+  });
+
+  it("preserves first, middle, and last authored lesson adjacency", () => {
+    const lessons = courseLibrary.allLessons;
+    const first = lessons[0];
+    const middleIndex = Math.floor(lessons.length / 2);
+    const middle = lessons[middleIndex];
+    const last = lessons[lessons.length - 1];
+
+    expect(
+      courseLibrary.getAdjacentLessons(first.sectionSlug, first.slug)
+    ).toEqual({
+      previous: null,
+      next: lessons[1],
+    });
+    expect(
+      courseLibrary.getAdjacentLessons(middle.sectionSlug, middle.slug)
+    ).toEqual({
+      previous: lessons[middleIndex - 1],
+      next: lessons[middleIndex + 1],
+    });
+    expect(
+      courseLibrary.getAdjacentLessons(last.sectionSlug, last.slug)
+    ).toEqual({
+      previous: lessons[lessons.length - 2],
+      next: null,
+    });
   });
 
   it("prefers a video-backed Promo for the featured slot and labels it semantically", () => {
@@ -79,7 +129,7 @@ describe("canonical course outline hydration", () => {
     expect(formatLessonSequenceBadge(latest)).toBe("34");
   });
 
-  it("orders the Promo before the latest non-Promo video for the billboard", () => {
+  it("leads with Promo and latest video when no course lesson is completed", () => {
     const promo = {
       id: "promo",
       lessonKind: "promo" as const,
@@ -95,17 +145,120 @@ describe("canonical course outline hydration", () => {
       lessonKind: "passage" as const,
       youtube: { videoId: "latest" },
     };
-    const noVideo = {
-      id: "no-video",
+    const expected = [
+      { lesson: promo, role: "promo" },
+      { lesson: latest, role: "latest" },
+    ];
+
+    expect(
+      selectBillboardLessons([promo, older, latest], {
+        completedLessonIds: new Set(),
+      })
+    ).toEqual(expected);
+    expect(
+      selectBillboardLessons([promo, older, latest], {
+        completedLessonIds: new Set(["unavailable-lesson"]),
+      })
+    ).toEqual(expected);
+  });
+
+  it("leads returning learners with their earliest incomplete lesson", () => {
+    const promo = {
+      id: "promo",
+      lessonKind: "promo" as const,
+      youtube: { videoId: "promo" },
+    };
+    const first = {
+      id: "first",
       lessonKind: "passage" as const,
       youtube: null,
     };
+    const second = {
+      id: "second",
+      lessonKind: "passage" as const,
+      youtube: null,
+    };
+    const latest = {
+      id: "latest",
+      lessonKind: "passage" as const,
+      youtube: { videoId: "latest" },
+    };
 
     expect(
-      selectBillboardLessons([promo, older, latest, noVideo])
-    ).toEqual([promo, latest]);
-    expect(selectBillboardLessons([older, latest])).toEqual([latest]);
-    expect(selectBillboardLessons([promo])).toEqual([promo]);
-    expect(selectBillboardLessons([noVideo])).toEqual([]);
+      selectBillboardLessons([promo, first, second, latest], {
+        completedLessonIds: new Set(["first"]),
+      })
+    ).toEqual([
+      { lesson: second, role: "next" },
+      { lesson: latest, role: "latest" },
+      { lesson: promo, role: "promo" },
+    ]);
+  });
+
+  it("deduplicates the latest next lesson and falls back after full completion", () => {
+    const promo = {
+      id: "promo",
+      lessonKind: "promo" as const,
+      youtube: { videoId: "promo" },
+    };
+    const first = {
+      id: "first",
+      lessonKind: "passage" as const,
+      youtube: { videoId: "first" },
+    };
+    const latest = {
+      id: "latest",
+      lessonKind: "passage" as const,
+      youtube: { videoId: "latest" },
+    };
+    const lessons = [promo, first, latest];
+
+    expect(
+      selectBillboardLessons(lessons, {
+        completedLessonIds: new Set(["first"]),
+      })
+    ).toEqual([
+      { lesson: latest, role: "latest" },
+      { lesson: promo, role: "promo" },
+    ]);
+    expect(
+      selectBillboardLessons(lessons, {
+        completedLessonIds: new Set(["first", "latest"]),
+      })
+    ).toEqual([
+      { lesson: latest, role: "latest" },
+      { lesson: promo, role: "promo" },
+    ]);
+    expect(
+      selectBillboardLessons(
+        [
+          {
+            id: "completed",
+            lessonKind: "passage" as const,
+            youtube: null,
+          },
+          {
+            id: "reading-only",
+            lessonKind: "passage" as const,
+            youtube: null,
+          },
+        ],
+        { completedLessonIds: new Set(["completed"]) }
+      )
+    ).toMatchObject([
+      {
+        lesson: { id: "reading-only" },
+        role: "next",
+      },
+    ]);
+    expect(
+      selectBillboardLessons([
+        {
+          id: "reading-only",
+          lessonKind: "passage" as const,
+          youtube: null,
+        },
+      ])
+    ).toEqual([]);
   });
 });

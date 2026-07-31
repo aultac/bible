@@ -144,6 +144,13 @@ describe("lesson map normalization", () => {
     expect(getFolderCheckState(places, map.initialVisibleFeatureIds)).toBe(
       "mixed"
     );
+    expect(getFolderCheckState(map.root, new Set())).toBe("unchecked");
+    expect(
+      getFolderCheckState(
+        map.root,
+        new Set(map.features.map((feature) => feature.id))
+      )
+    ).toBe("checked");
     expect(
       getDisplayLayerNodes({
         ...map.root,

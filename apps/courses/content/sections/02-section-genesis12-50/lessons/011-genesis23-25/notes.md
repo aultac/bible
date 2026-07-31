@@ -13,6 +13,7 @@
 - CLASSIC BARGAINING: this is classic middle-Eastern bargaining. It is a dance.
 - MAP: tomb of Machpelah
 - PICTURE: Tomb of the Patriarchs
+- RESOURCE_LINK: patriarchs.jpg: https://upload.wikimedia.org/wikipedia/commons/e/eb/Cave_of_the_Patriarchs%2C_Hebron_2007.jpg
 - CONTESTED PLACE: “Tomb of the Patriarchs” is contested to this day. Muslims prohibited Jews from visiting from 700 AD until the 1967 Six-Day war. Israel won the West Bank and opened Tomb of the Patriarchs up to all faiths. Jewish man in 1994 massacred 29 Muslims there, and a partitioning in 1997. The Palestinian Authority rules 80% of Hebron and 20% ruled by Israel, and it remains a flash point to this day. Second holiest site in all of Israel after the Western Wall. All because of this chapter.
 
 **Genesis 24:1-9 > Servant charged with task of wife for Isaac**
@@ -63,22 +64,3 @@
   - OLD TESTAMENT FOCUSED ON THIS LIFE: I believe the New Testament is a direct continuation of the exact same story told in the Old Testament. The God of the New Testament is the same as the God of the Old Testament. And yet one key change between the two, probably the **most significant change**, is that the Torah does not talk much about the afterlife at all, only indirectly. The Old Testament is focused on how you behave in this life. i.e. the Law. If we as Christians forget that God wants us to do righteous acts, then we have indeed missed what God is about.
   - NEW TESTAMENT FOCUSED ON AFTERLIFE: And then we get to the New Testament and it seems like the afterlife is all that matters. The Old Testament condemned us as sinners, leaving a huge gaping hole of “well, what now?” Ezekiel 18 told us “the soul that sins shall die”, and we know we’re the villain in the Old Testament stories: we all sin and fall short of the glory of God. Paul did not invent this, it is in Ecclesiastes, Psalms, 1 Kings, and even Adam’s fall in Genesis.
   - REDEEMER WILL STAND ON EARTH AND JOB RESURRECTED: **Job 19:23-end** Redeemer, after my skin has been destroyed yet in my flesh I shall see God. That you may know there is a judgement.
-
-— ENDED HERE IN CLASS —
-
-**Genesis 25:19-28 > Jacob born**
-
-- DECEIVER: Imagine being named “deceiver” or “cheater.” He was a baby!
-- HAIRY: Esau is “hairy”
-- CRITERION OF EMBARRASSMENT: Jacob never comes across well in this story
-- READ GOD’S MESSAGE TO REBEKAH MORE CLOSELY: notice it does NOT say anything about which child will receive his promise.
-- ISAAC LOVED ESAU: the only real mistake Isaac makes in this story. God hates Esau and loves Jacob. Isaac does not. And why? Food.
-
-**Genesis 25:29-end > Birthright**
-
-- SOLD FOR SOUP: We think of Jacob as conniving, but what about Esau’s complete disregard for God’s promise? He sold it for soup?
-- SKIP -> SHAKESPEARE ANALOGY: what if Isaac left Esau his collection of Shakespeare, but Esau doesn’t care about it and Jacob bribes him with soup to give him the collection that Esau doesn’t care about anyway?
-- ISAAC WAS NOT ON BOARD: Isaac tries to give it to Esau anyway. Was it even Esau’s to give?
-- DID ANYBODY ASK GOD?: God had told Rebekah the older would serve the younger, and yet nobody later asked God what to do.
-- FORESHADOWING MAN DISREGARDING GOD’S PROMISES: “For the word of the cross is folly to those who are perishing, but to us who are being saved it is the power of God.”1 Corinthians 1:18
-- DIDN’T MEAN IT: I don’t think Esau was serious about this, as evidenced by his reaction when Jacob actually takes it later

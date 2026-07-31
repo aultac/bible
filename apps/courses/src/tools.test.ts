@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   getToolsForLesson,
+  sortToolsByEarliestWeek,
   transformLessonNotes,
   type ToolCatalogEntry,
 } from "./tools";
@@ -56,5 +57,41 @@ describe("lesson tool presentation", () => {
         "https://knowyourbible.study"
       )
     ).toBe("Before\nAfter");
+  });
+
+  it("orders tools by earliest related week and keeps unresolved tools last", () => {
+    const tools: readonly ToolCatalogEntry[] = [
+      { path: "/none/", title: "None", relatedLessonIds: [] },
+      { path: "/late/", title: "Late", relatedLessonIds: ["week-8"] },
+      { path: "/tie-a/", title: "Tie A", relatedLessonIds: ["week-4"] },
+      {
+        path: "/early/",
+        title: "Early",
+        relatedLessonIds: ["missing", "week-2"],
+      },
+      { path: "/tie-b/", title: "Tie B", relatedLessonIds: ["week-4"] },
+      {
+        path: "/missing/",
+        title: "Missing",
+        relatedLessonIds: ["missing"],
+      },
+    ];
+    const weeks = new Map([
+      ["week-2", 2],
+      ["week-4", 4],
+      ["week-8", 8],
+    ]);
+
+    expect(
+      sortToolsByEarliestWeek(tools, (lessonId) => weeks.get(lessonId))
+        .map((tool) => tool.path)
+    ).toEqual([
+      "/early/",
+      "/tie-a/",
+      "/tie-b/",
+      "/late/",
+      "/none/",
+      "/missing/",
+    ]);
   });
 });

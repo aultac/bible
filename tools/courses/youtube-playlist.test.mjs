@@ -122,6 +122,34 @@ describe("YouTube playlist parsing", () => {
     });
   });
 
+  it("matches both current and chapter-range YouTube lesson titles", () => {
+    const snapshot = parsePlaylistSnapshotHtml(
+      playlistHtml([
+        {
+          playlistVideoRenderer: {
+            videoId: "current-title",
+            title: { simpleText: "Know Your Bible - Week 8" },
+            index: { simpleText: "1" },
+          },
+        },
+        {
+          playlistVideoRenderer: {
+            videoId: "exported-title",
+            title: {
+              simpleText: "Know Your Bible - Week 9 - Genesis 17-19",
+            },
+            index: { simpleText: "2" },
+          },
+        },
+      ]),
+      PLAYLIST_ID
+    );
+    const matches = buildPlaylistVideoMatchMap(snapshot);
+
+    expect(matches.get(8).videoId).toBe("current-title");
+    expect(matches.get(9).videoId).toBe("exported-title");
+  });
+
   it("rejects an empty parse so a cached playlist is not replaced", () => {
     expect(() =>
       parsePlaylistSnapshotHtml(playlistHtml([]), PLAYLIST_ID)

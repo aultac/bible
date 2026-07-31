@@ -65,49 +65,18 @@ describe("deployment-aware course assets", () => {
     );
   });
 
-  it("declares the Cave of the Patriarchs image as a resolvable resource", () => {
-    stubWindow({
-      hostname: "localhost",
-      pathname: "/genesis/23",
-    });
-    const lesson = courseLibrary.allLessons.find(
-      (candidate) => candidate.slug === "011-genesis23-25"
-    );
-    const cave = lesson?.resolvedResources.find(
-      (resource) => resource.name === "Hebron_Cave_of_the_Patriarchs.jpg"
+  it("resolves every generated lesson resource from the public asset root", () => {
+    const resources = courseLibrary.allLessons.flatMap(
+      (lesson) => lesson.resolvedResources
     );
 
-    expect(cave).toBeDefined();
-    expect(cave?.href).toMatch(
-      /^\/resources\/02-section-genesis12-50\/011-genesis23-25\//
-    );
-    expect(cave?.href).not.toContain("./");
-  });
-
-  it("resolves every Exodus 1 resource from the public asset root", () => {
-    stubWindow({
-      hostname: "localhost",
-      pathname: "/exodus/1/1",
-    });
-    const lesson = courseLibrary.allLessons.find(
-      (candidate) => candidate.slug === "026-exodus1-1-1-16"
-    );
-    const resources = new Map(
-      lesson?.resolvedResources.map((resource) => [
-        resource.name,
-        resource.href,
-      ])
-    );
-    const resourceRoot =
-      "/resources/03-section-exodusleviticusnumbersdeuteronomy/026-exodus1-1-1-16";
-
-    expect(resources).toEqual(
-      new Map([
-        ["AmenhotepII.png", `${resourceRoot}/AmenhotepII.png`],
-        ["LBS+Timeline.pdf", `${resourceRoot}/LBS+Timeline.pdf`],
-        ["Merenptah_stele.jpg", `${resourceRoot}/Merenptah_stele.jpg`],
-        ["WebensenuTrio.png", `${resourceRoot}/WebensenuTrio.png`],
-      ])
-    );
+    expect(resources.length).toBeGreaterThan(0);
+    for (const resource of resources) {
+      expect(resource.publicUrl).toMatch(/^\/courses\/resources\//u);
+      expect(resource.href).toBe(
+        resource.publicUrl.replace(/^\/courses/u, "")
+      );
+      expect(resource.href).not.toContain("./");
+    }
   });
 });

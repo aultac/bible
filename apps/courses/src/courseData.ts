@@ -405,13 +405,13 @@ const courseSections: CourseSection[] = courseOutline.sections.map(
 );
 
 const allLessons = sections.flatMap((section) => section.lessonsDetailed);
+const trackableLessons = allLessons.filter(
+  (lesson) => lesson.lessonKind !== "promo"
+);
 
 const bookMap = new Map<string, CourseBook>();
 
 for (const lesson of allLessons) {
-  if (lesson.lessonKind === "promo") {
-    continue;
-  }
   const existingBook = bookMap.get(lesson.bookSlug);
 
   if (existingBook) {
@@ -473,13 +473,32 @@ export function selectFeaturedLesson<
     ) || fallback
   );
 }
+
+export type BillboardLessonRole = "next" | "latest" | "promo";
+
+export interface BillboardLessonItem<TLesson> {
+  lesson: TLesson;
+  role: BillboardLessonRole;
+}
+
 export function selectBillboardLessons<
   TLesson extends {
     id: string;
     lessonKind: LessonManifest["lessonKind"];
     youtube: unknown;
   },
->(lessons: TLesson[]) {
+>(
+  lessons: TLesson[],
+  {
+    completedLessonIds = new Set<string>(),
+  }: {
+    completedLessonIds?: ReadonlySet<string>;
+  } = {}
+) {
+  const hasCompletedLessons = lessons.some(
+    (lesson) =>
+      lesson.lessonKind !== "promo" && completedLessonIds.has(lesson.id)
+  );
   const promo =
     lessons.find(
       (lesson) => lesson.lessonKind === "promo" && Boolean(lesson.youtube)
@@ -491,12 +510,38 @@ export function selectBillboardLessons<
         (lesson) =>
           lesson.lessonKind !== "promo" && Boolean(lesson.youtube)
       ) || null;
-  const selected = [];
+  const nextLesson = hasCompletedLessons
+    ? lessons.find(
+        (lesson) =>
+          lesson.lessonKind !== "promo" &&
+          !completedLessonIds.has(lesson.id)
+      ) || null
+    : null;
+  const candidates: Array<{
+    lesson: TLesson | null;
+    role: BillboardLessonRole;
+  }> = hasCompletedLessons
+    ? [
+        {
+          lesson: nextLesson,
+          role:
+            nextLesson && nextLesson.id === latestCourse?.id
+              ? "latest"
+              : "next",
+        },
+        { lesson: latestCourse, role: "latest" },
+        { lesson: promo, role: "promo" },
+      ]
+    : [
+        { lesson: promo, role: "promo" },
+        { lesson: latestCourse, role: "latest" },
+      ];
+  const selected: Array<BillboardLessonItem<TLesson>> = [];
   const selectedIds = new Set<string>();
 
-  for (const lesson of [promo, latestCourse]) {
+  for (const { lesson, role } of candidates) {
     if (lesson && !selectedIds.has(lesson.id)) {
-      selected.push(lesson);
+      selected.push({ lesson, role });
       selectedIds.add(lesson.id);
     }
   }
@@ -505,7 +550,6 @@ export function selectBillboardLessons<
 }
 
 const featuredLesson = selectFeaturedLesson(allLessons, latestVideoLesson);
-const billboardLessons = selectBillboardLessons(allLessons);
 const startHereLesson = sections[0]?.lessonsDetailed[0] || null;
 
 export function formatLessonSequenceLabel(
@@ -529,12 +573,12 @@ export const courseLibrary = {
   sections,
   courseSections,
   allLessons,
+  trackableLessons,
   books,
   currentSection,
   latestLesson,
   latestVideoLesson,
   featuredLesson,
-  billboardLessons,
   startHereLesson,
   getBook(bookSlug: string) {
     return bookMap.get(bookSlug) || null;

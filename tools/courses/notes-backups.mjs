@@ -54,7 +54,7 @@ async function copyFileAtomically(sourcePath, destinationPath) {
   }
 }
 
-function normalizeMarkdown(markdown) {
+export function normalizeMarkdown(markdown) {
   return (
     markdown
       .replace(/\r\n/gu, "\n")
@@ -67,6 +67,10 @@ function normalizeMarkdown(markdown) {
       .replace(/\n{3,}/gu, "\n\n")
       .trimEnd() + "\n"
   );
+}
+
+export function hashNormalizedMarkdown(markdown) {
+  return hashContent(normalizeMarkdown(markdown));
 }
 function normalizeAppleNotesHtml(html) {
   return html.replace(
@@ -152,15 +156,55 @@ export async function prepareCanonicalNoteBackups({
       });
       continue;
     }
+    const relativeLessonDirectory = lessonMatch.relativeLessonDirectory;
+    const canonicalNotesPath = path.join(
+      canonicalLessonDirectoryPath,
+      CANONICAL_NOTES_FILENAME
+    );
+    if (!note.bodyPath) {
+      if (
+        note.reuseSource !== "applied-checkpoint" ||
+        !note.sourceMarkdownHash ||
+        note.relativeLessonDirectory !== relativeLessonDirectory
+      ) {
+        throw new Error(
+          `Apple Note has no exported body or valid applied checkpoint metadata: ${note.title}`
+        );
+      }
+      if (!(await pathExists(canonicalNotesPath))) {
+        throw new Error(
+          `Canonical notes disappeared while preparing Apple Notes: ${canonicalNotesPath}`
+        );
+      }
+      const canonicalMarkdown = await readFile(canonicalNotesPath, "utf8");
+      if (hashNormalizedMarkdown(canonicalMarkdown) !== note.sourceMarkdownHash) {
+        throw new Error(
+          `Canonical notes changed while preparing Apple Notes; rerun the notes refresh: ${canonicalNotesPath}`
+        );
+      }
+      report.totals.unchanged += 1;
+      report.unchangedNotes.push({
+        title: note.title,
+        noteId: note.id,
+        noteUpdatedAt: note.updatedAt,
+        relativeLessonDirectory,
+        matchedBy: lessonMatch.matchedBy,
+        expectedLessonDirectoryName: lessonMatch.expectedLessonDirectoryName,
+        actualLessonDirectoryName: lessonMatch.actualLessonDirectoryName,
+        expectedRelativeLessonDirectory:
+          lessonMatch.expectedRelativeLessonDirectory,
+        canonicalLessonDirectoryPath,
+        canonicalNotesPath,
+        sourceMarkdownHash: note.sourceMarkdownHash,
+        reusedFromAppliedCheckpoint: true,
+      });
+      continue;
+    }
 
     const sourceHtmlPath = path.join(snapshotRoot, note.bodyPath);
     const sourceHtml = await readFile(sourceHtmlPath, "utf8");
     const sourceMarkdown = convertAppleNotesHtmlToMarkdown(sourceHtml);
     const sourceMarkdownHash = hashContent(sourceMarkdown);
-    const canonicalNotesPath = path.join(
-      canonicalLessonDirectoryPath,
-      CANONICAL_NOTES_FILENAME
-    );
 
     let existingMarkdown = null;
     if (await pathExists(canonicalNotesPath)) {
@@ -170,7 +214,6 @@ export async function prepareCanonicalNoteBackups({
     const existingMarkdownHash = existingMarkdown
       ? hashContent(existingMarkdown)
       : null;
-    const relativeLessonDirectory = lessonMatch.relativeLessonDirectory;
 
     if (existingMarkdownHash === sourceMarkdownHash) {
       report.totals.unchanged += 1;

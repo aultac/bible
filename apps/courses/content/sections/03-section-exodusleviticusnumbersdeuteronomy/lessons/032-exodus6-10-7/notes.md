@@ -66,6 +66,7 @@ LEARNING TO LOVE GOD: last week I mentioned that the purpose of learning about G
   - **Renenutet**: goddess of protecting the harvest, Cobra goddess. Origin story is not preserved, but she protected the harvest each year before, during, and after harvest in storage. Relevant because all the vegetation and grain is decimated by the plagues.
   - **Khepri**: scarab beetle god of rebirth and sun. Manifestation of Ra. **Rolls the sun across the sky each day** as a dung beetle scarab rolls the ball of dung across the desert. Scarab beetles lay eggs in the dung balls and they seem to just “magically” appear as life from the dung ball. So he represents creation of new life and the rebirth of the sun rolling across the sky each day.
   - Missing: Hathor+Sekhmet, Apis
+- RESOURCE_LINK: Geb-Nut-Shu.jpg: https://commons.wikimedia.org/wiki/File:Geb_and_Nut03.png
 
 **Exodus 7:14-end > Plague 1: Nile Into Blood**
 

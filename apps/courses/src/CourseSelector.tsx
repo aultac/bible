@@ -1,4 +1,9 @@
-import { useMemo, useState, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type KeyboardEvent,
+} from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   formatBibleReference,
@@ -7,8 +12,13 @@ import {
 } from "./bibleReferences";
 import { courseLibrary, type HydratedLesson } from "./courseData";
 import { LessonList } from "./LessonList";
-
-type SelectorMode = "book" | "section" | "direct";
+import {
+  readPickerPreferences,
+  resolvePickerPreferences,
+  writePickerPreferences,
+  type SelectorMode,
+} from "./pickerPreferences";
+import { ProgressSummary } from "./ProgressSummary";
 
 interface DirectSuggestion {
   label: string;
@@ -73,23 +83,31 @@ function buildDirectSuggestions() {
 
 const DIRECT_SUGGESTIONS = buildDirectSuggestions();
 
-function modeHref(mode: SelectorMode) {
+function modeHref(
+  mode: SelectorMode,
+  bookSlug: string,
+  sectionNumber: number
+) {
   if (mode === "section") {
-    return `/?view=section&section=${
-      courseLibrary.courseSections.find((section) => section.available)?.sectionnum ||
-      courseLibrary.courseSections[0]?.sectionnum ||
-      1
-    }`;
+    return `/?view=section&section=${sectionNumber}`;
   }
 
   if (mode === "direct") {
     return "/?view=direct";
   }
 
-  return `/?view=book&book=${courseLibrary.books[0]?.slug || ""}`;
+  return `/?view=book&book=${encodeURIComponent(bookSlug)}`;
 }
 
-function SelectorTabs({ activeMode }: { activeMode: SelectorMode }) {
+function SelectorTabs({
+  activeMode,
+  bookSlug,
+  sectionNumber,
+}: {
+  activeMode: SelectorMode;
+  bookSlug: string;
+  sectionNumber: number;
+}) {
   const modes: Array<{ mode: SelectorMode; label: string }> = [
     { mode: "book", label: "Book" },
     { mode: "section", label: "Section" },
@@ -106,7 +124,10 @@ function SelectorTabs({ activeMode }: { activeMode: SelectorMode }) {
               {label}
             </span>
           ) : (
-            <Link className="selector-tab selector-tab-link" to={modeHref(mode)}>
+            <Link
+              className="selector-tab selector-tab-link"
+              to={modeHref(mode, bookSlug, sectionNumber)}
+            >
               {label}
             </Link>
           )}
@@ -114,6 +135,18 @@ function SelectorTabs({ activeMode }: { activeMode: SelectorMode }) {
       ))}
     </div>
   );
+}
+
+function getPickerStorage() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
 }
 
 function DirectSelector() {
@@ -287,35 +320,82 @@ function DirectSelector() {
 
 export function CourseSelector() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const requestedMode = searchParams.get("view");
-  const activeMode: SelectorMode =
-    requestedMode === "section" || requestedMode === "direct"
-      ? requestedMode
-      : "book";
+  const [storedPreferences, setStoredPreferences] = useState(() =>
+    readPickerPreferences(getPickerStorage())
+  );
   const defaultBookSlug =
     courseLibrary.latestVideoLesson?.bookSlug ||
     courseLibrary.books[0]?.slug ||
     "";
-  const selectedBook =
-    courseLibrary.getBook(searchParams.get("book") || defaultBookSlug) ||
-    courseLibrary.getBook(defaultBookSlug);
   const firstAvailableSection =
     courseLibrary.courseSections.find((section) => section.available) ||
     courseLibrary.courseSections[0];
-  const requestedSectionNumber = Number.parseInt(
-    searchParams.get("section") || "",
-    10
-  );
+  const resolvedPreferences = resolvePickerPreferences({
+    requestedMode: searchParams.get("view"),
+    requestedBookSlug: searchParams.get("book"),
+    requestedSectionNumber: searchParams.get("section"),
+    stored: storedPreferences,
+    validBookSlugs: new Set(courseLibrary.books.map((book) => book.slug)),
+    validSectionNumbers: new Set(
+      courseLibrary.courseSections.map((section) => section.sectionnum)
+    ),
+    defaultBookSlug,
+    defaultSectionNumber: firstAvailableSection?.sectionnum || 1,
+  });
+  const activeMode = resolvedPreferences.mode;
+  const selectedBook =
+    courseLibrary.getBook(resolvedPreferences.bookSlug || "") ||
+    courseLibrary.getBook(defaultBookSlug);
   const selectedSection =
-    courseLibrary.getCourseSection(requestedSectionNumber) ||
+    courseLibrary.getCourseSection(
+      resolvedPreferences.sectionNumber || 0
+    ) ||
     firstAvailableSection ||
     null;
 
+  useEffect(() => {
+    const nextPreferences = {
+      ...resolvedPreferences,
+      bookSlug: selectedBook?.slug || null,
+      sectionNumber: selectedSection?.sectionnum || null,
+    };
+    setStoredPreferences(nextPreferences);
+    writePickerPreferences(getPickerStorage(), nextPreferences);
+  }, [
+    activeMode,
+    selectedBook?.slug,
+    selectedSection?.sectionnum,
+  ]);
+  const progressScope =
+    activeMode === "book" && selectedBook
+      ? {
+          label: `${selectedBook.name} progress`,
+          lessons: selectedBook.lessons,
+        }
+      : activeMode === "section" && selectedSection
+        ? {
+            label: `Section ${selectedSection.sectionnum} progress`,
+            lessons: selectedSection.lessonsDetailed,
+          }
+        : null;
+
   return (
     <>
+      <ProgressSummary
+        scopeLabel={progressScope?.label || null}
+        scopeLessons={progressScope?.lessons || null}
+      />
       <div className="book-chooser course-selector">
         <div className="selector-control">
-          <SelectorTabs activeMode={activeMode} />
+          <SelectorTabs
+            activeMode={activeMode}
+            bookSlug={selectedBook?.slug || defaultBookSlug}
+            sectionNumber={
+              selectedSection?.sectionnum ||
+              firstAvailableSection?.sectionnum ||
+              1
+            }
+          />
 
           {activeMode === "book" && selectedBook ? (
             <label htmlFor="book-select">

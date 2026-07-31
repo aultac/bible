@@ -45,6 +45,10 @@ import {
   formatCacheAudit,
 } from "./weekly-cache-audit.mjs";
 import { fetchPlaylistSnapshot } from "./youtube-playlist.mjs";
+import {
+  getAppliedNotesCheckpointPath,
+  writeAppliedNotesCheckpoint,
+} from "./applied-notes-checkpoint.mjs";
 
 const NOTES_REPORT_FILENAME = "canonical-note-backup-report.json";
 
@@ -174,6 +178,9 @@ async function prepareNotesComponent({
         output: temporaryOutput,
         fullExport: Boolean(fullNotesExport),
         previousSnapshotRoot,
+        checkpointPath:
+          coursesEnv.notesCheckpointPath ||
+          getAppliedNotesCheckpointPath(),
         prepareBackups: false,
       },
       dependencies.notesSnapshotDependencies || {}
@@ -433,6 +440,17 @@ async function applyWeeklyCache(options, coursesEnv, dependencies) {
   }
 
   const appliedAt = new Date().toISOString();
+  const notesCheckpointPath =
+    coursesEnv.notesCheckpointPath ||
+    getAppliedNotesCheckpointPath();
+  progress("Recording the applied Apple Notes checkpoint.");
+  const notesCheckpoint =
+    await dependencies.writeAppliedNotesCheckpoint({
+      checkpointPath: notesCheckpointPath,
+      cacheRoot,
+      report: backups.report,
+      appliedAt,
+    });
   const playlistPath = path.join(
     REPO_ROOT,
     "apps",
@@ -459,6 +477,12 @@ async function applyWeeklyCache(options, coursesEnv, dependencies) {
         hash: hashContent(await readFile(playlistPath)),
       },
       toolsData,
+      notesCheckpoint: {
+        path: notesCheckpoint.checkpointPath,
+        hash: hashContent(
+          await readFile(notesCheckpoint.checkpointPath)
+        ),
+      },
       documentsFingerprint:
         state.components.documents?.fingerprint || null,
       repositoryAudit: audit.totals,
@@ -474,6 +498,7 @@ async function applyWeeklyCache(options, coursesEnv, dependencies) {
     reportPath,
     notesApplied: backups.applied.length,
     appliedNotes: backups.applied,
+    notesCheckpointPath,
     refresh,
     audit: audit.totals,
     state: nextState,
@@ -529,6 +554,7 @@ export async function runWeeklyRefresh(
     prepareSourceInventory,
     auditWeeklyCache,
     applyCanonicalNoteBackups,
+    writeAppliedNotesCheckpoint,
     syncCoursesContent,
     auditCourses,
     ...injectedDependencies,

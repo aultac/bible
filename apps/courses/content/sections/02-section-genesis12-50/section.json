@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T11:47:27.661Z",
+  "generatedAt": "2026-07-31T02:44:07.067Z",
   "id": "02-section-genesis12-50",
   "slug": "02-section-genesis12-50",
   "sectionnum": 2,
@@ -341,7 +341,7 @@
       "lessonPath": "apps/courses/content/sections/02-section-genesis12-50/lessons/014-genesis29-30/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
-      "resourceCount": 0,
+      "resourceCount": 3,
       "source": {
         "relativeLessonDirectory": "02-Bucket-Genesis12-50/014_Genesis29-30",
         "folderName": "014_Genesis29-30"
@@ -379,7 +379,7 @@
       "lessonPath": "apps/courses/content/sections/02-section-genesis12-50/lessons/015-genesis31-33/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
-      "resourceCount": 5,
+      "resourceCount": 0,
       "source": {
         "relativeLessonDirectory": "02-Bucket-Genesis12-50/015_Genesis31-33",
         "folderName": "015_Genesis31-33"
@@ -683,7 +683,7 @@
       "lessonPath": "apps/courses/content/sections/02-section-genesis12-50/lessons/023-genesis46-31-47-26/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
-      "resourceCount": 3,
+      "resourceCount": 0,
       "source": {
         "relativeLessonDirectory": "02-Bucket-Genesis12-50/023_Genesis46_31-47_26",
         "folderName": "023_Genesis46_31-47_26"
@@ -721,15 +721,15 @@
       "lessonPath": "apps/courses/content/sections/02-section-genesis12-50/lessons/024-genesis47-27-50-14/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
-      "resourceCount": 0,
+      "resourceCount": 3,
       "source": {
         "relativeLessonDirectory": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14",
         "folderName": "024_Genesis47_27-50_14"
       }
     },
     {
-      "id": "025-genesis50-15-genesis50-26",
-      "slug": "025-genesis50-15-genesis50-26",
+      "id": "025-genesis50-15-50-26",
+      "slug": "025-genesis50-15-50-26",
       "sequenceNumber": 25,
       "title": "Genesis 50:15-50:26",
       "lessonKind": "passage",
@@ -748,7 +748,7 @@
           "bookId": "Genesis",
           "chapter": 50,
           "verse": 26,
-          "raw": "Genesis50_26",
+          "raw": "50_26",
           "bookName": "Genesis"
         },
         "startVerse": "Genesis 50:15",
@@ -756,13 +756,13 @@
         "spansMultipleBooks": false,
         "esvUrl": "https://www.esv.org/Genesis+50:15-50:26/"
       },
-      "lessonPath": "apps/courses/content/sections/02-section-genesis12-50/lessons/025-genesis50-15-genesis50-26/lesson.json",
+      "lessonPath": "apps/courses/content/sections/02-section-genesis12-50/lessons/025-genesis50-15-50-26/lesson.json",
       "notesAvailable": true,
-      "summaryAvailable": false,
+      "summaryAvailable": true,
       "resourceCount": 0,
       "source": {
-        "relativeLessonDirectory": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26",
-        "folderName": "025_Genesis50_15-Genesis50_26"
+        "relativeLessonDirectory": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26",
+        "folderName": "025_Genesis50_15-50_26"
       }
     }
   ],

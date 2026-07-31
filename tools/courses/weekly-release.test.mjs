@@ -8,6 +8,7 @@ import {
   nextPatchVersion,
   releaseWeeklyUpdate,
   retryWeeklyRelease,
+  startDevelopmentServer,
   runWeeklyValidation,
 } from "./weekly-release.mjs";
 import {
@@ -119,6 +120,18 @@ describe("weekly validation and release", () => {
       "yarn courses:audit",
       "yarn build",
     ]);
+  });
+
+  it("starts yarn dev without requiring validation or a cache", async () => {
+    const runCommand = vi.fn(async () => {});
+
+    await startDevelopmentServer({}, { runCommand });
+
+    expect(runCommand).toHaveBeenCalledWith(
+      "yarn",
+      ["dev"],
+      expect.objectContaining({})
+    );
   });
 
   it("validates patch versions and weekly-only release paths", () => {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T11:47:27.661Z",
+  "generatedAt": "2026-07-31T02:44:07.067Z",
   "id": "024-genesis47-27-50-14",
   "slug": "024-genesis47-27-50-14",
   "sectionId": "02-section-genesis12-50",
@@ -61,7 +61,29 @@
       "Polygon"
     ]
   },
-  "resources": [],
+  "resources": [
+    {
+      "name": "josephs_tomb_1800s.webp",
+      "sourcePath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/resources/josephs_tomb_1800s.webp",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/024-genesis47-27-50-14/josephs_tomb_1800s.webp",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/024-genesis47-27-50-14/josephs_tomb_1800s.webp",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Joseph%27s_Tomb#/media/File:Joseph's_Tomb.jpg"
+    },
+    {
+      "name": "josephs_tomb_2014.webp",
+      "sourcePath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/resources/josephs_tomb_2014.webp",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/024-genesis47-27-50-14/josephs_tomb_2014.webp",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/024-genesis47-27-50-14/josephs_tomb_2014.webp",
+      "sourceUrl": "https://www.chabad.org/library/article_cdo/aid/588228/jewish/Josephs-Tomb-Shechem.htm"
+    },
+    {
+      "name": "josephs_tomb_vandalized.webp",
+      "sourcePath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/resources/josephs_tomb_vandalized.webp",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/024-genesis47-27-50-14/josephs_tomb_vandalized.webp",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/024-genesis47-27-50-14/josephs_tomb_vandalized.webp",
+      "sourceUrl": "https://jcfa.org/yet-again-the-vandalizing-and-desecration-of-josephs-tomb/"
+    }
+  ],
   "youtube": {
     "videoId": "5sUT9VtXH10",
     "title": "Know Your Bible - Week 24",
@@ -83,7 +105,7 @@
     "folderName": "024_Genesis47_27-50_14",
     "notesPath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/notes.md",
     "summaryDocxPath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/024_Genesis47_27-50_14_summary.docx",
-    "resourcesDirectory": null,
+    "resourcesDirectory": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/resources",
     "mapPath": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14/024_Genesis47_27-50.kmz"
   }
 }

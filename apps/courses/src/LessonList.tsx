@@ -4,12 +4,16 @@ import {
   formatLessonSequenceLabel,
   type HydratedLesson,
 } from "./courseData";
+import { useProgress } from "./ProgressProvider";
 
 export function LessonListItem({ lesson }: { lesson: HydratedLesson }) {
   const sequenceLabel = formatLessonSequenceLabel(lesson);
+  const { completedLessonIds, setCompleted } = useProgress();
+  const completed =
+    lesson.lessonKind !== "promo" && completedLessonIds.has(lesson.id);
 
   return (
-    <li className="lesson-row">
+    <li className={`lesson-row${completed ? " lesson-row-completed" : ""}`}>
       <Link className="lesson-row-main" to={lesson.canonicalPath}>
         <span className="lesson-number" aria-label={sequenceLabel}>
           {formatLessonSequenceBadge(lesson)}
@@ -30,8 +34,25 @@ export function LessonListItem({ lesson }: { lesson: HydratedLesson }) {
               : ""}
           </span>
         </span>
-        <span className="lesson-row-action">View lesson</span>
+        <span className="lesson-row-action">
+          {completed ? "✓ Done" : "View lesson"}
+        </span>
       </Link>
+      {lesson.lessonKind !== "promo" ? (
+        <button
+          className="lesson-row-completion"
+          type="button"
+          aria-pressed={completed}
+          aria-label={
+            completed
+              ? `Mark ${lesson.title} not done`
+              : `Mark ${lesson.title} done`
+          }
+          onClick={() => setCompleted(lesson.id, !completed)}
+        >
+          {completed ? "✓ Done" : "Mark done"}
+        </button>
+      ) : null}
       {lesson.passage?.esvUrl ? (
         <a
           className="lesson-esv-link"

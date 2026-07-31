@@ -1,6 +1,6 @@
 # Know Your Bible Weekly Workflow
 
-`yarn weekly` is a review-gated, six-step workflow. Source documents are first
+`yarn weekly` is a review-gated, eight-action workflow. Source documents are first
 copied or converted into a selected cache. Nothing reaches canonical lesson
 folders or generated website content until that cache passes its audit and is
 explicitly applied.
@@ -23,8 +23,9 @@ components:
 1. `documents` converts section and lesson Word summaries to cached Markdown and
    extracts each lesson's `Title:` as its `videoSummary`.
 2. `notes` exports Apple Notes, reuses unchanged note bodies from the selected
-   cache or newest prior cache, and stages only candidates that differ from
-   canonical `notes.md`.
+   cache or newest prior cache, falls back to the repository's last-applied
+   checkpoint after caches are deleted, and stages only candidates that differ
+   from canonical `notes.md`.
 3. `youtube` stores a validated playlist snapshot.
 4. `inventory` fingerprints canonical lesson folders, publication markers, and
    assets.
@@ -57,8 +58,8 @@ Refreshing any component returns the cache to `draft` and invalidates its
 previous successful audit.
 
 Use `--full-notes-export` with preparation when every Apple Note body should be
-read again instead of reusing unchanged bodies from the selected cache or the
-newest prior cache.
+read again instead of reusing unchanged bodies from a cache or the applied
+repository checkpoint.
 
 ### Word summary titles
 
@@ -126,11 +127,12 @@ For example, both `000-Promo_summary.docx` and `000_Promo_summary.docx` match
 `000-Promo`. Providing both forms is ambiguous and fails preparation.
 
 Playlist schema version 2 matches videos to lessons explicitly from the video
-title. A title containing `Promo` maps to lesson sequence `0`; a title
-containing `Week N` maps to lesson sequence `N`. Playlist position controls
-display order only and is never used as a lesson match fallback. Unmatched
-titles produce an audit warning, while duplicate explicit lesson matches are an
-error.
+title. A title containing `Promo` maps to lesson sequence `0`; both
+`Know Your Bible - Week N` and
+`Know Your Bible - Week N - <lesson page title>` map to lesson sequence `N`.
+Playlist position controls display order only and is never used as a lesson
+match fallback. Unmatched titles produce an audit warning, while duplicate
+explicit lesson matches are an error.
 
 ## 2. Audit cache until ready
 
@@ -171,6 +173,9 @@ Apply:
 - uses only the cached Word conversions and cached YouTube playlist;
 - regenerates course manifests, Markdown, resources, maps, search data, and
   `apps/courses/src/toolsData.ts` from all published canonical notes;
+- writes `apps/courses/content/apple-notes-checkpoint.json` with note identity,
+  modification times, lesson mappings, and content hashes for the next
+  incremental export;
 - records `videoSummary` from each Word document's `Title:` field;
 - preserves unpublished lessons under generated unpublished content; and
 - runs the repository course audit.
@@ -185,33 +190,7 @@ Use `--online-audit` with apply when remote links should also be checked:
 yarn weekly --apply --cache <cache-id> --online-audit
 ```
 
-## 4. Delete an applied cache safely
-
-Cache deletion first reconciles every retained candidate against what was
-applied:
-
-```bash
-yarn weekly --delete-cache --cache <cache-id> --yes
-```
-
-The reconciliation checks:
-
-- the applied component fingerprint still matches the cache;
-- applied canonical notes still match their recorded hashes;
-- the generated repository playlist still matches;
-- the generated tool catalog still matches its applied hash;
-- every generated lesson `videoSummary` matches the cached Word title; and
-- any legacy summary candidates retained from an older cache were not lost.
-
-Deletion is refused on any mismatch or when the cache has no successful applied
-marker. A successful deletion writes a small tombstone under the cache history
-folder and repairs `latest.json`; it does not silently discard unmatched
-candidates.
-
-The guided menu shows reconciliation results and asks for confirmation before
-deleting.
-
-## 5. Build and test locally with Vite
+## 4. Build and test
 
 Validate an applied cache:
 
@@ -232,14 +211,24 @@ content, public assets, the exact generated
 `apps/courses/src/toolsData.ts` source file, and `dist/`. The release step
 refuses to proceed if those files change afterward.
 
-Use `--preview` in direct mode to start the built site on
-`http://127.0.0.1:4173/`:
+`--build-test` is the preferred direct option; `--validate` remains available
+as a backwards-compatible alias.
 
 ```bash
-yarn weekly --validate --cache <cache-id> --preview
+yarn weekly --build-test --cache <cache-id>
 ```
 
-In guided mode, the CLI offers to start the preview after validation.
+## 5. Dev
+
+Start the development site from the guided menu or directly:
+
+```bash
+yarn weekly --dev
+```
+
+This action runs only `yarn dev`. It does not require a selected cache or a
+successful build and can be used at any time. Stop the development process to
+return to the guided menu.
 
 ## 6. Version, commit, and deploy
 
@@ -259,7 +248,7 @@ yarn weekly --release --cache <cache-id> --yes \
 Release refuses to run unless:
 
 - the selected cache still reconciles with its applied outputs;
-- step 5's fingerprint still matches;
+- step 4's fingerprint still matches;
 - the current branch is `main`;
 - no merge is in progress;
 - weekly generated changes exist; and
@@ -280,6 +269,42 @@ yarn weekly --retry-deploy --cache <cache-id>
 
 Implementation, documentation, or other unrelated working-tree changes must be
 committed separately before using the weekly release step.
+
+## 7. Delete a cache
+
+Guided deletion lists every known cache, including draft, ready, applied,
+legacy, and incomplete development caches. Direct deletion names a cache
+explicitly:
+
+```bash
+yarn weekly --delete-cache --cache <cache-id> --yes
+```
+
+Before deletion, the workflow reconciles retained candidates against applied
+outputs when possible. It reports warnings when a cache is unapplied,
+incomplete, or no longer matches generated output, but it allows deletion after
+confirmation. A cache can be recreated from the source documents if its
+candidates are needed again.
+
+A successful deletion writes a tombstone under the cache history folder,
+records the prior state and reconciliation warning codes, removes the snapshot,
+and repairs `latest.json`.
+
+## 8. Export titles
+
+Export the published, non-promo lessons for YouTube maintenance:
+
+```bash
+yarn weekly --export-titles
+```
+
+The command always overwrites `exported-lessons.csv` in the repository root.
+Each row contains `Week Number`, `Chapter/Verse Start`, `Chapter/Verse End`,
+`Title`, and `Description`. The title is
+`Know Your Bible - Week N - <lesson page title>`, and the description is the
+lesson's `videoSummary`, which is the text displayed directly under the lesson
+page title. The introduction is included as week 1 with empty chapter/verse
+fields; the promo is omitted because it has no week number.
 
 ## Cache status and lifecycle
 
@@ -305,13 +330,20 @@ Important files include:
 - `playlist.json`: the cached YouTube snapshot; and
 - `source-inventory.json`: canonical source fingerprints.
 
+The repository-owned
+`apps/courses/content/apple-notes-checkpoint.json` is written only after a
+successful apply and committed by the weekly release. It contains no Apple
+Notes HTML or Markdown bodies. Deleting all local caches therefore does not
+erase the last-applied incremental export baseline.
+
 Lifecycle states are:
 
 - `draft`: incomplete, changed, or failing audit;
 - `ready`: successfully audited and eligible to apply;
 - `applied`: applied successfully and immutable;
 - `legacy`: an older cache without current lifecycle metadata; and
-- `invalid`: an incomplete folder that cannot be selected.
+- `invalid`: an incomplete folder that cannot be refreshed or applied but can
+  still be deleted.
 
 Legacy caches must be refreshed into the current component structure and pass
 the audit before they can be applied.

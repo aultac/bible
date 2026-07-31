@@ -32,3 +32,5 @@ node_modules/
 coverage/
 .nyc_output/
 *.tsbuildinfo
+
+/exported-lessons.csv

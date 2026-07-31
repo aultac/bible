@@ -27,6 +27,10 @@
   - 1070BC: EGYPTIAN EMPIRE COMPLETELY ENDS. Return to base.
   - 1000BC: DAVID: David reigns. Saul and David have no interactions with Egypt since they have retreated from empire.
   - 970BC: SOLOMON MARRIES PHAROAH’S DAUGHTER: Solomon marries Pharoah’s daughter. Egypt is back on the world stage, but in treaty-making mode.
+- RESOURCE_LINK: AmenhotepII.png: https://www.youtube.com/watch?v=mJP4pVjnWpk
+- RESOURCE_LINK: Merenptah_stele.jpg: https://www.youtube.com/watch?v=4z9V-44cLpQ
+- RESOURCE_LINK: WebensenuTrio.png:https://www.youtube.com/watch?v=mJP4pVjnWpk
+- RESOURCE_LINK: LBS+Timeline.pdf: https://www.logosbiblestudy.com/resources-free
 
 **Exodus 1:9-16 > Slaves**
 

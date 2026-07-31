@@ -69,5 +69,3 @@
   - SLAVE TO SIN OR SLAVE TO GOD: You can either be a slave man, or a slave to God. This is the basis for Paul in Romans 6 he says that we are either slave slaves of sin leading to death or slaves of righteousness leading to life. The principal is laid down right here in the Hebrew, but the English hides it away from us.
   - PURPOSE OF FREEDOM IS SERVING GOD: And we see here that even though God identifies himself later with freedom, as “the God who took you out of Egypt,” the purpose of that freedom is to serve God. Freedom is not an end in itself: freedom has a purpose in that purpose is to be a slave to God instead of a slave to man or a slave to our own desires. **Freedom untethered from its purpose, in other words, freedom without God, does not last long and soon becomes hell on earth.**
   - FREEDOM WIHOUT GOD: The flower of freedom withers and dies without its root of serving God. Or, as founding father John Adams once wrote of the fledgling nation founded on freedom: “Our Constitution was made only for a moral and religious people. It is wholly inadequate to the government of any other”
-
-# —— TARGET A ——

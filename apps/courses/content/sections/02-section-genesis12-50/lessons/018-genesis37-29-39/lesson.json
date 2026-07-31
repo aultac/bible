@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T11:47:27.661Z",
+  "generatedAt": "2026-07-31T02:44:07.067Z",
   "id": "018-genesis37-29-39",
   "slug": "018-genesis37-29-39",
   "sectionId": "02-section-genesis12-50",
@@ -69,10 +69,10 @@
       "publicUrl": "/courses/resources/02-section-genesis12-50/018-genesis37-29-39/example_cistern.jpg"
     },
     {
-      "name": "IMG_2762.PNG",
-      "sourcePath": "02-Bucket-Genesis12-50/018_Genesis37_29-39/resources/IMG_2762.PNG",
-      "path": "apps/courses/public/resources/02-section-genesis12-50/018-genesis37-29-39/IMG_2762.PNG",
-      "publicUrl": "/courses/resources/02-section-genesis12-50/018-genesis37-29-39/IMG_2762.PNG"
+      "name": "papyrus_chester_beaty.png",
+      "sourcePath": "02-Bucket-Genesis12-50/018_Genesis37_29-39/resources/papyrus_chester_beaty.png",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/018-genesis37-29-39/papyrus_chester_beaty.png",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/018-genesis37-29-39/papyrus_chester_beaty.png"
     }
   ],
   "youtube": {

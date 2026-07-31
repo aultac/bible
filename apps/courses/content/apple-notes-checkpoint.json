@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "kind": "apple-notes-applied-checkpoint",
+  "appliedAt": "2026-07-31T02:44:08.095Z",
+  "source": {
+    "accountName": "iCloud",
+    "folderName": "FBT Sunday School"
+  },
+  "noteCount": 35,
+  "notes": [
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p501",
+      "title": "021_Genesis44-45:24",
+      "createdAt": "2026-04-20T01:15:40.000Z",
+      "updatedAt": "2026-07-30T23:52:02.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/021_Genesis44-45",
+      "sourceMarkdownHash": "b34c87603156677978cf7b356e67b8e6"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p517",
+      "title": "028_Exodus2_16-3_12",
+      "createdAt": "2026-06-07T18:41:47.000Z",
+      "updatedAt": "2026-07-30T23:51:39.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/028_Exodus2_16-3_12",
+      "sourceMarkdownHash": "eb5326f222ce67d5fe2d0c3eda1bbbe2"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p420",
+      "title": "012_Genesis26-27",
+      "createdAt": "2026-01-17T12:59:34.000Z",
+      "updatedAt": "2026-07-30T23:51:27.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/012_Genesis26-27",
+      "sourceMarkdownHash": "50e9cc0848723ad4adf0f4966761c900"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p427",
+      "title": "013_Genesis27-28",
+      "createdAt": "2026-01-31T13:04:24.000Z",
+      "updatedAt": "2026-07-30T23:50:38.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/013_Genesis27-28",
+      "sourceMarkdownHash": "c20943837f6cba2def30b872752a08b0"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p452",
+      "title": "015_Genesis31-33",
+      "createdAt": "2026-02-16T11:37:05.000Z",
+      "updatedAt": "2026-07-30T23:50:33.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/015_Genesis31-33",
+      "sourceMarkdownHash": "8c9fb426b95c9aee6b33fad991d6c105"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p453",
+      "title": "016_Genesis33-35",
+      "createdAt": "2026-02-22T19:07:18.000Z",
+      "updatedAt": "2026-07-30T23:50:27.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/016_Genesis33-35",
+      "sourceMarkdownHash": "d43f1fc7ed84ee4fc30d0ad15aca5d7b"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p458",
+      "title": "017_Genesis36-37:29",
+      "createdAt": "2026-03-02T11:57:02.000Z",
+      "updatedAt": "2026-07-30T23:49:59.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/017_Genesis36-37_29",
+      "sourceMarkdownHash": "b7d9227d91dec706cc51f88945952651"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p477",
+      "title": "019_Genesis40-41:45",
+      "createdAt": "2026-03-15T18:32:20.000Z",
+      "updatedAt": "2026-07-30T23:49:47.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/019_Genesis40-43",
+      "sourceMarkdownHash": "cb28ef79c496f364f4a331235bbc37a7"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p516",
+      "title": "027_Exodus1_17-2",
+      "createdAt": "2026-05-31T19:22:30.000Z",
+      "updatedAt": "2026-07-30T23:49:34.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/027_Exodus1_17-2_15",
+      "sourceMarkdownHash": "e767e83611faef62a2b86362019c04b5"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p418",
+      "title": "011_Genesis23-25",
+      "createdAt": "2026-01-11T20:23:48.000Z",
+      "updatedAt": "2026-07-30T23:49:25.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/011_Genesis23-25",
+      "sourceMarkdownHash": "8bcb7403eb49dd9ed5b3d0f8527c6354"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p449",
+      "title": "014_Genesis29-30",
+      "createdAt": "2026-02-07T14:48:42.000Z",
+      "updatedAt": "2026-07-30T23:49:17.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/014_Genesis29-30",
+      "sourceMarkdownHash": "77388e31f771f2259202be37809a73a8"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p467",
+      "title": "018_Genesis37:30-39",
+      "createdAt": "2026-03-07T15:39:17.000Z",
+      "updatedAt": "2026-07-30T23:49:08.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/018_Genesis37_29-39",
+      "sourceMarkdownHash": "18a8d6d4656e244a9e21a1e335fa08ec"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p504",
+      "title": "023_Genesis46:31-47:26",
+      "createdAt": "2026-05-02T10:02:15.000Z",
+      "updatedAt": "2026-07-30T23:48:21.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/023_Genesis46_31-47_26",
+      "sourceMarkdownHash": "531659760f16ed0deb93f0e8a6f76404"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p505",
+      "title": "024_Genesis47:27-50:14",
+      "createdAt": "2026-05-12T10:43:47.000Z",
+      "updatedAt": "2026-07-30T23:48:14.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/024_Genesis47_27-50_14",
+      "sourceMarkdownHash": "3da9cf141227d58638bb714411ea4806"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p525",
+      "title": "032_Exodus6_10-7",
+      "createdAt": "2026-07-06T11:06:23.000Z",
+      "updatedAt": "2026-07-30T20:53:32.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/032_Exodus6_10-7",
+      "sourceMarkdownHash": "381294480b784b39fdfc645aa91fc672"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p523",
+      "title": "030_Exodus4_18-5_9",
+      "createdAt": "2026-06-18T23:39:54.000Z",
+      "updatedAt": "2026-07-30T20:52:02.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/030_Exodus4_18-5_9",
+      "sourceMarkdownHash": "6cb917ef4704a921652c7501f4d84e15"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p510",
+      "title": "026_Exodus1_1-1_16",
+      "createdAt": "2026-05-24T20:43:48.000Z",
+      "updatedAt": "2026-07-30T20:49:07.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/026_Exodus1_1-1_16",
+      "sourceMarkdownHash": "b0898761918d3671b3a9e2614ad6ad2b"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p403",
+      "title": "009_Genesis17-19",
+      "createdAt": "2025-12-27T14:56:57.000Z",
+      "updatedAt": "2026-07-30T20:10:40.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/009_Genesis17-19",
+      "sourceMarkdownHash": "fb98a0fd3426cb6dc899c998e4599477"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p366",
+      "title": "005_Genesis7-8",
+      "createdAt": "2025-11-22T14:13:49.000Z",
+      "updatedAt": "2026-07-30T20:06:48.000Z",
+      "relativeLessonDirectory": "01-Bucket-Genesis1-11/005_Genesis7-8",
+      "sourceMarkdownHash": "200bcf4435eab32dcc474b2f80c30082"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p526",
+      "title": "033_Exodus8-9_12",
+      "createdAt": "2026-07-13T01:44:11.000Z",
+      "updatedAt": "2026-07-30T01:51:52.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12",
+      "sourceMarkdownHash": "d82f88647f8b71ba93f49caed9df3635"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p518",
+      "title": "029_Exodus3_13-4_17",
+      "createdAt": "2026-06-14T20:26:59.000Z",
+      "updatedAt": "2026-07-30T01:47:10.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/029_Exodus3_13-4_17",
+      "sourceMarkdownHash": "24da013cb7c3771ff786fc314f3365c1"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p503",
+      "title": "022_Genesis45:25-46:30",
+      "createdAt": "2026-04-26T16:03:36.000Z",
+      "updatedAt": "2026-07-30T01:44:39.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/022_Genesis45_25-46_30",
+      "sourceMarkdownHash": "cc5d2b468f9beb4f124c9ac37f1a83e3"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p372",
+      "title": "006_Genesis9-11",
+      "createdAt": "2025-11-29T17:40:59.000Z",
+      "updatedAt": "2026-07-30T01:41:54.000Z",
+      "relativeLessonDirectory": "01-Bucket-Genesis1-11/006_Genesis9-11",
+      "sourceMarkdownHash": "d58c8c7ba3ea78423588874193705160"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p346",
+      "title": "004_Genesis5-6",
+      "createdAt": "2025-11-16T17:59:27.000Z",
+      "updatedAt": "2026-07-30T01:37:36.000Z",
+      "relativeLessonDirectory": "01-Bucket-Genesis1-11/004_Genesis5-6",
+      "sourceMarkdownHash": "1b6e1a44c2ed16fcdb3e2ca4e9217f81"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p527",
+      "title": "034_Exodus9_13-11",
+      "createdAt": "2026-07-19T21:42:03.000Z",
+      "updatedAt": "2026-07-28T12:50:37.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11",
+      "sourceMarkdownHash": "365ba90df6aed2aba729fab0c4e10c93"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p342",
+      "title": "001-Intro",
+      "createdAt": "2025-11-15T14:50:08.000Z",
+      "updatedAt": "2026-07-28T12:36:33.000Z",
+      "relativeLessonDirectory": "01-Bucket-Genesis1-11/001-Intro",
+      "sourceMarkdownHash": "2091046b33a65e337d207448b205eeb8"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p528",
+      "title": "000-Promo",
+      "createdAt": "2026-07-26T22:54:09.000Z",
+      "updatedAt": "2026-07-27T14:03:35.000Z",
+      "relativeLessonDirectory": "01-Bucket-Genesis1-11/000-Promo",
+      "sourceMarkdownHash": "3fa4b28e108bd67e833e8e844a28cc17"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p524",
+      "title": "031_Exodus5_10-6_9",
+      "createdAt": "2026-06-22T01:51:20.000Z",
+      "updatedAt": "2026-07-18T22:33:41.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/031_Exodus5_10-6_9",
+      "sourceMarkdownHash": "d9a58ccdfbeff756d2e64a558bcda007"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p506",
+      "title": "025_Genesis50:15-Genesis50:26",
+      "createdAt": "2026-05-18T01:30:26.000Z",
+      "updatedAt": "2026-07-18T22:32:47.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26",
+      "sourceMarkdownHash": "90a923d8c59f890aa2c2e364eaa7b40e"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p383",
+      "title": "007_Genesis12-14",
+      "createdAt": "2025-12-15T17:51:23.000Z",
+      "updatedAt": "2026-07-18T22:32:13.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/007_Genesis12-14",
+      "sourceMarkdownHash": "0a6939ef8bafa4bcb05d58150e1968a9"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p500",
+      "title": "020_Genesis41:46-43",
+      "createdAt": "2026-04-12T15:49:35.000Z",
+      "updatedAt": "2026-07-18T22:31:45.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/020_Genesis41_46-43",
+      "sourceMarkdownHash": "c4784e9e58c0db5a20264dbf9aa92f0b"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p417",
+      "title": "010_Genesis20-22",
+      "createdAt": "2026-01-05T11:27:33.000Z",
+      "updatedAt": "2026-07-18T22:30:23.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/010_Genesis20-22",
+      "sourceMarkdownHash": "2f973b89d6e8c2e627b3e600dd8aa656"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p384",
+      "title": "008_Genesis15-16",
+      "createdAt": "2025-12-20T20:28:39.000Z",
+      "updatedAt": "2026-07-18T22:29:27.000Z",
+      "relativeLessonDirectory": "02-Bucket-Genesis12-50/008_Genesis15-16",
+      "sourceMarkdownHash": "4b8b1a06add6c49d291ed8925c32b389"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p341",
+      "title": "003_Genesis3-4",
+      "createdAt": "2025-11-14T23:49:54.000Z",
+      "updatedAt": "2026-07-18T22:10:33.000Z",
+      "relativeLessonDirectory": "01-Bucket-Genesis1-11/003_Genesis3-4",
+      "sourceMarkdownHash": "ec8512a902b3dda5adf3a2f71a3663b3"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p343",
+      "title": "002_Genesis1-2",
+      "createdAt": "2025-11-15T14:51:07.000Z",
+      "updatedAt": "2026-07-18T22:08:32.000Z",
+      "relativeLessonDirectory": "01-Bucket-Genesis1-11/002_Genesis1-2",
+      "sourceMarkdownHash": "7d8fdd81387395f1f391a5b3b2011726"
+    }
+  ]
+}

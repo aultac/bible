@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getLessonPageContent } from "./App";
+import {
+  FULTON_BAPTIST_URL,
+  YOUTUBE_AD_DISCLAIMER,
+  getLessonPageContent,
+} from "./App";
 import { courseLibrary, type HydratedLesson } from "./courseData";
 
 const hiddenState = {
@@ -24,6 +28,19 @@ function lesson(overrides: Partial<HydratedLesson> = {}) {
 }
 
 describe("content-driven lesson pages", () => {
+  it("uses the canonical Fulton Baptist website for church links", () => {
+    expect(FULTON_BAPTIST_URL).toBe("https://fultonbaptist.org");
+  });
+
+  it("disclaims YouTube's personalized ads beneath lesson videos", () => {
+    expect(YOUTUBE_AD_DISCLAIMER).toContain(
+      "not responsible for or able to control these ads"
+    );
+    expect(YOUTUBE_AD_DISCLAIMER).toContain(
+      "inappropriate for the context of this course"
+    );
+  });
+
   it("hides every optional region when its content is absent", () => {
     expect(
       getLessonPageContent({

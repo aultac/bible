@@ -12,7 +12,14 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { loadCoursesEnv, resolveAgainstCanonicalBase } from "./config.mjs";
-import { prepareCanonicalNoteBackups } from "./notes-backups.mjs";
+import {
+  hashNormalizedMarkdown,
+  prepareCanonicalNoteBackups,
+} from "./notes-backups.mjs";
+import {
+  APPLIED_NOTES_CHECKPOINT_KIND,
+  loadAppliedNotesCheckpointAsSnapshot,
+} from "./applied-notes-checkpoint.mjs";
 
 const execFileAsync = promisify(execFile);
 
@@ -191,7 +198,8 @@ function buildPreviousNotesById(previousSnapshot, match) {
 async function findReusablePreviousExport({
   note,
   previousNote,
-  previousSnapshotRoot,
+  previousSnapshot,
+  canonicalBase,
 }) {
   if (!previousNote) {
     return { reusable: false, reason: "new note" };
@@ -205,24 +213,57 @@ async function findReusablePreviousExport({
   if (note.title !== previousNote.title) {
     return { reusable: false, reason: "title changed" };
   }
-  if (!previousNote.bodyPath) {
+  if (previousNote.bodyPath && previousSnapshot?.snapshotRoot) {
+    const previousBodyPath = path.join(
+      previousSnapshot.snapshotRoot,
+      previousNote.bodyPath
+    );
+    if (!(await pathExists(previousBodyPath))) {
+      return { reusable: false, reason: "missing cached body" };
+    }
+    return {
+      reusable: true,
+      previousBodyPath,
+      reuseSource: "cached-body",
+    };
+  }
+  if (
+    previousSnapshot?.manifest?.kind !== APPLIED_NOTES_CHECKPOINT_KIND &&
+    previousNote.reuseSource !== "applied-checkpoint"
+  ) {
     return { reusable: false, reason: "missing previous body path" };
   }
-  if (!previousSnapshotRoot) {
-    return { reusable: false, reason: "missing previous snapshot root" };
+  if (
+    !previousNote.relativeLessonDirectory ||
+    !previousNote.sourceMarkdownHash
+  ) {
+    return { reusable: false, reason: "missing previous body path" };
   }
-
-  const previousBodyPath = path.join(
-    previousSnapshotRoot,
-    previousNote.bodyPath
+  const canonicalNotesPath = path.resolve(
+    canonicalBase,
+    previousNote.relativeLessonDirectory,
+    "notes.md"
   );
-  if (!(await pathExists(previousBodyPath))) {
-    return { reusable: false, reason: "missing cached body" };
+  const canonicalRelativePath = path.relative(canonicalBase, canonicalNotesPath);
+  if (
+    canonicalRelativePath.startsWith(`..${path.sep}`) ||
+    canonicalRelativePath === ".." ||
+    path.isAbsolute(canonicalRelativePath) ||
+    !(await pathExists(canonicalNotesPath))
+  ) {
+    return { reusable: false, reason: "missing canonical notes" };
   }
-
+  if (
+    hashNormalizedMarkdown(await readFile(canonicalNotesPath, "utf8")) !==
+    previousNote.sourceMarkdownHash
+  ) {
+    return { reusable: false, reason: "canonical notes changed" };
+  }
   return {
     reusable: true,
-    previousBodyPath,
+    reuseSource: "applied-checkpoint",
+    relativeLessonDirectory: previousNote.relativeLessonDirectory,
+    sourceMarkdownHash: previousNote.sourceMarkdownHash,
   };
 }
 
@@ -231,6 +272,7 @@ export async function writeSnapshotFiles(
   match,
   {
     previousSnapshot = null,
+    canonicalBase = null,
     fullExport = false,
     readNoteBodyFn = readNoteBody,
     log = (message) => console.error(message),
@@ -258,14 +300,19 @@ export async function writeSnapshotFiles(
       : await findReusablePreviousExport({
           note,
           previousNote: previousNotesById.get(note.id),
-          previousSnapshotRoot: previousSnapshot?.snapshotRoot,
+          previousSnapshot,
+          canonicalBase,
         });
 
     if (reuse.reusable) {
       log(
-        `Reusing cached note export ${index + 1}/${match.notes.length}: ${note.title}`
+        reuse.reuseSource === "applied-checkpoint"
+          ? `Reusing applied note checkpoint ${index + 1}/${match.notes.length}: ${note.title}`
+          : `Reusing cached note export ${index + 1}/${match.notes.length}: ${note.title}`
       );
-      await copyFile(reuse.previousBodyPath, absoluteBodyPath);
+      if (reuse.previousBodyPath) {
+        await copyFile(reuse.previousBodyPath, absoluteBodyPath);
+      }
       reusedNoteCount += 1;
     } else {
       log(
@@ -281,13 +328,23 @@ export async function writeSnapshotFiles(
     }
 
     titles.push(note.title);
-    manifestNotes.push({
+    const manifestNote = {
       id: note.id,
       title: note.title,
       createdAt: note.createdAt,
       updatedAt: note.updatedAt,
-      bodyPath: relativeBodyPath,
-    });
+      bodyPath:
+        reuse.reuseSource === "applied-checkpoint"
+          ? null
+          : relativeBodyPath,
+    };
+    if (reuse.reuseSource === "applied-checkpoint") {
+      manifestNote.reuseSource = reuse.reuseSource;
+      manifestNote.relativeLessonDirectory =
+        reuse.relativeLessonDirectory;
+      manifestNote.sourceMarkdownHash = reuse.sourceMarkdownHash;
+    }
+    manifestNotes.push(manifestNote);
   }
 
   const manifest = {
@@ -349,6 +406,7 @@ export async function createNotesSnapshot(
     output,
     fullExport = false,
     previousSnapshotRoot = null,
+    checkpointPath = coursesEnv.notesCheckpointPath,
     now = new Date(),
     prepareBackups = true,
   },
@@ -388,9 +446,11 @@ export async function createNotesSnapshot(
     ? null
     : previousSnapshotRoot
       ? await loadSnapshotAtRoot(previousSnapshotRoot)
-      : await loadPreviousSnapshot(output, previousLatest);
+      : (await loadPreviousSnapshot(output, previousLatest)) ||
+        (await loadAppliedNotesCheckpointAsSnapshot(checkpointPath));
   const manifest = await writeSnapshotFiles(snapshotRoot, match, {
     previousSnapshot,
+    canonicalBase: coursesEnv.canonicalBase,
     fullExport,
     readNoteBodyFn,
     log,
@@ -412,6 +472,10 @@ export async function createNotesSnapshot(
     exportedNoteCount: manifest.exportStats.exported,
     reusedNoteCount: manifest.exportStats.reused,
     previousSnapshotRoot: previousSnapshot?.snapshotRoot || null,
+    previousCheckpointPath:
+      previousSnapshot?.manifest?.kind === APPLIED_NOTES_CHECKPOINT_KIND
+        ? previousSnapshot.manifestPath
+        : null,
     previousLatestSnapshotDir: previousLatest?.latestSnapshotDir || null,
     canonicalNoteBackupReportPath: noteBackups?.reportPath || null,
     canonicalNoteBackupCandidatesRoot: noteBackups?.candidatesRoot || null,

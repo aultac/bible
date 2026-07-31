@@ -146,6 +146,31 @@ export async function reconcileWeeklyCache({
       );
     }
   }
+  const appliedNotesCheckpoint = state.applied.notesCheckpoint;
+  if (appliedNotesCheckpoint) {
+    if (!(await pathExists(appliedNotesCheckpoint.path))) {
+      mismatches.push(
+        mismatch(
+          "notes",
+          "applied-checkpoint-missing",
+          "Applied Apple Notes checkpoint is missing.",
+          { path: appliedNotesCheckpoint.path }
+        )
+      );
+    } else if (
+      hashContent(await readFile(appliedNotesCheckpoint.path)) !==
+      appliedNotesCheckpoint.hash
+    ) {
+      mismatches.push(
+        mismatch(
+          "notes",
+          "applied-checkpoint-changed",
+          "Applied Apple Notes checkpoint no longer matches this cache.",
+          { path: appliedNotesCheckpoint.path }
+        )
+      );
+    }
+  }
 
   const documentSummaries = await loadDocumentSummaries(cacheRoot);
   const lessonManifests = await collectLessonManifests(
@@ -252,7 +277,7 @@ export function formatCacheReconciliation(result) {
     return "All cached candidates match their applied outputs. This cache is safe to delete.";
   }
   return [
-    `Cache is not safe to delete: ${result.mismatches.length} mismatch(es).`,
+    `Cache deletion warning: ${result.mismatches.length} issue(s) may represent unapplied or changed cached data.`,
     ...result.mismatches.map(
       (item) => `- [${item.component}/${item.code}] ${item.message}`
     ),
@@ -264,12 +289,13 @@ export async function deleteWeeklyCache({
   notesCacheRoot,
   deletedAt = new Date().toISOString(),
   repoRoot = REPO_ROOT,
+  allowUnsafe = false,
 }) {
   const reconciliation = await reconcileWeeklyCache({
     cacheRoot,
     repoRoot,
   });
-  if (!reconciliation.safeToDelete) {
+  if (!reconciliation.safeToDelete && !allowUnsafe) {
     const error = new Error(formatCacheReconciliation(reconciliation));
     error.reconciliation = reconciliation;
     throw error;
@@ -285,9 +311,14 @@ export async function deleteWeeklyCache({
     schemaVersion: 1,
     cacheId,
     deletedAt,
-    appliedAt: reconciliation.state.applied.appliedAt,
+    previousStatus: reconciliation.state.status,
+    safeToDelete: reconciliation.safeToDelete,
+    warningCodes: reconciliation.mismatches.map(
+      (item) => `${item.component}/${item.code}`
+    ),
+    appliedAt: reconciliation.state.applied?.appliedAt || null,
     componentsFingerprint:
-      reconciliation.state.applied.componentsFingerprint,
+      reconciliation.state.applied?.componentsFingerprint || null,
   });
   await rm(cacheRoot, { recursive: true, force: true });
   await repairLatestPointer(notesCacheRoot);

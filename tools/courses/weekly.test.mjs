@@ -46,6 +46,13 @@ describe("weekly workflow CLI", () => {
       commitMessage: "Publish week 33",
       yes: true,
     });
+    expect(parseWeeklyArgs(["--build-test"])).toMatchObject({
+      mode: "validate",
+    });
+    expect(parseWeeklyArgs(["--dev"])).toMatchObject({ mode: "dev" });
+    expect(parseWeeklyArgs(["--export-titles"])).toMatchObject({
+      mode: "export-titles",
+    });
     expect(() => parseWeeklyArgs(["--audit", "--apply"])).toThrow(
       "only one"
     );
@@ -156,6 +163,154 @@ describe("weekly workflow CLI", () => {
 
     expect(checkboxPrompt).toHaveBeenCalledTimes(1);
     expect(runWeeklyRefresh).toHaveBeenCalledTimes(1);
+  });
+
+  it("places build and dev immediately after apply in the guided menu", async () => {
+    const output = outputBuffer();
+    const selectPrompt = vi.fn(async (prompt) => {
+      expect(prompt.choices.slice(0, 5).map((choice) => choice.value)).toEqual([
+        "prepare",
+        "audit",
+        "apply",
+        "validate",
+        "dev",
+      ]);
+      return "quit";
+    });
+
+    await runWeeklyCommand(
+      { mode: "interactive", coursesEnv },
+      { output: output.stream, selectPrompt }
+    );
+
+    expect(selectPrompt).toHaveBeenCalledTimes(1);
+  });
+
+  it("runs dev and title export without selecting or validating a cache", async () => {
+    const output = outputBuffer();
+    const startDevelopmentServer = vi.fn(async () => {});
+    const exportLessonTitles = vi.fn(async () => ({
+      outputPath: "/repo/exported-lessons.csv",
+      lessonCount: 33,
+    }));
+
+    await expect(
+      runWeeklyCommand(
+        { mode: "dev", coursesEnv },
+        { output: output.stream, startDevelopmentServer }
+      )
+    ).resolves.toEqual({ status: "stopped" });
+    await expect(
+      runWeeklyCommand(
+        { mode: "export-titles", coursesEnv },
+        { output: output.stream, exportLessonTitles }
+      )
+    ).resolves.toEqual({
+      outputPath: "/repo/exported-lessons.csv",
+      lessonCount: 33,
+    });
+
+    expect(startDevelopmentServer).toHaveBeenCalledTimes(1);
+    expect(exportLessonTitles).toHaveBeenCalledTimes(1);
+    expect(output.content).toContain("Exported 33 lessons");
+  });
+
+  it("allows direct deletion of an unapplied cache with confirmation", async () => {
+    const output = outputBuffer();
+    const deleteWeeklyCache = vi.fn(async (options) => {
+      expect(options).toMatchObject({
+        cacheRoot: "/cache/snapshots/dev-cache",
+        notesCacheRoot: "/cache",
+        allowUnsafe: true,
+      });
+      return { cacheId: "dev-cache" };
+    });
+
+    const result = await runWeeklyCommand(
+      {
+        mode: "delete",
+        coursesEnv,
+        cacheRoot: "dev-cache",
+        yes: true,
+      },
+      {
+        output: output.stream,
+        resolveWeeklyCache: async () => "/cache/snapshots/dev-cache",
+        reconcileWeeklyCache: async () => ({
+          safeToDelete: false,
+          mismatches: [
+            {
+              component: "cache",
+              code: "not-applied",
+              message: "Cache has no successful applied marker.",
+            },
+          ],
+        }),
+        formatCacheReconciliation: () => "Cache deletion warning",
+        deleteWeeklyCache,
+      }
+    );
+
+    expect(result).toMatchObject({
+      status: "deleted",
+      cacheRoot: "/cache/snapshots/dev-cache",
+      cacheId: "dev-cache",
+    });
+    expect(output.content).toContain("Cache deletion warning");
+  });
+
+  it("lists every known cache for guided deletion", async () => {
+    const output = outputBuffer();
+    let promptCount = 0;
+    const selectPrompt = vi.fn(async (prompt) => {
+      promptCount += 1;
+      if (promptCount === 1) {
+        return "delete";
+      }
+      if (promptCount === 2) {
+        expect(prompt.message).toBe("Cache to delete");
+        expect(prompt.choices).toEqual([
+          expect.objectContaining({
+            value: "/cache/snapshots/incomplete-dev-cache",
+            disabled: false,
+          }),
+        ]);
+        return "/cache/snapshots/incomplete-dev-cache";
+      }
+      return "quit";
+    });
+
+    await runWeeklyCommand(
+      { mode: "interactive", coursesEnv },
+      {
+        output: output.stream,
+        selectPrompt,
+        confirmPrompt: async () => true,
+        listWeeklyCaches: async () => [
+          {
+            cacheId: "incomplete-dev-cache",
+            cacheRoot: "/cache/snapshots/incomplete-dev-cache",
+            state: { status: "invalid", latestAudit: null },
+            noteUpdateCount: null,
+            selectable: false,
+          },
+        ],
+        reconcileWeeklyCache: async () => ({
+          safeToDelete: false,
+          mismatches: [
+            {
+              component: "cache",
+              code: "not-applied",
+              message: "Cache has no successful applied marker.",
+            },
+          ],
+        }),
+        formatCacheReconciliation: () => "Cache deletion warning",
+        deleteWeeklyCache: async () => ({ cacheId: "incomplete-dev-cache" }),
+      }
+    );
+
+    expect(selectPrompt).toHaveBeenCalledTimes(3);
   });
 
   it("formats cache lifecycle status", () => {

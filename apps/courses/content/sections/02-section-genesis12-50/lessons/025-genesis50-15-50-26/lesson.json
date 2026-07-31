@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T11:47:27.661Z",
-  "id": "025-genesis50-15-genesis50-26",
-  "slug": "025-genesis50-15-genesis50-26",
+  "generatedAt": "2026-07-31T02:44:07.067Z",
+  "id": "025-genesis50-15-50-26",
+  "slug": "025-genesis50-15-50-26",
   "sectionId": "02-section-genesis12-50",
   "sectionSlug": "02-section-genesis12-50",
   "sequenceNumber": 25,
   "lessonKind": "passage",
   "title": "Genesis 50:15-50:26",
   "description": "",
-  "videoSummary": null,
+  "videoSummary": "Joseph assures his brothers they need not fear him with their father now dead. Joseph now dies and makes his family swear to carry his bones out when they leave Egypt someday.",
   "status": "current",
   "publishReasons": [],
   "startVerse": "Genesis 50:15",
@@ -27,7 +27,7 @@
       "bookId": "Genesis",
       "chapter": 50,
       "verse": 26,
-      "raw": "Genesis50_26",
+      "raw": "50_26",
       "bookName": "Genesis"
     },
     "startVerse": "Genesis 50:15",
@@ -36,23 +36,23 @@
     "esvUrl": "https://www.esv.org/Genesis+50:15-50:26/"
   },
   "notes": {
-    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/025-genesis50-15-genesis50-26/notes.md",
-    "sourcePath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/notes.md",
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/025-genesis50-15-50-26/notes.md",
+    "sourcePath": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26/notes.md",
     "available": true
   },
   "summary": {
-    "path": null,
-    "sourcePath": null,
-    "sourceFormat": null,
-    "available": false,
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/025-genesis50-15-50-26/summary.md",
+    "sourcePath": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26/025_Genesis50_15-50_26_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
     "error": null
   },
   "map": {
-    "sourcePath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/025_Genesis50_15-50_26.kmz",
+    "sourcePath": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26/025_Genesis50_15-50_26.kmz",
     "sourceFormat": "kmz",
-    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/025-genesis50-15-genesis50-26/025_Genesis50_15-50_26.kmz",
-    "geoJsonPath": "apps/courses/public/maps/02-section-genesis12-50/025-genesis50-15-genesis50-26/025_Genesis50_15-50_26.geojson",
-    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/025-genesis50-15-genesis50-26/025_Genesis50_15-50_26.geojson",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/025-genesis50-15-50-26/025_Genesis50_15-50_26.kmz",
+    "geoJsonPath": "apps/courses/public/maps/02-section-genesis12-50/025-genesis50-15-50-26/025_Genesis50_15-50_26.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/025-genesis50-15-50-26/025_Genesis50_15-50_26.geojson",
     "available": true,
     "featureCount": 4,
     "geometryTypes": [
@@ -79,11 +79,11 @@
   "peopleTags": [],
   "placeTags": [],
   "source": {
-    "relativeLessonDirectory": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26",
-    "folderName": "025_Genesis50_15-Genesis50_26",
-    "notesPath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/notes.md",
-    "summaryDocxPath": null,
+    "relativeLessonDirectory": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26",
+    "folderName": "025_Genesis50_15-50_26",
+    "notesPath": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26/notes.md",
+    "summaryDocxPath": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26/025_Genesis50_15-50_26_summary.docx",
     "resourcesDirectory": null,
-    "mapPath": "02-Bucket-Genesis12-50/025_Genesis50_15-Genesis50_26/025_Genesis50_15-50_26.kmz"
+    "mapPath": "02-Bucket-Genesis12-50/025_Genesis50_15-50_26/025_Genesis50_15-50_26.kmz"
   }
 }

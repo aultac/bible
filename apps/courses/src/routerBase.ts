@@ -33,3 +33,10 @@ export function sitePath(pathname: string) {
   const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
   return `${getSiteBasePath()}${normalizedPath}`;
 }
+
+export function scrollToPageTop(
+  scrollTo: (options: ScrollToOptions) => void = (options) =>
+    window.scrollTo(options)
+) {
+  scrollTo({ top: 0, left: 0, behavior: "auto" });
+}

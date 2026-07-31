@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T11:47:27.661Z",
+  "generatedAt": "2026-07-31T02:44:07.067Z",
   "id": "011-genesis23-25",
   "slug": "011-genesis23-25",
   "sectionId": "02-section-genesis12-50",
@@ -62,10 +62,11 @@
   },
   "resources": [
     {
-      "name": "Hebron_Cave_of_the_Patriarchs.jpg",
-      "sourcePath": "02-Bucket-Genesis12-50/011_Genesis23-25/resources/Hebron_Cave_of_the_Patriarchs.jpg",
-      "path": "apps/courses/public/resources/02-section-genesis12-50/011-genesis23-25/Hebron_Cave_of_the_Patriarchs.jpg",
-      "publicUrl": "/courses/resources/02-section-genesis12-50/011-genesis23-25/Hebron_Cave_of_the_Patriarchs.jpg"
+      "name": "patriarchs.jpg",
+      "sourcePath": "02-Bucket-Genesis12-50/011_Genesis23-25/resources/patriarchs.jpg",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/011-genesis23-25/patriarchs.jpg",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/011-genesis23-25/patriarchs.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Cave_of_the_Patriarchs%2C_Hebron_2007.jpg"
     }
   ],
   "youtube": {

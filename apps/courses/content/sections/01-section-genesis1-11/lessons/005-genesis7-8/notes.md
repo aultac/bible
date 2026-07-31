@@ -224,3 +224,5 @@ Then, to further amplify the inclusio:
 ## Next Week
 
 - Read Genesis 9-11: Babel, Noah’s lasting covenant, Noah’s descendants seed the nations
+
+RESOURCE_LINK: ark_animals.jpg: https://www.conservapedia.com/File:Ark_construction.jpg

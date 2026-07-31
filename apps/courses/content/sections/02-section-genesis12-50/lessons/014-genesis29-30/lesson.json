@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T11:47:27.661Z",
+  "generatedAt": "2026-07-31T02:44:07.067Z",
   "id": "014-genesis29-30",
   "slug": "014-genesis29-30",
   "sectionId": "02-section-genesis12-50",
@@ -61,7 +61,27 @@
       "Polygon"
     ]
   },
-  "resources": [],
+  "resources": [
+    {
+      "name": "babylonbeeidea_JacobLeahValentine.jpg",
+      "sourcePath": "02-Bucket-Genesis12-50/014_Genesis29-30/resources/babylonbeeidea_JacobLeahValentine.jpg",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/014-genesis29-30/babylonbeeidea_JacobLeahValentine.jpg",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/014-genesis29-30/babylonbeeidea_JacobLeahValentine.jpg"
+    },
+    {
+      "name": "mandrake1.png",
+      "sourcePath": "02-Bucket-Genesis12-50/014_Genesis29-30/resources/mandrake1.png",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/014-genesis29-30/mandrake1.png",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/014-genesis29-30/mandrake1.png",
+      "sourceUrl": "https://www.gardeningknowhow.com/ornamental/flowers/mandrake/mandrake-winter-protection.htm"
+    },
+    {
+      "name": "ron_swanson_valentine.JPG",
+      "sourcePath": "02-Bucket-Genesis12-50/014_Genesis29-30/resources/ron_swanson_valentine.JPG",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/014-genesis29-30/ron_swanson_valentine.JPG",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/014-genesis29-30/ron_swanson_valentine.JPG"
+    }
+  ],
   "youtube": {
     "videoId": "H9J1seQh-yc",
     "title": "Know Your Bible - Week 14",
@@ -83,7 +103,7 @@
     "folderName": "014_Genesis29-30",
     "notesPath": "02-Bucket-Genesis12-50/014_Genesis29-30/notes.md",
     "summaryDocxPath": "02-Bucket-Genesis12-50/014_Genesis29-30/014_Genesis29-30_summary.docx",
-    "resourcesDirectory": null,
+    "resourcesDirectory": "02-Bucket-Genesis12-50/014_Genesis29-30/resources",
     "mapPath": "02-Bucket-Genesis12-50/014_Genesis29-30/014_Genesis29-30.kmz"
   }
 }

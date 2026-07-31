@@ -618,6 +618,11 @@ export default function LessonMapPanel({
   };
 
   const displayNodes = getDisplayLayerNodes(normalizedMap.root);
+  const allFeatureIds = collectDescendantFeatureIds(normalizedMap.root);
+  const allLayersCheckState = getFolderCheckState(
+    normalizedMap.root,
+    visibleFeatureIds
+  );
   const selectedLabel = selectedFeatureId
     ? normalizedMap.featureNodeById.get(selectedFeatureId)?.label
     : null;
@@ -634,34 +639,51 @@ export default function LessonMapPanel({
       </p>
 
       <div className="map-frame">
-        <details
-          className="map-layer-panel"
-          open={layerPanelOpen}
-          onToggle={(event) => {
-            const open = event.currentTarget.open;
-            if (open !== layerPanelOpen) {
-              setLayerPanelOpen(open);
-            }
-          }}
+        <div
+          className={`map-layer-panel${
+            layerPanelOpen ? " map-layer-panel-open" : ""
+          }`}
         >
-          <summary>
-            <span>Map layers</span>
-            <small>{normalizedMap.features.length} items</small>
-          </summary>
-          <div className="map-layer-scroll">
-            <MapLayerTree
-              nodes={displayNodes}
-              featureById={normalizedMap.featureById}
-              visibleFeatureIds={visibleFeatureIds}
-              expandedFolderIds={expandedFolderIds}
-              selectedFeatureId={selectedFeatureId}
-              onFeatureVisibility={handleFeatureVisibility}
-              onFolderVisibility={handleFolderVisibility}
-              onFolderExpansion={handleFolderExpansion}
-              onFeatureSelect={handleFeatureSelect}
+          <div className="map-layer-panel-header">
+            <LayerCheckbox
+              state={allLayersCheckState}
+              ariaLabel="Show all map layers"
+              onChange={(visible) => {
+                setVisibleFeatureIds((current) =>
+                  setFeatureIdsVisible(current, allFeatureIds, visible)
+                );
+                if (!visible) {
+                  setSelectedFeatureId(null);
+                }
+              }}
             />
+            <button
+              className="map-layer-panel-toggle"
+              type="button"
+              aria-expanded={layerPanelOpen}
+              onClick={() => setLayerPanelOpen((open) => !open)}
+            >
+              <span>Map layers</span>
+              <small>{normalizedMap.features.length} items</small>
+              <span aria-hidden="true">{layerPanelOpen ? "▾" : "▸"}</span>
+            </button>
           </div>
-        </details>
+          {layerPanelOpen ? (
+            <div className="map-layer-scroll">
+              <MapLayerTree
+                nodes={displayNodes}
+                featureById={normalizedMap.featureById}
+                visibleFeatureIds={visibleFeatureIds}
+                expandedFolderIds={expandedFolderIds}
+                selectedFeatureId={selectedFeatureId}
+                onFeatureVisibility={handleFeatureVisibility}
+                onFolderVisibility={handleFolderVisibility}
+                onFolderExpansion={handleFolderExpansion}
+                onFeatureSelect={handleFeatureSelect}
+              />
+            </div>
+          ) : null}
+        </div>
         <div className="map-canvas-shell">
           <div
             ref={mapContainerRef}

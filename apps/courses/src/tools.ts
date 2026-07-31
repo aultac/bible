@@ -43,6 +43,33 @@ export function getToolsForLesson(
   return catalog.filter((tool) => tool.relatedLessonIds.includes(lessonId));
 }
 
+export function sortToolsByEarliestWeek<TTool extends ToolCatalogEntry>(
+  catalog: readonly TTool[],
+  getWeekNumber: (lessonId: string) => number | null | undefined
+) {
+  return catalog
+    .map((tool, sourceIndex) => {
+      const weekNumbers = tool.relatedLessonIds
+        .map(getWeekNumber)
+        .filter(
+          (weekNumber): weekNumber is number =>
+            typeof weekNumber === "number" && Number.isFinite(weekNumber)
+        );
+      return {
+        tool,
+        sourceIndex,
+        earliestWeek:
+          weekNumbers.length > 0 ? Math.min(...weekNumbers) : Infinity,
+      };
+    })
+    .sort(
+      (left, right) =>
+        left.earliestWeek - right.earliestWeek ||
+        left.sourceIndex - right.sourceIndex
+    )
+    .map(({ tool }) => tool);
+}
+
 export function transformLessonNotes(
   markdown: string,
   catalog: readonly ToolCatalogEntry[] = toolCatalog,

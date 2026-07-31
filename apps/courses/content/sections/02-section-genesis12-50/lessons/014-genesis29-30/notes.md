@@ -71,48 +71,9 @@ PICTURE: Jacob Inspirational “Leah” line of Valentines cards. Thanks to Baby
 
 - LEAH’S IRONY: Leah is the one who stole Rachel’s husband in the first place. The perpetrator becomes the victim.
 - MANDRAKES DON’T WORK: Leah conceives, not Rachel. God is making a point that magic doesn’t control the world, he controls the world. Torah explicitly says God opened Rachel’s womb later.
+- RESOURCE_LINK: mandrake1.png: https://www.gardeningknowhow.com/ornamental/flowers/mandrake/mandrake-winter-protection.htm
 
 **Genesis 30:25-end > Jacob wealthy but trapped**
 
 - GOD MADE STRIPES NOT THE STICKS: Jacob says next chapter that it was a dream he had and God did it, not magic sticks.
 - IS WEALTH EVIL?: Jacob became wealthy. Isaac was wealthy. Abraham was wealthy. Solomon’s wealth was his downfall. Is money inherently evil? Should we voluntarily avoid earning? Jesus said **Luke 18:18-27** (rich young ruler and eye of needle). **Luke 16:19-31** (Lazarus and rich man). In the Lazarus story, there are two rich men in the afterlife. One is in torment in Hades, and one is “far off” in comfort with Lazarus (Abraham). **What was the difference? God.** All is possible with God. Abraham trusted God, the rich man did not. Money seems to act like a catalyst: if you are on a path away from God, money will take you there faster. If you are putting your trust in God first through the help of the Holy Spirit, then money can do great good like support your family with stability, support your church, help those in need, etc.
-
-————————
-
-Ended here in class
-
-———————
-
-**Genesis 31:1-10 > Plans to leave and dream of spotted goats**
-
-- PATH OF CAIN: it was because of God’s favor on Jacob that Laban became successful as well, but all his sons see is what they don’t have. They took the path of Cain to hate the success of others, even when the success of others was benefitting them!
-- YOU ARE CAIN: and yet, you know the sons’ reaction is there inside you, too. Seeing Jacob get wealthier and wealthier all while he was supposed to be helping your Dad.
-- SO GOD MADE THEM SPOTTED: it wasn’t sticks after all, unless God told him about the sticks as a visual sign to the people around Jacob.
-
-**Genesis 31:11-13 > Angel of the LORD**
-
-- ANGEL OF YAHWEH SAYS HE IS GOD: and specifically the God of Bethel
-- GOD IS EVERYWHERE: As in, “I am here too, Jacob, not just at the “House of God” where you said ‘Surely God is in this place.’”
-
-**Genesis 31:14-16 > Wives agree**
-
-- PLANNING TO TAKE THE WEALTH: they are all on board with sneaking out all their stuff
-- ONLY TIME LEAH AND RACHEL AGREE: this is the only time Rachel and Leah agree on something
-
-**Genesis 31:17-32 > Rachel’s Theft and Laban’s search**
-
-- WHY NEITHER GOOD NOR BAD?: why couldn’t Laban say anything good? Because Laban could have enticed Jacob back to live with him via flattery so he could continue to take advantage of him. God needed Jacob in Canaan, so Alana could neither hurt him nor entice him back. God outsmarted Laban: he left him no conniving way around God’s intention by including “good” in the prohibition.
-- SYNCRETISM: Rachel seemed to believe both in pagan gods and in God. This is called “syncretism”. Dennis Prager puts it this way: “Rachel’s behavior may have been similar to that of Niels Bohr, the Nobel prize winning physicist who was said to keep a rabbit’s foot in his laboratory. When an astonished visitor asked “But surely professor you don’t believe in a rabbit‘s foot?” Bohr responded “Of course not. But they say a rabbit’s foot brings you luck whether you believe in it or not.”
-- HONOR AMONG THIEVES: Laban didn’t believe Jacob because Laban knew he himself would have lied about it. The liar complains the loudest when he is lied to. The thief thinks stealing is fine until he is stolen from.
-- CAN CUT THE TENSON WITH A KNIFE: imagine Rachel’s fear. What would Laban and Jacob have done?
-
-**Genesis 31:33-end > Laban’s search**
-
-- GREAT IRONY: Jacob has never lost his temper with Laban before despite many legitimate grievances. But he loses his temper here in the only case where Laban was actually right
-- LABAN ADMITS. he was never going to allow Jacob to leave with his family or his possessions.
-- JACOB AND LABAN AGREEMENT: it is an agreement between crooks. “God watch you or you’ll steal all my stuff”.
-- RIGHTEOUS PUNISHMENT OF LIARS: As Prager writes: “This is the built-in punishment of the dishonest. They go through life convinced they are constantly being deceived.” In Laban’s case, his paranoia cost him his daughters and his grandchildren, and, ultimately, a share in God’s promise.
-
-# Next Week
-
-- Genesis 32, 33, 34: Wrestling with God, Esau’s reckoning, and the rape of Dinah.

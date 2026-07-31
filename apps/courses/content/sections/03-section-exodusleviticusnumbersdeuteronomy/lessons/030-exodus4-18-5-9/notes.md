@@ -104,18 +104,14 @@
   - WHAT IT MEANS TO BE AMORAL: nature is not the opposite of God. It is not immoral. It is amoral. Meaning that nature does not accept God’s definition of right and wrong and then always choose the wrong. It simply always chooses survival and instinct, regardless of whether that is right or wrong. When the German shepherds tore apart the Jewish prisoners in the concentration camps, the dogs were not evil, they were simply tools. No more than a hammer is good when it hammers nails but evil when it smashes an innocent person in the head. It is simply a tool. A dog that jumps into the river to save its owner is also not good. They were conditioned to treat humans a certain way by treats and experiences. In the same way, if you love God only because of what he will do for you with rewards in this life, or purely because you are afraid of punishment, you are just as amoral as the dogs. We are to love God for who he is, and out of gratitude for saving us even though we did not deserve it. Not because he gives us a bunch of treats or beats us over the head. Nature is amoral. God is moral.
   - WHY WE HAVE NATURE PLAGUES: and for now maybe you can understand a little why God chose to enact these 10 awful plagues of nature. He is not only repudiating the Egyptian gods, he is introducing himself to all of humanity as a God outside of nature in a spectacular, judgmental manner. That is why the plagues we’re about to read have such a natural disaster flavor and maybe be part of why God chose to enact to them in this way. This Torah was revolutionary and completely unique in history.
 
-#
+RESOURCE_LINK: 01_Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg: https://www.egypttoursportal.com/images/2025/04/Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
 
-Bull sarcophagus and Serepeam images:
+RESOURCE_LINK: 02_Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg: https://www.egypttoursportal.com/images/2025/04/Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
 
-https://www.egypttoursportal.com/images/2025/04/Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
+RESOURCE_LINK: 03_Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg: https://www.egypttoursportal.com/images/2025/04/Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
 
-https://www.egypttoursportal.com/images/2025/04/Sarcophagi-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
+RESOURCE_LINK: 04_Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg: https://www.egypttoursportal.com/images/2025/04/Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
 
-https://www.egypttoursportal.com/images/2025/04/Architectural-Marvels-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
+RESOURCE_LINK: 05_Apis-Bull-Mummy-1024x768.webp: https://egyptunitedtours.com/wp-content/uploads/2025/10/Apis-Bull-Mummy-1024x768.webp
 
-https://www.egypttoursportal.com/images/2025/04/Significance-and-Rituals-of-the-Serapeum-of-Saqqara-Egypt-Tours-Portal.jpg
-
-https://egyptunitedtours.com/wp-content/uploads/2025/10/Apis-Bull-Mummy-1024x768.webp
-
-https://www.youregypttours.com/storage/facts-about-apis-bull.jpg
+RESOURCE_LINK: 06_facts-about-apis-bull.jpg: https://www.youregypttours.com/storage/facts-about-apis-bull.jpg

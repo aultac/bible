@@ -179,4 +179,41 @@ describe("safe weekly cache deletion", () => {
       ])
     );
   });
+
+  it("deletes an unapplied cache only when unsafe deletion is allowed", async () => {
+    const root = await mkdtemp(path.join(os.tmpdir(), "weekly-delete-test-"));
+    temporaryRoots.push(root);
+    const notesCacheRoot = path.join(root, "cache");
+    const cache = await createWeeklyCache(notesCacheRoot);
+
+    await expect(
+      deleteWeeklyCache({
+        cacheRoot: cache.cacheRoot,
+        notesCacheRoot,
+        repoRoot: path.join(root, "repo"),
+      })
+    ).rejects.toThrow("Cache deletion warning");
+
+    const result = await deleteWeeklyCache({
+      cacheRoot: cache.cacheRoot,
+      notesCacheRoot,
+      repoRoot: path.join(root, "repo"),
+      allowUnsafe: true,
+      deletedAt: "2026-07-23T03:00:00.000Z",
+    });
+
+    await expect(stat(cache.cacheRoot)).rejects.toMatchObject({
+      code: "ENOENT",
+    });
+    expect(
+      JSON.parse(await readFile(result.tombstonePath, "utf8"))
+    ).toMatchObject({
+      cacheId: cache.cacheId,
+      previousStatus: "draft",
+      safeToDelete: false,
+      appliedAt: null,
+      componentsFingerprint: null,
+      warningCodes: ["cache/not-applied"],
+    });
+  });
 });

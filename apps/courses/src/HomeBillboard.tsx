@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   formatLessonSequenceLabel,
+  type BillboardLessonItem,
   type HydratedLesson,
 } from "./courseData";
 import {
@@ -11,15 +12,17 @@ import {
 import { VideoPlayer } from "./VideoPlayer";
 
 export function HomeBillboard({
-  lessons,
+  items,
 }: {
-  lessons: HydratedLesson[];
+  items: Array<BillboardLessonItem<HydratedLesson>>;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [userPaused, setUserPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const controllerRef = useRef<BillboardRotationController | null>(null);
-  const lessonKey = lessons.map((lesson) => lesson.id).join("|");
+  const lessonKey = items
+    .map((item) => `${item.role}:${item.lesson.id}`)
+    .join("|");
 
   useEffect(() => {
     setActiveIndex(0);
@@ -28,9 +31,9 @@ export function HomeBillboard({
 
   useEffect(() => {
     const controller = createBillboardRotationController({
-      slideCount: lessons.length,
+      slideCount: items.length,
       onAdvance: () => {
-        setActiveIndex((current) => (current + 1) % lessons.length);
+        setActiveIndex((current) => (current + 1) % items.length);
       },
     });
     controllerRef.current = controller;
@@ -40,7 +43,7 @@ export function HomeBillboard({
       controller.stop();
       controllerRef.current = null;
     };
-  }, [lessons.length]);
+  }, [items.length]);
 
   useEffect(() => {
     controllerRef.current?.setPaused("user", userPaused);
@@ -75,7 +78,7 @@ export function HomeBillboard({
     };
   }, []);
 
-  if (lessons.length === 0) {
+  if (items.length === 0) {
     return (
       <section className="billboard billboard-empty">
         <div>
@@ -89,12 +92,13 @@ export function HomeBillboard({
     );
   }
 
-  const safeIndex = Math.min(activeIndex, lessons.length - 1);
-  const activeLesson = lessons[safeIndex];
-  const hasMultipleSlides = lessons.length > 1;
+  const safeIndex = Math.min(activeIndex, items.length - 1);
+  const activeItem = items[safeIndex];
+  const activeLesson = activeItem.lesson;
+  const hasMultipleSlides = items.length > 1;
   const goToSlide = (nextIndex: number) => {
     setActiveIndex(
-      ((nextIndex % lessons.length) + lessons.length) % lessons.length
+      ((nextIndex % items.length) + items.length) % items.length
     );
     controllerRef.current?.reset();
   };
@@ -126,7 +130,7 @@ export function HomeBillboard({
         key={activeLesson.id}
         className="billboard billboard-slide"
         role="group"
-        aria-label={`${safeIndex + 1} of ${lessons.length}`}
+        aria-label={`${safeIndex + 1} of ${items.length}`}
         aria-roledescription="slide"
         aria-live={userPaused || reducedMotion ? "polite" : "off"}
       >
@@ -135,9 +139,11 @@ export function HomeBillboard({
         </div>
         <div className="billboard-copy">
           <p className="eyebrow">
-            {activeLesson.lessonKind === "promo"
-              ? "Course preview"
-              : "Latest course"}
+            {activeItem.role === "next"
+              ? "Next lesson"
+              : activeItem.role === "promo"
+                ? "Course preview"
+                : "Latest course"}
           </p>
           <h1>{activeLesson.title}</h1>
           <p className="billboard-description">
@@ -209,21 +215,21 @@ export function HomeBillboard({
             role="group"
             aria-label="Choose billboard item"
           >
-            {lessons.map((lesson, index) => (
+            {items.map((item, index) => (
               <button
-                key={lesson.id}
+                key={item.lesson.id}
                 type="button"
                 className={
                   index === safeIndex ? "billboard-dot-active" : undefined
                 }
-                aria-label={`Show ${lesson.title}`}
+                aria-label={`Show ${item.lesson.title}`}
                 aria-current={index === safeIndex ? "true" : undefined}
                 onClick={() => goToSlide(index)}
               />
             ))}
           </div>
           <span className="billboard-position" aria-hidden="true">
-            {safeIndex + 1} / {lessons.length}
+            {safeIndex + 1} / {items.length}
           </span>
           <button
             className="billboard-control billboard-arrow"

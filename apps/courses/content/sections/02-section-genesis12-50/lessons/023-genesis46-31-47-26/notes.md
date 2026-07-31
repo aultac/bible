@@ -80,4 +80,4 @@
   - SLAVERY: Joseph enslaves all of Egypt to pharaoh, and later a different pharaoh enslaves all of Joseph’s family.
   - MONEY: Joseph gave Pharoah all the money he earned at the stay of Israel’s enslavement, and later the Egyptians give it all back when Israel leaves.
 
-## —- Ended here in class —-
+##

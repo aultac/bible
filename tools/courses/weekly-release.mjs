@@ -169,14 +169,14 @@ export async function runWeeklyValidation(
   };
 }
 
-export async function startLocalPreview(
+export async function startDevelopmentServer(
   { onProgress = null } = {},
   { runCommand = runInheritedCommand } = {}
 ) {
   if (onProgress) {
-    onProgress("Starting Vite at http://127.0.0.1:4173/.");
+    onProgress("Starting the development site with yarn dev.");
   }
-  await runCommand("yarn", ["preview:local"], { cwd: REPO_ROOT });
+  await runCommand("yarn", ["dev"], { cwd: REPO_ROOT });
 }
 
 function parseStatusPaths(statusOutput) {
