@@ -36,6 +36,19 @@ function getDirectiveToolPath(line: string) {
   return token?.startsWith("/") ? normalizeToolPath(token) : null;
 }
 
+function formatLessonNotesTitle(line: string) {
+  const titleMatch = line.match(/^#\s+(\d+)_([^\s].*)$/u);
+  if (!titleMatch) {
+    return line;
+  }
+
+  const weekNumber = Number.parseInt(titleMatch[1], 10);
+  const passage = titleMatch[2]
+    .replace(/_/gu, ":")
+    .replace(/([A-Za-z])(\d)/gu, "$1 $2");
+  return `# Week ${weekNumber} - ${passage}`;
+}
+
 export function getToolsForLesson(
   lessonId: string,
   catalog: readonly ToolCatalogEntry[] = toolCatalog
@@ -80,6 +93,9 @@ export function transformLessonNotes(
   return markdown
     .replace(/\r\n?/gu, "\n")
     .split("\n")
+    .map((line, index) =>
+      index === 0 ? formatLessonNotesTitle(line) : line
+    )
     .flatMap((line) => {
       if (line.includes(RESOURCE_LINK_MARKER)) {
         return [];

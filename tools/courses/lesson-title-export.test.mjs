@@ -7,8 +7,9 @@ import {
 } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  buildExportedLessonRow,
   buildExportedLessonTitle,
   exportLessonTitles,
   serializeLessonTitleCsv,
@@ -40,32 +41,84 @@ describe("lesson title export", () => {
   });
 
   it("exports page descriptions and safely quotes CSV values", () => {
-    const csv = serializeLessonTitleCsv([
-      {
-        sequenceNumber: 2,
-        lessonKind: "passage",
-        title: "Genesis 1-2",
-        startVerse: "Genesis 1",
-        endVerse: "Genesis 2",
-        videoSummary: 'Creation, humanity, and "rest"',
-      },
-      {
-        sequenceNumber: 0,
-        lessonKind: "promo",
-        title: "Why Know Your Bible?",
-        startVerse: null,
-        endVerse: null,
-        videoSummary: "Promo",
-      },
-    ]);
+    const csv = serializeLessonTitleCsv(
+      [
+        {
+          sequenceNumber: 2,
+          lessonKind: "passage",
+          title: "Genesis 1-2",
+          startVerse: "Genesis 1",
+          endVerse: "Genesis 2",
+          videoSummary: 'Creation, humanity, and "rest"',
+          youtube: {
+            url: "https://www.youtube.com/watch?v=week-two",
+          },
+        },
+        {
+          sequenceNumber: 0,
+          lessonKind: "promo",
+          title: "Why Know Your Bible?",
+          startVerse: null,
+          endVerse: null,
+          videoSummary: "Promo",
+        },
+      ],
+      new Map([
+        [
+          "https://www.youtube.com/watch?v=week-two",
+          {
+            title: "Know Your Bible - Week 2 - Genesis 1-2",
+            description: 'Creation, humanity, and "rest"',
+          },
+        ],
+      ])
+    );
 
     expect(csv).toBe(
       [
-        "Week Number,Chapter/Verse Start,Chapter/Verse End,Title,Description",
-        '2,Genesis 1,Genesis 2,Know Your Bible - Week 2 - Genesis 1-2,"Creation, humanity, and ""rest"""',
+        "Week Number,Chapter/Verse Start,Chapter/Verse End,Title,Description,YouTube Link,Match",
+        '2,Genesis 1,Genesis 2,Know Your Bible - Week 2 - Genesis 1-2,"Creation, humanity, and ""rest""",https://www.youtube.com/watch?v=week-two,MATCH',
         "",
       ].join("\n")
     );
+  });
+
+  it("requires both YouTube title and description to match", () => {
+    const lesson = {
+      sequenceNumber: 2,
+      lessonKind: "passage",
+      title: "Genesis 1-2",
+      startVerse: "Genesis 1",
+      endVerse: "Genesis 2",
+      videoSummary: "Creation description",
+      youtube: {
+        url: "https://www.youtube.com/watch?v=week-two",
+      },
+    };
+    const expectedMetadata = {
+      title: "Know Your Bible - Week 2 - Genesis 1-2",
+      description: "Creation description",
+    };
+
+    expect(buildExportedLessonRow(lesson, expectedMetadata).at(-1)).toBe(
+      "MATCH"
+    );
+    expect(
+      buildExportedLessonRow(lesson, {
+        ...expectedMetadata,
+        title: "Different title",
+      }).at(-1)
+    ).toBe("");
+    expect(
+      buildExportedLessonRow(lesson, {
+        ...expectedMetadata,
+        description: "Different description",
+      }).at(-1)
+    ).toBe("");
+    expect(buildExportedLessonRow(lesson).slice(-2)).toEqual([
+      "https://www.youtube.com/watch?v=week-two",
+      "",
+    ]);
   });
 
   it("overwrites exported-lessons.csv with published non-promo lessons", async () => {
@@ -116,19 +169,34 @@ describe("lesson title export", () => {
       startVerse: "Genesis 1",
       endVerse: "Genesis 2",
       videoSummary: "Lesson description",
+      youtube: {
+        url: "https://www.youtube.com/watch?v=week-two",
+      },
     });
     const outputPath = path.join(repoRoot, "exported-lessons.csv");
     await writeFile(outputPath, "old content\n", "utf8");
+    const fetchVideoMetadata = vi.fn(async () => ({
+      videoId: "week-two",
+      title: "Know Your Bible - Week 2 - Genesis 1-2",
+      description: "Lesson description",
+    }));
 
-    const result = await exportLessonTitles({ repoRoot });
+    const result = await exportLessonTitles({
+      repoRoot,
+      fetchVideoMetadata,
+    });
 
     expect(result).toEqual({ outputPath, lessonCount: 2 });
+    expect(fetchVideoMetadata).toHaveBeenCalledOnce();
+    expect(fetchVideoMetadata).toHaveBeenCalledWith(
+      "https://www.youtube.com/watch?v=week-two"
+    );
     const csv = await readFile(outputPath, "utf8");
     expect(csv).not.toContain("old content");
     expect(csv).not.toContain("Promo description");
     expect(csv).toContain("1,,,Know Your Bible - Week 1 - Intro");
     expect(csv).toContain(
-      "2,Genesis 1,Genesis 2,Know Your Bible - Week 2 - Genesis 1-2,Lesson description"
+      "2,Genesis 1,Genesis 2,Know Your Bible - Week 2 - Genesis 1-2,Lesson description,https://www.youtube.com/watch?v=week-two,MATCH"
     );
   });
 });

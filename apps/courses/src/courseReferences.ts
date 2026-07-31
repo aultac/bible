@@ -34,4 +34,9 @@ export const courseReferences: readonly CourseReference[] = [
     attribution: "BibleThinker",
     url: "https://biblethinker.org/",
   },
+  {
+    name: "OpenBible.info",
+    attribution: "Google earth files for every place mentioned in the Bible.",
+    url: "https://www.openbible.info/",
+  },
 ];

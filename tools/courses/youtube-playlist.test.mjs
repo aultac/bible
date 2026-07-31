@@ -2,7 +2,9 @@ import { describe, expect, it, vi } from "vitest";
 import {
   buildPlaylistVideoMatchMap,
   fetchPlaylistSnapshot,
+  fetchYoutubeVideoMetadata,
   parsePlaylistSnapshotHtml,
+  parseYoutubeVideoMetadataHtml,
 } from "./youtube-playlist.mjs";
 
 const PLAYLIST_ID = "playlist-id";
@@ -15,6 +17,12 @@ function playlistHtml(contents) {
       },
     },
     contents,
+  })};</script>`;
+}
+
+function videoHtml(videoDetails) {
+  return `<script>var ytInitialPlayerResponse = ${JSON.stringify({
+    videoDetails,
   })};</script>`;
 }
 
@@ -278,6 +286,51 @@ describe("YouTube playlist parsing", () => {
       })
     ).rejects.toThrow(
       "YouTube playlist request failed after 1 attempt: ENOTFOUND: host lookup failed"
+    );
+  });
+
+  it("parses exact title and description metadata from a watch page", () => {
+    expect(
+      parseYoutubeVideoMetadataHtml(
+        videoHtml({
+          videoId: "week-two",
+          title: "Know Your Bible - Week 2 - Genesis 1-2",
+          shortDescription: "Creation description\nwith a second line.",
+        })
+      )
+    ).toEqual({
+      videoId: "week-two",
+      title: "Know Your Bible - Week 2 - Genesis 1-2",
+      description: "Creation description\nwith a second line.",
+    });
+  });
+
+  it("fetches current metadata using the canonical watch-page URL", async () => {
+    const fetchImpl = vi.fn(async () =>
+      new Response(
+        videoHtml({
+          videoId: "week-two",
+          title: "Week two",
+          shortDescription: "Description",
+        })
+      )
+    );
+
+    await expect(
+      fetchYoutubeVideoMetadata(
+        "https://www.youtube.com/watch?v=week-two&list=playlist-id",
+        { fetchImpl }
+      )
+    ).resolves.toEqual({
+      videoId: "week-two",
+      title: "Week two",
+      description: "Description",
+    });
+    expect(fetchImpl).toHaveBeenCalledWith(
+      "https://www.youtube.com/watch?v=week-two&hl=en",
+      expect.objectContaining({
+        redirect: "follow",
+      })
     );
   });
 });

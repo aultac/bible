@@ -19,7 +19,7 @@
     "dev:courses": "vite --configLoader runner --config apps/courses/vite.config.ts",
     "courses:dev": "yarn dev:courses",
     "courses:preview": "vite preview --configLoader runner --config apps/courses/vite.config.ts",
-    "deploy": "yarn build && yarn deploy:dist",
+    "deploy": "yarn build && yarn deploy:dist && node tools/bump-package-patch.mjs",
     "deploy:dist": "gh-pages -d dist",
     "weekly": "node tools/courses/weekly.mjs",
     "courses:sections:update": "node tools/courses/update-sections.mjs",

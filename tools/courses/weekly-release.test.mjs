@@ -1,9 +1,16 @@
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   assertOnlyWeeklyReleaseChanges,
+  bumpPackagePatch,
   computeReleaseFingerprint,
   nextPatchVersion,
   releaseWeeklyUpdate,
@@ -152,6 +159,35 @@ describe("weekly validation and release", () => {
     expect(() =>
       assertOnlyWeeklyReleaseChanges(["WEEKLY_WORKFLOW.md"])
     ).toThrow("unrelated working-tree changes");
+  });
+
+  it("prepares package.json with the next patch version", async () => {
+    const root = await mkdtemp(
+      path.join(os.tmpdir(), "package-version-test-")
+    );
+    temporaryRoots.push(root);
+    const packagePath = path.join(root, "package.json");
+    await writeFile(
+      packagePath,
+      `${JSON.stringify(
+        {
+          name: "fixture",
+          version: "4.0.1",
+        },
+        null,
+        2
+      )}\n`,
+      "utf8"
+    );
+
+    await expect(bumpPackagePatch(packagePath)).resolves.toEqual({
+      previousVersion: "4.0.1",
+      version: "4.0.2",
+      packagePath,
+    });
+    await expect(readFile(packagePath, "utf8")).resolves.toContain(
+      '"version": "4.0.2"'
+    );
   });
 
   it("fingerprints the exact generated tools data file but not siblings", async () => {

@@ -3,6 +3,10 @@ const PLAYLIST_JSON_MARKERS = [
   "window['ytInitialData'] = ",
   "window[\"ytInitialData\"] = ",
 ];
+const PLAYER_JSON_MARKERS = [
+  "var ytInitialPlayerResponse = ",
+  "ytInitialPlayerResponse = ",
+];
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36";
 const WEEK_NUMBER_PATTERN = /\bweek\s+(\d+)\b/iu;
@@ -326,6 +330,22 @@ function normalizePlaylistLockup(lockup, playlistId) {
   };
 }
 
+function extractVideoId(value) {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(value);
+    if (parsedUrl.hostname === "youtu.be") {
+      return parsedUrl.pathname.split("/").filter(Boolean)[0] || null;
+    }
+    return parsedUrl.searchParams.get("v") || null;
+  } catch {
+    return value.trim() || null;
+  }
+}
+
 export function parsePlaylistSnapshotHtml(
   html,
   playlistUrlOrId,
@@ -380,6 +400,63 @@ export function parsePlaylistSnapshotHtml(
     videoCount: videos.length,
     videos,
   };
+}
+
+export function parseYoutubeVideoMetadataHtml(html) {
+  let playerResponse = null;
+
+  for (const marker of PLAYER_JSON_MARKERS) {
+    const jsonText = extractJsonObjectAfterMarker(html, marker);
+    if (jsonText) {
+      playerResponse = JSON.parse(jsonText);
+      break;
+    }
+  }
+
+  const videoDetails = playerResponse?.videoDetails;
+  if (
+    !videoDetails?.videoId ||
+    typeof videoDetails.title !== "string" ||
+    typeof videoDetails.shortDescription !== "string"
+  ) {
+    throw new Error(
+      "Could not locate complete YouTube video metadata in the watch page response."
+    );
+  }
+
+  return {
+    videoId: videoDetails.videoId,
+    title: videoDetails.title,
+    description: videoDetails.shortDescription,
+  };
+}
+
+export async function fetchYoutubeVideoMetadata(
+  videoUrlOrId,
+  { fetchImpl = fetch } = {}
+) {
+  const videoId = extractVideoId(videoUrlOrId);
+  if (!videoId) {
+    throw new Error("A valid YouTube video URL or video ID is required.");
+  }
+
+  const response = await fetchImpl(
+    `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}&hl=en`,
+    {
+      headers: {
+        "user-agent": USER_AGENT,
+        "accept-language": "en-US,en;q=0.9",
+      },
+      redirect: "follow",
+    }
+  );
+  if (!response.ok) {
+    throw new Error(
+      `YouTube video request failed with status ${response.status}.`
+    );
+  }
+
+  return parseYoutubeVideoMetadataHtml(await response.text());
 }
 
 export async function fetchPlaylistSnapshot(

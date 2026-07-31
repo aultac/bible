@@ -59,6 +59,25 @@ describe("lesson tool presentation", () => {
     ).toBe("Before\nAfter");
   });
 
+  it("formats encoded passage titles without changing other headings", () => {
+    const cases = [
+      ["# 001_Genesis1-2", "# Week 1 - Genesis 1-2"],
+      ["# 025_Genesis50:15-Genesis50:26", "# Week 25 - Genesis 50:15-Genesis 50:26"],
+      ["# 033_Exodus8-9_12", "# Week 33 - Exodus 8-9:12"],
+      ["# 001-Intro", "# 001-Intro"],
+    ];
+
+    for (const [title, expectedTitle] of cases) {
+      expect(
+        transformLessonNotes(
+          `${title}\n\nBody\n\n# 099_Genesis1`,
+          catalog,
+          "https://knowyourbible.study"
+        )
+      ).toBe(`${expectedTitle}\n\nBody\n\n# 099_Genesis1`);
+    }
+  });
+
   it("orders tools by earliest related week and keeps unresolved tools last", () => {
     const tools: readonly ToolCatalogEntry[] = [
       { path: "/none/", title: "None", relatedLessonIds: [] },

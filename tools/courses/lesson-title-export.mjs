@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { REPO_ROOT } from "./config.mjs";
+import { fetchYoutubeVideoMetadata } from "./youtube-playlist.mjs";
 
 export const EXPORTED_LESSONS_FILENAME = "exported-lessons.csv";
 export const EXPORTED_LESSON_COLUMNS = [
@@ -9,7 +10,10 @@ export const EXPORTED_LESSON_COLUMNS = [
   "Chapter/Verse End",
   "Title",
   "Description",
+  "YouTube Link",
+  "Match",
 ];
+const YOUTUBE_METADATA_CONCURRENCY = 4;
 
 function csvCell(value) {
   const text = value === null || value === undefined ? "" : String(value);
@@ -22,23 +26,40 @@ export function buildExportedLessonTitle(lesson) {
   return `Know Your Bible - Week ${lesson.sequenceNumber} - ${lesson.title}`;
 }
 
-export function buildExportedLessonRow(lesson) {
+export function buildExportedLessonRow(lesson, youtubeMetadata = null) {
+  const title = buildExportedLessonTitle(lesson);
+  const description = lesson.videoSummary ?? "";
+  const youtubeUrl = lesson.youtube?.url || "";
+  const matchesYoutube =
+    Boolean(youtubeMetadata) &&
+    youtubeMetadata.title === title &&
+    youtubeMetadata.description === description;
   return [
     lesson.sequenceNumber,
     lesson.startVerse,
     lesson.endVerse,
-    buildExportedLessonTitle(lesson),
-    lesson.videoSummary,
+    title,
+    description,
+    youtubeUrl,
+    matchesYoutube ? "MATCH" : "",
   ];
 }
 
-export function serializeLessonTitleCsv(lessons) {
+export function serializeLessonTitleCsv(
+  lessons,
+  youtubeMetadataByUrl = new Map()
+) {
   const rows = [
     EXPORTED_LESSON_COLUMNS,
     ...lessons
       .filter((lesson) => lesson.lessonKind !== "promo")
       .sort((left, right) => left.sequenceNumber - right.sequenceNumber)
-      .map(buildExportedLessonRow),
+      .map((lesson) =>
+        buildExportedLessonRow(
+          lesson,
+          youtubeMetadataByUrl.get(lesson.youtube?.url) || null
+        )
+      ),
   ];
   return `${rows.map((row) => row.map(csvCell).join(",")).join("\n")}\n`;
 }
@@ -67,15 +88,53 @@ export async function loadPublishedLessons(repoRoot = REPO_ROOT) {
   return lessons;
 }
 
+async function loadYoutubeMetadataByUrl(lessons, fetchVideoMetadata) {
+  const urls = [
+    ...new Set(
+      lessons
+        .map((lesson) => lesson.youtube?.url)
+        .filter((url) => typeof url === "string" && url.length > 0)
+    ),
+  ];
+  const entries = new Array(urls.length);
+  let nextIndex = 0;
+
+  async function loadNext() {
+    while (nextIndex < urls.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      const url = urls[index];
+      entries[index] = [url, await fetchVideoMetadata(url)];
+    }
+  }
+
+  await Promise.all(
+    Array.from(
+      { length: Math.min(YOUTUBE_METADATA_CONCURRENCY, urls.length) },
+      () => loadNext()
+    )
+  );
+  return new Map(entries);
+}
+
 export async function exportLessonTitles({
   repoRoot = REPO_ROOT,
   outputPath = path.join(repoRoot, EXPORTED_LESSONS_FILENAME),
+  fetchVideoMetadata = fetchYoutubeVideoMetadata,
 } = {}) {
   const lessons = await loadPublishedLessons(repoRoot);
   const exportedLessons = lessons.filter(
     (lesson) => lesson.lessonKind !== "promo"
   );
-  await writeFile(outputPath, serializeLessonTitleCsv(lessons), "utf8");
+  const youtubeMetadataByUrl = await loadYoutubeMetadataByUrl(
+    exportedLessons,
+    fetchVideoMetadata
+  );
+  await writeFile(
+    outputPath,
+    serializeLessonTitleCsv(lessons, youtubeMetadataByUrl),
+    "utf8"
+  );
   return {
     outputPath,
     lessonCount: exportedLessons.length,

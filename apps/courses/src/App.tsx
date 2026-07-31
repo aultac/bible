@@ -28,6 +28,7 @@ import {
   scrollToPageTop,
   sitePath,
 } from "./routerBase";
+import { YOUTUBE_PLAYLIST_URL } from "./siteMetadata";
 import {
   getToolsForLesson,
   sortToolsByEarliestWeek,
@@ -236,7 +237,7 @@ function LessonNavigation({
   );
 }
 
-function SiteHeader() {
+export function SiteHeader() {
   const location = useLocation();
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -324,9 +325,17 @@ function SiteHeader() {
                 to={latestLesson.canonicalPath}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Latest lesson
+                Latest
               </Link>
             ) : null}
+            <a
+              href={YOUTUBE_PLAYLIST_URL}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Playlist
+            </a>
             <Link
               to="/tools"
               onClick={() => setMobileMenuOpen(false)}
