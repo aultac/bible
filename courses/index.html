@@ -2,16 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sunday School Courses</title>
-    <meta
-      name="description"
-      content="Verse-by-verse Sunday School notes, summaries, and resources organized by biblical narrative section."
-    />
-    <script type="module" crossorigin src="/courses/assets/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/courses/assets/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecting to Sunday School Courses</title>
+    <meta http-equiv="refresh" content="0; url=../" />
+    <script>
+      window.location.replace(`../${window.location.hash || ""}`);
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <p>
+      Sunday School Courses now lives at the site root.
+      <a href="../">Open Sunday School Courses</a>.
+    </p>
   </body>
 </html>

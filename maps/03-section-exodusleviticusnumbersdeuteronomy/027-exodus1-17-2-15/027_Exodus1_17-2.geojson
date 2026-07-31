@@ -1,0 +1,1429 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.56946,
+              30.86821,
+              0
+            ],
+            [
+              31.44489,
+              30.83224,
+              0
+            ],
+            [
+              31.40337,
+              30.72432,
+              0
+            ],
+            [
+              31.40337,
+              30.47251,
+              0
+            ],
+            [
+              31.40337,
+              30.43654,
+              0
+            ],
+            [
+              31.40337,
+              30.40057,
+              0
+            ],
+            [
+              31.61098,
+              30.32862,
+              0
+            ],
+            [
+              31.6525,
+              30.32862,
+              0
+            ],
+            [
+              31.69401999999999,
+              30.32862,
+              0
+            ],
+            [
+              31.73555,
+              30.32862,
+              0
+            ],
+            [
+              31.77707,
+              30.32862,
+              0
+            ],
+            [
+              31.81859,
+              30.32862,
+              0
+            ],
+            [
+              31.98468,
+              30.40057,
+              0
+            ],
+            [
+              32.15077,
+              30.68835,
+              0
+            ],
+            [
+              32.15077,
+              30.72432,
+              0
+            ],
+            [
+              32.10925,
+              30.83224,
+              0
+            ],
+            [
+              32.06772,
+              30.94015,
+              0
+            ],
+            [
+              32.0262,
+              30.94015,
+              0
+            ],
+            [
+              31.98468,
+              30.94015,
+              0
+            ],
+            [
+              31.90164,
+              30.94015,
+              0
+            ],
+            [
+              31.81859,
+              30.94015,
+              0
+            ],
+            [
+              31.56946,
+              30.86821,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Goshen",
+        "styleUrl": "#landisobands2252222223",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#20ffff",
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2"
+          ],
+          "sourceOrder": 2,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0001"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.76607731068698,
+          30.62565472203823,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Goshen",
+        "styleUrl": "#landpoint0033200140",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2"
+          ],
+          "sourceOrder": 3,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0002"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.32629346293768,
+          28.79958729030083,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Midian",
+        "open": "1",
+        "styleUrl": "#landpoint0033200142",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2"
+          ],
+          "sourceOrder": 4,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0003"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              35.21675,
+              29.66221,
+              0
+            ],
+            [
+              34.51739,
+              29.4552,
+              0
+            ],
+            [
+              34.51739,
+              29.4138,
+              0
+            ],
+            [
+              34.79714,
+              28.25455,
+              0
+            ],
+            [
+              34.84376,
+              28.21315,
+              0
+            ],
+            [
+              35.91612,
+              27.50932,
+              0
+            ],
+            [
+              35.96274,
+              27.50932,
+              0
+            ],
+            [
+              36.00937,
+              27.50932,
+              0
+            ],
+            [
+              36.05599,
+              27.55072,
+              0
+            ],
+            [
+              36.10262,
+              28.83418,
+              0
+            ],
+            [
+              36.10262,
+              28.87558,
+              0
+            ],
+            [
+              35.58975,
+              29.57941,
+              0
+            ],
+            [
+              35.4965,
+              29.66221,
+              0
+            ],
+            [
+              35.44988,
+              29.66221,
+              0
+            ],
+            [
+              35.40325,
+              29.66221,
+              0
+            ],
+            [
+              35.35663,
+              29.66221,
+              0
+            ],
+            [
+              35.31,
+              29.66221,
+              0
+            ],
+            [
+              35.26338,
+              29.66221,
+              0
+            ],
+            [
+              35.21675,
+              29.66221,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Midian",
+        "open": "1",
+        "styleUrl": "#landisobands22522222261",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#fc02ff",
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2"
+          ],
+          "sourceOrder": 5,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0004"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.33530922835835,
+          28.59635798557253,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Sinai (Jabal Maqla)",
+        "visibility": false,
+        "styleUrl": "#landpoint1007",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai"
+          ],
+          "sourceOrder": 7,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0005"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.973333,
+          28.539722,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Sinai / Jebel Musa",
+        "visibility": false,
+        "styleUrl": "#landpoint100832",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai"
+          ],
+          "sourceOrder": 8,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0006"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.973333,
+          28.539722,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jebel Musa",
+        "visibility": false,
+        "styleUrl": "#landpoint100840",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 10,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0007"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.967222,
+          28.555556,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Ras es Safsafeh",
+        "visibility": false,
+        "styleUrl": "#landpoint100836",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 11,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0008"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.961,
+          29.671,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jebel Sin Bishar",
+        "visibility": false,
+        "styleUrl": "#landpoint10080",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 12,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0009"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.75,
+          30.283333,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Har Karkom",
+        "visibility": false,
+        "styleUrl": "#landpoint100816",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 13,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0010"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.651667,
+          28.646389,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jebel Serbal",
+        "visibility": false,
+        "styleUrl": "#landpoint100811",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 14,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0011"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.955278,
+          28.510833,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jebel Katherina",
+        "visibility": false,
+        "styleUrl": "#landpoint100828",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 15,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0012"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.028889,
+          30.653056,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jebel Halal",
+        "visibility": false,
+        "styleUrl": "#landpoint100835",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 16,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0013"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.305833,
+          28.654167,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jabal al Lawz",
+        "visibility": false,
+        "styleUrl": "#landpoint10084",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 17,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0014"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.633411,
+          29.669217,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jebel Hashem el Tarif",
+        "visibility": false,
+        "styleUrl": "#landpoint100829",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 18,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0015"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.376667,
+          30.702222,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jabal al Magharah",
+        "visibility": false,
+        "styleUrl": "#landpoint100833",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 19,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0016"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.523056,
+          30.351111,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Jebel Yeleq",
+        "visibility": false,
+        "styleUrl": "#landpoint100821",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 20,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0017"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.7334,
+          30.4265,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Har ‘Arif",
+        "visibility": false,
+        "styleUrl": "#landpoint10086",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 21,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0018"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.2925,
+          28.3405,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Sinai / Al Manifa",
+        "visibility": false,
+        "styleUrl": "#landpoint100823",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 22,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0019"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.6572,
+          27.9607,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Mount Horeb / Jabal Harb",
+        "visibility": false,
+        "styleUrl": "#landpoint100814",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002",
+            "folder-0003"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai",
+            "Sinai - All Guesses"
+          ],
+          "sourceOrder": 23,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0020"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.49449359448923,
+          29.84687258311714,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Gulf of Suez",
+        "visibility": false,
+        "styleUrl": "#landpoint003320014",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai"
+          ],
+          "sourceOrder": 24,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0021"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.66134966605235,
+          29.01757850813101,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Nuweiba",
+        "visibility": false,
+        "styleUrl": "#landpoint0033200141",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "027_Exodus1_17-2",
+            "Sinai"
+          ],
+          "sourceOrder": 25,
+          "visibility": false,
+          "initiallyVisible": false
+        }
+      },
+      "id": "feature-0022"
+    }
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "027_Exodus1_17-2.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "027_Exodus1_17-2",
+          "sourceOrder": 1,
+          "visibility": null,
+          "initiallyVisible": true,
+          "open": true,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Goshen",
+              "sourceOrder": 2,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "Goshen",
+              "sourceOrder": 3,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0003",
+              "name": "Midian",
+              "sourceOrder": 4,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0004",
+              "name": "Midian",
+              "sourceOrder": 5,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Polygon"
+            },
+            {
+              "type": "folder",
+              "id": "folder-0002",
+              "name": "Sinai",
+              "sourceOrder": 6,
+              "visibility": false,
+              "initiallyVisible": false,
+              "open": null,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0005",
+                  "name": "Sinai (Jabal Maqla)",
+                  "sourceOrder": 7,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0006",
+                  "name": "Sinai / Jebel Musa",
+                  "sourceOrder": 8,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "folder",
+                  "id": "folder-0003",
+                  "name": "Sinai - All Guesses",
+                  "sourceOrder": 9,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "open": null,
+                  "children": [
+                    {
+                      "type": "feature",
+                      "id": "feature-0007",
+                      "name": "Mount Sinai / Jebel Musa",
+                      "sourceOrder": 10,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0008",
+                      "name": "Mount Sinai / Ras es Safsafeh",
+                      "sourceOrder": 11,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0009",
+                      "name": "Mount Sinai / Jebel Sin Bishar",
+                      "sourceOrder": 12,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0010",
+                      "name": "Mount Sinai / Har Karkom",
+                      "sourceOrder": 13,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0011",
+                      "name": "Mount Sinai / Jebel Serbal",
+                      "sourceOrder": 14,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0012",
+                      "name": "Mount Sinai / Jebel Katherina",
+                      "sourceOrder": 15,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0013",
+                      "name": "Mount Sinai / Jebel Halal",
+                      "sourceOrder": 16,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0014",
+                      "name": "Mount Sinai / Jabal al Lawz",
+                      "sourceOrder": 17,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0015",
+                      "name": "Mount Sinai / Jebel Hashem el Tarif",
+                      "sourceOrder": 18,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0016",
+                      "name": "Mount Sinai / Jabal al Magharah",
+                      "sourceOrder": 19,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0017",
+                      "name": "Mount Sinai / Jebel Yeleq",
+                      "sourceOrder": 20,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0018",
+                      "name": "Mount Sinai / Har ‘Arif",
+                      "sourceOrder": 21,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0019",
+                      "name": "Mount Sinai / Al Manifa",
+                      "sourceOrder": 22,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    },
+                    {
+                      "type": "feature",
+                      "id": "feature-0020",
+                      "name": "Mount Horeb / Jabal Harb",
+                      "sourceOrder": 23,
+                      "visibility": false,
+                      "initiallyVisible": false,
+                      "geometryType": "Point"
+                    }
+                  ]
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0021",
+                  "name": "Gulf of Suez",
+                  "sourceOrder": 24,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0022",
+                  "name": "Nuweiba",
+                  "sourceOrder": 25,
+                  "visibility": false,
+                  "initiallyVisible": false,
+                  "geometryType": "Point"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
