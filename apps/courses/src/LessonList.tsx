@@ -9,8 +9,7 @@ import { useProgress } from "./ProgressProvider";
 export function LessonListItem({ lesson }: { lesson: HydratedLesson }) {
   const sequenceLabel = formatLessonSequenceLabel(lesson);
   const { completedLessonIds, setCompleted } = useProgress();
-  const completed =
-    lesson.lessonKind !== "promo" && completedLessonIds.has(lesson.id);
+  const completed = completedLessonIds.has(lesson.id);
 
   return (
     <li className={`lesson-row${completed ? " lesson-row-completed" : ""}`}>
@@ -38,21 +37,19 @@ export function LessonListItem({ lesson }: { lesson: HydratedLesson }) {
           {completed ? "✓ Done" : "View lesson"}
         </span>
       </Link>
-      {lesson.lessonKind !== "promo" ? (
-        <button
-          className="lesson-row-completion"
-          type="button"
-          aria-pressed={completed}
-          aria-label={
-            completed
-              ? `Mark ${lesson.title} not done`
-              : `Mark ${lesson.title} done`
-          }
-          onClick={() => setCompleted(lesson.id, !completed)}
-        >
-          {completed ? "✓ Done" : "Mark done"}
-        </button>
-      ) : null}
+      <button
+        className="lesson-row-completion"
+        type="button"
+        aria-pressed={completed}
+        aria-label={
+          completed
+            ? `Mark ${lesson.title} not done`
+            : `Mark ${lesson.title} done`
+        }
+        onClick={() => setCompleted(lesson.id, !completed)}
+      >
+        {completed ? "✓ Done" : "Mark done"}
+      </button>
       {lesson.passage?.esvUrl ? (
         <a
           className="lesson-esv-link"

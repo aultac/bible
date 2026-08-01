@@ -214,16 +214,14 @@ function LessonNavigation({
         ) : null}
       </div>
       <div className="lesson-completion">
-        {lesson.lessonKind !== "promo" ? (
-          <button
-            className="lesson-completion-toggle"
-            type="button"
-            aria-pressed={completed}
-            onClick={() => setCompleted(lesson.id, !completed)}
-          >
-            {completed ? "✓ Lesson done" : "Mark lesson done"}
-          </button>
-        ) : null}
+        <button
+          className="lesson-completion-toggle"
+          type="button"
+          aria-pressed={completed}
+          onClick={() => setCompleted(lesson.id, !completed)}
+        >
+          {completed ? "✓ Lesson done" : "Mark lesson done"}
+        </button>
       </div>
       <div>
         {next ? (
@@ -619,10 +617,8 @@ function LessonPage({ lesson }: { lesson: HydratedLesson }) {
   const notesState = useMarkdownContent(lesson?.notes.path);
   const storylineState = useMarkdownContent(lesson?.summary.path);
   useEffect(() => {
-    if (lesson.lessonKind !== "promo") {
-      recordViewed(lesson.id);
-    }
-  }, [lesson.id, lesson.lessonKind, recordViewed]);
+    recordViewed(lesson.id);
+  }, [lesson.id, recordViewed]);
   useEffect(() => {
     for (const [label, state, available] of [
       ["lesson notes", notesState, lesson.notes.available],

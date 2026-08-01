@@ -1,6 +1,6 @@
 # 010_Genesis20-22
 
-- Start writing out sequences on board?
+- Start writing out sequences on board
   - Bucket 1: creation -> fall -> murder -> evil -> flood -> Babel -> Abraham.
   - Bucket 2: Abraham -> Covenant -> leave Ur -> famine -> Egypt -> sister trick -> riches -> Canaan -> Lot separates -> Abraham rescues Lot -> Melchizedek -> Hagar & Ishmael -> circumcision -> Abraham argues with God -> Sodom & Gomorrah
 
@@ -77,7 +77,7 @@
   - Hebrews 11 tells us that Abraham the father trusted even that God could raise the dead (both father’s knew this)
   - The lamb in the thicket took Isaac’s place, just as Jesus took ours.
   - A sacrifice was needed, the right sacrifice, and when God (Jesus) called down from heaven, he left it unfinished until he himself came.
-- GOD IS MOST TRAGIC FIGURE: I have tried to help us feel the pain of Abraham in telling the story. The relief when God stopped him. But when God’s own son was there, nobody came. Nobody stopped it. The camera did it cut away.
+- GOD IS MOST TRAGIC FIGURE: I have tried to help us feel the pain of Abraham in telling the story. The relief when God stopped him. But when God’s own son was there, nobody came. Nobody stopped it. The camera did not cut away.
 
 **Genesis 22:15-end > Angel of Lord covenant**
 

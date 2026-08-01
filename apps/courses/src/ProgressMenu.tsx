@@ -9,7 +9,11 @@ import {
 import { Link } from "react-router-dom";
 import { courseLibrary } from "./courseData";
 import { useProgress } from "./ProgressProvider";
-import { createEmptyProgress, getProgressStats } from "./progress";
+import {
+  createEmptyProgress,
+  getProgressStats,
+  getRemainingLessonBadgeCount,
+} from "./progress";
 import {
   createProgressWorkbookBuffer,
   MAX_PROGRESS_FILE_BYTES,
@@ -68,6 +72,7 @@ export function ProgressMenu() {
     courseLibrary.trackableLessons,
     progress.completedLessons
   );
+  const badgeCount = getRemainingLessonBadgeCount(stats);
   const lastViewedLesson = progress.lastViewed
     ? courseLibrary.getLessonById(progress.lastViewed.lessonId)
     : null;
@@ -223,8 +228,8 @@ export function ProgressMenu() {
           <circle cx="12" cy="8" r="4" />
           <path d="M4.5 21c.7-4.2 3.2-6.4 7.5-6.4s6.8 2.2 7.5 6.4" />
         </svg>
-        {stats.completed > 0 ? (
-          <span className="progress-menu-badge">{stats.completed}</span>
+        {badgeCount !== null ? (
+          <span className="progress-menu-badge">{badgeCount}</span>
         ) : null}
       </button>
 

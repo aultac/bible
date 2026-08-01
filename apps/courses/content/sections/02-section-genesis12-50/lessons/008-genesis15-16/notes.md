@@ -1,6 +1,6 @@
 # 008_Genesis15-16
 
-**Genesis 15:1-6**
+**Genesis 15:1-6 > Are you sure, God?**
 
 - DO NOT FEAR: The first thing the word of the Lord says to him is fear not. God is terrifying in person. **The most frequent statement of God to man in the Bible is do not fear.**
 - TERROR VS. REVERENCE: Wisdom begins with fear of God. We are to revere God fearfully, but he does not want his presence to terrify us beyond our ability to listen. He loves us and does not want the terror, but he demands the reverence.
@@ -28,7 +28,7 @@
   - Romans 4:23-5:1: Abram is the father of all who trust God.
 - THIS IS CRITICAL: this one line about faith counted as righteousness sets the foundation for the ENTIRE plan of salvation. Paul says it’s the ONLY plan that could ever have worked! We will be justified before God by believing that he will do what he said, not by earning it.
 
-**Genesis 15:7-end**
+**Genesis 15:7-end: Bad stuff coming**
 
 - WHY TELL ABRAM?: why did God tell Abram what would happen to his descendants? What use was that to Abram? It may have been told him solely for the benefit of those people in Egypt.
 - GENERATION=LIFETIME: At Abram’s time, “generation” originally meant “lifetime”: about 100 years each
@@ -36,13 +36,13 @@
 - AMMORITES NOT MAXIMUM EVIL: this is why we are still here as well, Revelation does not end the Earth until everyone has been saved that could be saved.
 - RITUAL: The animal ritual was a classic near Eastern covenant-sealing blood ceremony. The one who passes through the middle is saying that he deserves the fate of the animals if he breaks the covenant. Normally both parties pass through the middle, but only God’s fire passes through the middle showing a unilateral contract.
 
-**Genesis 16:1-6**
+**Genesis 16:1-6: Tragedy of Hagar**
 
 - POOR DECISIONS: Clearly, Sarai did not think this through
 - TABLES TURNED: The word for “dealt harshly” is the same word used to describe what the Egyptians did to the hebrews. But in this case, it was the Hebrew doing it to the Egyptian.
 - CRITERION OF EMBARRASSMENT: who is clearly the bad guy here? Who is the victim? Imagine Jews making up a story in the desert leaving Egypt where their matriarch is the bad guy and the Egyptian servant is the victim.
 
-**Genesis 16:7-end**
+**Genesis 16:7-end: Ishmael**
 
 - MAP: Shur
 - Ishma “hear” el “God”: “God hears”
@@ -50,12 +50,12 @@
   - Sometimes messenger, sometimes Yahweh himself: Verse 10: “Angel of Yahweh said ‘**I** will surely multiply…’
   - But then Verse 11: “Angel of Yahweh said … Yahweh has listened to your affliction…”
   - When the Bible is unclear about something, it may be unclear on purpose. It is an intentional puzzle.
-  - 2 **WHO APPEARED** IN BURNING BUSH TO MOSES? Exodus 3:1-17 (circle God, LORD, Angel of the LORD)
-  - 2 **Sacrifice of Isaac**: Genesis 22:1-18
-  - 0.3 Pillar of Cloud and Fire, **name is in him**: Exodus 23:20-22. Explain with Trinity picture
-  - 0.4 Moses cannot **see God and live**: Exodus 33:18-23
-  - 2 **Gideon**: Judges 6:11-24
-  - 3 **Menoah** and wife: Judges 13:2-23: Isaiah 9 “His name shall be called Wonderful” - JESUS!
+  - **WHO APPEARED** IN BURNING BUSH TO MOSES? Exodus 3:1-17 (circle God, LORD, Angel of the LORD)
+  - **Sacrifice of Isaac**: Genesis 22:1-18
+  - Pillar of Cloud and Fire, **name is in him**: Exodus 23:20-22. Explain with Trinity picture
+  - Moses cannot **see God and live**: Exodus 33:18-23
+  - **Gideon**: Judges 6:11-24
+  - **Menoah** and wife: Judges 13:2-23: Isaiah 9 “His name shall be called Wonderful” - JESUS!
   - Summary:
     - Jacob God of Bethel Genesis 31:11-13,
     - Balaam Numbers 22:15-35,

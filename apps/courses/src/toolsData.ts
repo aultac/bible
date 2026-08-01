@@ -6,8 +6,8 @@ export const toolsData = [
     "path": "/ages/",
     "title": "Biblical Lifespans Visualization",
     "relatedLessonIds": [
-      "004-genesis5-6",
-      "006-genesis9-11"
+      "004-genesis5-6-10",
+      "006-genesis7-4-11"
     ]
   },
   {
@@ -44,7 +44,7 @@ export const toolsData = [
     "path": "/ziggurats/",
     "title": "Ziggurat-Like Structures Worldwide",
     "relatedLessonIds": [
-      "006-genesis9-11"
+      "006-genesis7-4-11"
     ]
   }
 ] as const;

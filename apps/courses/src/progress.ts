@@ -20,6 +20,12 @@ export interface ProgressStats {
   allComplete: boolean;
 }
 
+export function getRemainingLessonBadgeCount(
+  stats: Pick<ProgressStats, "completed" | "total">
+) {
+  return stats.completed > 0 ? stats.total - stats.completed : null;
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }

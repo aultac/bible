@@ -63,7 +63,7 @@
 - NEVER AGAIN INHABITED: Isaiah says Sodom and Gomorrah would never be inhabited, and the map shows that is true. The cemeteries all stopped being used at the same time as the destruction, but Zoar’s cemetery continued on.
 - SAVED BY ONE MAN: Zoar, in the middle of all the others, escaped death solely because God had chosen 1 man, Abram, and then saved his nephew in that city. Right in the middle of all the destruction, an island of safety, all because of 1 man who God chose.
 
-**Genesis 19:30-end: Lot’s daughters**
+**Genesis 19:30-end > Lot’s daughters**
 
 - WHAT GOES AROUND COMES AROUND: Lot offered his two daughters to be raped, and now they do the same to him
 - ALCOHOL: Once again, alcohol is the problem. Just don’t drink and these problems are not a risk to you.

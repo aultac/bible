@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-31T02:44:07.067Z",
+  "generatedAt": "2026-08-01T11:53:38.524Z",
   "id": "01-section-genesis1-11",
   "slug": "01-section-genesis1-11",
   "sectionnum": 1,
@@ -156,15 +156,15 @@
       }
     },
     {
-      "id": "004-genesis5-6",
-      "slug": "004-genesis5-6",
+      "id": "004-genesis5-6-10",
+      "slug": "004-genesis5-6-10",
       "sequenceNumber": 4,
-      "title": "Genesis 5-6",
+      "title": "Genesis 5-6:10",
       "lessonKind": "passage",
       "startVerse": "Genesis 5",
-      "endVerse": "Genesis 6",
+      "endVerse": "Genesis 6:10",
       "passage": {
-        "display": "Genesis 5-6",
+        "display": "Genesis 5-6:10",
         "start": {
           "bookId": "Genesis",
           "chapter": 5,
@@ -175,77 +175,77 @@
         "end": {
           "bookId": "Genesis",
           "chapter": 6,
-          "verse": null,
-          "raw": "6",
+          "verse": 10,
+          "raw": "6_10",
           "bookName": "Genesis"
         },
         "startVerse": "Genesis 5",
-        "endVerse": "Genesis 6",
+        "endVerse": "Genesis 6:10",
         "spansMultipleBooks": false,
-        "esvUrl": "https://www.esv.org/Genesis+5-6/"
+        "esvUrl": "https://www.esv.org/Genesis+5-6:10/"
       },
-      "lessonPath": "apps/courses/content/sections/01-section-genesis1-11/lessons/004-genesis5-6/lesson.json",
+      "lessonPath": "apps/courses/content/sections/01-section-genesis1-11/lessons/004-genesis5-6-10/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
       "resourceCount": 0,
       "source": {
-        "relativeLessonDirectory": "01-Bucket-Genesis1-11/004_Genesis5-6",
-        "folderName": "004_Genesis5-6"
+        "relativeLessonDirectory": "01-Bucket-Genesis1-11/004_Genesis5-6_10",
+        "folderName": "004_Genesis5-6_10"
       }
     },
     {
-      "id": "005-genesis7-8",
-      "slug": "005-genesis7-8",
+      "id": "005-genesis6-11-7-3",
+      "slug": "005-genesis6-11-7-3",
       "sequenceNumber": 5,
-      "title": "Genesis 7-8",
+      "title": "Genesis 6:11-7:3",
       "lessonKind": "passage",
-      "startVerse": "Genesis 7",
-      "endVerse": "Genesis 8",
+      "startVerse": "Genesis 6:11",
+      "endVerse": "Genesis 7:3",
       "passage": {
-        "display": "Genesis 7-8",
+        "display": "Genesis 6:11-7:3",
         "start": {
           "bookId": "Genesis",
-          "chapter": 7,
-          "verse": null,
-          "raw": "Genesis7",
+          "chapter": 6,
+          "verse": 11,
+          "raw": "Genesis6_11",
           "bookName": "Genesis"
         },
         "end": {
           "bookId": "Genesis",
-          "chapter": 8,
-          "verse": null,
-          "raw": "8",
+          "chapter": 7,
+          "verse": 3,
+          "raw": "7_3",
           "bookName": "Genesis"
         },
-        "startVerse": "Genesis 7",
-        "endVerse": "Genesis 8",
+        "startVerse": "Genesis 6:11",
+        "endVerse": "Genesis 7:3",
         "spansMultipleBooks": false,
-        "esvUrl": "https://www.esv.org/Genesis+7-8/"
+        "esvUrl": "https://www.esv.org/Genesis+6:11-7:3/"
       },
-      "lessonPath": "apps/courses/content/sections/01-section-genesis1-11/lessons/005-genesis7-8/lesson.json",
+      "lessonPath": "apps/courses/content/sections/01-section-genesis1-11/lessons/005-genesis6-11-7-3/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
       "resourceCount": 3,
       "source": {
-        "relativeLessonDirectory": "01-Bucket-Genesis1-11/005_Genesis7-8",
-        "folderName": "005_Genesis7-8"
+        "relativeLessonDirectory": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3",
+        "folderName": "005_Genesis6_11-7_3"
       }
     },
     {
-      "id": "006-genesis9-11",
-      "slug": "006-genesis9-11",
+      "id": "006-genesis7-4-11",
+      "slug": "006-genesis7-4-11",
       "sequenceNumber": 6,
-      "title": "Genesis 9-11",
+      "title": "Genesis 7:4-11",
       "lessonKind": "passage",
-      "startVerse": "Genesis 9",
+      "startVerse": "Genesis 7:4",
       "endVerse": "Genesis 11",
       "passage": {
-        "display": "Genesis 9-11",
+        "display": "Genesis 7:4-11",
         "start": {
           "bookId": "Genesis",
-          "chapter": 9,
-          "verse": null,
-          "raw": "Genesis9",
+          "chapter": 7,
+          "verse": 4,
+          "raw": "Genesis7_4",
           "bookName": "Genesis"
         },
         "end": {
@@ -255,18 +255,18 @@
           "raw": "11",
           "bookName": "Genesis"
         },
-        "startVerse": "Genesis 9",
+        "startVerse": "Genesis 7:4",
         "endVerse": "Genesis 11",
         "spansMultipleBooks": false,
-        "esvUrl": "https://www.esv.org/Genesis+9-11/"
+        "esvUrl": "https://www.esv.org/Genesis+7:4-11/"
       },
-      "lessonPath": "apps/courses/content/sections/01-section-genesis1-11/lessons/006-genesis9-11/lesson.json",
+      "lessonPath": "apps/courses/content/sections/01-section-genesis1-11/lessons/006-genesis7-4-11/lesson.json",
       "notesAvailable": true,
       "summaryAvailable": true,
       "resourceCount": 0,
       "source": {
-        "relativeLessonDirectory": "01-Bucket-Genesis1-11/006_Genesis9-11",
-        "folderName": "006_Genesis9-11"
+        "relativeLessonDirectory": "01-Bucket-Genesis1-11/006_Genesis7_4-11",
+        "folderName": "006_Genesis7_4-11"
       }
     }
   ],

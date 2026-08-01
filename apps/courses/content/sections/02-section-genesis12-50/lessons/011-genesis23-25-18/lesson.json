@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-01T11:53:38.524Z",
+  "id": "011-genesis23-25-18",
+  "slug": "011-genesis23-25-18",
+  "sectionId": "02-section-genesis12-50",
+  "sectionSlug": "02-section-genesis12-50",
+  "sequenceNumber": 11,
+  "lessonKind": "passage",
+  "title": "Genesis 23-25:18",
+  "description": "",
+  "videoSummary": "Sarah and Abraham die and Isaac gets a wife and sons.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Genesis 23",
+  "endVerse": "Genesis 25:18",
+  "passage": {
+    "display": "Genesis 23-25:18",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 23,
+      "verse": null,
+      "raw": "Genesis23",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 25,
+      "verse": 18,
+      "raw": "25_18",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 23",
+    "endVerse": "Genesis 25:18",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+23-25:18/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/011-genesis23-25-18/notes.md",
+    "sourcePath": "02-Bucket-Genesis12-50/011_Genesis23-25_18/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/02-section-genesis12-50/lessons/011-genesis23-25-18/summary.md",
+    "sourcePath": "02-Bucket-Genesis12-50/011_Genesis23-25_18/011_Genesis23-25_18_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "02-Bucket-Genesis12-50/011_Genesis23-25_18/011_Genesis23-25_18.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/02-section-genesis12-50/011-genesis23-25-18/011_Genesis23-25_18.kmz",
+    "geoJsonPath": "apps/courses/public/maps/02-section-genesis12-50/011-genesis23-25-18/011_Genesis23-25_18.geojson",
+    "geoJsonPublicUrl": "/courses/maps/02-section-genesis12-50/011-genesis23-25-18/011_Genesis23-25_18.geojson",
+    "available": true,
+    "featureCount": 9,
+    "geometryTypes": [
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "patriarchs.jpg",
+      "sourcePath": "02-Bucket-Genesis12-50/011_Genesis23-25_18/resources/patriarchs.jpg",
+      "path": "apps/courses/public/resources/02-section-genesis12-50/011-genesis23-25-18/patriarchs.jpg",
+      "publicUrl": "/courses/resources/02-section-genesis12-50/011-genesis23-25-18/patriarchs.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Cave_of_the_Patriarchs%2C_Hebron_2007.jpg"
+    }
+  ],
+  "youtube": {
+    "videoId": "gob6TvE_rxc",
+    "title": "Know Your Bible - Week 11",
+    "url": "https://www.youtube.com/watch?v=gob6TvE_rxc&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 12,
+    "videoKind": "lesson",
+    "weekNumber": 11,
+    "lessonSequenceNumber": 11,
+    "durationText": "50:12",
+    "thumbnailUrl": "https://i.ytimg.com/vi/gob6TvE_rxc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD6cWm9QXLzNXc5U61jSxdWz7B-rw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "02-Bucket-Genesis12-50/011_Genesis23-25_18",
+    "folderName": "011_Genesis23-25_18",
+    "notesPath": "02-Bucket-Genesis12-50/011_Genesis23-25_18/notes.md",
+    "summaryDocxPath": "02-Bucket-Genesis12-50/011_Genesis23-25_18/011_Genesis23-25_18_summary.docx",
+    "resourcesDirectory": "02-Bucket-Genesis12-50/011_Genesis23-25_18/resources",
+    "mapPath": "02-Bucket-Genesis12-50/011_Genesis23-25_18/011_Genesis23-25_18.kmz"
+  }
+}

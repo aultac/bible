@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-01T11:53:38.524Z",
+  "id": "005-genesis6-11-7-3",
+  "slug": "005-genesis6-11-7-3",
+  "sectionId": "01-section-genesis1-11",
+  "sectionSlug": "01-section-genesis1-11",
+  "sequenceNumber": 5,
+  "lessonKind": "passage",
+  "title": "Genesis 6:11-7:3",
+  "description": "",
+  "videoSummary": "Noah obeyed, Noah made it through the storm, God remembered Noah.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Genesis 6:11",
+  "endVerse": "Genesis 7:3",
+  "passage": {
+    "display": "Genesis 6:11-7:3",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 6,
+      "verse": 11,
+      "raw": "Genesis6_11",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 7,
+      "verse": 3,
+      "raw": "7_3",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 6:11",
+    "endVerse": "Genesis 7:3",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+6:11-7:3/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/005-genesis6-11-7-3/notes.md",
+    "sourcePath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/005-genesis6-11-7-3/summary.md",
+    "sourcePath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/005_Genesis6_11-7_3_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/005_Genesis6_11-7_3.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/01-section-genesis1-11/005-genesis6-11-7-3/005_Genesis6_11-7_3.kmz",
+    "geoJsonPath": "apps/courses/public/maps/01-section-genesis1-11/005-genesis6-11-7-3/005_Genesis6_11-7_3.geojson",
+    "geoJsonPublicUrl": "/courses/maps/01-section-genesis1-11/005-genesis6-11-7-3/005_Genesis6_11-7_3.geojson",
+    "available": true,
+    "featureCount": 6,
+    "geometryTypes": [
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "ark_animals.jpg",
+      "sourcePath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/resources/ark_animals.jpg",
+      "path": "apps/courses/public/resources/01-section-genesis1-11/005-genesis6-11-7-3/ark_animals.jpg",
+      "publicUrl": "/courses/resources/01-section-genesis1-11/005-genesis6-11-7-3/ark_animals.jpg",
+      "sourceUrl": "https://www.conservapedia.com/File:Ark_construction.jpg"
+    },
+    {
+      "name": "ark_ararat.webp",
+      "sourcePath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/resources/ark_ararat.webp",
+      "path": "apps/courses/public/resources/01-section-genesis1-11/005-genesis6-11-7-3/ark_ararat.webp",
+      "publicUrl": "/courses/resources/01-section-genesis1-11/005-genesis6-11-7-3/ark_ararat.webp"
+    },
+    {
+      "name": "ark_flood.jpg",
+      "sourcePath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/resources/ark_flood.jpg",
+      "path": "apps/courses/public/resources/01-section-genesis1-11/005-genesis6-11-7-3/ark_flood.jpg",
+      "publicUrl": "/courses/resources/01-section-genesis1-11/005-genesis6-11-7-3/ark_flood.jpg"
+    }
+  ],
+  "youtube": {
+    "videoId": "MOIcpOhSqTc",
+    "title": "Know Your Bible Week 5",
+    "url": "https://www.youtube.com/watch?v=MOIcpOhSqTc&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 6,
+    "videoKind": "lesson",
+    "weekNumber": 5,
+    "lessonSequenceNumber": 5,
+    "durationText": "44:44",
+    "thumbnailUrl": "https://i.ytimg.com/vi/MOIcpOhSqTc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDhzMMgCEl5ojgFMuSby2ryNIRWmQ"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3",
+    "folderName": "005_Genesis6_11-7_3",
+    "notesPath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/notes.md",
+    "summaryDocxPath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/005_Genesis6_11-7_3_summary.docx",
+    "resourcesDirectory": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/resources",
+    "mapPath": "01-Bucket-Genesis1-11/005_Genesis6_11-7_3/005_Genesis6_11-7_3.kmz"
+  }
+}

@@ -1,4 +1,4 @@
-# 025_Genesis50:15-Genesis50:26
+# 025_Genesis50:15-50:26
 
 MATH FAIL: last time I got my math wrong: 5x5+7 is not 175. The correct math is all multiplication, no addition: 5x5x7 = 175, 6x6x5= 180, 7x7x3=147
 

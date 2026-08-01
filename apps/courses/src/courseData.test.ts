@@ -38,7 +38,7 @@ describe("canonical course outline hydration", () => {
     expect(canonicalPaths).toContain("/genesis/37/29");
   });
 
-  it("lists the Promo as Genesis lesson 00 without tracking its completion", () => {
+  it("lists the Promo as Genesis lesson 00 and tracks its completion", () => {
     const genesisLessons = courseLibrary.getBook("genesis")?.lessons || [];
 
     expect(genesisLessons.slice(0, 2)).toMatchObject([
@@ -58,7 +58,7 @@ describe("canonical course outline hydration", () => {
       courseLibrary.trackableLessons.some(
         (lesson) => lesson.id === "000-promo"
       )
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it("uses exact-start precedence in the current overlapping lesson data", () => {
@@ -129,7 +129,7 @@ describe("canonical course outline hydration", () => {
     expect(formatLessonSequenceBadge(latest)).toBe("34");
   });
 
-  it("leads with Promo and latest video when no course lesson is completed", () => {
+  it("leads with Promo and latest video when no lesson is completed", () => {
     const promo = {
       id: "promo",
       lessonKind: "promo" as const,
@@ -186,10 +186,38 @@ describe("canonical course outline hydration", () => {
 
     expect(
       selectBillboardLessons([promo, first, second, latest], {
-        completedLessonIds: new Set(["first"]),
+        completedLessonIds: new Set(["promo", "first"]),
       })
     ).toEqual([
       { lesson: second, role: "next" },
+      { lesson: latest, role: "latest" },
+      { lesson: promo, role: "promo" },
+    ]);
+  });
+
+  it("advances from a completed Promo to the Intro lesson", () => {
+    const promo = {
+      id: "promo",
+      lessonKind: "promo" as const,
+      youtube: { videoId: "promo" },
+    };
+    const intro = {
+      id: "intro",
+      lessonKind: "intro" as const,
+      youtube: { videoId: "intro" },
+    };
+    const latest = {
+      id: "latest",
+      lessonKind: "passage" as const,
+      youtube: { videoId: "latest" },
+    };
+
+    expect(
+      selectBillboardLessons([promo, intro, latest], {
+        completedLessonIds: new Set(["promo"]),
+      })
+    ).toEqual([
+      { lesson: intro, role: "next" },
       { lesson: latest, role: "latest" },
       { lesson: promo, role: "promo" },
     ]);
@@ -215,7 +243,7 @@ describe("canonical course outline hydration", () => {
 
     expect(
       selectBillboardLessons(lessons, {
-        completedLessonIds: new Set(["first"]),
+        completedLessonIds: new Set(["promo", "first"]),
       })
     ).toEqual([
       { lesson: latest, role: "latest" },
@@ -223,7 +251,7 @@ describe("canonical course outline hydration", () => {
     ]);
     expect(
       selectBillboardLessons(lessons, {
-        completedLessonIds: new Set(["first", "latest"]),
+        completedLessonIds: new Set(["promo", "first", "latest"]),
       })
     ).toEqual([
       { lesson: latest, role: "latest" },

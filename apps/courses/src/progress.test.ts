@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   createEmptyProgress,
   getProgressStats,
+  getRemainingLessonBadgeCount,
   hasMeaningfulProgress,
   normalizeProgress,
   parseStoredProgress,
@@ -127,5 +128,26 @@ describe("course progress", () => {
       percent: 100,
       allComplete: true,
     });
+  });
+
+  it("shows remaining lessons in the badge only after progress begins", () => {
+    expect(
+      getRemainingLessonBadgeCount({
+        completed: 0,
+        total: 3,
+      })
+    ).toBeNull();
+    expect(
+      getRemainingLessonBadgeCount({
+        completed: 1,
+        total: 3,
+      })
+    ).toBe(2);
+    expect(
+      getRemainingLessonBadgeCount({
+        completed: 3,
+        total: 3,
+      })
+    ).toBe(0);
   });
 });

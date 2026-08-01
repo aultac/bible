@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-01T11:53:38.524Z",
+  "id": "004-genesis5-6-10",
+  "slug": "004-genesis5-6-10",
+  "sectionId": "01-section-genesis1-11",
+  "sectionSlug": "01-section-genesis1-11",
+  "sequenceNumber": 4,
+  "lessonKind": "passage",
+  "title": "Genesis 5-6:10",
+  "description": "",
+  "videoSummary": "The genealogy up to Noah, increasing corruption including in the Unseen Realm, leading to the flood.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Genesis 5",
+  "endVerse": "Genesis 6:10",
+  "passage": {
+    "display": "Genesis 5-6:10",
+    "start": {
+      "bookId": "Genesis",
+      "chapter": 5,
+      "verse": null,
+      "raw": "Genesis5",
+      "bookName": "Genesis"
+    },
+    "end": {
+      "bookId": "Genesis",
+      "chapter": 6,
+      "verse": 10,
+      "raw": "6_10",
+      "bookName": "Genesis"
+    },
+    "startVerse": "Genesis 5",
+    "endVerse": "Genesis 6:10",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Genesis+5-6:10/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/004-genesis5-6-10/notes.md",
+    "sourcePath": "01-Bucket-Genesis1-11/004_Genesis5-6_10/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/01-section-genesis1-11/lessons/004-genesis5-6-10/summary.md",
+    "sourcePath": "01-Bucket-Genesis1-11/004_Genesis5-6_10/004_Genesis5-6_10_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "01-Bucket-Genesis1-11/004_Genesis5-6_10/004_Genesis5-6_10.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/01-section-genesis1-11/004-genesis5-6-10/004_Genesis5-6_10.kmz",
+    "geoJsonPath": "apps/courses/public/maps/01-section-genesis1-11/004-genesis5-6-10/004_Genesis5-6_10.geojson",
+    "geoJsonPublicUrl": "/courses/maps/01-section-genesis1-11/004-genesis5-6-10/004_Genesis5-6_10.geojson",
+    "available": true,
+    "featureCount": 1,
+    "geometryTypes": [
+      "Point"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "DdkXOs0_oac",
+    "title": "Know Your Bible - Week 4",
+    "url": "https://www.youtube.com/watch?v=DdkXOs0_oac&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 5,
+    "videoKind": "lesson",
+    "weekNumber": 4,
+    "lessonSequenceNumber": 4,
+    "durationText": "50:54",
+    "thumbnailUrl": "https://i.ytimg.com/vi/DdkXOs0_oac/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClIJgZzDCSAwGIg3edVUsf2WE5Xw"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "01-Bucket-Genesis1-11/004_Genesis5-6_10",
+    "folderName": "004_Genesis5-6_10",
+    "notesPath": "01-Bucket-Genesis1-11/004_Genesis5-6_10/notes.md",
+    "summaryDocxPath": "01-Bucket-Genesis1-11/004_Genesis5-6_10/004_Genesis5-6_10_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "01-Bucket-Genesis1-11/004_Genesis5-6_10/004_Genesis5-6_10.kmz"
+  }
+}

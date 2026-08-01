@@ -405,9 +405,7 @@ const courseSections: CourseSection[] = courseOutline.sections.map(
 );
 
 const allLessons = sections.flatMap((section) => section.lessonsDetailed);
-const trackableLessons = allLessons.filter(
-  (lesson) => lesson.lessonKind !== "promo"
-);
+const trackableLessons = allLessons;
 
 const bookMap = new Map<string, CourseBook>();
 
@@ -495,9 +493,8 @@ export function selectBillboardLessons<
     completedLessonIds?: ReadonlySet<string>;
   } = {}
 ) {
-  const hasCompletedLessons = lessons.some(
-    (lesson) =>
-      lesson.lessonKind !== "promo" && completedLessonIds.has(lesson.id)
+  const hasCompletedLessons = lessons.some((lesson) =>
+    completedLessonIds.has(lesson.id)
   );
   const promo =
     lessons.find(
@@ -511,11 +508,7 @@ export function selectBillboardLessons<
           lesson.lessonKind !== "promo" && Boolean(lesson.youtube)
       ) || null;
   const nextLesson = hasCompletedLessons
-    ? lessons.find(
-        (lesson) =>
-          lesson.lessonKind !== "promo" &&
-          !completedLessonIds.has(lesson.id)
-      ) || null
+    ? lessons.find((lesson) => !completedLessonIds.has(lesson.id)) || null
     : null;
   const candidates: Array<{
     lesson: TLesson | null;

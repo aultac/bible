@@ -55,7 +55,7 @@ export function ProgressSummary({
   const scopedStats =
     scopeLabel && scopeLessons
       ? getProgressStats(
-          scopeLessons.filter((lesson) => lesson.lessonKind !== "promo"),
+          scopeLessons,
           progress.completedLessons
         )
       : null;
