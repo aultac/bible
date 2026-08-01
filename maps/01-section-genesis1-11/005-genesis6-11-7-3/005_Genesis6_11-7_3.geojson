@@ -227,7 +227,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "005_Genesis7-8"
+            "005_Genesis6_11-7_3"
           ],
           "sourceOrder": 2,
           "visibility": false,
@@ -702,7 +702,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "005_Genesis7-8"
+            "005_Genesis6_11-7_3"
           ],
           "sourceOrder": 3,
           "visibility": false,
@@ -892,7 +892,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "005_Genesis7-8"
+            "005_Genesis6_11-7_3"
           ],
           "sourceOrder": 4,
           "visibility": false,
@@ -1052,7 +1052,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "005_Genesis7-8"
+            "005_Genesis6_11-7_3"
           ],
           "sourceOrder": 5,
           "visibility": false,
@@ -1157,7 +1157,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "005_Genesis7-8"
+            "005_Genesis6_11-7_3"
           ],
           "sourceOrder": 6,
           "visibility": false,
@@ -1188,7 +1188,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "005_Genesis7-8"
+            "005_Genesis6_11-7_3"
           ],
           "sourceOrder": 7,
           "visibility": false,
@@ -1203,7 +1203,7 @@
     "root": {
       "type": "root",
       "id": "root",
-      "name": "005_Genesis7-8.kmz",
+      "name": "005_Genesis6_11-7_3.kmz",
       "sourceOrder": 0,
       "visibility": null,
       "initiallyVisible": true,
@@ -1212,7 +1212,7 @@
         {
           "type": "folder",
           "id": "folder-0001",
-          "name": "005_Genesis7-8",
+          "name": "005_Genesis6_11-7_3",
           "sourceOrder": 1,
           "visibility": false,
           "initiallyVisible": false,

@@ -23,7 +23,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "004_Genesis5-6"
+            "004_Genesis5-6_10"
           ],
           "sourceOrder": 2,
           "visibility": false,
@@ -38,7 +38,7 @@
     "root": {
       "type": "root",
       "id": "root",
-      "name": "004_Genesis5-6.kmz",
+      "name": "004_Genesis5-6_10.kmz",
       "sourceOrder": 0,
       "visibility": null,
       "initiallyVisible": true,
@@ -47,7 +47,7 @@
         {
           "type": "folder",
           "id": "folder-0001",
-          "name": "004_Genesis5-6",
+          "name": "004_Genesis5-6_10",
           "sourceOrder": 1,
           "visibility": false,
           "initiallyVisible": false,
