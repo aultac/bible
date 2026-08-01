@@ -216,7 +216,11 @@ export function ProgressMenu() {
         ref={triggerRef}
         className="progress-menu-trigger"
         type="button"
-        aria-label="Open progress and backup"
+        aria-label={
+          stats.allComplete
+            ? "Open progress and backup. All caught up."
+            : "Open progress and backup"
+        }
         aria-haspopup="dialog"
         onClick={() => {
           setMessage("");
@@ -228,7 +232,14 @@ export function ProgressMenu() {
           <circle cx="12" cy="8" r="4" />
           <path d="M4.5 21c.7-4.2 3.2-6.4 7.5-6.4s6.8 2.2 7.5 6.4" />
         </svg>
-        {badgeCount !== null ? (
+        {stats.allComplete ? (
+          <span
+            className="progress-menu-badge progress-menu-badge-complete"
+            aria-hidden="true"
+          >
+            ✓
+          </span>
+        ) : badgeCount !== null ? (
           <span className="progress-menu-badge">{badgeCount}</span>
         ) : null}
       </button>
@@ -264,10 +275,28 @@ export function ProgressMenu() {
             </button>
           </header>
 
-          <div className="progress-dialog-summary">
-            <strong>
-              {stats.completed} of {stats.total} lessons complete
-            </strong>
+          <div
+            className={`progress-dialog-summary${
+              stats.allComplete ? " progress-dialog-summary-complete" : ""
+            }`}
+          >
+            {stats.allComplete ? (
+              <div className="progress-caught-up-message">
+                <span className="progress-complete-icon" aria-hidden="true">
+                  ✓
+                </span>
+                <div className="progress-caught-up-copy">
+                  <strong>You're all caught up!</strong>
+                  <span>
+                    {stats.completed} of {stats.total} lessons complete
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <strong>
+                {stats.completed} of {stats.total} lessons complete
+              </strong>
+            )}
             {lastViewedLesson ? (
               <p>
                 Last viewed:{" "}

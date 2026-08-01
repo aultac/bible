@@ -713,6 +713,14 @@
     background: rgba(255, 254, 250, 0.82);
   }
 
+  .course-progress-complete {
+    border-color: #a8ba9a;
+    background:
+      linear-gradient(135deg, rgba(226, 239, 220, 0.8), transparent 58%),
+      rgba(255, 254, 250, 0.9);
+    box-shadow: 0 12px 28px rgba(63, 103, 60, 0.1);
+  }
+
   .course-progress-heading {
     display: flex;
     align-items: end;
@@ -755,9 +763,32 @@
     font-size: 0.78rem;
   }
 
-  .course-progress-label span {
+  .course-progress-label > span {
     color: var(--ink-soft);
     text-align: right;
+  }
+
+  .course-progress-label .course-progress-caught-up {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #37663b;
+    font-weight: 800;
+  }
+
+  .progress-complete-icon {
+    display: inline-grid;
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: #3f7a4a;
+    box-shadow: 0 5px 12px rgba(47, 100, 57, 0.2);
+    font-size: 1.15rem;
+    font-weight: 900;
+    line-height: 1;
   }
 
   .course-progress progress {
@@ -784,6 +815,14 @@
   .course-progress progress::-moz-progress-bar {
     border-radius: 999px;
     background: var(--gold);
+  }
+
+  .course-progress-item-complete progress::-webkit-progress-value {
+    background: #4d8253;
+  }
+
+  .course-progress-item-complete progress::-moz-progress-bar {
+    background: #4d8253;
   }
 
   .section-intro {
@@ -1931,6 +1970,12 @@
     line-height: 1;
   }
 
+  .progress-menu-badge-complete {
+    padding-inline: 0;
+    background: #3f7a4a;
+    font-size: 0.72rem;
+  }
+
   .progress-dialog {
     width: min(680px, calc(100% - 30px));
     max-height: min(780px, calc(100vh - 30px));
@@ -1985,6 +2030,41 @@
     padding: 16px;
     border: 1px solid var(--line);
     background: var(--surface-muted);
+  }
+
+  .progress-dialog-summary-complete {
+    border-color: #a8ba9a;
+    background:
+      linear-gradient(135deg, rgba(226, 239, 220, 0.9), transparent 72%),
+      #f8faf5;
+  }
+
+  .progress-caught-up-message {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .progress-caught-up-message .progress-complete-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.45rem;
+  }
+
+  .progress-caught-up-copy {
+    display: grid;
+    gap: 3px;
+  }
+
+  .progress-caught-up-copy strong {
+    color: #315f36;
+    font-family: var(--serif);
+    font-size: 1.2rem;
+  }
+
+  .progress-caught-up-copy span {
+    color: var(--ink-soft);
+    font-size: 0.78rem;
   }
 
   .progress-dialog-summary p,

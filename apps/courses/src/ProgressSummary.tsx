@@ -12,15 +12,27 @@ function ProgressBar({
   stats: ProgressStats;
   allCaughtUp?: boolean;
 }) {
+  const isCaughtUp = allCaughtUp && stats.allComplete;
   return (
-    <div className="course-progress-item">
+    <div
+      className={`course-progress-item${
+        isCaughtUp ? " course-progress-item-complete" : ""
+      }`}
+    >
       <div className="course-progress-label">
         <strong>{label}</strong>
-        <span>
-          {allCaughtUp && stats.allComplete
-            ? "You're all caught up!"
-            : `${stats.completed} of ${stats.total} · ${stats.percent}%`}
-        </span>
+        {isCaughtUp ? (
+          <span className="course-progress-caught-up">
+            <span className="progress-complete-icon" aria-hidden="true">
+              ✓
+            </span>
+            You're all caught up!
+          </span>
+        ) : (
+          <span>
+            {stats.completed} of {stats.total} · {stats.percent}%
+          </span>
+        )}
       </div>
       <progress
         aria-label={`${label}: ${stats.percent}% complete`}
@@ -61,11 +73,16 @@ export function ProgressSummary({
       : null;
 
   return (
-    <section className="course-progress" aria-label="Course progress">
+    <section
+      className={`course-progress${
+        overallStats.allComplete ? " course-progress-complete" : ""
+      }`}
+      aria-label="Course progress"
+    >
       <div className="course-progress-heading">
         <div>
           <p className="eyebrow">Your progress</p>
-          <h3>Keep going</h3>
+          <h3>{overallStats.allComplete ? "All caught up" : "Keep going"}</h3>
         </div>
         {lastViewedLesson ? (
           <Link to={lastViewedLesson.canonicalPath}>

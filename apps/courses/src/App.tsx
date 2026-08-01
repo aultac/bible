@@ -474,7 +474,7 @@ function HomePage() {
           </div>
           <p>
             Work through every lesson in order, or return directly to the passage
-            you are studying.
+            you are studying.  New lessons released every week.
           </p>
         </div>
 
