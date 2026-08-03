@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "fetchedAt": "2026-08-01T11:53:32.006Z",
+  "fetchedAt": "2026-08-03T16:57:12.256Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 34,
+  "videoCount": 35,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -415,6 +415,18 @@
       "lessonSequenceNumber": 33,
       "durationText": "52:07",
       "thumbnailUrl": "https://i.ytimg.com/vi/nKC48zTqAic/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBeixAPAOU-qaMv2o-0gzqSOMPwUQ"
+    },
+    {
+      "videoId": "MwJ6Ryz4Heg",
+      "title": "Know Your Bible - Week 34",
+      "url": "https://www.youtube.com/watch?v=MwJ6Ryz4Heg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 35,
+      "videoKind": "lesson",
+      "weekNumber": 34,
+      "lessonSequenceNumber": 34,
+      "durationText": "51:44",
+      "thumbnailUrl": "https://i.ytimg.com/vi/MwJ6Ryz4Heg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCwhAihKjawvRvfgpz8JGvhoOsXcA"
     }
   ]
 }

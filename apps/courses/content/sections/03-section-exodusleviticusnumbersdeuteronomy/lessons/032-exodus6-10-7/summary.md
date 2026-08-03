@@ -2,7 +2,7 @@
 
 **Summary: Exodus 6:10-7**
 
-**Title:** **Moses and Aaron go before Pharaoh with the sign of their staff turning into a serpent, the magicians do the same and Pharaohs heart is hardened. Next the water of the land is turned to blood, the magicians once again replicate and Pharaohs heart is hardened even further.**
+**Title:** **Moses and Aaron go before Pharaoh with the sign of their staff turning into a serpent, the magicians do the same and Pharaoh’s heart is hardened. Next the water of the land is turned to blood, the magicians once again replicate and Pharaoh’s heart is hardened even further.**
 
 **Storyline Summary:**
 

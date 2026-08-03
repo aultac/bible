@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "id": "034-exodus9-13-11",
+  "slug": "034-exodus9-13-11",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 34,
+  "lessonKind": "passage",
+  "title": "Exodus 9:13-11",
+  "description": "",
+  "videoSummary": null,
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 9:13",
+  "endVerse": "Exodus 11",
+  "passage": {
+    "display": "Exodus 9:13-11",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 9,
+      "verse": 13,
+      "raw": "Exodus9_13",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 11,
+      "verse": null,
+      "raw": "11",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 9:13",
+    "endVerse": "Exodus 11",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+9:13-11/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/034-exodus9-13-11/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": {
+    "videoId": "MwJ6Ryz4Heg",
+    "title": "Know Your Bible - Week 34",
+    "url": "https://www.youtube.com/watch?v=MwJ6Ryz4Heg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 35,
+    "videoKind": "lesson",
+    "weekNumber": 34,
+    "lessonSequenceNumber": 34,
+    "durationText": "51:44",
+    "thumbnailUrl": "https://i.ytimg.com/vi/MwJ6Ryz4Heg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCwhAihKjawvRvfgpz8JGvhoOsXcA"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11",
+    "folderName": "034_Exodus9_13-11",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": null,
+    "mapPath": null
+  }
+}

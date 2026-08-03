@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-01T11:53:38.524Z",
+  "generatedAt": "2026-08-03T16:57:37.155Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 8,
+  "lessonCount": 9,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -325,6 +325,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/033_Exodus8-9_12",
         "folderName": "033_Exodus8-9_12"
+      }
+    },
+    {
+      "id": "034-exodus9-13-11",
+      "slug": "034-exodus9-13-11",
+      "sequenceNumber": 34,
+      "title": "Exodus 9:13-11",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 9:13",
+      "endVerse": "Exodus 11",
+      "passage": {
+        "display": "Exodus 9:13-11",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 9,
+          "verse": 13,
+          "raw": "Exodus9_13",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 11,
+          "verse": null,
+          "raw": "11",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 9:13",
+        "endVerse": "Exodus 11",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+9:13-11/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/034-exodus9-13-11/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": false,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11",
+        "folderName": "034_Exodus9_13-11"
       }
     }
   ],
