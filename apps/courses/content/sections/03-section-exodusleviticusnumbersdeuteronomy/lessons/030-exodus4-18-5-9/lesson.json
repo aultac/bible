@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "030-exodus4-18-5-9",
   "slug": "030-exodus4-18-5-9",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -100,15 +100,18 @@
   ],
   "youtube": {
     "videoId": "flBafGXPOh4",
-    "title": "Know Your Bible: Week 30",
+    "title": "Exodus 4:18-5:9",
     "url": "https://www.youtube.com/watch?v=flBafGXPOh4&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 31,
     "videoKind": "lesson",
-    "weekNumber": 30,
+    "weekNumber": null,
     "lessonSequenceNumber": 30,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 4:18-5:9",
+    "matchMethod": "passage-title",
     "durationText": "51:27",
-    "thumbnailUrl": "https://i.ytimg.com/vi/flBafGXPOh4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPNwB-pZ7Y2oSiHvmTG4K7CUK-dw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/flBafGXPOh4/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLA94z-wk4r31qDCb8NhvsEa99unOA"
   },
   "tags": [],
   "topicTags": [],

@@ -1,5 +1,6 @@
-import { readdir } from "node:fs/promises";
+import { readdir, stat } from "node:fs/promises";
 import path from "node:path";
+import { classifyLessonPublication } from "./lesson-publication.mjs";
 
 const BUCKET_DIRECTORY_PATTERN = /^\d{2}-(?:Section|Bucket)-/u;
 const LESSON_DIRECTORY_PATTERN = /^\d{3}[-_]/u;
@@ -189,6 +190,63 @@ export function parseLessonDirectoryName(name) {
         ? passage.display
         : SPECIAL_LESSON_TITLES[lessonKind],
   };
+}
+
+async function pathExists(targetPath) {
+  try {
+    await stat(targetPath);
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return false;
+    }
+    throw error;
+  }
+}
+
+export async function buildCanonicalPublishedLessonCatalog(canonicalBase) {
+  const sectionEntries = await readdir(canonicalBase, { withFileTypes: true });
+  const lessons = [];
+
+  for (const sectionEntry of sectionEntries
+    .filter((entry) => entry.isDirectory() && isSectionDirectory(entry.name))
+    .sort((left, right) => left.name.localeCompare(right.name))) {
+    const sectionPath = path.join(canonicalBase, sectionEntry.name);
+    const lessonEntries = await readdir(sectionPath, { withFileTypes: true });
+
+    for (const lessonEntry of lessonEntries
+      .filter((entry) => entry.isDirectory() && isLessonDirectory(entry.name))
+      .sort((left, right) => left.name.localeCompare(right.name))) {
+      const parsedLesson = parseLessonDirectoryName(lessonEntry.name);
+      const lessonPath = path.join(sectionPath, lessonEntry.name);
+      const notesPath = path.join(lessonPath, "notes.md");
+      const publication = await classifyLessonPublication(
+        lessonPath,
+        (await pathExists(notesPath)) ? notesPath : null
+      );
+
+      if (!publication.published) {
+        continue;
+      }
+
+      lessons.push({
+        sequenceNumber: parsedLesson.sequenceNumber,
+        lessonKind: parsedLesson.lessonKind,
+        title: parsedLesson.displayTitle,
+        displayTitle: parsedLesson.displayTitle,
+        passage: parsedLesson.passage,
+        folderName: parsedLesson.folderName,
+        relativeLessonDirectory: path
+          .relative(canonicalBase, lessonPath)
+          .split(path.sep)
+          .join("/"),
+      });
+    }
+  }
+
+  return lessons.sort(
+    (left, right) => left.sequenceNumber - right.sequenceNumber
+  );
 }
 
 export async function buildCanonicalLessonIndex(canonicalBase) {

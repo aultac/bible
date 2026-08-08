@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "021-genesis44-45",
   "slug": "021-genesis44-45",
   "sectionId": "02-section-genesis12-50",
@@ -83,15 +83,18 @@
   ],
   "youtube": {
     "videoId": "A7rCRbhtLL8",
-    "title": "Know Your Bible - Week 21",
+    "title": "Genesis 44-45",
     "url": "https://www.youtube.com/watch?v=A7rCRbhtLL8&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 22,
     "videoKind": "lesson",
-    "weekNumber": 21,
+    "weekNumber": null,
     "lessonSequenceNumber": 21,
-    "durationText": "51:48",
-    "thumbnailUrl": "https://i.ytimg.com/vi/A7rCRbhtLL8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAdgkkef7fqNihB1w54ZFjBGA8JDg"
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 44-45",
+    "matchMethod": "passage-title",
+    "durationText": "51:49",
+    "thumbnailUrl": "https://i.ytimg.com/vi/A7rCRbhtLL8/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCZwFQxdCAKsF-tSyMLjV-6m0Sbug"
   },
   "tags": [],
   "topicTags": [],

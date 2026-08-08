@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "019-genesis40-43",
   "slug": "019-genesis40-43",
   "sectionId": "02-section-genesis12-50",
@@ -64,15 +64,18 @@
   "resources": [],
   "youtube": {
     "videoId": "-ZwJN2MJI3E",
-    "title": "Know Your Bible - Week 19",
+    "title": "Genesis 40-43",
     "url": "https://www.youtube.com/watch?v=-ZwJN2MJI3E&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 20,
     "videoKind": "lesson",
-    "weekNumber": 19,
+    "weekNumber": null,
     "lessonSequenceNumber": 19,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 40-43",
+    "matchMethod": "passage-title",
     "durationText": "47:24",
-    "thumbnailUrl": "https://i.ytimg.com/vi/-ZwJN2MJI3E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBcDpx8d2pFVkbMKvjrp9CpyrGqLw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/-ZwJN2MJI3E/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBdfsJwwa8ucjQrH9Qam13RP86HmQ"
   },
   "tags": [],
   "topicTags": [],

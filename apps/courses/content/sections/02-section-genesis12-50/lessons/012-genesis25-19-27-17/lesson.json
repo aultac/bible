@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "012-genesis25-19-27-17",
   "slug": "012-genesis25-19-27-17",
   "sectionId": "02-section-genesis12-50",
@@ -64,15 +64,18 @@
   "resources": [],
   "youtube": {
     "videoId": "82D44TNiru8",
-    "title": "Know Your Bible - Week 12",
+    "title": "Genesis 25:19-27:17",
     "url": "https://www.youtube.com/watch?v=82D44TNiru8&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 13,
     "videoKind": "lesson",
-    "weekNumber": 12,
+    "weekNumber": null,
     "lessonSequenceNumber": 12,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 25:19-27:17",
+    "matchMethod": "passage-title",
     "durationText": "50:35",
-    "thumbnailUrl": "https://i.ytimg.com/vi/82D44TNiru8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAEj_dRx_102wyVfS8j8FcNH5g4aw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/82D44TNiru8/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBasMvCe8ObNTTf6NWcONHCImCjqA"
   },
   "tags": [],
   "topicTags": [],

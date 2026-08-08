@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "025-genesis50-15-50-26",
   "slug": "025-genesis50-15-50-26",
   "sectionId": "02-section-genesis12-50",
@@ -64,15 +64,18 @@
   "resources": [],
   "youtube": {
     "videoId": "95ObrA5FoYo",
-    "title": "Know Your Bible - Week 25",
+    "title": "Genesis 50:15-50:26",
     "url": "https://www.youtube.com/watch?v=95ObrA5FoYo&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 26,
     "videoKind": "lesson",
-    "weekNumber": 25,
+    "weekNumber": null,
     "lessonSequenceNumber": 25,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 50:15-50:26",
+    "matchMethod": "passage-title",
     "durationText": "49:44",
-    "thumbnailUrl": "https://i.ytimg.com/vi/95ObrA5FoYo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBA4Z1a4RHGQMqcEFwZqtlpofBfbw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/95ObrA5FoYo/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCd7PpbnoZ4PuulwCjsc2eMUTw4MQ"
   },
   "tags": [],
   "topicTags": [],

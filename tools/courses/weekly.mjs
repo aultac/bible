@@ -4,15 +4,20 @@ import {
   input,
   select,
 } from "@inquirer/prompts";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadCoursesEnv } from "./config.mjs";
 import { exportLessonTitles } from "./lesson-title-export.mjs";
+import { buildCanonicalPublishedLessonCatalog } from "./lesson-paths.mjs";
 import {
+  CACHED_PLAYLIST_FILENAME,
   formatCacheChoice,
   listWeeklyCaches,
   loadCacheState,
+  recordCacheComponent,
   resolveWeeklyCache,
+  writeJsonAtomic,
 } from "./weekly-cache.mjs";
 import {
   auditWeeklyCache,
@@ -33,9 +38,18 @@ import {
   formatWeeklyRefreshResult,
   runWeeklyRefresh,
 } from "./weekly-refresh.mjs";
+import {
+  addYoutubeSpecialMatch,
+  formatYoutubeMatchReview,
+  loadYoutubeSpecialMatches,
+  removeYoutubeSpecialMatch,
+  resolvePlaylistVideoMatches,
+  saveYoutubeSpecialMatches,
+} from "./youtube-special-matches.mjs";
 
 const EXECUTION_MODES = new Map([
   ["--prepare", "prepare"],
+  ["--manage-youtube-matches", "manage-youtube"],
   ["--audit", "audit"],
   ["--apply", "apply"],
   ["--delete-cache", "delete"],
@@ -280,6 +294,276 @@ async function runPrepare(
   return result;
 }
 
+async function loadYoutubeMatchContext(
+  cacheRoot,
+  coursesEnv,
+  dependencies
+) {
+  const playlistPath = path.join(cacheRoot, CACHED_PLAYLIST_FILENAME);
+  let playlistSnapshot;
+  try {
+    playlistSnapshot = JSON.parse(await readFile(playlistPath, "utf8"));
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      throw new Error(
+        "The selected cache has no YouTube snapshot. Refresh its YouTube component first."
+      );
+    }
+    throw error;
+  }
+  const [lessons, specialMatches] = await Promise.all([
+    dependencies.buildCanonicalPublishedLessonCatalog(
+      coursesEnv.canonicalBase
+    ),
+    dependencies.loadYoutubeSpecialMatches(
+      coursesEnv.youtubeSpecialMatchesPath
+    ),
+  ]);
+  return {
+    cacheRoot,
+    playlistPath,
+    lessons,
+    specialMatches,
+    playlistSnapshot: dependencies.resolvePlaylistVideoMatches(
+      playlistSnapshot,
+      { lessons, specialMatches }
+    ),
+  };
+}
+
+async function persistYoutubeMatchContext(
+  context,
+  coursesEnv,
+  dependencies
+) {
+  const specialMatches = await dependencies.saveYoutubeSpecialMatches(
+    context.specialMatches,
+    coursesEnv.youtubeSpecialMatchesPath
+  );
+  const playlistSnapshot = dependencies.resolvePlaylistVideoMatches(
+    context.playlistSnapshot,
+    {
+      lessons: context.lessons,
+      specialMatches,
+    }
+  );
+  await writeJsonAtomic(context.playlistPath, playlistSnapshot);
+  const state = await dependencies.loadCacheState(context.cacheRoot);
+  await dependencies.recordCacheComponent({
+    cacheRoot: context.cacheRoot,
+    state,
+    componentName: "youtube",
+    outputPath: context.playlistPath,
+    summary: {
+      videos: playlistSnapshot.videoCount,
+      automaticMatches: playlistSnapshot.matching.automaticMatchCount,
+      specialMatches: playlistSnapshot.matching.specialMatchCount,
+      unmatched: playlistSnapshot.matching.unmatchedCount,
+    },
+  });
+  const audited = await dependencies.auditWeeklyCache({
+    cacheRoot: context.cacheRoot,
+    canonicalBase: coursesEnv.canonicalBase,
+    youtubeSpecialMatchesPath: coursesEnv.youtubeSpecialMatchesPath,
+  });
+  return {
+    ...context,
+    specialMatches,
+    playlistSnapshot,
+    audit: audited.audit,
+  };
+}
+
+export async function runYoutubeMatchManager(
+  options,
+  coursesEnv,
+  dependencies,
+  selectedCacheRoot = null
+) {
+  const cacheRoot = await resolveSelectedCache(
+    selectedCacheRoot,
+    coursesEnv,
+    dependencies,
+    {
+      states: ["draft", "ready"],
+      message: "Cache whose YouTube matches should be managed",
+    }
+  );
+  let context = await loadYoutubeMatchContext(
+    cacheRoot,
+    coursesEnv,
+    dependencies
+  );
+
+  while (true) {
+    const action = await dependencies.selectPrompt(
+      {
+        message: "YouTube special matches",
+        loop: false,
+        choices: [
+          { name: "Review current matches", value: "review" },
+          { name: "Add a special match", value: "add" },
+          { name: "Remove a special match", value: "remove" },
+          { name: "Back", value: "back" },
+        ],
+      },
+      promptContext(dependencies)
+    );
+
+    if (action === "back") {
+      return {
+        status: "managed",
+        cacheRoot,
+        playlistSnapshot: context.playlistSnapshot,
+        specialMatches: context.specialMatches,
+      };
+    }
+    if (action === "review") {
+      writeLine(
+        dependencies.output,
+        dependencies.formatYoutubeMatchReview(context.playlistSnapshot)
+      );
+      continue;
+    }
+
+    if (action === "add") {
+      const unmatchedVideos = context.playlistSnapshot.videos.filter(
+        (video) => !Number.isInteger(video.lessonSequenceNumber)
+      );
+      const ownedLessonSequences = new Set(
+        context.playlistSnapshot.videos
+          .map((video) => video.lessonSequenceNumber)
+          .filter((sequenceNumber) => Number.isInteger(sequenceNumber))
+      );
+      const availableLessons = context.lessons.filter(
+        (lesson) => !ownedLessonSequences.has(lesson.sequenceNumber)
+      );
+      if (unmatchedVideos.length === 0 || availableLessons.length === 0) {
+        writeLine(
+          dependencies.output,
+          unmatchedVideos.length === 0
+            ? "There are no unmatched playlist videos."
+            : "There are no unmatched published lessons."
+        );
+        continue;
+      }
+
+      const videoId = await dependencies.selectPrompt(
+        {
+          message: "Unmatched playlist video",
+          loop: false,
+          choices: unmatchedVideos.map((video) => ({
+            name: video.title,
+            value: video.videoId,
+            description: video.videoId,
+          })),
+        },
+        promptContext(dependencies)
+      );
+      const lessonSequenceNumber = await dependencies.selectPrompt(
+        {
+          message: "Local lesson without a video",
+          loop: false,
+          choices: availableLessons.map((lesson) => ({
+            name: `${lesson.sequenceNumber}. ${
+              lesson.displayTitle || lesson.title
+            }`,
+            value: lesson.sequenceNumber,
+            description: lesson.relativeLessonDirectory,
+          })),
+        },
+        promptContext(dependencies)
+      );
+      const video = unmatchedVideos.find((item) => item.videoId === videoId);
+      const lesson = availableLessons.find(
+        (item) => item.sequenceNumber === lessonSequenceNumber
+      );
+      const approved = await dependencies.confirmPrompt(
+        {
+          message: `Match "${video.title}" to lesson ${lesson.sequenceNumber} "${lesson.displayTitle || lesson.title}"?`,
+          default: false,
+        },
+        promptContext(dependencies)
+      );
+      if (!approved) {
+        writeLine(dependencies.output, "Special match not added.");
+        continue;
+      }
+
+      context.specialMatches = dependencies.addYoutubeSpecialMatch(
+        context.specialMatches,
+        video,
+        lesson
+      );
+      context = await persistYoutubeMatchContext(
+        context,
+        coursesEnv,
+        dependencies
+      );
+      writeLine(
+        dependencies.output,
+        dependencies.formatYoutubeMatchReview(context.playlistSnapshot)
+      );
+      writeLine(dependencies.output, dependencies.formatCacheAudit(context.audit));
+      continue;
+    }
+
+    const statusByVideoId = new Map(
+      (context.playlistSnapshot.matching?.specialMatches || []).map(
+        (match) => [match.videoId, match]
+      )
+    );
+    if (context.specialMatches.matches.length === 0) {
+      writeLine(dependencies.output, "There are no special matches to remove.");
+      continue;
+    }
+    const videoId = await dependencies.selectPrompt(
+      {
+        message: "Special match to remove",
+        loop: false,
+        choices: context.specialMatches.matches.map((match) => {
+          const status = statusByVideoId.get(match.videoId);
+          return {
+            name: `${status?.status || "unknown"}: ${
+              status?.currentVideoTitle || match.videoTitle || match.videoId
+            } → ${match.lessonSequenceNumber} ${
+              status?.currentLessonTitle || match.lessonTitle
+            }`,
+            value: match.videoId,
+          };
+        }),
+      },
+      promptContext(dependencies)
+    );
+    const approved = await dependencies.confirmPrompt(
+      {
+        message: `Remove the special match for video ${videoId}?`,
+        default: false,
+      },
+      promptContext(dependencies)
+    );
+    if (!approved) {
+      writeLine(dependencies.output, "Special match not removed.");
+      continue;
+    }
+
+    context.specialMatches = dependencies.removeYoutubeSpecialMatch(
+      context.specialMatches,
+      videoId
+    );
+    context = await persistYoutubeMatchContext(
+      context,
+      coursesEnv,
+      dependencies
+    );
+    writeLine(
+      dependencies.output,
+      dependencies.formatYoutubeMatchReview(context.playlistSnapshot)
+    );
+    writeLine(dependencies.output, dependencies.formatCacheAudit(context.audit));
+  }
+}
+
 async function runAudit(
   options,
   coursesEnv,
@@ -294,6 +578,7 @@ async function runAudit(
   const result = await dependencies.auditWeeklyCache({
     cacheRoot,
     canonicalBase: coursesEnv.canonicalBase,
+    youtubeSpecialMatchesPath: coursesEnv.youtubeSpecialMatchesPath,
   });
   writeLine(
     dependencies.output,
@@ -591,31 +876,35 @@ async function runInteractive(options, coursesEnv, dependencies) {
             value: "prepare",
           },
           {
-            name: "2. Audit cache until ready",
+            name: "2. Manage YouTube special matches",
+            value: "manage-youtube",
+          },
+          {
+            name: "3. Audit cache until ready",
             value: "audit",
           },
           {
-            name: "3. Apply selected cache",
+            name: "4. Apply selected cache",
             value: "apply",
           },
           {
-            name: "4. Build and test",
+            name: "5. Build and test",
             value: "validate",
           },
           {
-            name: "5. Dev",
+            name: "6. Dev",
             value: "dev",
           },
           {
-            name: "6. Version, commit, and deploy",
+            name: "7. Version, commit, and deploy",
             value: "release-menu",
           },
           {
-            name: "7. Delete a cache",
+            name: "8. Delete a cache",
             value: "delete",
           },
           {
-            name: "8. Export titles",
+            name: "9. Export titles",
             value: "export-titles",
           },
           {
@@ -636,6 +925,14 @@ async function runInteractive(options, coursesEnv, dependencies) {
     }
     if (action === "prepare") {
       const result = await runPrepare(
+        options,
+        coursesEnv,
+        dependencies,
+        selectedCacheRoot
+      );
+      selectedCacheRoot = result.cacheRoot;
+    } else if (action === "manage-youtube") {
+      const result = await runYoutubeMatchManager(
         options,
         coursesEnv,
         dependencies,
@@ -716,7 +1013,9 @@ function buildDependencies(dependencies) {
     loadCoursesEnv,
     listWeeklyCaches,
     loadCacheState,
+    recordCacheComponent,
     resolveWeeklyCache,
+    buildCanonicalPublishedLessonCatalog,
     runWeeklyRefresh,
     formatWeeklyRefreshResult,
     auditWeeklyCache,
@@ -727,6 +1026,12 @@ function buildDependencies(dependencies) {
     runWeeklyValidation,
     startDevelopmentServer,
     exportLessonTitles,
+    loadYoutubeSpecialMatches,
+    saveYoutubeSpecialMatches,
+    resolvePlaylistVideoMatches,
+    addYoutubeSpecialMatch,
+    removeYoutubeSpecialMatch,
+    formatYoutubeMatchReview,
     releaseWeeklyUpdate,
     retryWeeklyRelease,
     selectPrompt: select,
@@ -748,6 +1053,14 @@ export async function runWeeklyCommand(options = {}, dependencies = {}) {
 
   if (options.mode === "prepare") {
     return runPrepare(
+      directOptions,
+      coursesEnv,
+      resolvedDependencies,
+      options.cacheRoot || null
+    );
+  }
+  if (options.mode === "manage-youtube") {
+    return runYoutubeMatchManager(
       directOptions,
       coursesEnv,
       resolvedDependencies,
@@ -812,16 +1125,18 @@ function printHelp() {
 
 With no execution option, opens the guided workflow:
   1. Prepare cache from source documents
-  2. Audit cache until ready
-  3. Apply selected cache
-  4. Build and test
-  5. Dev
-  6. Version, commit, and deploy
-  7. Delete a cache
-  8. Export titles
+  2. Manage YouTube special matches
+  3. Audit cache until ready
+  4. Apply selected cache
+  5. Build and test
+  6. Dev
+  7. Version, commit, and deploy
+  8. Delete a cache
+  9. Export titles
 
 Direct execution:
-  --prepare | --audit | --apply | --build-test | --validate | --dev
+  --prepare | --manage-youtube-matches | --audit | --apply
+  --build-test | --validate | --dev
   --release | --delete-cache | --export-titles
   --retry-push | --retry-deploy | --status
 

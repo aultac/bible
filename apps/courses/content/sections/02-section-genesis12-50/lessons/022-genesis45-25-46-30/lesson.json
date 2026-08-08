@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "022-genesis45-25-46-30",
   "slug": "022-genesis45-25-46-30",
   "sectionId": "02-section-genesis12-50",
@@ -64,15 +64,18 @@
   "resources": [],
   "youtube": {
     "videoId": "qJT7fz8EjPc",
-    "title": "Know Your Bible - Week 22",
+    "title": "Genesis 45:25-46:30",
     "url": "https://www.youtube.com/watch?v=qJT7fz8EjPc&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 23,
     "videoKind": "lesson",
-    "weekNumber": 22,
+    "weekNumber": null,
     "lessonSequenceNumber": 22,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 45:25-46:30",
+    "matchMethod": "passage-title",
     "durationText": "54:27",
-    "thumbnailUrl": "https://i.ytimg.com/vi/qJT7fz8EjPc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD2kVNkrsKG3e02JuewpyewweYqHg"
+    "thumbnailUrl": "https://i.ytimg.com/vi/qJT7fz8EjPc/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCERQA2zI4keVYywa4Vfc8Qvr64ng"
   },
   "tags": [],
   "topicTags": [],

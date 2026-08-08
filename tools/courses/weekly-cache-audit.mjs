@@ -15,6 +15,11 @@ import {
 } from "./weekly-cache.mjs";
 import { DOCUMENT_SUMMARIES_FILENAME } from "./document-summaries.mjs";
 import { validateNoteDirectiveCandidate } from "./note-directives.mjs";
+import {
+  YOUTUBE_SPECIAL_MATCHES_PATH,
+  fingerprintYoutubeSpecialMatches,
+  loadYoutubeSpecialMatches,
+} from "./youtube-special-matches.mjs";
 
 const NOTES_REPORT_FILENAME = "canonical-note-backup-report.json";
 
@@ -296,7 +301,11 @@ async function auditNotes({ cacheRoot, findings }) {
   }
 }
 
-async function auditPlaylist({ cacheRoot, findings }) {
+async function auditPlaylist({
+  cacheRoot,
+  findings,
+  youtubeSpecialMatchesPath,
+}) {
   const playlistPath = path.join(cacheRoot, CACHED_PLAYLIST_FILENAME);
   if (!(await pathExists(playlistPath))) {
     return;
@@ -315,7 +324,7 @@ async function auditPlaylist({ cacheRoot, findings }) {
     );
     return;
   }
-  if (playlist.schemaVersion !== 2) {
+  if (playlist.schemaVersion !== 3) {
     addFinding(
       findings,
       "error",
@@ -335,6 +344,58 @@ async function auditPlaylist({ cacheRoot, findings }) {
       { path: playlistPath }
     );
     return;
+  }
+
+  for (const diagnostic of playlist.matching?.diagnostics || []) {
+    addFinding(
+      findings,
+      diagnostic.severity,
+      "youtube",
+      diagnostic.code,
+      diagnostic.message,
+      diagnostic
+    );
+  }
+
+  const cachedSpecialMatchesFingerprint =
+    playlist.matching?.specialMatchesFingerprint;
+  if (!cachedSpecialMatchesFingerprint) {
+    addFinding(
+      findings,
+      "error",
+      "youtube",
+      "special-matches-fingerprint-missing",
+      "Cached YouTube playlist has no special-match manifest fingerprint.",
+      { path: playlistPath }
+    );
+  } else {
+    try {
+      const currentSpecialMatches = await loadYoutubeSpecialMatches(
+        youtubeSpecialMatchesPath
+      );
+      if (
+        fingerprintYoutubeSpecialMatches(currentSpecialMatches) !==
+        cachedSpecialMatchesFingerprint
+      ) {
+        addFinding(
+          findings,
+          "error",
+          "youtube",
+          "special-matches-stale",
+          "YouTube special matches changed after this cache was resolved; re-resolve the YouTube component.",
+          { path: youtubeSpecialMatchesPath }
+        );
+      }
+    } catch (error) {
+      addFinding(
+        findings,
+        "error",
+        "youtube",
+        "special-matches-invalid",
+        `YouTube special matches are invalid: ${error.message}`,
+        { path: youtubeSpecialMatchesPath }
+      );
+    }
   }
 
   const videoIds = new Set();
@@ -368,24 +429,32 @@ async function auditPlaylist({ cacheRoot, findings }) {
         "warning",
         "youtube",
         "video-lesson-unmatched",
-        `${video.title || video.videoId || "A playlist video"} has no explicit Promo or Week N lesson match.`,
+        `${video.title || video.videoId || "A playlist video"} has no automatic or special lesson match.`,
         { videoId: video.videoId || null, title: video.title || null }
       );
       continue;
     }
     const existingVideoId = lessonSequenceOwners.get(lessonSequenceNumber);
     if (existingVideoId) {
-      addFinding(
-        findings,
-        "error",
-        "youtube",
-        "lesson-sequence-duplicate",
-        `Multiple playlist videos map to lesson sequence ${lessonSequenceNumber}.`,
-        {
-          lessonSequenceNumber,
-          videoIds: [existingVideoId, video.videoId],
-        }
+      const alreadyReported = findings.some(
+        (finding) =>
+          finding.component === "youtube" &&
+          finding.code === "lesson-sequence-duplicate" &&
+          finding.lessonSequenceNumber === lessonSequenceNumber
       );
+      if (!alreadyReported) {
+        addFinding(
+          findings,
+          "error",
+          "youtube",
+          "lesson-sequence-duplicate",
+          `Multiple playlist videos map to lesson sequence ${lessonSequenceNumber}.`,
+          {
+            lessonSequenceNumber,
+            videoIds: [existingVideoId, video.videoId],
+          }
+        );
+      }
       continue;
     }
     lessonSequenceOwners.set(lessonSequenceNumber, video.videoId);
@@ -465,6 +534,7 @@ async function auditInventory({ cacheRoot, canonicalBase, findings }) {
 export async function auditWeeklyCache({
   cacheRoot,
   canonicalBase,
+  youtubeSpecialMatchesPath = YOUTUBE_SPECIAL_MATCHES_PATH,
   requiredComponents = CACHE_COMPONENT_NAMES,
   auditedAt = new Date().toISOString(),
 }) {
@@ -479,7 +549,11 @@ export async function auditWeeklyCache({
   });
   await auditDocuments({ cacheRoot, canonicalBase, findings });
   await auditNotes({ cacheRoot, findings });
-  await auditPlaylist({ cacheRoot, findings });
+  await auditPlaylist({
+    cacheRoot,
+    findings,
+    youtubeSpecialMatchesPath,
+  });
   await auditInventory({ cacheRoot, canonicalBase, findings });
 
   const errors = findings.filter(

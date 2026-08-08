@@ -1,4 +1,4 @@
-# 033_Exodus8-9_12
+# 033_Exodus8-9:12
 
 - MORE EGYPTIAN GODS
   - Sympathize with Moses: he had to sit in class as a young child in the palace learning all the details of all the Egyptian gods so that he was well-versed in their entire theology. **We only have to learn a few.**

@@ -327,6 +327,45 @@ describe("weekly cache preparation and apply", () => {
     ).rejects.toThrow("changed after its successful audit");
   });
 
+  it("rejects apply before changing notes when special matches drift", async () => {
+    const coursesEnv = await makeEnvironment();
+    const { cacheRoot } = await createWeeklyCache(coursesEnv.notesCacheRoot);
+    await writeJsonAtomic(path.join(cacheRoot, "document-summaries.json"), {
+      records: [],
+    });
+    await writeJsonAtomic(path.join(cacheRoot, "playlist.json"), {
+      schemaVersion: 3,
+      matching: { specialMatchesFingerprint: "cached-fingerprint" },
+      videos: [],
+    });
+    await mutateCacheState(cacheRoot, (state) => ({
+      ...state,
+      status: "ready",
+      latestAudit: {
+        ready: true,
+        errors: 0,
+        warnings: 0,
+        componentsFingerprint: computeComponentsFingerprint(state.components),
+      },
+    }));
+    const applyCanonicalNoteBackups = vi.fn();
+
+    await expect(
+      runWeeklyRefresh(
+        { coursesEnv, apply: true, cacheRoot },
+        {
+          loadYoutubeSpecialMatches: async () => ({
+            schemaVersion: 1,
+            matches: [],
+          }),
+          fingerprintYoutubeSpecialMatches: () => "current-fingerprint",
+          applyCanonicalNoteBackups,
+        }
+      )
+    ).rejects.toThrow("special matches changed after cache audit");
+    expect(applyCanonicalNoteBackups).not.toHaveBeenCalled();
+  });
+
   it("treats reapplying an applied cache as a no-op", async () => {
     const coursesEnv = await makeEnvironment();
     const { cacheRoot } = await createWeeklyCache(coursesEnv.notesCacheRoot);

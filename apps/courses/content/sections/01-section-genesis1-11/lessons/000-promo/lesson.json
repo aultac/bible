@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "000-promo",
   "slug": "000-promo",
   "sectionId": "01-section-genesis1-11",
@@ -31,15 +31,18 @@
   "resources": [],
   "youtube": {
     "videoId": "_RL2-0FTPnY",
-    "title": "Know Your Bible Promo",
+    "title": "Why Know Your Bible?",
     "url": "https://www.youtube.com/watch?v=_RL2-0FTPnY&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 1,
     "videoKind": "promo",
     "weekNumber": null,
     "lessonSequenceNumber": 0,
+    "titleFormat": "promo",
+    "passageTitle": null,
+    "matchMethod": "promo-title",
     "durationText": "23:12",
-    "thumbnailUrl": "https://i.ytimg.com/vi/_RL2-0FTPnY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDMwXrve6eFKGXXmBmv45bDx-CFKQ"
+    "thumbnailUrl": "https://i.ytimg.com/vi/_RL2-0FTPnY/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBrcV1IxMp211cj_Y_Dj3qdfnrnYg"
   },
   "tags": [],
   "topicTags": [],

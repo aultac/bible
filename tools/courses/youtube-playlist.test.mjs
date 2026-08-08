@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import {
   buildPlaylistVideoMatchMap,
+  classifyVideoLesson,
   fetchPlaylistSnapshot,
   fetchYoutubeVideoMetadata,
   parsePlaylistSnapshotHtml,
@@ -193,7 +194,7 @@ describe("YouTube playlist parsing", () => {
     );
     const matches = buildPlaylistVideoMatchMap(snapshot);
 
-    expect(snapshot.schemaVersion).toBe(2);
+    expect(snapshot.schemaVersion).toBe(3);
     expect(snapshot.videos).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -219,6 +220,42 @@ describe("YouTube playlist parsing", () => {
     expect(matches.get(1).videoId).toBe("intro");
     expect(matches.get(2).videoId).toBe("week-two");
     expect(matches.has(3)).toBe(false);
+  });
+
+  it("classifies current special and passage-only titles conservatively", () => {
+    expect(classifyVideoLesson("Why Know Your Bible?")).toMatchObject({
+      videoKind: "promo",
+      lessonSequenceNumber: 0,
+      titleFormat: "promo",
+      matchMethod: "promo-title",
+    });
+    expect(classifyVideoLesson("Intro to Know Your Bible")).toMatchObject({
+      videoKind: "lesson",
+      lessonSequenceNumber: 1,
+      titleFormat: "intro",
+      matchMethod: "intro-title",
+    });
+    expect(classifyVideoLesson("Exodus 9:13-11")).toMatchObject({
+      videoKind: "lesson",
+      lessonSequenceNumber: null,
+      titleFormat: "passage",
+      passageTitle: "Exodus 9:13-11",
+    });
+    expect(
+      classifyVideoLesson(
+        "Know Your Bible - Week 34 - Exodus 9:13-11"
+      )
+    ).toMatchObject({
+      lessonSequenceNumber: 34,
+      titleFormat: "week-with-passage",
+      passageTitle: "Exodus 9:13-11",
+      matchMethod: "week-number",
+    });
+    expect(classifyVideoLesson("Exodus 2:16-3-:13")).toMatchObject({
+      videoKind: "unmatched",
+      lessonSequenceNumber: null,
+      titleFormat: "unmatched",
+    });
   });
 
   it("rejects duplicate lesson sequence matches", () => {

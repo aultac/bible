@@ -1,4 +1,4 @@
-# 027_Exodus1_17-2
+# 027_Exodus1:17-2
 
 - LAST WEEK WAS DEPRESSING: I attempted last week to help us feel some sadness that the evil against the Hebrews for a very long time. We now know why it was done, and we know that we are not the good guys in the story. And the story is written such that just when it brings you to your lowest point viewing humanity as irredeemably bad, the sunlight breaks through a crack in the darkness and the Hebrew midwives come on the scene. That’s where we are today. Maybe, despite the evil of the world, there is something redeemable in us that is worth God sending his own son to be killed by the proverbial pharaoh in order to save us.
 

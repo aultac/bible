@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "007-genesis12-14",
   "slug": "007-genesis12-14",
   "sectionId": "02-section-genesis12-50",
@@ -64,15 +64,18 @@
   "resources": [],
   "youtube": {
     "videoId": "PD5VmsFrQbs",
-    "title": "Know Your Bible - Week 7",
+    "title": "Genesis 12-14",
     "url": "https://www.youtube.com/watch?v=PD5VmsFrQbs&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 8,
     "videoKind": "lesson",
-    "weekNumber": 7,
+    "weekNumber": null,
     "lessonSequenceNumber": 7,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 12-14",
+    "matchMethod": "passage-title",
     "durationText": "49:37",
-    "thumbnailUrl": "https://i.ytimg.com/vi/PD5VmsFrQbs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMLbG4DmSOOGjZi7uYFzHNHq24PQ"
+    "thumbnailUrl": "https://i.ytimg.com/vi/PD5VmsFrQbs/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDfcIjuwt8ezRXv81CjFMGnONQsVQ"
   },
   "tags": [],
   "topicTags": [],

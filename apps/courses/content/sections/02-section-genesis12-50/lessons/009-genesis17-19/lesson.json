@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "009-genesis17-19",
   "slug": "009-genesis17-19",
   "sectionId": "02-section-genesis12-50",
@@ -71,15 +71,18 @@
   ],
   "youtube": {
     "videoId": "kpONQHutit0",
-    "title": "Know Your Bible - Week 9",
+    "title": "Genesis 17-19",
     "url": "https://www.youtube.com/watch?v=kpONQHutit0&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 10,
     "videoKind": "lesson",
-    "weekNumber": 9,
+    "weekNumber": null,
     "lessonSequenceNumber": 9,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 17-19",
+    "matchMethod": "passage-title",
     "durationText": "51:30",
-    "thumbnailUrl": "https://i.ytimg.com/vi/kpONQHutit0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDYHoHY2PpQDPxEIkYCXwtfypMExQ"
+    "thumbnailUrl": "https://i.ytimg.com/vi/kpONQHutit0/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLD4Qtpqd_O-T6whe-6SG-eZvfWBsw"
   },
   "tags": [],
   "topicTags": [],

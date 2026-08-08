@@ -1,4 +1,4 @@
-# 030_Exodus4_18-5_9
+# 030_Exodus4:18-5:9
 
 - DO NOT MAKE UP A GOD: we learned last week that God will be who he will be, so we have to learn about him from scripture. First, that’s exciting! Let’s keep reading! Who doesn’t want to know more about the creator of the universe? Second, **don’t make up a God like one who would never kill the Egyptian firstborn, and then try to judge the real God by your imaginary god.** You can’t know about God without him telling you. Ehyeh Asher Ehyeh.
 - TRIBAL ELOHIM: Notice God does NOT identify himself as creator of the universe. He identifies as Moses’ tribal Elohim from among all the Elohim. He does NOT say “All the Elohim of Egypt are fake, I am the only Elohim.” He says “My essence is existence and I am YOUR Elohim.” He doesn’t even say “I created all the other Elohim, but I kept you for myself,” even though that’s what we learn at Babel. He just proceeds to show by his actions that he is completely above the gods of Egypt, the Most High Elohim. As we will see, each plague is a direct attack on a specific god in the Egyptian pantheon.

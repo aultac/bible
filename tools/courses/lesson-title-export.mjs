@@ -1,7 +1,11 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { REPO_ROOT } from "./config.mjs";
-import { fetchYoutubeVideoMetadata } from "./youtube-playlist.mjs";
+import {
+  classifyVideoLesson,
+  fetchYoutubeVideoMetadata,
+  normalizeYoutubeLessonTitle,
+} from "./youtube-playlist.mjs";
 
 export const EXPORTED_LESSONS_FILENAME = "exported-lessons.csv";
 export const EXPORTED_LESSON_COLUMNS = [
@@ -23,7 +27,38 @@ function csvCell(value) {
 }
 
 export function buildExportedLessonTitle(lesson) {
-  return `Know Your Bible - Week ${lesson.sequenceNumber} - ${lesson.title}`;
+  return lesson.lessonKind === "intro"
+    ? "Intro to Know Your Bible"
+    : lesson.title;
+}
+
+export function youtubeTitleMatchesLesson(lesson, youtubeTitle) {
+  const classification = classifyVideoLesson(youtubeTitle);
+  if (
+    classification.titleFormat === "week" &&
+    classification.lessonSequenceNumber === lesson.sequenceNumber
+  ) {
+    return true;
+  }
+  if (
+    classification.titleFormat === "week-with-passage" &&
+    classification.lessonSequenceNumber === lesson.sequenceNumber
+  ) {
+    return (
+      normalizeYoutubeLessonTitle(classification.passageTitle) ===
+      normalizeYoutubeLessonTitle(lesson.title)
+    );
+  }
+  if (
+    classification.titleFormat === "intro" &&
+    lesson.lessonKind === "intro"
+  ) {
+    return true;
+  }
+  return (
+    normalizeYoutubeLessonTitle(youtubeTitle) ===
+    normalizeYoutubeLessonTitle(buildExportedLessonTitle(lesson))
+  );
 }
 
 export function buildExportedLessonRow(lesson, youtubeMetadata = null) {
@@ -32,7 +67,7 @@ export function buildExportedLessonRow(lesson, youtubeMetadata = null) {
   const youtubeUrl = lesson.youtube?.url || "";
   const matchesYoutube =
     Boolean(youtubeMetadata) &&
-    youtubeMetadata.title === title &&
+    youtubeTitleMatchesLesson(lesson, youtubeMetadata.title) &&
     youtubeMetadata.description === description;
   return [
     lesson.sequenceNumber,

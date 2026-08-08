@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "013-genesis27-18-28",
   "slug": "013-genesis27-18-28",
   "sectionId": "02-section-genesis12-50",
@@ -63,15 +63,18 @@
   "resources": [],
   "youtube": {
     "videoId": "kahGd6h9LTc",
-    "title": "Know Your Bible - Week 13",
+    "title": "Genesis 27:18-28",
     "url": "https://www.youtube.com/watch?v=kahGd6h9LTc&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 14,
     "videoKind": "lesson",
-    "weekNumber": 13,
+    "weekNumber": null,
     "lessonSequenceNumber": 13,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 27:18-28",
+    "matchMethod": "passage-title",
     "durationText": "43:54",
-    "thumbnailUrl": "https://i.ytimg.com/vi/kahGd6h9LTc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDm2uK6WfT_dNqdlh065qGvEq9yAg"
+    "thumbnailUrl": "https://i.ytimg.com/vi/kahGd6h9LTc/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBWQQ6rB0a-fC48drENGE38N3BIzA"
   },
   "tags": [],
   "topicTags": [],

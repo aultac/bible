@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "034-exodus9-13-11",
   "slug": "034-exodus9-13-11",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -9,7 +9,7 @@
   "lessonKind": "passage",
   "title": "Exodus 9:13-11",
   "description": "",
-  "videoSummary": null,
+  "videoSummary": "God sends destructive hail, devouring locust and heavy darkness upon Egypt. Pharaoh continues to lie to get his way but his heart continues to be hardened. God's final plague is revealed so a distinction will be made between Egypt and His Israel.",
   "status": "published",
   "publishReasons": [],
   "startVerse": "Exodus 9:13",
@@ -41,25 +41,28 @@
     "available": true
   },
   "summary": {
-    "path": null,
-    "sourcePath": null,
-    "sourceFormat": null,
-    "available": false,
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/034-exodus9-13-11/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11/034_Exodus9_13-11_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
     "error": null
   },
   "map": null,
   "resources": [],
   "youtube": {
     "videoId": "MwJ6Ryz4Heg",
-    "title": "Know Your Bible - Week 34",
+    "title": "Exodus 9:13-11",
     "url": "https://www.youtube.com/watch?v=MwJ6Ryz4Heg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 35,
     "videoKind": "lesson",
-    "weekNumber": 34,
+    "weekNumber": null,
     "lessonSequenceNumber": 34,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 9:13-11",
+    "matchMethod": "passage-title",
     "durationText": "51:44",
-    "thumbnailUrl": "https://i.ytimg.com/vi/MwJ6Ryz4Heg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCwhAihKjawvRvfgpz8JGvhoOsXcA"
+    "thumbnailUrl": "https://i.ytimg.com/vi/MwJ6Ryz4Heg/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCgaK6D6xU9d9eea4gKjSr3uxxfbw"
   },
   "tags": [],
   "topicTags": [],
@@ -69,7 +72,7 @@
     "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11",
     "folderName": "034_Exodus9_13-11",
     "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11/notes.md",
-    "summaryDocxPath": null,
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/034_Exodus9_13-11/034_Exodus9_13-11_summary.docx",
     "resourcesDirectory": null,
     "mapPath": null
   }

@@ -1,4 +1,4 @@
-# 005_Genesis6_11-7_3
+# 005_Genesis6:11-7:3
 
 **Bibles Into Buckets:**
 

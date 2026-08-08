@@ -1,4 +1,4 @@
-# 004_Genesis5-6_10
+# 004_Genesis5-6:10
 
 - Review Abel’s bloods: physical ground soaks up sin like a sponge. Hebrews 12:4 Jesus’s blood speaks a better word than the blood of Abel.
 

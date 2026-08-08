@@ -17,6 +17,7 @@ import {
   loadDocumentSummaries,
   prepareDocumentSummaries,
 } from "./document-summaries.mjs";
+import { buildCanonicalPublishedLessonCatalog } from "./lesson-paths.mjs";
 import {
   applyCanonicalNoteBackups,
   getCanonicalNoteBackupReportPath,
@@ -45,6 +46,11 @@ import {
   formatCacheAudit,
 } from "./weekly-cache-audit.mjs";
 import { fetchPlaylistSnapshot } from "./youtube-playlist.mjs";
+import {
+  fingerprintYoutubeSpecialMatches,
+  loadYoutubeSpecialMatches,
+  resolvePlaylistVideoMatches,
+} from "./youtube-special-matches.mjs";
 import {
   getAppliedNotesCheckpointPath,
   writeAppliedNotesCheckpoint,
@@ -307,10 +313,21 @@ async function prepareWeeklyCache(options, coursesEnv, dependencies) {
       );
     }
     progress("Refreshing the YouTube playlist snapshot.");
-    const playlist = await dependencies.fetchPlaylistSnapshot(
-      coursesEnv.youtubePlaylistUrl,
-      { onRetry: (message) => progress(message) }
-    );
+    const [rawPlaylist, lessons, specialMatches] = await Promise.all([
+      dependencies.fetchPlaylistSnapshot(coursesEnv.youtubePlaylistUrl, {
+        onRetry: (message) => progress(message),
+      }),
+      dependencies.buildCanonicalPublishedLessonCatalog(
+        coursesEnv.canonicalBase
+      ),
+      dependencies.loadYoutubeSpecialMatches(
+        coursesEnv.youtubeSpecialMatchesPath
+      ),
+    ]);
+    const playlist = dependencies.resolvePlaylistVideoMatches(rawPlaylist, {
+      lessons,
+      specialMatches,
+    });
     const playlistPath = path.join(cacheRoot, CACHED_PLAYLIST_FILENAME);
     await writeJsonAtomic(playlistPath, playlist);
     state = await dependencies.recordCacheComponent({
@@ -318,7 +335,12 @@ async function prepareWeeklyCache(options, coursesEnv, dependencies) {
       state,
       componentName: "youtube",
       outputPath: playlistPath,
-      summary: { videos: playlist.videoCount },
+      summary: {
+        videos: playlist.videoCount,
+        automaticMatches: playlist.matching.automaticMatchCount,
+        specialMatches: playlist.matching.specialMatchCount,
+        unmatched: playlist.matching.unmatchedCount,
+      },
     });
     componentResults.youtube = { playlist, playlistPath };
   }
@@ -346,6 +368,7 @@ async function prepareWeeklyCache(options, coursesEnv, dependencies) {
   const audited = await dependencies.auditWeeklyCache({
     cacheRoot,
     canonicalBase: coursesEnv.canonicalBase,
+    youtubeSpecialMatchesPath: coursesEnv.youtubeSpecialMatchesPath,
   });
   return {
     phase: "prepare",
@@ -409,18 +432,32 @@ async function applyWeeklyCache(options, coursesEnv, dependencies) {
   }
   const state = await loadReadyCache(cacheRoot);
   const reportPath = getCanonicalNoteBackupReportPath(cacheRoot);
+  const [documentSummaries, playlistSnapshot, currentSpecialMatches] =
+    await Promise.all([
+      loadDocumentSummaries(cacheRoot),
+      JSON.parse(
+        await readFile(path.join(cacheRoot, CACHED_PLAYLIST_FILENAME), "utf8")
+      ),
+      dependencies.loadYoutubeSpecialMatches(
+        coursesEnv.youtubeSpecialMatchesPath
+      ),
+    ]);
+  const expectedSpecialMatchesFingerprint =
+    playlistSnapshot.matching?.specialMatchesFingerprint;
+  if (
+    expectedSpecialMatchesFingerprint &&
+    expectedSpecialMatchesFingerprint !==
+      dependencies.fingerprintYoutubeSpecialMatches(currentSpecialMatches)
+  ) {
+    throw new Error(
+      "YouTube special matches changed after cache audit. Re-resolve the YouTube cache component and audit again."
+    );
+  }
 
   progress(`Applying reviewed notes from ${path.basename(cacheRoot)}.`);
   const backups = await dependencies.applyCanonicalNoteBackups({
     reportPath,
   });
-  const [documentSummaries, playlistSnapshot] = await Promise.all([
-    loadDocumentSummaries(cacheRoot),
-    JSON.parse(
-      await readFile(path.join(cacheRoot, CACHED_PLAYLIST_FILENAME), "utf8")
-    ),
-  ]);
-
   progress("Regenerating course content from audited cached inputs.");
   const refresh = await dependencies.syncCoursesContent({
     documentSummaries,
@@ -551,6 +588,10 @@ export async function runWeeklyRefresh(
     createNotesSnapshot,
     prepareCanonicalNoteBackups,
     fetchPlaylistSnapshot,
+    buildCanonicalPublishedLessonCatalog,
+    loadYoutubeSpecialMatches,
+    fingerprintYoutubeSpecialMatches,
+    resolvePlaylistVideoMatches,
     prepareSourceInventory,
     auditWeeklyCache,
     applyCanonicalNoteBackups,

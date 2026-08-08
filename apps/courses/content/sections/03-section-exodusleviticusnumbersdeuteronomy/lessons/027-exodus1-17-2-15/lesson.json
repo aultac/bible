@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "027-exodus1-17-2-15",
   "slug": "027-exodus1-17-2-15",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -63,15 +63,18 @@
   "resources": [],
   "youtube": {
     "videoId": "jpfWdPS0q8k",
-    "title": "Know Your Bible - Week 27",
+    "title": "Exodus 1:17-2:15",
     "url": "https://www.youtube.com/watch?v=jpfWdPS0q8k&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 28,
     "videoKind": "lesson",
-    "weekNumber": 27,
+    "weekNumber": null,
     "lessonSequenceNumber": 27,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 1:17-2:15",
+    "matchMethod": "passage-title",
     "durationText": "48:55",
-    "thumbnailUrl": "https://i.ytimg.com/vi/jpfWdPS0q8k/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgNMl0ZV1EFwKnSA8vXtb87lMxqg"
+    "thumbnailUrl": "https://i.ytimg.com/vi/jpfWdPS0q8k/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDjw9CVGRUfBHe_PJZ-2sURGxBo1w"
   },
   "tags": [],
   "topicTags": [],

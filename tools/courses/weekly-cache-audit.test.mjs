@@ -11,6 +11,7 @@ import {
   recordCacheComponent,
   writeJsonAtomic,
 } from "./weekly-cache.mjs";
+import { resolvePlaylistVideoMatches } from "./youtube-special-matches.mjs";
 
 const temporaryRoots = [];
 
@@ -27,6 +28,12 @@ async function createAuditableCache() {
   temporaryRoots.push(root);
   const canonicalBase = path.join(root, "canonical");
   const notesCacheRoot = path.join(root, "cache");
+  const youtubeSpecialMatchesPath = path.join(
+    root,
+    "youtube-special-matches.json"
+  );
+  const specialMatches = { schemaVersion: 1, matches: [] };
+  await writeJsonAtomic(youtubeSpecialMatchesPath, specialMatches);
   const sourceRelativePath =
     "01-Bucket-Genesis1-11/001-Genesis1_1-2_3/001-Genesis1_1-2_3_summary.docx";
   const sourcePath = path.join(canonicalBase, sourceRelativePath);
@@ -71,19 +78,31 @@ async function createAuditableCache() {
     updates: [],
     missingCanonicalLessonFolders: [],
   });
-  await writeJsonAtomic(outputs.youtube, {
-    schemaVersion: 2,
-    videoCount: 1,
-    videos: [
+  await writeJsonAtomic(
+    outputs.youtube,
+    resolvePlaylistVideoMatches(
       {
-        videoId: "video",
-        title: "Week 1",
-        position: 1,
-        weekNumber: 1,
-        lessonSequenceNumber: 1,
+        schemaVersion: 3,
+        videoCount: 1,
+        videos: [
+          {
+            videoId: "video",
+            title: "Week 1",
+            position: 1,
+          },
+        ],
       },
-    ],
-  });
+      {
+        lessons: [
+          {
+            sequenceNumber: 1,
+            displayTitle: "Genesis 1:1-2:3",
+          },
+        ],
+        specialMatches,
+      }
+    )
+  );
   await writeJsonAtomic(outputs.inventory, {
     sectionCount: 1,
     fileCount: 1,
@@ -115,6 +134,7 @@ async function createAuditableCache() {
     canonicalBase,
     markdownPath,
     sourcePath,
+    youtubeSpecialMatchesPath,
   };
 }
 
@@ -125,6 +145,7 @@ describe("weekly cache readiness audit", () => {
     const result = await auditWeeklyCache({
       cacheRoot: fixture.cacheRoot,
       canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
       auditedAt: "2026-07-23T00:00:00.000Z",
     });
 
@@ -146,6 +167,7 @@ describe("weekly cache readiness audit", () => {
     const result = await auditWeeklyCache({
       cacheRoot: fixture.cacheRoot,
       canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
     });
 
     expect(result.audit.ready).toBe(false);
@@ -159,29 +181,66 @@ describe("weekly cache readiness audit", () => {
     );
   });
 
-  it("rejects duplicate YouTube lesson matches and warns on unmatched titles", async () => {
+  it("returns to draft when special matches change after resolution", async () => {
     const fixture = await createAuditableCache();
-    const playlistPath = path.join(fixture.cacheRoot, "playlist.json");
-    await writeJsonAtomic(playlistPath, {
-      schemaVersion: 2,
-      videos: [
+    await writeJsonAtomic(fixture.youtubeSpecialMatchesPath, {
+      schemaVersion: 1,
+      matches: [
         {
-          videoId: "promo",
-          title: "Know Your Bible Promo",
-          lessonSequenceNumber: 0,
-        },
-        {
-          videoId: "duplicate-promo",
-          title: "Another Promo",
-          lessonSequenceNumber: 0,
-        },
-        {
-          videoId: "extra",
-          title: "Course Trailer",
-          lessonSequenceNumber: null,
+          videoId: "later-video",
+          lessonSequenceNumber: 1,
+          videoTitle: "Later",
+          lessonTitle: "Lesson One",
         },
       ],
     });
+
+    const result = await auditWeeklyCache({
+      cacheRoot: fixture.cacheRoot,
+      canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
+    });
+
+    expect(result.audit.ready).toBe(false);
+    expect(result.audit.findings).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          component: "youtube",
+          code: "special-matches-stale",
+        }),
+      ])
+    );
+  });
+
+  it("rejects duplicate YouTube lesson matches and warns on unmatched titles", async () => {
+    const fixture = await createAuditableCache();
+    const playlistPath = path.join(fixture.cacheRoot, "playlist.json");
+    await writeJsonAtomic(
+      playlistPath,
+      resolvePlaylistVideoMatches(
+        {
+          schemaVersion: 3,
+          videos: [
+            {
+              videoId: "promo",
+              title: "Know Your Bible Promo",
+            },
+            {
+              videoId: "duplicate-promo",
+              title: "Another Promo",
+            },
+            {
+              videoId: "extra",
+              title: "Course Trailer",
+            },
+          ],
+        },
+        {
+          lessons: [{ sequenceNumber: 0, displayTitle: "Promo" }],
+          specialMatches: { schemaVersion: 1, matches: [] },
+        }
+      )
+    );
     const state = await loadCacheState(fixture.cacheRoot);
     await recordCacheComponent({
       cacheRoot: fixture.cacheRoot,
@@ -193,6 +252,7 @@ describe("weekly cache readiness audit", () => {
     const result = await auditWeeklyCache({
       cacheRoot: fixture.cacheRoot,
       canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
     });
     const codes = result.audit.findings.map((finding) => finding.code);
 
@@ -245,6 +305,7 @@ describe("weekly cache readiness audit", () => {
     const result = await auditWeeklyCache({
       cacheRoot: fixture.cacheRoot,
       canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
     });
 
     expect(result.audit.ready).toBe(false);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "002-genesis1-2",
   "slug": "002-genesis1-2",
   "sectionId": "01-section-genesis1-11",
@@ -70,15 +70,18 @@
   ],
   "youtube": {
     "videoId": "vBLuW6pN4Lg",
-    "title": "Know Your Bible - Week 2",
+    "title": "Genesis 1-2",
     "url": "https://www.youtube.com/watch?v=vBLuW6pN4Lg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 3,
     "videoKind": "lesson",
-    "weekNumber": 2,
+    "weekNumber": null,
     "lessonSequenceNumber": 2,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 1-2",
+    "matchMethod": "passage-title",
     "durationText": "45:55",
-    "thumbnailUrl": "https://i.ytimg.com/vi/vBLuW6pN4Lg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAmqhwiGwuLKZI8cwMACbQIir2UsA"
+    "thumbnailUrl": "https://i.ytimg.com/vi/vBLuW6pN4Lg/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLA6mOW6XcbRmwS8LM9ahl26hgJ1fw"
   },
   "tags": [],
   "topicTags": [],

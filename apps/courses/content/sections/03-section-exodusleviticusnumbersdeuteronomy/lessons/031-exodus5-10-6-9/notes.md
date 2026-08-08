@@ -1,4 +1,4 @@
-# 031_Exodus5_10-6_9
+# 031_Exodus5:10-6:9
 
 - COME AND SEE: Daniel’s point from the service last week was a great one. Another fractal between this story and Jesus’s story.
   - I WILL BE WHAT I WILL BE: God does not say to Moses, “I am outside of nature. I am the creator of the universe. I have all these attributes…,” claiming attributes for himself and then proving it by performing miracles. Instead, he says “I will be what I will be” and then he proceeds to perform a bunch of signs from which we derive his attributes, like he is outside of nature, he is not bound to his territory, he is greater than all the gods of Egypt, he does not like suffering.

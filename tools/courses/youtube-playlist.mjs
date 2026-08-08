@@ -11,6 +11,8 @@ const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36";
 const WEEK_NUMBER_PATTERN = /\bweek\s+(\d+)\b/iu;
 const PROMO_PATTERN = /\bpromo\b/iu;
+const PASSAGE_TITLE_PATTERN =
+  /^(?:[1-3]\s*)?[A-Za-z]+(?:\s+[A-Za-z]+)*\s+\d+(?::\d+)?-(?:\d+(?::\d+)?|(?:[1-3]\s*)?[A-Za-z]+(?:\s+[A-Za-z]+)*\s+\d+(?::\d+)?)$/u;
 const DEFAULT_RETRY_DELAYS_MS = [250, 1000];
 const RETRYABLE_HTTP_STATUSES = new Set([408, 429, 500, 502, 503, 504]);
 
@@ -79,23 +81,93 @@ function parsePositiveInteger(value) {
   return Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : null;
 }
 
-function classifyVideoLesson(title) {
-  if (PROMO_PATTERN.test(title)) {
+function normalizeSpecialTitle(title) {
+  return String(title || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/gu, " ")
+    .trim()
+    .replace(/\s+/gu, " ");
+}
+
+export function normalizeYoutubeLessonTitle(title) {
+  return String(title || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[–—]/gu, "-")
+    .replace(/\s*([:-])\s*/gu, "$1")
+    .trim()
+    .replace(/\s+/gu, " ");
+}
+
+export function classifyVideoLesson(title) {
+  const trimmedTitle = String(title || "").trim();
+  const normalizedSpecialTitle = normalizeSpecialTitle(trimmedTitle);
+
+  if (
+    PROMO_PATTERN.test(trimmedTitle) ||
+    normalizedSpecialTitle === "why know your bible"
+  ) {
     return {
       videoKind: "promo",
       weekNumber: null,
       lessonSequenceNumber: 0,
+      titleFormat: "promo",
+      passageTitle: null,
+      matchMethod: "promo-title",
     };
   }
 
-  const weekNumberMatch = title.match(WEEK_NUMBER_PATTERN);
+  const weekNumberMatch = trimmedTitle.match(WEEK_NUMBER_PATTERN);
   const weekNumber = parsePositiveInteger(
     weekNumberMatch ? weekNumberMatch[1] : null
   );
+  if (weekNumber) {
+    const passageTitle = trimmedTitle
+      .slice((weekNumberMatch?.index || 0) + weekNumberMatch[0].length)
+      .replace(/^[\s:–—-]+/u, "")
+      .trim();
+    return {
+      videoKind: "lesson",
+      weekNumber,
+      lessonSequenceNumber: weekNumber,
+      titleFormat: passageTitle ? "week-with-passage" : "week",
+      passageTitle: passageTitle || null,
+      matchMethod: "week-number",
+    };
+  }
+
+  if (
+    normalizedSpecialTitle === "intro" ||
+    normalizedSpecialTitle === "intro to know your bible"
+  ) {
+    return {
+      videoKind: "lesson",
+      weekNumber: null,
+      lessonSequenceNumber: 1,
+      titleFormat: "intro",
+      passageTitle: null,
+      matchMethod: "intro-title",
+    };
+  }
+
+  if (PASSAGE_TITLE_PATTERN.test(trimmedTitle)) {
+    return {
+      videoKind: "lesson",
+      weekNumber: null,
+      lessonSequenceNumber: null,
+      titleFormat: "passage",
+      passageTitle: trimmedTitle,
+      matchMethod: null,
+    };
+  }
   return {
-    videoKind: weekNumber ? "lesson" : "unmatched",
-    weekNumber,
-    lessonSequenceNumber: weekNumber,
+    videoKind: "unmatched",
+    weekNumber: null,
+    lessonSequenceNumber: null,
+    titleFormat: "unmatched",
+    passageTitle: null,
+    matchMethod: null,
   };
 }
 
@@ -387,7 +459,7 @@ export function parsePlaylistSnapshotHtml(
   }
 
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     fetchedAt,
     source: "youtube-playlist-page",
     playlistId,

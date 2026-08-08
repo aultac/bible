@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "029-exodus3-13-4-17",
   "slug": "029-exodus3-13-4-17",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -58,15 +58,18 @@
   ],
   "youtube": {
     "videoId": "a-aLTU8PYQo",
-    "title": "Know your Bible - Week 29",
+    "title": "Exodus 3:13-4:17",
     "url": "https://www.youtube.com/watch?v=a-aLTU8PYQo&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 30,
     "videoKind": "lesson",
-    "weekNumber": 29,
+    "weekNumber": null,
     "lessonSequenceNumber": 29,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 3:13-4:17",
+    "matchMethod": "passage-title",
     "durationText": "50:21",
-    "thumbnailUrl": "https://i.ytimg.com/vi/a-aLTU8PYQo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4mcnqceqmlzTIBSNdsXndc-pOZw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/a-aLTU8PYQo/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAZ5F8dMaVyr8skw1IEUCvUdVywiw"
   },
   "tags": [],
   "topicTags": [],

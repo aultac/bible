@@ -108,7 +108,7 @@ function enrichedFixture() {
 }
 
 describe("lesson map normalization", () => {
-  it("normalizes hierarchy, visibility, duplicate labels, and empty folders", () => {
+  it("normalizes hierarchy with every feature initially visible", () => {
     const map = normalizeLessonMapPayload(enrichedFixture());
     expect(map).not.toBeNull();
     if (!map) {
@@ -133,7 +133,7 @@ describe("lesson map normalization", () => {
       "Unnamed feature 1",
     ]);
     expect(map.initialVisibleFeatureIds).toEqual(
-      new Set(["feature-0001", "feature-0003"])
+      new Set(["feature-0001", "feature-0002", "feature-0003"])
     );
     expect(map.initiallyOpenFolderIds).toEqual(new Set(["folder-0001"]));
     expect(collectDescendantFeatureIds(places)).toEqual([
@@ -142,7 +142,7 @@ describe("lesson map normalization", () => {
       "feature-0003",
     ]);
     expect(getFolderCheckState(places, map.initialVisibleFeatureIds)).toBe(
-      "mixed"
+      "checked"
     );
     expect(getFolderCheckState(map.root, new Set())).toBe("unchecked");
     expect(
@@ -215,7 +215,7 @@ describe("lesson map normalization", () => {
       "feature-0002",
     ]);
     expect(map?.initialVisibleFeatureIds).toEqual(
-      new Set(["feature-0001"])
+      new Set(["feature-0001", "feature-0002"])
     );
   });
 

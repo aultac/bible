@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "015-genesis31-32",
   "slug": "015-genesis31-32",
   "sectionId": "02-section-genesis12-50",
@@ -64,15 +64,18 @@
   "resources": [],
   "youtube": {
     "videoId": "NHy1vTfOyQo",
-    "title": "Know Your Bible - Week 15",
+    "title": "Genesis 31-32",
     "url": "https://www.youtube.com/watch?v=NHy1vTfOyQo&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 16,
     "videoKind": "lesson",
-    "weekNumber": 15,
+    "weekNumber": null,
     "lessonSequenceNumber": 15,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 31-32",
+    "matchMethod": "passage-title",
     "durationText": "51:51",
-    "thumbnailUrl": "https://i.ytimg.com/vi/NHy1vTfOyQo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDz1FSUUVa5mTcQ1KI1O-qaLWg_qg"
+    "thumbnailUrl": "https://i.ytimg.com/vi/NHy1vTfOyQo/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBIUAMJxpJRmYM3ulSZWIAZ9pUO9w"
   },
   "tags": [],
   "topicTags": [],

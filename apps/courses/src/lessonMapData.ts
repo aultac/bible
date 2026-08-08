@@ -251,15 +251,14 @@ function buildNormalizedMap(
     features.map((feature) => [feature.id, feature])
   );
   const featureNodeById = new Map<string, MapLayerFeatureNode>();
-  const initialVisibleFeatureIds = new Set<string>();
+  const initialVisibleFeatureIds = new Set(
+    features.map((feature) => feature.id)
+  );
   const initiallyOpenFolderIds = new Set<string>();
 
   function visit(node: MapLayerNode) {
     if (node.type === "feature") {
       featureNodeById.set(node.id, node);
-      if (node.initiallyVisible) {
-        initialVisibleFeatureIds.add(node.id);
-      }
       return;
     }
 

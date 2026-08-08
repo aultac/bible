@@ -1,4 +1,4 @@
-# 026_Exodus1_1-1_16
+# 026_Exodus1:1-1:16
 
 - WRITE YOUR OWN: write your own 1/2-page to 1-page summary of Genesis 12-50 and send to me over slack. I’ll combine into an overall bucket summary.
 

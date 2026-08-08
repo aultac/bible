@@ -1,4 +1,4 @@
-# 006_Genesis7_4-11
+# 006_Genesis7:4-11
 
 **Genesis 7:4-17 > It Begins.**
 

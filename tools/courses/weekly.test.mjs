@@ -1,4 +1,13 @@
-import { describe, expect, it, vi } from "vitest";
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  rm,
+  writeFile,
+} from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   formatWeeklyStatus,
   parseWeeklyArgs,
@@ -9,6 +18,15 @@ const coursesEnv = {
   canonicalBase: "/canonical",
   notesCacheRoot: "/cache",
 };
+const temporaryRoots = [];
+
+afterEach(async () => {
+  await Promise.all(
+    temporaryRoots
+      .splice(0)
+      .map((root) => rm(root, { recursive: true, force: true }))
+  );
+});
 
 function outputBuffer() {
   let content = "";
@@ -50,6 +68,9 @@ describe("weekly workflow CLI", () => {
       mode: "validate",
     });
     expect(parseWeeklyArgs(["--dev"])).toMatchObject({ mode: "dev" });
+    expect(parseWeeklyArgs(["--manage-youtube-matches"])).toMatchObject({
+      mode: "manage-youtube",
+    });
     expect(parseWeeklyArgs(["--export-titles"])).toMatchObject({
       mode: "export-titles",
     });
@@ -168,8 +189,9 @@ describe("weekly workflow CLI", () => {
   it("places build and dev immediately after apply in the guided menu", async () => {
     const output = outputBuffer();
     const selectPrompt = vi.fn(async (prompt) => {
-      expect(prompt.choices.slice(0, 5).map((choice) => choice.value)).toEqual([
+      expect(prompt.choices.slice(0, 6).map((choice) => choice.value)).toEqual([
         "prepare",
+        "manage-youtube",
         "audit",
         "apply",
         "validate",
@@ -184,6 +206,91 @@ describe("weekly workflow CLI", () => {
     );
 
     expect(selectPrompt).toHaveBeenCalledTimes(1);
+  });
+
+  it("guides an unmatched video to an unowned published lesson", async () => {
+    const root = await mkdtemp(path.join(os.tmpdir(), "weekly-youtube-match-"));
+    temporaryRoots.push(root);
+    const cacheRoot = path.join(root, "cache", "snapshots", "one");
+    const playlistPath = path.join(cacheRoot, "playlist.json");
+    const youtubeSpecialMatchesPath = path.join(root, "special-matches.json");
+    await mkdir(cacheRoot, { recursive: true });
+    await writeFile(
+      playlistPath,
+      `${JSON.stringify({
+        schemaVersion: 3,
+        videoCount: 1,
+        videos: [
+          {
+            videoId: "typo-video",
+            title: "Genesis typo",
+            position: 1,
+          },
+        ],
+      })}\n`
+    );
+    const output = outputBuffer();
+    const selections = ["add", "typo-video", 2, "back"];
+    let savedManifest = { schemaVersion: 1, matches: [] };
+    const saveYoutubeSpecialMatches = vi.fn(async (manifest) => {
+      savedManifest = manifest;
+      return manifest;
+    });
+
+    const result = await runWeeklyCommand(
+      {
+        mode: "manage-youtube",
+        cacheRoot: "one",
+        coursesEnv: {
+          canonicalBase: "/canonical",
+          notesCacheRoot: path.join(root, "cache"),
+          youtubeSpecialMatchesPath,
+        },
+      },
+      {
+        output: output.stream,
+        resolveWeeklyCache: async () => cacheRoot,
+        loadCacheState: async () => ({ status: "draft" }),
+        buildCanonicalPublishedLessonCatalog: async () => [
+          {
+            sequenceNumber: 2,
+            displayTitle: "Genesis 1-2",
+            relativeLessonDirectory: "01-Bucket/002-Genesis1-2",
+          },
+        ],
+        loadYoutubeSpecialMatches: async () => savedManifest,
+        saveYoutubeSpecialMatches,
+        selectPrompt: async () => selections.shift(),
+        confirmPrompt: async () => true,
+        recordCacheComponent: async () => ({}),
+        auditWeeklyCache: async () => ({
+          audit: {
+            ready: true,
+            totals: { errors: 0, warnings: 0 },
+            findings: [],
+          },
+        }),
+        formatCacheAudit: () => "Cache is ready.",
+      }
+    );
+
+    expect(result.specialMatches.matches).toEqual([
+      expect.objectContaining({
+        videoId: "typo-video",
+        lessonSequenceNumber: 2,
+      }),
+    ]);
+    expect(saveYoutubeSpecialMatches).toHaveBeenCalledOnce();
+    expect(JSON.parse(await readFile(playlistPath, "utf8"))).toMatchObject({
+      videos: [
+        expect.objectContaining({
+          videoId: "typo-video",
+          lessonSequenceNumber: 2,
+          matchMethod: "special",
+        }),
+      ],
+    });
+    expect(output.content).toContain("1 special, 0 unmatched");
   });
 
   it("runs dev and title export without selecting or validating a cache", async () => {

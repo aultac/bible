@@ -1,6 +1,6 @@
 # Know Your Bible Weekly Workflow
 
-`yarn weekly` is a review-gated, eight-action workflow. Source documents are first
+`yarn weekly` is a review-gated, nine-action workflow. Source documents are first
 copied or converted into a selected cache. Nothing reaches canonical lesson
 folders or generated website content until that cache passes its audit and is
 explicitly applied.
@@ -126,15 +126,55 @@ separator after the three-digit sequence may be either a hyphen or underscore.
 For example, both `000-Promo_summary.docx` and `000_Promo_summary.docx` match
 `000-Promo`. Providing both forms is ambiguous and fails preparation.
 
-Playlist schema version 2 matches videos to lessons explicitly from the video
-title. A title containing `Promo` maps to lesson sequence `0`; both
-`Know Your Bible - Week N` and
-`Know Your Bible - Week N - <lesson page title>` map to lesson sequence `N`.
-Playlist position controls display order only and is never used as a lesson
-match fallback. Unmatched titles produce an audit warning, while duplicate
-explicit lesson matches are an error.
+Playlist schema version 3 resolves titles in this order:
 
-## 2. Audit cache until ready
+1. `Promo` or `Why Know Your Bible?` maps to lesson sequence `0`.
+2. `Know Your Bible - Week N` and
+   `Know Your Bible - Week N - <lesson page title>` map to sequence `N`.
+3. `Intro` or `Intro to Know Your Bible` maps to sequence `1`.
+4. A passage-only title such as `Genesis 5-6:10` or `Exodus 9:13-11` maps by
+   conservative equality to a unique published local lesson title.
+5. A tracked special mapping may match an otherwise unmatched video ID to an
+   unassigned published lesson.
+
+Playlist position controls display order only and is never used as a lesson
+match fallback. Matching never uses fuzzy title similarity. Unmatched titles
+produce an audit warning, while duplicate or conflicting matches are errors.
+
+## 2. Manage YouTube special matches
+
+After preparing a cache, choose **Manage YouTube special matches** from the
+guided menu or run:
+
+```bash
+yarn weekly --manage-youtube-matches --cache <cache-id>
+```
+
+The manager can:
+
+- review automatic, special, unmatched, stale, redundant, and conflicting
+  matches;
+- choose an unmatched playlist video and assign it to a published local lesson
+  that has no video; or
+- remove an existing special match.
+
+Special matches are stored in the version-controlled
+`apps/courses/content/youtube-special-matches.json`. Each entry is identified by
+the stable YouTube video ID and local lesson sequence. Saved video and lesson
+titles are review-only snapshots; changing a YouTube title does not break an
+active special mapping.
+
+Automatic matching always takes precedence. If a corrected YouTube title now
+maps to the same lesson, the special entry is reported as redundant and can be
+removed. If it maps to a different lesson, the cache audit fails until the
+conflict is resolved. Missing playlist videos are reported as stale mappings;
+missing or unpublished target lessons are errors.
+
+Adding or removing a mapping atomically updates the manifest, re-resolves the
+selected cached playlist without another network request, invalidates the prior
+audit, and immediately audits the cache again. Applied caches remain immutable.
+
+## 3. Audit cache until ready
 
 Run the audit after reviewing or repairing a cache:
 
@@ -158,7 +198,7 @@ Errors keep the cache in `draft`. Warnings are shown for review but do not block
 readiness. Fix the source or cached candidate, refresh the affected component,
 and rerun the audit until the cache is `ready`.
 
-## 3. Apply the selected cache
+## 4. Apply the selected cache
 
 Apply only after reviewing a ready cache:
 
@@ -190,7 +230,7 @@ Use `--online-audit` with apply when remote links should also be checked:
 yarn weekly --apply --cache <cache-id> --online-audit
 ```
 
-## 4. Build and test
+## 5. Build and test
 
 Validate an applied cache:
 
@@ -218,7 +258,7 @@ as a backwards-compatible alias.
 yarn weekly --build-test --cache <cache-id>
 ```
 
-## 5. Dev
+## 6. Dev
 
 Start the development site from the guided menu or directly:
 
@@ -230,7 +270,7 @@ This action runs only `yarn dev`. It does not require a selected cache or a
 successful build and can be used at any time. Stop the development process to
 return to the guided menu.
 
-## 6. Version, commit, and deploy
+## 7. Version, commit, and deploy
 
 Release a validated applied cache:
 
@@ -248,7 +288,7 @@ yarn weekly --release --cache <cache-id> --yes \
 Release refuses to run unless:
 
 - the selected cache still reconciles with its applied outputs;
-- step 4's fingerprint still matches;
+- step 5's fingerprint still matches;
 - the current branch is `main`;
 - no merge is in progress;
 - weekly generated changes exist; and
@@ -270,7 +310,7 @@ yarn weekly --retry-deploy --cache <cache-id>
 Implementation, documentation, or other unrelated working-tree changes must be
 committed separately before using the weekly release step.
 
-## 7. Delete a cache
+## 8. Delete a cache
 
 Guided deletion lists every known cache, including draft, ready, applied,
 legacy, and incomplete development caches. Direct deletion names a cache
@@ -290,7 +330,7 @@ A successful deletion writes a tombstone under the cache history folder,
 records the prior state and reconciliation warning codes, removes the snapshot,
 and repairs `latest.json`.
 
-## 8. Export titles
+## 9. Export titles
 
 Export the published, non-promo lessons for YouTube maintenance:
 
@@ -300,8 +340,10 @@ yarn weekly --export-titles
 
 The command always overwrites `exported-lessons.csv` in the repository root.
 Each row contains `Week Number`, `Chapter/Verse Start`, `Chapter/Verse End`,
-`Title`, and `Description`. The title is
-`Know Your Bible - Week N - <lesson page title>`, and the description is the
+`Title`, and `Description`. The recommended title is the passage-only lesson
+page title; the introduction uses `Intro to Know Your Bible`. Verification also
+accepts the older `Know Your Bible - Week N` and
+`Know Your Bible - Week N - <lesson page title>` formats. The description is the
 lesson's `videoSummary`, which is the text displayed directly under the lesson
 page title. The introduction is included as week 1 with empty chapter/verse
 fields; the promo is omitted because it has no week number.
@@ -327,8 +369,14 @@ Important files include:
 - `document-summaries.json` and `documents/`: Word metadata and Markdown;
 - `manifest.json`, `notes/`, and
   `canonical-note-backup-report.json`: Apple Notes staging;
-- `playlist.json`: the cached YouTube snapshot; and
+- `playlist.json`: the cached, resolved YouTube snapshot and special-manifest
+  fingerprint; and
 - `source-inventory.json`: canonical source fingerprints.
+
+The repository-owned
+`apps/courses/content/youtube-special-matches.json` is the manual source of
+truth for exceptional video-to-lesson mappings. A cache must be re-resolved and
+audited if this manifest changes.
 
 The repository-owned
 `apps/courses/content/apple-notes-checkpoint.json` is written only after a

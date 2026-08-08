@@ -1,4 +1,4 @@
-# 029_Exodus3_13-4_17
+# 029_Exodus3:13-4:17
 
 - POLYSEMY: “Poly” as “multiple”, “semy” like “semantic” as “meaning”. “Multiple meaning”. Polysemy can paint deep, complex pictures that monosemy can only approximate by stacking more precise words together. So when we say “this mean ___ OR ___ OR ___”, we’re stacking the terms, but it’s not quite the same picture as if the single term means all the things, giving them an intrinsic relationship. **With multi-meaning words we lose precision but we gain depth.** There are intrinsic relationships that sometimes should not be disentangled.
 - WHO SPEAKS TO MOSES? Angel of Yahweh or Yahweh/Elohim?

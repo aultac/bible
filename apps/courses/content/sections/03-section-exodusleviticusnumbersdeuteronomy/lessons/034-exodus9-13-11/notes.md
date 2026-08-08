@@ -1,4 +1,4 @@
-# 034_Exodus9_13-11
+# 034_Exodus9:13-11
 
 - WEBSITE: intro. https://knowyourbible.study
 - ANSWER TO WHY USE MOSES INSTEAD OF APPEARING DIRECTLY: he does appear directly. But when Yahweh appears in Egypt, the firstborn all die. He had Moses appear first as a mercy to Egypt. Because when he does appear, it is terrible and it is final.

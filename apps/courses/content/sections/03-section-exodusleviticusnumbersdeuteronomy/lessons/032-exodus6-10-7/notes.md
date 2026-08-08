@@ -1,4 +1,4 @@
-# 032_Exodus6_10-7
+# 032_Exodus6:10-7
 
 LEARNING TO LOVE GOD: last week I mentioned that the purpose of learning about God is to love him.
 

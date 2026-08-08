@@ -92,5 +92,12 @@ export async function loadCoursesEnv() {
       env.COURSES_FINAL_NOTES_DIR || "FinalNotes"
     ),
     youtubePlaylistUrl: env.COURSES_YOUTUBE_PLAYLIST_URL || "",
+    youtubeSpecialMatchesPath: path.join(
+      REPO_ROOT,
+      "apps",
+      "courses",
+      "content",
+      "youtube-special-matches.json"
+    ),
   };
 }

@@ -28,6 +28,7 @@ import {
   parseSectionDirectoryName,
   parseLessonDirectoryName,
 } from "./lesson-paths.mjs";
+import { classifyLessonPublication } from "./lesson-publication.mjs";
 import {
   buildToolsData,
   matchResourceSourceUrls,
@@ -38,7 +39,13 @@ import {
   buildPlaylistVideoMatchMap,
   fetchPlaylistSnapshot,
 } from "./youtube-playlist.mjs";
+import {
+  loadYoutubeSpecialMatches,
+  resolvePlaylistVideoMatches,
+} from "./youtube-special-matches.mjs";
 import { generateLessonSearchIndex } from "./search-index.mjs";
+
+export { classifyLessonPublication } from "./lesson-publication.mjs";
 
 const COURSES_APP_ROOT = path.join(REPO_ROOT, "apps", "courses");
 const CONTENT_ROOT = path.join(COURSES_APP_ROOT, "content");
@@ -232,30 +239,6 @@ async function collectFilesRecursive(rootPath, currentRelativePath = "") {
   }
 
   return files;
-}
-
-export async function classifyLessonPublication(lessonPath, notesSourcePath = null) {
-  const publishReasons = (await collectFilesRecursive(lessonPath))
-    .filter((file) => /NOPUBLISH/iu.test(file.fileName))
-    .map((file) => ({
-      type: "filename",
-      path: file.relativePath,
-    }));
-
-  if (
-    notesSourcePath &&
-    /NOPUBLISH/iu.test(await readFile(notesSourcePath, "utf8"))
-  ) {
-    publishReasons.push({
-      type: "notes-content",
-      path: "notes.md",
-    });
-  }
-
-  return {
-    published: publishReasons.length === 0,
-    publishReasons,
-  };
 }
 
 async function listLessonRootMapFiles(canonicalBase, lessonPath) {
@@ -805,7 +788,16 @@ export async function syncCoursesContent(options = {}) {
     await writeJson(PLAYLIST_SNAPSHOT_PATH, playlistSnapshot);
   } else if (coursesEnv.youtubePlaylistUrl) {
     try {
-      playlistSnapshot = await fetchPlaylistSnapshot(coursesEnv.youtubePlaylistUrl);
+      const [rawPlaylist, specialMatches] = await Promise.all([
+        fetchPlaylistSnapshot(coursesEnv.youtubePlaylistUrl),
+        loadYoutubeSpecialMatches(coursesEnv.youtubeSpecialMatchesPath),
+      ]);
+      playlistSnapshot = resolvePlaylistVideoMatches(rawPlaylist, {
+        lessons: sections
+          .flatMap((section) => section.lessons)
+          .filter((lesson) => lesson.published),
+        specialMatches,
+      });
       await writeJson(PLAYLIST_SNAPSHOT_PATH, playlistSnapshot);
       playlistRefreshStatus = "refreshed";
     } catch (error) {

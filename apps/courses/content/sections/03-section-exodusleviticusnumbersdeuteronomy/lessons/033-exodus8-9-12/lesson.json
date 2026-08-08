@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "033-exodus8-9-12",
   "slug": "033-exodus8-9-12",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -51,15 +51,18 @@
   "resources": [],
   "youtube": {
     "videoId": "nKC48zTqAic",
-    "title": "Know Your Bible - Week 33",
+    "title": "Exodus 8-9:12",
     "url": "https://www.youtube.com/watch?v=nKC48zTqAic&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 34,
     "videoKind": "lesson",
-    "weekNumber": 33,
+    "weekNumber": null,
     "lessonSequenceNumber": 33,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 8-9:12",
+    "matchMethod": "passage-title",
     "durationText": "52:07",
-    "thumbnailUrl": "https://i.ytimg.com/vi/nKC48zTqAic/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBeixAPAOU-qaMv2o-0gzqSOMPwUQ"
+    "thumbnailUrl": "https://i.ytimg.com/vi/nKC48zTqAic/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAXIP6VFzYN78yqU9IzX58DI3P7cA"
   },
   "tags": [],
   "topicTags": [],

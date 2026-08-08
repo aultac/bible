@@ -13,6 +13,7 @@ import {
   buildExportedLessonTitle,
   exportLessonTitles,
   serializeLessonTitleCsv,
+  youtubeTitleMatchesLesson,
 } from "./lesson-title-export.mjs";
 
 const temporaryRoots = [];
@@ -37,7 +38,7 @@ describe("lesson title export", () => {
         sequenceNumber: 33,
         title: "Exodus 8-9:12",
       })
-    ).toBe("Know Your Bible - Week 33 - Exodus 8-9:12");
+    ).toBe("Exodus 8-9:12");
   });
 
   it("exports page descriptions and safely quotes CSV values", () => {
@@ -77,7 +78,7 @@ describe("lesson title export", () => {
     expect(csv).toBe(
       [
         "Week Number,Chapter/Verse Start,Chapter/Verse End,Title,Description,YouTube Link,Match",
-        '2,Genesis 1,Genesis 2,Know Your Bible - Week 2 - Genesis 1-2,"Creation, humanity, and ""rest""",https://www.youtube.com/watch?v=week-two,MATCH',
+        '2,Genesis 1,Genesis 2,Genesis 1-2,"Creation, humanity, and ""rest""",https://www.youtube.com/watch?v=week-two,MATCH',
         "",
       ].join("\n")
     );
@@ -103,6 +104,16 @@ describe("lesson title export", () => {
     expect(buildExportedLessonRow(lesson, expectedMetadata).at(-1)).toBe(
       "MATCH"
     );
+    expect(youtubeTitleMatchesLesson(lesson, "Genesis 1-2")).toBe(true);
+    expect(
+      youtubeTitleMatchesLesson(lesson, "Know Your Bible - Week 2")
+    ).toBe(true);
+    expect(
+      youtubeTitleMatchesLesson(
+        lesson,
+        "Know Your Bible - Week 2 - Genesis 3-4"
+      )
+    ).toBe(false);
     expect(
       buildExportedLessonRow(lesson, {
         ...expectedMetadata,
@@ -194,9 +205,9 @@ describe("lesson title export", () => {
     const csv = await readFile(outputPath, "utf8");
     expect(csv).not.toContain("old content");
     expect(csv).not.toContain("Promo description");
-    expect(csv).toContain("1,,,Know Your Bible - Week 1 - Intro");
+    expect(csv).toContain("1,,,Intro to Know Your Bible");
     expect(csv).toContain(
-      "2,Genesis 1,Genesis 2,Know Your Bible - Week 2 - Genesis 1-2,Lesson description,https://www.youtube.com/watch?v=week-two,MATCH"
+      "2,Genesis 1,Genesis 2,Genesis 1-2,Lesson description,https://www.youtube.com/watch?v=week-two,MATCH"
     );
   });
 });

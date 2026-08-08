@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "023-genesis46-31-47-26",
   "slug": "023-genesis46-31-47-26",
   "sectionId": "02-section-genesis12-50",
@@ -64,15 +64,18 @@
   "resources": [],
   "youtube": {
     "videoId": "BmHp6tnUCJk",
-    "title": "Know Your Bible - Week 23",
+    "title": "Genesis 46:31-47:26",
     "url": "https://www.youtube.com/watch?v=BmHp6tnUCJk&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 24,
     "videoKind": "lesson",
-    "weekNumber": 23,
+    "weekNumber": null,
     "lessonSequenceNumber": 23,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 46:31-47:26",
+    "matchMethod": "passage-title",
     "durationText": "50:10",
-    "thumbnailUrl": "https://i.ytimg.com/vi/BmHp6tnUCJk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDZq2kkBT-gMhI1CRcCCcfb8buMyw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/BmHp6tnUCJk/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLC6ygsTFzmbyUzNWq49PH-4iJ64Dw"
   },
   "tags": [],
   "topicTags": [],

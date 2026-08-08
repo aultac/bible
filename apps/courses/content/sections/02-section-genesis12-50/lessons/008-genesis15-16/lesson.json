@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "008-genesis15-16",
   "slug": "008-genesis15-16",
   "sectionId": "02-section-genesis12-50",
@@ -63,15 +63,18 @@
   "resources": [],
   "youtube": {
     "videoId": "E58QQZOiw7Y",
-    "title": "Know Your Bible - Week 8",
+    "title": "Genesis 15-16",
     "url": "https://www.youtube.com/watch?v=E58QQZOiw7Y&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 9,
     "videoKind": "lesson",
-    "weekNumber": 8,
+    "weekNumber": null,
     "lessonSequenceNumber": 8,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 15-16",
+    "matchMethod": "passage-title",
     "durationText": "51:06",
-    "thumbnailUrl": "https://i.ytimg.com/vi/E58QQZOiw7Y/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAJrp9E_7_sA3Llp5b0_rT6Njg2FQ"
+    "thumbnailUrl": "https://i.ytimg.com/vi/E58QQZOiw7Y/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAH_zbwR4BEzNPeUz15cuS7qxBQNA"
   },
   "tags": [],
   "topicTags": [],

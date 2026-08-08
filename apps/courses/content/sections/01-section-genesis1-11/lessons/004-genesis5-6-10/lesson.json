@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "004-genesis5-6-10",
   "slug": "004-genesis5-6-10",
   "sectionId": "01-section-genesis1-11",
@@ -62,15 +62,18 @@
   "resources": [],
   "youtube": {
     "videoId": "DdkXOs0_oac",
-    "title": "Know Your Bible - Week 4",
+    "title": "Genesis 5-6:10",
     "url": "https://www.youtube.com/watch?v=DdkXOs0_oac&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 5,
     "videoKind": "lesson",
-    "weekNumber": 4,
+    "weekNumber": null,
     "lessonSequenceNumber": 4,
+    "titleFormat": "passage",
+    "passageTitle": "Genesis 5-6:10",
+    "matchMethod": "passage-title",
     "durationText": "50:54",
-    "thumbnailUrl": "https://i.ytimg.com/vi/DdkXOs0_oac/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClIJgZzDCSAwGIg3edVUsf2WE5Xw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/DdkXOs0_oac/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBQZdI6C_ylA38gH7SI1xZY7XysTg"
   },
   "tags": [],
   "topicTags": [],

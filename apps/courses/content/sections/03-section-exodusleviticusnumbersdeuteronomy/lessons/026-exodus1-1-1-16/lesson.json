@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:57:37.155Z",
+  "generatedAt": "2026-08-08T21:20:23.097Z",
   "id": "026-exodus1-1-1-16",
   "slug": "026-exodus1-1-1-16",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -92,15 +92,18 @@
   ],
   "youtube": {
     "videoId": "qd4Dmd4nR8E",
-    "title": "Know Your Bible - Week 26",
+    "title": "Exodus 1:1-1:16",
     "url": "https://www.youtube.com/watch?v=qd4Dmd4nR8E&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
     "position": 27,
     "videoKind": "lesson",
-    "weekNumber": 26,
+    "weekNumber": null,
     "lessonSequenceNumber": 26,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 1:1-1:16",
+    "matchMethod": "passage-title",
     "durationText": "46:28",
-    "thumbnailUrl": "https://i.ytimg.com/vi/qd4Dmd4nR8E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAzg2p0mzzDCSRTzyYLZrRHtPCjZw"
+    "thumbnailUrl": "https://i.ytimg.com/vi/qd4Dmd4nR8E/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLD4iugQc6AgAMnmXEqz4b_G03OXgQ"
   },
   "tags": [],
   "topicTags": [],
