@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-08T21:20:23.097Z",
+  "id": "036-exodus13-14",
+  "slug": "036-exodus13-14",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 36,
+  "lessonKind": "passage",
+  "title": "Exodus 13-14",
+  "description": "",
+  "videoSummary": null,
+  "status": "NOPUBLISH",
+  "publishReasons": [
+    {
+      "type": "notes-content",
+      "path": "notes.md"
+    }
+  ],
+  "startVerse": "Exodus 13",
+  "endVerse": "Exodus 14",
+  "passage": {
+    "display": "Exodus 13-14",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 13,
+      "verse": null,
+      "raw": "Exodus13",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 14,
+      "verse": null,
+      "raw": "14",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 13",
+    "endVerse": "Exodus 14",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+13-14/"
+  },
+  "notes": {
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/036-exodus13-14/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14",
+    "folderName": "036_Exodus13-14",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14/resources",
+    "mapPath": null
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-08T21:20:23.097Z",
+  "id": "035-exodus12-12-51",
+  "slug": "035-exodus12-12-51",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 35,
+  "lessonKind": "passage",
+  "title": "Exodus 12-12:51",
+  "description": "",
+  "videoSummary": null,
+  "status": "NOPUBLISH",
+  "publishReasons": [
+    {
+      "type": "notes-content",
+      "path": "notes.md"
+    }
+  ],
+  "startVerse": "Exodus 12",
+  "endVerse": "Exodus 12:51",
+  "passage": {
+    "display": "Exodus 12-12:51",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 12,
+      "verse": null,
+      "raw": "Exodus12",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 12,
+      "verse": 51,
+      "raw": "12_51",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 12",
+    "endVerse": "Exodus 12:51",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+12-12:51/"
+  },
+  "notes": {
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/035-exodus12-12-51/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12-12_51/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12-12_51",
+    "folderName": "035_Exodus12-12_51",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12-12_51/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12-12_51/035_Exodus12-12_51.kmz"
+  }
+}
