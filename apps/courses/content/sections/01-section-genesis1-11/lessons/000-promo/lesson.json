@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-08T21:20:23.097Z",
+  "generatedAt": "2026-08-10T10:38:12.927Z",
   "id": "000-promo",
   "slug": "000-promo",
   "sectionId": "01-section-genesis1-11",
@@ -42,7 +42,7 @@
     "passageTitle": null,
     "matchMethod": "promo-title",
     "durationText": "23:12",
-    "thumbnailUrl": "https://i.ytimg.com/vi/_RL2-0FTPnY/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBrcV1IxMp211cj_Y_Dj3qdfnrnYg"
+    "thumbnailUrl": "https://i.ytimg.com/vi/_RL2-0FTPnY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDMwXrve6eFKGXXmBmv45bDx-CFKQ"
   },
   "tags": [],
   "topicTags": [],

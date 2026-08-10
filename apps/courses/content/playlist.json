@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-08-08T21:19:27.845Z",
+  "fetchedAt": "2026-08-10T10:37:47.194Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
@@ -21,7 +21,7 @@
       "passageTitle": null,
       "matchMethod": "promo-title",
       "durationText": "23:12",
-      "thumbnailUrl": "https://i.ytimg.com/vi/_RL2-0FTPnY/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBrcV1IxMp211cj_Y_Dj3qdfnrnYg"
+      "thumbnailUrl": "https://i.ytimg.com/vi/_RL2-0FTPnY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDMwXrve6eFKGXXmBmv45bDx-CFKQ"
     },
     {
       "videoId": "IWMeBnGqI7U",
@@ -36,7 +36,7 @@
       "passageTitle": null,
       "matchMethod": "intro-title",
       "durationText": "43:13",
-      "thumbnailUrl": "https://i.ytimg.com/vi/IWMeBnGqI7U/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBwR7gGf-OeTaVHWG902RrsIl8YAw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/IWMeBnGqI7U/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCOfP-pHmSNsxTpQ0w5N1MSe4SPdA"
     },
     {
       "videoId": "vBLuW6pN4Lg",
@@ -51,7 +51,7 @@
       "passageTitle": "Genesis 1-2",
       "matchMethod": "passage-title",
       "durationText": "45:55",
-      "thumbnailUrl": "https://i.ytimg.com/vi/vBLuW6pN4Lg/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLA6mOW6XcbRmwS8LM9ahl26hgJ1fw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/vBLuW6pN4Lg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAmqhwiGwuLKZI8cwMACbQIir2UsA"
     },
     {
       "videoId": "dZLpDLvluSE",
@@ -66,7 +66,7 @@
       "passageTitle": "Genesis 3-4",
       "matchMethod": "passage-title",
       "durationText": "49:04",
-      "thumbnailUrl": "https://i.ytimg.com/vi/dZLpDLvluSE/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDp7xyUr3AOjGR0iqvcKHP-c7gW0A"
+      "thumbnailUrl": "https://i.ytimg.com/vi/dZLpDLvluSE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDTCBNUqLZ5KtNtzR-Ot8ymw4jkMg"
     },
     {
       "videoId": "DdkXOs0_oac",
@@ -81,7 +81,7 @@
       "passageTitle": "Genesis 5-6:10",
       "matchMethod": "passage-title",
       "durationText": "50:54",
-      "thumbnailUrl": "https://i.ytimg.com/vi/DdkXOs0_oac/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBQZdI6C_ylA38gH7SI1xZY7XysTg"
+      "thumbnailUrl": "https://i.ytimg.com/vi/DdkXOs0_oac/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClIJgZzDCSAwGIg3edVUsf2WE5Xw"
     },
     {
       "videoId": "MOIcpOhSqTc",
@@ -96,7 +96,7 @@
       "passageTitle": "Genesis 6:11-7:3",
       "matchMethod": "passage-title",
       "durationText": "44:44",
-      "thumbnailUrl": "https://i.ytimg.com/vi/MOIcpOhSqTc/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAT3dG5MneQrBKxh_heR3TsHX0BFQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/MOIcpOhSqTc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDhzMMgCEl5ojgFMuSby2ryNIRWmQ"
     },
     {
       "videoId": "hI5lY84nidI",
@@ -111,7 +111,7 @@
       "passageTitle": "Genesis 7:4-11",
       "matchMethod": "passage-title",
       "durationText": "46:25",
-      "thumbnailUrl": "https://i.ytimg.com/vi/hI5lY84nidI/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAt4riD6aB4ahdFWIP7BvBT1ZQJPA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/hI5lY84nidI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCWYbA-i-tneymMlr8Ha9btL7l6ow"
     },
     {
       "videoId": "PD5VmsFrQbs",
@@ -126,7 +126,7 @@
       "passageTitle": "Genesis 12-14",
       "matchMethod": "passage-title",
       "durationText": "49:37",
-      "thumbnailUrl": "https://i.ytimg.com/vi/PD5VmsFrQbs/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDfcIjuwt8ezRXv81CjFMGnONQsVQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/PD5VmsFrQbs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMLbG4DmSOOGjZi7uYFzHNHq24PQ"
     },
     {
       "videoId": "E58QQZOiw7Y",
@@ -141,7 +141,7 @@
       "passageTitle": "Genesis 15-16",
       "matchMethod": "passage-title",
       "durationText": "51:06",
-      "thumbnailUrl": "https://i.ytimg.com/vi/E58QQZOiw7Y/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAH_zbwR4BEzNPeUz15cuS7qxBQNA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/E58QQZOiw7Y/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAJrp9E_7_sA3Llp5b0_rT6Njg2FQ"
     },
     {
       "videoId": "kpONQHutit0",
@@ -156,7 +156,7 @@
       "passageTitle": "Genesis 17-19",
       "matchMethod": "passage-title",
       "durationText": "51:30",
-      "thumbnailUrl": "https://i.ytimg.com/vi/kpONQHutit0/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLD4Qtpqd_O-T6whe-6SG-eZvfWBsw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/kpONQHutit0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDYHoHY2PpQDPxEIkYCXwtfypMExQ"
     },
     {
       "videoId": "8vb8-LKsIbo",
@@ -171,7 +171,7 @@
       "passageTitle": "Genesis 20-22",
       "matchMethod": "passage-title",
       "durationText": "48:29",
-      "thumbnailUrl": "https://i.ytimg.com/vi/8vb8-LKsIbo/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBUNA628ubAbFQHQ27P_ENIVUJ-lw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/8vb8-LKsIbo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDVmblWls2Y98gGvjuuVE3KZhj4ww"
     },
     {
       "videoId": "gob6TvE_rxc",
@@ -186,7 +186,7 @@
       "passageTitle": "Genesis 23-25:18",
       "matchMethod": "passage-title",
       "durationText": "50:12",
-      "thumbnailUrl": "https://i.ytimg.com/vi/gob6TvE_rxc/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAAOyLCsHtuhA6HXnusNgE_SLPk2g"
+      "thumbnailUrl": "https://i.ytimg.com/vi/gob6TvE_rxc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD6cWm9QXLzNXc5U61jSxdWz7B-rw"
     },
     {
       "videoId": "82D44TNiru8",
@@ -201,7 +201,7 @@
       "passageTitle": "Genesis 25:19-27:17",
       "matchMethod": "passage-title",
       "durationText": "50:35",
-      "thumbnailUrl": "https://i.ytimg.com/vi/82D44TNiru8/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBasMvCe8ObNTTf6NWcONHCImCjqA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/82D44TNiru8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAEj_dRx_102wyVfS8j8FcNH5g4aw"
     },
     {
       "videoId": "kahGd6h9LTc",
@@ -216,7 +216,7 @@
       "passageTitle": "Genesis 27:18-28",
       "matchMethod": "passage-title",
       "durationText": "43:54",
-      "thumbnailUrl": "https://i.ytimg.com/vi/kahGd6h9LTc/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBWQQ6rB0a-fC48drENGE38N3BIzA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/kahGd6h9LTc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDm2uK6WfT_dNqdlh065qGvEq9yAg"
     },
     {
       "videoId": "H9J1seQh-yc",
@@ -231,7 +231,7 @@
       "passageTitle": "Genesis 29-30",
       "matchMethod": "passage-title",
       "durationText": "47:50",
-      "thumbnailUrl": "https://i.ytimg.com/vi/H9J1seQh-yc/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCM4pjxiBEEuCeEkyg14NRFf2IvPQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/H9J1seQh-yc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBLdz6D5gGvqBAQH2Asx6FTET7O_A"
     },
     {
       "videoId": "NHy1vTfOyQo",
@@ -246,7 +246,7 @@
       "passageTitle": "Genesis 31-32",
       "matchMethod": "passage-title",
       "durationText": "51:51",
-      "thumbnailUrl": "https://i.ytimg.com/vi/NHy1vTfOyQo/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBIUAMJxpJRmYM3ulSZWIAZ9pUO9w"
+      "thumbnailUrl": "https://i.ytimg.com/vi/NHy1vTfOyQo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDz1FSUUVa5mTcQ1KI1O-qaLWg_qg"
     },
     {
       "videoId": "EotoRyG1A_k",
@@ -261,7 +261,7 @@
       "passageTitle": "Genesis 33-35",
       "matchMethod": "passage-title",
       "durationText": "52:20",
-      "thumbnailUrl": "https://i.ytimg.com/vi/EotoRyG1A_k/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDHwtnfdBjNb9WTbJb2bpMBJaDDSw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/EotoRyG1A_k/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA2JqGcAy1ZVwz5vYVJXfBDKYtjnw"
     },
     {
       "videoId": "w891qQdQpek",
@@ -276,7 +276,7 @@
       "passageTitle": "Genesis 36-37:29",
       "matchMethod": "passage-title",
       "durationText": "54:05",
-      "thumbnailUrl": "https://i.ytimg.com/vi/w891qQdQpek/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCQEydLOhg6Cl_GsY18MVlY5TtEgQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/w891qQdQpek/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLT1Tz_9GAypfhaD_yUtYhOv2Osw"
     },
     {
       "videoId": "o_0I6Q2n-SY",
@@ -291,7 +291,7 @@
       "passageTitle": "Genesis 37:29-39",
       "matchMethod": "passage-title",
       "durationText": "49:43",
-      "thumbnailUrl": "https://i.ytimg.com/vi/o_0I6Q2n-SY/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDJq-OBElhIVKxp7UhPV2fnhc5ptQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/o_0I6Q2n-SY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAbi4nT0Umbjs8lPyfwv19abwnCRQ"
     },
     {
       "videoId": "-ZwJN2MJI3E",
@@ -306,7 +306,7 @@
       "passageTitle": "Genesis 40-43",
       "matchMethod": "passage-title",
       "durationText": "47:24",
-      "thumbnailUrl": "https://i.ytimg.com/vi/-ZwJN2MJI3E/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBdfsJwwa8ucjQrH9Qam13RP86HmQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/-ZwJN2MJI3E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBcDpx8d2pFVkbMKvjrp9CpyrGqLw"
     },
     {
       "videoId": "4crp9X-Wdks",
@@ -321,7 +321,7 @@
       "passageTitle": "Genesis 41:46-43",
       "matchMethod": "passage-title",
       "durationText": "52:21",
-      "thumbnailUrl": "https://i.ytimg.com/vi/4crp9X-Wdks/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCU4g9_ArMQXXA8obB8Ai6h1DuyQw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/4crp9X-Wdks/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBP7nDNzaexierj8YnUIZqbPK76Og"
     },
     {
       "videoId": "A7rCRbhtLL8",
@@ -336,7 +336,7 @@
       "passageTitle": "Genesis 44-45",
       "matchMethod": "passage-title",
       "durationText": "51:49",
-      "thumbnailUrl": "https://i.ytimg.com/vi/A7rCRbhtLL8/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCZwFQxdCAKsF-tSyMLjV-6m0Sbug"
+      "thumbnailUrl": "https://i.ytimg.com/vi/A7rCRbhtLL8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAdgkkef7fqNihB1w54ZFjBGA8JDg"
     },
     {
       "videoId": "qJT7fz8EjPc",
@@ -351,7 +351,7 @@
       "passageTitle": "Genesis 45:25-46:30",
       "matchMethod": "passage-title",
       "durationText": "54:27",
-      "thumbnailUrl": "https://i.ytimg.com/vi/qJT7fz8EjPc/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCERQA2zI4keVYywa4Vfc8Qvr64ng"
+      "thumbnailUrl": "https://i.ytimg.com/vi/qJT7fz8EjPc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD2kVNkrsKG3e02JuewpyewweYqHg"
     },
     {
       "videoId": "BmHp6tnUCJk",
@@ -366,7 +366,7 @@
       "passageTitle": "Genesis 46:31-47:26",
       "matchMethod": "passage-title",
       "durationText": "50:10",
-      "thumbnailUrl": "https://i.ytimg.com/vi/BmHp6tnUCJk/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLC6ygsTFzmbyUzNWq49PH-4iJ64Dw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/BmHp6tnUCJk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDZq2kkBT-gMhI1CRcCCcfb8buMyw"
     },
     {
       "videoId": "5sUT9VtXH10",
@@ -381,7 +381,7 @@
       "passageTitle": "Genesis 47:27-50:14",
       "matchMethod": "passage-title",
       "durationText": "52:41",
-      "thumbnailUrl": "https://i.ytimg.com/vi/5sUT9VtXH10/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBtG72l7R20Urq9ckWGAleZHD84mQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/5sUT9VtXH10/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLOvC4dtLFVIGeqPYNLhUzpEtAeA"
     },
     {
       "videoId": "95ObrA5FoYo",
@@ -396,7 +396,7 @@
       "passageTitle": "Genesis 50:15-50:26",
       "matchMethod": "passage-title",
       "durationText": "49:44",
-      "thumbnailUrl": "https://i.ytimg.com/vi/95ObrA5FoYo/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCd7PpbnoZ4PuulwCjsc2eMUTw4MQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/95ObrA5FoYo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBA4Z1a4RHGQMqcEFwZqtlpofBfbw"
     },
     {
       "videoId": "qd4Dmd4nR8E",
@@ -411,7 +411,7 @@
       "passageTitle": "Exodus 1:1-1:16",
       "matchMethod": "passage-title",
       "durationText": "46:28",
-      "thumbnailUrl": "https://i.ytimg.com/vi/qd4Dmd4nR8E/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLD4iugQc6AgAMnmXEqz4b_G03OXgQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/qd4Dmd4nR8E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAzg2p0mzzDCSRTzyYLZrRHtPCjZw"
     },
     {
       "videoId": "jpfWdPS0q8k",
@@ -426,22 +426,22 @@
       "passageTitle": "Exodus 1:17-2:15",
       "matchMethod": "passage-title",
       "durationText": "48:55",
-      "thumbnailUrl": "https://i.ytimg.com/vi/jpfWdPS0q8k/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDjw9CVGRUfBHe_PJZ-2sURGxBo1w"
+      "thumbnailUrl": "https://i.ytimg.com/vi/jpfWdPS0q8k/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgNMl0ZV1EFwKnSA8vXtb87lMxqg"
     },
     {
       "videoId": "kwcLuB_3FAM",
-      "title": "Exodus 2:16-3-:13",
+      "title": "Exodus 2:16-3:13",
       "url": "https://www.youtube.com/watch?v=kwcLuB_3FAM&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
       "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
       "position": 29,
       "videoKind": "lesson",
       "weekNumber": null,
       "lessonSequenceNumber": 28,
-      "titleFormat": "unmatched",
-      "passageTitle": null,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 2:16-3:13",
       "matchMethod": "special",
       "durationText": "45:48",
-      "thumbnailUrl": "https://i.ytimg.com/vi/kwcLuB_3FAM/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDu0MoHikG96ZZ1exdY6hUmBKLcnA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/kwcLuB_3FAM/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAm5IfX_qALx5ljOo7iwy77qLTvYA"
     },
     {
       "videoId": "a-aLTU8PYQo",
@@ -456,7 +456,7 @@
       "passageTitle": "Exodus 3:13-4:17",
       "matchMethod": "passage-title",
       "durationText": "50:21",
-      "thumbnailUrl": "https://i.ytimg.com/vi/a-aLTU8PYQo/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAZ5F8dMaVyr8skw1IEUCvUdVywiw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/a-aLTU8PYQo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4mcnqceqmlzTIBSNdsXndc-pOZw"
     },
     {
       "videoId": "flBafGXPOh4",
@@ -471,7 +471,7 @@
       "passageTitle": "Exodus 4:18-5:9",
       "matchMethod": "passage-title",
       "durationText": "51:27",
-      "thumbnailUrl": "https://i.ytimg.com/vi/flBafGXPOh4/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLA94z-wk4r31qDCb8NhvsEa99unOA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/flBafGXPOh4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPNwB-pZ7Y2oSiHvmTG4K7CUK-dw"
     },
     {
       "videoId": "4F8TmJYc0iM",
@@ -486,7 +486,7 @@
       "passageTitle": "Exodus 5:10-6:9",
       "matchMethod": "passage-title",
       "durationText": "53:38",
-      "thumbnailUrl": "https://i.ytimg.com/vi/4F8TmJYc0iM/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLDgMOKwkVn0TytuELkP8kxwr87aAA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/4F8TmJYc0iM/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB3JnaLs-nD6ehNLWhx84x1hhreCA"
     },
     {
       "videoId": "hvTyzIhZjaU",
@@ -501,7 +501,7 @@
       "passageTitle": "Exodus 6:10-7",
       "matchMethod": "passage-title",
       "durationText": "51:43",
-      "thumbnailUrl": "https://i.ytimg.com/vi/hvTyzIhZjaU/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLBvkXfsqcopVV6A3HQTJRLP8cd4aQ"
+      "thumbnailUrl": "https://i.ytimg.com/vi/hvTyzIhZjaU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCJCUyHYA3-maAUqyZD4lgUPi5ihw"
     },
     {
       "videoId": "nKC48zTqAic",
@@ -516,7 +516,7 @@
       "passageTitle": "Exodus 8-9:12",
       "matchMethod": "passage-title",
       "durationText": "52:07",
-      "thumbnailUrl": "https://i.ytimg.com/vi/nKC48zTqAic/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLAXIP6VFzYN78yqU9IzX58DI3P7cA"
+      "thumbnailUrl": "https://i.ytimg.com/vi/nKC48zTqAic/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBeixAPAOU-qaMv2o-0gzqSOMPwUQ"
     },
     {
       "videoId": "MwJ6Ryz4Heg",
@@ -531,7 +531,7 @@
       "passageTitle": "Exodus 9:13-11",
       "matchMethod": "passage-title",
       "durationText": "51:44",
-      "thumbnailUrl": "https://i.ytimg.com/vi/MwJ6Ryz4Heg/hqdefault.jpg?sqp=-oaymwEgCNACELwBSFXyq4qpAxIIARUAAIhCGAFwAcABBrgC9xg=&rs=AOn4CLCgaK6D6xU9d9eea4gKjSr3uxxfbw"
+      "thumbnailUrl": "https://i.ytimg.com/vi/MwJ6Ryz4Heg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCwhAihKjawvRvfgpz8JGvhoOsXcA"
     }
   ],
   "matching": {
@@ -543,7 +543,7 @@
         "videoTitle": "Exodus 2:16-3-:13",
         "lessonTitle": "Exodus 2:16-3:12",
         "status": "active",
-        "currentVideoTitle": "Exodus 2:16-3-:13",
+        "currentVideoTitle": "Exodus 2:16-3:13",
         "currentLessonTitle": "Exodus 2:16-3:12"
       }
     ],
