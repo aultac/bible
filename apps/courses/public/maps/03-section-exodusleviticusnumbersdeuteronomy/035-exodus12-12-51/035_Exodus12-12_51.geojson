@@ -1,0 +1,506 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.834217,
+          30.79937,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Rameses",
+        "open": "1",
+        "styleUrl": "#landpoint0033203555822",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "035_Exodus12-13"
+          ],
+          "sourceOrder": 2,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0001"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.099,
+          30.5527,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Succoth",
+        "open": "1",
+        "styleUrl": "#landpoint1008441",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "035_Exodus12-13"
+          ],
+          "sourceOrder": 3,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0002"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.33530922835835,
+          28.59635798557253,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Sinai (Jabal Maqla)",
+        "styleUrl": "#landpoint1007",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "035_Exodus12-13",
+            "Sinai"
+          ],
+          "sourceOrder": 5,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0003"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.973333,
+          28.539722,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Sinai / Jebel Musa",
+        "styleUrl": "#landpoint100832",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "035_Exodus12-13",
+            "Sinai"
+          ],
+          "sourceOrder": 6,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0004"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.49449359448923,
+          29.84687258311714,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Gulf of Suez",
+        "styleUrl": "#landpoint0033200140",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "035_Exodus12-13",
+            "Sinai"
+          ],
+          "sourceOrder": 7,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0005"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.66134966605235,
+          29.01757850813101,
+          0
+        ]
+      },
+      "properties": {
+        "name": "Nuweiba",
+        "styleUrl": "#landpoint0033200142",
+        "label-opacity": 1,
+        "label-color": "#80ff07",
+        "label-scale": 3,
+        "icon-opacity": 1,
+        "icon-color": "#fc0107",
+        "icon-scale": 2,
+        "icon-offset": [
+          32,
+          1
+        ],
+        "icon-offset-units": [
+          "pixels",
+          "pixels"
+        ],
+        "icon": "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+        "kml": {
+          "folderIds": [
+            "folder-0001",
+            "folder-0002"
+          ],
+          "folderPath": [
+            "035_Exodus12-13",
+            "Sinai"
+          ],
+          "sourceOrder": 8,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0006"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.56946,
+              30.86821,
+              0
+            ],
+            [
+              31.44489,
+              30.83224,
+              0
+            ],
+            [
+              31.40337,
+              30.72432,
+              0
+            ],
+            [
+              31.40337,
+              30.47251,
+              0
+            ],
+            [
+              31.40337,
+              30.43654,
+              0
+            ],
+            [
+              31.40337,
+              30.40057,
+              0
+            ],
+            [
+              31.61098,
+              30.32862,
+              0
+            ],
+            [
+              31.6525,
+              30.32862,
+              0
+            ],
+            [
+              31.69401999999999,
+              30.32862,
+              0
+            ],
+            [
+              31.73555,
+              30.32862,
+              0
+            ],
+            [
+              31.77707,
+              30.32862,
+              0
+            ],
+            [
+              31.81859,
+              30.32862,
+              0
+            ],
+            [
+              31.98468,
+              30.40057,
+              0
+            ],
+            [
+              32.15077,
+              30.68835,
+              0
+            ],
+            [
+              32.15077,
+              30.72432,
+              0
+            ],
+            [
+              32.10925,
+              30.83224,
+              0
+            ],
+            [
+              32.06772,
+              30.94015,
+              0
+            ],
+            [
+              32.0262,
+              30.94015,
+              0
+            ],
+            [
+              31.98468,
+              30.94015,
+              0
+            ],
+            [
+              31.90164,
+              30.94015,
+              0
+            ],
+            [
+              31.81859,
+              30.94015,
+              0
+            ],
+            [
+              31.56946,
+              30.86821,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Goshen",
+        "open": "1",
+        "styleUrl": "#landisobands2252222223",
+        "fill-opacity": 0.5019607843137255,
+        "fill": "#20ffff",
+        "stroke-width": 2,
+        "kml": {
+          "folderIds": [
+            "folder-0001"
+          ],
+          "folderPath": [
+            "035_Exodus12-13"
+          ],
+          "sourceOrder": 9,
+          "visibility": null,
+          "initiallyVisible": true
+        }
+      },
+      "id": "feature-0007"
+    }
+  ],
+  "layerTree": {
+    "schemaVersion": 1,
+    "root": {
+      "type": "root",
+      "id": "root",
+      "name": "035_Exodus12-13.kmz",
+      "sourceOrder": 0,
+      "visibility": null,
+      "initiallyVisible": true,
+      "open": null,
+      "children": [
+        {
+          "type": "folder",
+          "id": "folder-0001",
+          "name": "035_Exodus12-13",
+          "sourceOrder": 1,
+          "visibility": null,
+          "initiallyVisible": true,
+          "open": true,
+          "children": [
+            {
+              "type": "feature",
+              "id": "feature-0001",
+              "name": "Rameses",
+              "sourceOrder": 2,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "feature",
+              "id": "feature-0002",
+              "name": "Succoth",
+              "sourceOrder": 3,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Point"
+            },
+            {
+              "type": "folder",
+              "id": "folder-0002",
+              "name": "Sinai",
+              "sourceOrder": 4,
+              "visibility": null,
+              "initiallyVisible": true,
+              "open": null,
+              "children": [
+                {
+                  "type": "feature",
+                  "id": "feature-0003",
+                  "name": "Sinai (Jabal Maqla)",
+                  "sourceOrder": 5,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0004",
+                  "name": "Sinai / Jebel Musa",
+                  "sourceOrder": 6,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0005",
+                  "name": "Gulf of Suez",
+                  "sourceOrder": 7,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                },
+                {
+                  "type": "feature",
+                  "id": "feature-0006",
+                  "name": "Nuweiba",
+                  "sourceOrder": 8,
+                  "visibility": null,
+                  "initiallyVisible": true,
+                  "geometryType": "Point"
+                }
+              ]
+            },
+            {
+              "type": "feature",
+              "id": "feature-0007",
+              "name": "Goshen",
+              "sourceOrder": 9,
+              "visibility": null,
+              "initiallyVisible": true,
+              "geometryType": "Polygon"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
