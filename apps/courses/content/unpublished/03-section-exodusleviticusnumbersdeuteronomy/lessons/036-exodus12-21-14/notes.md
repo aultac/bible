@@ -1,8 +1,10 @@
-# 036_Exodus13-14
+# 036_Exodus12:21-14
 
 NOPUBLISH
 
 PUT SOMEWHERE DESCRIPTION OF WHAT GOAT ROASTING IN HOUSE WOULD LOOK LIKE
+
+- Define consecrated and redeem
 
 **12:21-28 > Instructions for the Big Night**
 
@@ -77,6 +79,7 @@ PUT SOMEWHERE DESCRIPTION OF WHAT GOAT ROASTING IN HOUSE WOULD LOOK LIKE
 
 - INCLUSIOS WITHIN INCLUSIOS: A complex double inclusio started in chapter 12 when we broke the action to tell about the passover and the feast of unleavened bread. Then in the middle we got the actual death of the firstborn, then we concluded with the passover and the feast of unleavened bread again, and that inclusio is finished with it’s own firstborn consecration inclusio. The center of the inclusio is the death of the firstborn, and the final inclusio is that you owe God every firstborn as a result but they can be redeemed. It’s all about the death of the firstborn and its memory. There is also a death of the firstborn inclusio that started when God first told Moses in the wilderness that he would kill Pharaoh’s firstborn, and it completes when the firstborn die, and then echoes through the redemption of the firstborn inclusio.
 - FRONTLETS, TEFILLIN, PHILACTORIES: modern Jews strap 2 boxes on themselves representing this commandment. One on the head and one on the left bicep with a leather strap that is wrapped down to the left hand. The box contains tiny scrolls with four sets of verses on them. The first is this verse that commands it, Exodus 13:1-10. The second is the next section Exodus 13:11-16, third is Deuteronomy 6:4-9 (the Shema), and the fourth is Deuteronomy 11:13-21.
+  - ARM AND HEAD: the symbolism means your actions (arm) and your thoughts (head)
 - RESOURCE_LINK: tefillin_soldier.jpg: https://upload.wikimedia.org/wikipedia/commons/1/19/IDF_soldier_put_on_tefillin.jpg
 - RESOURCE_LINK: tefillin_scroll.jpg: https://upload.wikimedia.org/wikipedia/commons/5/59/Tefillin_shel_yad_klaf.jpg
 - RESOURCE_LINK: tefillin_youngman.jpg: https://www.flickr.com/photos/shankbone/3380910130
@@ -116,6 +119,7 @@ PUT SOMEWHERE DESCRIPTION OF WHAT GOAT ROASTING IN HOUSE WOULD LOOK LIKE
 
 **Exodus 14:1-5 > Yahweh Lures Pharaoh**
 
+- PHARAOH HAS NO MEMORY: in contrast to Yahweh who commands memory to the Hebrews, Pharaoh so soon has no memory of all the trouble the Hebrews in his land caused during the plagues. He only remembers that he lost just workforce. If he had listened to Yahweh to understand that the point of the plagues was memory, he wouldn’t have chased the Hebrews to bring this plague-causing people back. Hardening his heart involved dulling his memory. So Yahweh gives the Jews the gift of memory in Passover that will sustain them for the next 3500 years, but Egypt, those not his chosen people, he removed their memory in order to give them back their free will.
 - NO MAP HERE: location of these places is completely dependent on where the Red Sea crossing happened, and where Sinai is. Since I have two options that I can’t decide between, I elected not to speculate. It’s either at the Gulf of Suez or Nuweiba beach.
 - YAHWEH GETS GLORY WHEN EVIL PEOPLE DIE: Dennis Prager made this point. Yahweh says he will get glory over Pharaoh and his host. We are to glorify him when justice is done and evil people die. Do we? Do we glorify him when evil dies?
   - DISBELIEF IN GOD BECAUSE OF EVIL: many unbelievers point to evil in the world as a reason to not believe in the existence of Yahweh. Implicit in their claim is that Yahweh should be either not allowing evil at all, or at least punishing it in this world directly. So they see evil as a reason not to give glory to Yahweh. And yet these same people claim the Yahweh of the Old Testament is a judgmental moral monster precisely when he does act to punish evil. So they also disbelieve in Yahweh when he does punish evil, like killing Pharaoh.
@@ -141,3 +145,7 @@ PUT SOMEWHERE DESCRIPTION OF WHAT GOAT ROASTING IN HOUSE WOULD LOOK LIKE
   - We were dead, and now we’re alive. We were trapped. Yahweh saved us.
   - Israel saw the great power that Yahweh used against the Egyptians, so the people feared Yahweh, and the believed in Yahweh and in his servant, Moses.
 - THIS EVENT CREATES JUDAISM: just as there are seven days of creation, there are now seven days commemorating the creation of the Israelite people as a people. This event creates Judaism. And Judaism becomes about the process of moving out of Egypt and into Israel. It is the process of getting Egypt out of the people. Out of you. Egypt is death, bondage, and nature gods. Israel is life, freedom, and Yahweh. In some sense it is a journey that every Jew had to make through the rituals instituted on the way out of Egypt. We all have to escape Egypt. Because without Yahweh, civilization naturally becomes death focused, full of bondage, and worshippers of nature. Life and Liberty come only through Yahweh. As slaves to sin, if you repent and put your trust in Jesus, then you have his promise that you will see the sea of glass after the tsunami waves crashes over the sin that pursues you.
+
+**Exodus 15:1-19 > Moses’ song**
+
+**Exodus 15:22-27 > Bittersweet water**

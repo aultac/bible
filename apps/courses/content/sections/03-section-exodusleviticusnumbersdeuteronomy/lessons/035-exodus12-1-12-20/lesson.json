@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-11T21:52:37.311Z",
+  "id": "035-exodus12-1-12-20",
+  "slug": "035-exodus12-1-12-20",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 35,
+  "lessonKind": "passage",
+  "title": "Exodus 12:1-12:20",
+  "description": "",
+  "videoSummary": "God institues Passover as instructions for the Hebrews to avoid the death of the firstborn and to remember that night of deliverance annually forever.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 12:1",
+  "endVerse": "Exodus 12:20",
+  "passage": {
+    "display": "Exodus 12:1-12:20",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 12,
+      "verse": 1,
+      "raw": "Exodus12_1",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 12,
+      "verse": 20,
+      "raw": "12_20",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 12:1",
+    "endVerse": "Exodus 12:20",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+12:1-12:20/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/035-exodus12-1-12-20/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/035-exodus12-1-12-20/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/035_Exodus12_1-12_20_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/035_Exodus12_1-12_20.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/035-exodus12-1-12-20/035_Exodus12_1-12_20.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/035-exodus12-1-12-20/035_Exodus12_1-12_20.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/035-exodus12-1-12-20/035_Exodus12_1-12_20.geojson",
+    "available": true,
+    "featureCount": 9,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "1-oWtDm4vvU",
+    "title": "Exodus 12:1-12:20",
+    "url": "https://www.youtube.com/watch?v=1-oWtDm4vvU&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 36,
+    "videoKind": "lesson",
+    "weekNumber": null,
+    "lessonSequenceNumber": 35,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 12:1-12:20",
+    "matchMethod": "passage-title",
+    "durationText": "55:09",
+    "thumbnailUrl": "https://i.ytimg.com/vi/1-oWtDm4vvU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCd5z6z66DYuC8jkE6Hg-FZwZPC-g"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20",
+    "folderName": "035_Exodus12_1-12_20",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/035_Exodus12_1-12_20_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/035_Exodus12_1-12_20.kmz"
+  }
+}

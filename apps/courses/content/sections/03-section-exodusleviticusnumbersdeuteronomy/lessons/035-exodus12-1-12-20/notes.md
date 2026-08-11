@@ -1,4 +1,4 @@
-# 035_Exodus12-12:51
+# 035_Exodus12-12:20
 
 - FRACTAL WITH REVELATION 16: **Read Revelation 16**. The seven bowl judgments. Water to blood, boils, frogs, hail, darkness. In the seven trumpet judgments in Revelation 9, we also get supernatural locusts from the pit of hell. Big fractal. We talked about how unexpected it was that God introduced himself to the broader world through a series of plagues. God says hello with plagues. **Now we see that this is also how God will say goodbye: two sets of seven plagues to finish off the Earth.** Hello and goodbye, bookends on the whole show.
 - RECAPTURE DRAMA: Pharaoh tells Moses he’s going to kill him if he ever sees him again. Moses is very angry and says “FINE!” But he turns and gives Pharaoh one last message from Yahweh. **Re-read Chapter 11:4-end.** The creator of the universe just told Moses he is coming and it will be terrible. We are at the climax of this very dramatic story. The suspense has been building for weeks. Yahweh just took down the supreme Egyptian god Ra, the sun god.

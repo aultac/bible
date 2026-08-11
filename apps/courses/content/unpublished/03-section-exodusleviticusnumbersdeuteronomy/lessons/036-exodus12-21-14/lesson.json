@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T10:59:14.779Z",
-  "id": "036-exodus13-14",
-  "slug": "036-exodus13-14",
+  "generatedAt": "2026-08-11T21:52:37.311Z",
+  "id": "036-exodus12-21-14",
+  "slug": "036-exodus12-21-14",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sequenceNumber": 36,
   "lessonKind": "passage",
-  "title": "Exodus 13-14",
+  "title": "Exodus 12:21-14",
   "description": "",
   "videoSummary": null,
   "status": "NOPUBLISH",
@@ -17,15 +17,15 @@
       "path": "notes.md"
     }
   ],
-  "startVerse": "Exodus 13",
+  "startVerse": "Exodus 12:21",
   "endVerse": "Exodus 14",
   "passage": {
-    "display": "Exodus 13-14",
+    "display": "Exodus 12:21-14",
     "start": {
       "bookId": "Exodus",
-      "chapter": 13,
-      "verse": null,
-      "raw": "Exodus13",
+      "chapter": 12,
+      "verse": 21,
+      "raw": "Exodus12_21",
       "bookName": "Exodus"
     },
     "end": {
@@ -35,14 +35,14 @@
       "raw": "14",
       "bookName": "Exodus"
     },
-    "startVerse": "Exodus 13",
+    "startVerse": "Exodus 12:21",
     "endVerse": "Exodus 14",
     "spansMultipleBooks": false,
-    "esvUrl": "https://www.esv.org/Exodus+13-14/"
+    "esvUrl": "https://www.esv.org/Exodus+12:21-14/"
   },
   "notes": {
-    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/036-exodus13-14/notes.md",
-    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14/notes.md",
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/036-exodus12-21-14/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-14/notes.md",
     "available": true
   },
   "summary": {
@@ -60,11 +60,11 @@
   "peopleTags": [],
   "placeTags": [],
   "source": {
-    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14",
-    "folderName": "036_Exodus13-14",
-    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14/notes.md",
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-14",
+    "folderName": "036_Exodus12_21-14",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-14/notes.md",
     "summaryDocxPath": null,
-    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus13-14/resources",
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-14/resources",
     "mapPath": null
   }
 }

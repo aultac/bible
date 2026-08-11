@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T10:59:14.779Z",
+  "generatedAt": "2026-08-11T21:52:37.311Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -366,41 +366,41 @@
       }
     },
     {
-      "id": "035-exodus12-12-51",
-      "slug": "035-exodus12-12-51",
+      "id": "035-exodus12-1-12-20",
+      "slug": "035-exodus12-1-12-20",
       "sequenceNumber": 35,
-      "title": "Exodus 12-12:51",
+      "title": "Exodus 12:1-12:20",
       "lessonKind": "passage",
-      "startVerse": "Exodus 12",
-      "endVerse": "Exodus 12:51",
+      "startVerse": "Exodus 12:1",
+      "endVerse": "Exodus 12:20",
       "passage": {
-        "display": "Exodus 12-12:51",
+        "display": "Exodus 12:1-12:20",
         "start": {
           "bookId": "Exodus",
           "chapter": 12,
-          "verse": null,
-          "raw": "Exodus12",
+          "verse": 1,
+          "raw": "Exodus12_1",
           "bookName": "Exodus"
         },
         "end": {
           "bookId": "Exodus",
           "chapter": 12,
-          "verse": 51,
-          "raw": "12_51",
+          "verse": 20,
+          "raw": "12_20",
           "bookName": "Exodus"
         },
-        "startVerse": "Exodus 12",
-        "endVerse": "Exodus 12:51",
+        "startVerse": "Exodus 12:1",
+        "endVerse": "Exodus 12:20",
         "spansMultipleBooks": false,
-        "esvUrl": "https://www.esv.org/Exodus+12-12:51/"
+        "esvUrl": "https://www.esv.org/Exodus+12:1-12:20/"
       },
-      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/035-exodus12-12-51/lesson.json",
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/035-exodus12-1-12-20/lesson.json",
       "notesAvailable": true,
-      "summaryAvailable": false,
+      "summaryAvailable": true,
       "resourceCount": 0,
       "source": {
-        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12-12_51",
-        "folderName": "035_Exodus12-12_51"
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20",
+        "folderName": "035_Exodus12_1-12_20"
       }
     }
   ],

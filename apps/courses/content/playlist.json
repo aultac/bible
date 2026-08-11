@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-08-10T10:59:04.049Z",
+  "fetchedAt": "2026-08-11T21:52:27.658Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 35,
+  "videoCount": 36,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -532,6 +532,21 @@
       "matchMethod": "passage-title",
       "durationText": "51:44",
       "thumbnailUrl": "https://i.ytimg.com/vi/MwJ6Ryz4Heg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCwhAihKjawvRvfgpz8JGvhoOsXcA"
+    },
+    {
+      "videoId": "1-oWtDm4vvU",
+      "title": "Exodus 12:1-12:20",
+      "url": "https://www.youtube.com/watch?v=1-oWtDm4vvU&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 36,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 35,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 12:1-12:20",
+      "matchMethod": "passage-title",
+      "durationText": "55:09",
+      "thumbnailUrl": "https://i.ytimg.com/vi/1-oWtDm4vvU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCd5z6z66DYuC8jkE6Hg-FZwZPC-g"
     }
   ],
   "matching": {
@@ -548,7 +563,7 @@
       }
     ],
     "diagnostics": [],
-    "automaticMatchCount": 34,
+    "automaticMatchCount": 35,
     "specialMatchCount": 1,
     "unmatchedCount": 0
   }
