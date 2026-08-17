@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-11T21:52:37.311Z",
+  "generatedAt": "2026-08-17T02:40:39.203Z",
   "id": "035-exodus12-1-12-20",
   "slug": "035-exodus12-1-12-20",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -9,7 +9,7 @@
   "lessonKind": "passage",
   "title": "Exodus 12:1-12:20",
   "description": "",
-  "videoSummary": "God institues Passover as instructions for the Hebrews to avoid the death of the firstborn and to remember that night of deliverance annually forever.",
+  "videoSummary": "God institutes Passover as instructions for the Hebrews to avoid the death of the firstborn and to remember that night of deliverance annually forever.",
   "status": "published",
   "publishReasons": [],
   "startVerse": "Exodus 12:1",
@@ -47,20 +47,7 @@
     "available": true,
     "error": null
   },
-  "map": {
-    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/035_Exodus12_1-12_20.kmz",
-    "sourceFormat": "kmz",
-    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/035-exodus12-1-12-20/035_Exodus12_1-12_20.kmz",
-    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/035-exodus12-1-12-20/035_Exodus12_1-12_20.geojson",
-    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/035-exodus12-1-12-20/035_Exodus12_1-12_20.geojson",
-    "available": true,
-    "featureCount": 9,
-    "geometryTypes": [
-      "LineString",
-      "Point",
-      "Polygon"
-    ]
-  },
+  "map": null,
   "resources": [],
   "youtube": {
     "videoId": "1-oWtDm4vvU",
@@ -87,6 +74,6 @@
     "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/notes.md",
     "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/035_Exodus12_1-12_20_summary.docx",
     "resourcesDirectory": null,
-    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20/035_Exodus12_1-12_20.kmz"
+    "mapPath": null
   }
 }

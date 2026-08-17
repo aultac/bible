@@ -1,20 +1,28 @@
 {
   "schemaVersion": 1,
   "kind": "apple-notes-applied-checkpoint",
-  "appliedAt": "2026-08-11T21:52:38.959Z",
+  "appliedAt": "2026-08-17T02:40:40.271Z",
   "source": {
     "accountName": "iCloud",
     "folderName": "FBT Sunday School"
   },
-  "noteCount": 37,
+  "noteCount": 38,
   "notes": [
     {
       "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p533",
       "title": "036_Exodus12:21-14",
       "createdAt": "2026-08-08T19:15:28.000Z",
-      "updatedAt": "2026-08-11T21:45:19.000Z",
-      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-14",
-      "sourceMarkdownHash": "20a6e5565d391e5203bfe3bb3687d725"
+      "updatedAt": "2026-08-17T02:39:56.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-12_51",
+      "sourceMarkdownHash": "587d6d64f3c63ed76b8011c041339ed8"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p534",
+      "title": "037_Exodus13-14",
+      "createdAt": "2026-08-17T00:08:14.000Z",
+      "updatedAt": "2026-08-17T02:36:23.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-14",
+      "sourceMarkdownHash": "524473741f25d2de9b3ef7ec50c1c51d"
     },
     {
       "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p529",
