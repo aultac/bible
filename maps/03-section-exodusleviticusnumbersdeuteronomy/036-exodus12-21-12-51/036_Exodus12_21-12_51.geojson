@@ -150,7 +150,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20"
+            "036_Exodus12_21-12_51"
           ],
           "sourceOrder": 2,
           "visibility": null,
@@ -403,7 +403,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20"
+            "036_Exodus12_21-12_51"
           ],
           "sourceOrder": 3,
           "visibility": null,
@@ -446,7 +446,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20"
+            "036_Exodus12_21-12_51"
           ],
           "sourceOrder": 4,
           "visibility": null,
@@ -489,7 +489,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20"
+            "036_Exodus12_21-12_51"
           ],
           "sourceOrder": 5,
           "visibility": null,
@@ -532,7 +532,7 @@
             "folder-0002"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20",
+            "036_Exodus12_21-12_51",
             "Sinai"
           ],
           "sourceOrder": 7,
@@ -576,7 +576,7 @@
             "folder-0002"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20",
+            "036_Exodus12_21-12_51",
             "Sinai"
           ],
           "sourceOrder": 8,
@@ -620,7 +620,7 @@
             "folder-0002"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20",
+            "036_Exodus12_21-12_51",
             "Sinai"
           ],
           "sourceOrder": 9,
@@ -664,7 +664,7 @@
             "folder-0002"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20",
+            "036_Exodus12_21-12_51",
             "Sinai"
           ],
           "sourceOrder": 10,
@@ -805,7 +805,7 @@
             "folder-0001"
           ],
           "folderPath": [
-            "035_Exodus12_1-12_20"
+            "036_Exodus12_21-12_51"
           ],
           "sourceOrder": 11,
           "visibility": null,
@@ -820,7 +820,7 @@
     "root": {
       "type": "root",
       "id": "root",
-      "name": "035_Exodus12_1-12_20.kmz",
+      "name": "036_Exodus12_21-12_51.kmz",
       "sourceOrder": 0,
       "visibility": null,
       "initiallyVisible": true,
@@ -829,11 +829,11 @@
         {
           "type": "folder",
           "id": "folder-0001",
-          "name": "035_Exodus12_1-12_20",
+          "name": "036_Exodus12_21-12_51",
           "sourceOrder": 1,
           "visibility": null,
           "initiallyVisible": true,
-          "open": null,
+          "open": true,
           "children": [
             {
               "type": "feature",
