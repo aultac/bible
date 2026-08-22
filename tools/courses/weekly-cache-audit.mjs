@@ -582,7 +582,12 @@ export async function auditWeeklyCache({
   const nextState = {
     ...state,
     updatedAt: auditedAt,
-    status: audit.ready ? "ready" : "draft",
+    status:
+      state.status === "applied"
+        ? "applied"
+        : audit.ready
+          ? "ready"
+          : "draft",
     latestAudit: {
       auditedAt,
       ready: audit.ready,

@@ -5,6 +5,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { auditWeeklyCache } from "./weekly-cache-audit.mjs";
 import {
+  computeComponentsFingerprint,
   createWeeklyCache,
   hashContent,
   loadCacheState,
@@ -157,6 +158,30 @@ describe("weekly cache readiness audit", () => {
     expect(result.state.latestAudit.componentsFingerprint).toMatch(
       /^[a-f0-9]{64}$/u
     );
+  });
+
+  it("keeps an applied cache applied after a successful audit", async () => {
+    const fixture = await createAuditableCache();
+    const appliedAt = "2026-08-20T00:00:00.000Z";
+    const state = await loadCacheState(fixture.cacheRoot);
+    await writeJsonAtomic(path.join(fixture.cacheRoot, "cache-state.json"), {
+      ...state,
+      status: "applied",
+      applied: {
+        appliedAt,
+        componentsFingerprint: computeComponentsFingerprint(state.components),
+      },
+    });
+
+    const result = await auditWeeklyCache({
+      cacheRoot: fixture.cacheRoot,
+      canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
+    });
+
+    expect(result.state.status).toBe("applied");
+    expect(result.state.applied.appliedAt).toBe(appliedAt);
+    expect(result.audit.ready).toBe(true);
   });
 
   it("returns to draft when converted Markdown or source files change", async () => {

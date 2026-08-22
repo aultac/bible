@@ -150,13 +150,17 @@ guided menu or run:
 yarn weekly --manage-youtube-matches --cache <cache-id>
 ```
 
-The manager can:
+The manager can run against draft, ready, or applied caches. It can:
 
 - review automatic, special, unmatched, stale, redundant, and conflicting
   matches;
 - choose an unmatched playlist video and assign it to a published local lesson
   that has no video; or
 - remove an existing special match.
+An unmatched playlist video is always shown, even when every published lesson
+already has a video. In that case the manager lists the unmatched titles and
+explains that a published lesson must be freed or chosen before a special match
+can be added.
 
 Special matches are stored in the version-controlled
 `apps/courses/content/youtube-special-matches.json`. Each entry is identified by
@@ -172,7 +176,10 @@ missing or unpublished target lessons are errors.
 
 Adding or removing a mapping atomically updates the manifest, re-resolves the
 selected cached playlist without another network request, invalidates the prior
-audit, and immediately audits the cache again. Applied caches remain immutable.
+audit, and immediately audits the cache again. On an applied cache this also
+updates generated `playlist.json` and each published lesson's `youtube` field
+without rewriting notes, summaries, or other applied components. Notes,
+documents, and inventory in an applied cache remain immutable.
 
 ## 3. Audit cache until ready
 
@@ -222,7 +229,8 @@ Apply:
 
 Apply does not fetch YouTube or reconvert Word documents. If either input needs
 to change, return to step 1 and refresh that component. A successfully applied
-cache becomes immutable.
+cache stays immutable for notes, Word summaries, and inventory. YouTube special
+matches can still be added or removed without creating a new cache.
 
 Use `--online-audit` with apply when remote links should also be checked:
 

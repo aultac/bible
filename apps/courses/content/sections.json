@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-17T02:40:39.203Z",
+  "generatedAt": "2026-08-22T12:08:33.463Z",
   "sectionCount": 3,
   "sections": [
     {
@@ -124,7 +124,7 @@
         "Conquest",
         "Judges"
       ],
-      "lessonCount": 10,
+      "lessonCount": 11,
       "sectionPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/section.json",
       "sectionSummaryPath": null,
       "source": {

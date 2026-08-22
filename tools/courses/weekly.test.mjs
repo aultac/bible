@@ -293,6 +293,195 @@ describe("weekly workflow CLI", () => {
     expect(output.content).toContain("1 special, 0 unmatched");
   });
 
+  it("lists unmatched videos even when every published lesson already has a video",
+    async () => {
+      const root = await mkdtemp(path.join(os.tmpdir(), "weekly-youtube-match-"));
+      temporaryRoots.push(root);
+      const cacheRoot = path.join(root, "cache", "snapshots", "one");
+      const playlistPath = path.join(cacheRoot, "playlist.json");
+      await mkdir(cacheRoot, { recursive: true });
+      await writeFile(
+        playlistPath,
+        `${JSON.stringify({
+          schemaVersion: 3,
+          videoCount: 2,
+          videos: [
+            {
+              videoId: "owned",
+              title: "Genesis 1-2",
+              lessonSequenceNumber: 2,
+              matchMethod: "passage-title",
+            },
+            {
+              videoId: "ZYWffrz0YvE",
+              title: "Exodus 12:21-51",
+              lessonSequenceNumber: null,
+              titleFormat: "passage",
+            },
+          ],
+        })}\n`
+      );
+      const output = outputBuffer();
+      const selections = ["add", "back"];
+
+      await runWeeklyCommand(
+        {
+          mode: "manage-youtube",
+          cacheRoot: "one",
+          coursesEnv: {
+            canonicalBase: "/canonical",
+            notesCacheRoot: path.join(root, "cache"),
+            youtubeSpecialMatchesPath: path.join(root, "special-matches.json"),
+          },
+        },
+        {
+          output: output.stream,
+          resolveWeeklyCache: async () => cacheRoot,
+          loadCacheState: async () => ({ status: "ready" }),
+          buildCanonicalPublishedLessonCatalog: async () => [
+            {
+              sequenceNumber: 2,
+              displayTitle: "Genesis 1-2",
+              relativeLessonDirectory: "01-Bucket/002-Genesis1-2",
+            },
+          ],
+          loadYoutubeSpecialMatches: async () => ({
+            schemaVersion: 1,
+            matches: [],
+          }),
+          selectPrompt: async () => selections.shift(),
+        }
+      );
+
+      expect(output.content).toContain(
+        "There are unmatched playlist videos, but every published lesson already has a video."
+      );
+      expect(output.content).toContain(
+        "unmatched: Exodus 12:21-51 (ZYWffrz0YvE)"
+      );
+    }
+  );
+
+  it("manages special matches on an applied cache without wiping applied state",
+    async () => {
+      const root = await mkdtemp(path.join(os.tmpdir(), "weekly-youtube-match-"));
+      temporaryRoots.push(root);
+      const cacheRoot = path.join(root, "cache", "snapshots", "applied");
+      const playlistPath = path.join(cacheRoot, "playlist.json");
+      const generatedPlaylistPath = path.join(root, "content", "playlist.json");
+      await mkdir(cacheRoot, { recursive: true });
+      await writeFile(
+        playlistPath,
+        `${JSON.stringify({
+          schemaVersion: 3,
+          videoCount: 1,
+          videos: [
+            {
+              videoId: "typo-video",
+              title: "Exodus 12:21-51",
+              position: 1,
+            },
+          ],
+        })}\n`
+      );
+      const output = outputBuffer();
+      const selections = ["add", "typo-video", 36, "back"];
+      let savedManifest = { schemaVersion: 1, matches: [] };
+      let cacheState = {
+        status: "applied",
+        applied: {
+          appliedAt: "2026-08-20T00:00:00.000Z",
+          playlist: { path: generatedPlaylistPath, hash: "old" },
+        },
+      };
+      const recordCacheComponent = vi.fn(async (options) => {
+        expect(options.preserveApplied).toBe(true);
+        cacheState = {
+          ...cacheState,
+          components: { youtube: { summary: options.summary } },
+        };
+        return cacheState;
+      });
+      const writeCacheState = vi.fn(async (_cacheRoot, nextState) => {
+        cacheState = nextState;
+        return nextState;
+      });
+      const syncGeneratedLessonYoutubeMatches = vi.fn(async (playlist) => {
+        expect(playlist.videos[0]).toMatchObject({
+          videoId: "typo-video",
+          lessonSequenceNumber: 36,
+        });
+        await mkdir(path.dirname(generatedPlaylistPath), { recursive: true });
+        await writeFile(
+          generatedPlaylistPath,
+          `${JSON.stringify(playlist)}\n`
+        );
+        return {
+          updatedLessonCount: 1,
+          matchedYoutubeLessons: 1,
+          playlistSnapshotPath: generatedPlaylistPath,
+        };
+      });
+
+      const result = await runWeeklyCommand(
+        {
+          mode: "manage-youtube",
+          cacheRoot: "applied",
+          coursesEnv: {
+            canonicalBase: "/canonical",
+            notesCacheRoot: path.join(root, "cache"),
+            youtubeSpecialMatchesPath: path.join(root, "special-matches.json"),
+          },
+        },
+        {
+          output: output.stream,
+          resolveWeeklyCache: async () => cacheRoot,
+          loadCacheState: async () => cacheState,
+          writeCacheState,
+          buildCanonicalPublishedLessonCatalog: async () => [
+            {
+              sequenceNumber: 36,
+              displayTitle: "Exodus 12:21-12:51",
+              relativeLessonDirectory:
+                "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-12_51",
+            },
+          ],
+          loadYoutubeSpecialMatches: async () => savedManifest,
+          saveYoutubeSpecialMatches: async (manifest) => {
+            savedManifest = manifest;
+            return manifest;
+          },
+          selectPrompt: async () => selections.shift(),
+          confirmPrompt: async () => true,
+          recordCacheComponent,
+          syncGeneratedLessonYoutubeMatches,
+          auditWeeklyCache: async () => ({
+            audit: {
+              ready: true,
+              totals: { errors: 0, warnings: 0 },
+              findings: [],
+            },
+            state: { ...cacheState, status: "applied" },
+          }),
+          formatCacheAudit: () => "Cache is ready.",
+        }
+      );
+
+      expect(result.specialMatches.matches).toEqual([
+        expect.objectContaining({
+          videoId: "typo-video",
+          lessonSequenceNumber: 36,
+        }),
+      ]);
+      expect(recordCacheComponent).toHaveBeenCalledOnce();
+      expect(syncGeneratedLessonYoutubeMatches).toHaveBeenCalledOnce();
+      expect(writeCacheState).toHaveBeenCalledOnce();
+      expect(cacheState.status).toBe("applied");
+      expect(cacheState.applied.playlist.path).toBe(generatedPlaylistPath);
+      expect(cacheState.applied.playlist.hash).toMatch(/^[a-f0-9]{64}$/u);
+    }
+  );
+
   it("runs dev and title export without selecting or validating a cache", async () => {
     const output = outputBuffer();
     const startDevelopmentServer = vi.fn(async () => {});

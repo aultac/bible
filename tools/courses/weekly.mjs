@@ -10,13 +10,16 @@ import { pathToFileURL } from "node:url";
 import { loadCoursesEnv } from "./config.mjs";
 import { exportLessonTitles } from "./lesson-title-export.mjs";
 import { buildCanonicalPublishedLessonCatalog } from "./lesson-paths.mjs";
+import { syncGeneratedLessonYoutubeMatches } from "./repo-content.mjs";
 import {
   CACHED_PLAYLIST_FILENAME,
   formatCacheChoice,
+  hashContent,
   listWeeklyCaches,
   loadCacheState,
   recordCacheComponent,
   resolveWeeklyCache,
+  writeCacheState,
   writeJsonAtomic,
 } from "./weekly-cache.mjs";
 import {
@@ -294,6 +297,32 @@ async function runPrepare(
   return result;
 }
 
+function youtubeMatchingIdentity(playlistSnapshot) {
+  return (playlistSnapshot?.videos || [])
+    .map(
+      (video) =>
+        `${video.videoId}:${video.lessonSequenceNumber ?? ""}:${video.matchMethod || ""}`
+    )
+    .join("|");
+}
+
+function unmatchedPlaylistVideos(playlistSnapshot) {
+  return (playlistSnapshot?.videos || []).filter(
+    (video) => !Number.isInteger(video.lessonSequenceNumber)
+  );
+}
+
+function availableLessonsForPlaylist(playlistSnapshot, lessons) {
+  const ownedLessonSequences = new Set(
+    (playlistSnapshot?.videos || [])
+      .map((video) => video.lessonSequenceNumber)
+      .filter((sequenceNumber) => Number.isInteger(sequenceNumber))
+  );
+  return (lessons || []).filter(
+    (lesson) => !ownedLessonSequences.has(lesson.sequenceNumber)
+  );
+}
+
 async function loadYoutubeMatchContext(
   cacheRoot,
   coursesEnv,
@@ -319,15 +348,19 @@ async function loadYoutubeMatchContext(
       coursesEnv.youtubeSpecialMatchesPath
     ),
   ]);
+  const resolvedPlaylist = dependencies.resolvePlaylistVideoMatches(
+    playlistSnapshot,
+    { lessons, specialMatches }
+  );
   return {
     cacheRoot,
     playlistPath,
     lessons,
     specialMatches,
-    playlistSnapshot: dependencies.resolvePlaylistVideoMatches(
-      playlistSnapshot,
-      { lessons, specialMatches }
-    ),
+    playlistSnapshot: resolvedPlaylist,
+    matchingChanged:
+      youtubeMatchingIdentity(playlistSnapshot) !==
+      youtubeMatchingIdentity(resolvedPlaylist),
   };
 }
 
@@ -349,6 +382,7 @@ async function persistYoutubeMatchContext(
   );
   await writeJsonAtomic(context.playlistPath, playlistSnapshot);
   const state = await dependencies.loadCacheState(context.cacheRoot);
+  const preserveApplied = state.status === "applied";
   await dependencies.recordCacheComponent({
     cacheRoot: context.cacheRoot,
     state,
@@ -360,7 +394,26 @@ async function persistYoutubeMatchContext(
       specialMatches: playlistSnapshot.matching.specialMatchCount,
       unmatched: playlistSnapshot.matching.unmatchedCount,
     },
+    preserveApplied,
   });
+  if (preserveApplied) {
+    const generated = await dependencies.syncGeneratedLessonYoutubeMatches(
+      playlistSnapshot
+    );
+    const nextState = await dependencies.loadCacheState(context.cacheRoot);
+    if (nextState.applied) {
+      await dependencies.writeCacheState(context.cacheRoot, {
+        ...nextState,
+        applied: {
+          ...nextState.applied,
+          playlist: {
+            path: generated.playlistSnapshotPath,
+            hash: hashContent(await readFile(generated.playlistSnapshotPath)),
+          },
+        },
+      });
+    }
+  }
   const audited = await dependencies.auditWeeklyCache({
     cacheRoot: context.cacheRoot,
     canonicalBase: coursesEnv.canonicalBase,
@@ -370,7 +423,9 @@ async function persistYoutubeMatchContext(
     ...context,
     specialMatches,
     playlistSnapshot,
+    matchingChanged: false,
     audit: audited.audit,
+    state: audited.state,
   };
 }
 
@@ -385,7 +440,7 @@ export async function runYoutubeMatchManager(
     coursesEnv,
     dependencies,
     {
-      states: ["draft", "ready"],
+      states: ["draft", "ready", "applied"],
       message: "Cache whose YouTube matches should be managed",
     }
   );
@@ -394,6 +449,16 @@ export async function runYoutubeMatchManager(
     coursesEnv,
     dependencies
   );
+  if (context.matchingChanged) {
+    writeLine(
+      dependencies.output,
+      "Re-resolved cached YouTube matches against the current special-match list and published lessons."
+    );
+    writeLine(
+      dependencies.output,
+      dependencies.formatYoutubeMatchReview(context.playlistSnapshot)
+    );
+  }
 
   while (true) {
     const action = await dependencies.selectPrompt(
@@ -427,23 +492,28 @@ export async function runYoutubeMatchManager(
     }
 
     if (action === "add") {
-      const unmatchedVideos = context.playlistSnapshot.videos.filter(
-        (video) => !Number.isInteger(video.lessonSequenceNumber)
+      const unmatchedVideos = unmatchedPlaylistVideos(context.playlistSnapshot);
+      const availableLessons = availableLessonsForPlaylist(
+        context.playlistSnapshot,
+        context.lessons
       );
-      const ownedLessonSequences = new Set(
-        context.playlistSnapshot.videos
-          .map((video) => video.lessonSequenceNumber)
-          .filter((sequenceNumber) => Number.isInteger(sequenceNumber))
-      );
-      const availableLessons = context.lessons.filter(
-        (lesson) => !ownedLessonSequences.has(lesson.sequenceNumber)
-      );
-      if (unmatchedVideos.length === 0 || availableLessons.length === 0) {
+      if (unmatchedVideos.length === 0) {
         writeLine(
           dependencies.output,
-          unmatchedVideos.length === 0
-            ? "There are no unmatched playlist videos."
-            : "There are no unmatched published lessons."
+          "There are no unmatched playlist videos."
+        );
+        continue;
+      }
+      if (availableLessons.length === 0) {
+        writeLine(
+          dependencies.output,
+          [
+            "There are unmatched playlist videos, but every published lesson already has a video.",
+            ...unmatchedVideos.map(
+              (video) => `- unmatched: ${video.title} (${video.videoId})`
+            ),
+            "Choose a published lesson that should use one of these videos, or remove an existing special match first.",
+          ].join("\n")
         );
         continue;
       }
@@ -1032,6 +1102,8 @@ function buildDependencies(dependencies) {
     addYoutubeSpecialMatch,
     removeYoutubeSpecialMatch,
     formatYoutubeMatchReview,
+    syncGeneratedLessonYoutubeMatches,
+    writeCacheState,
     releaseWeeklyUpdate,
     retryWeeklyRelease,
     selectPrompt: select,

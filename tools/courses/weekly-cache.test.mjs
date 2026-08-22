@@ -79,4 +79,42 @@ describe("weekly cache lifecycle", () => {
     );
     await expect(loadCacheState(cache.cacheRoot)).resolves.toEqual(state);
   });
+
+  it("can update an applied cache YouTube component without clearing applied state",
+    async () => {
+      const root = await mkdtemp(path.join(os.tmpdir(), "weekly-cache-test-"));
+      temporaryRoots.push(root);
+      const cache = await createWeeklyCache(root);
+      const outputPath = path.join(cache.cacheRoot, "playlist.json");
+      await writeFile(outputPath, '{"videos":[{"videoId":"one"}]}\n');
+
+      const state = await recordCacheComponent({
+        cacheRoot: cache.cacheRoot,
+        state: {
+          ...cache.state,
+          status: "applied",
+          applied: {
+            appliedAt: "2026-08-20T00:00:00.000Z",
+            componentsFingerprint: "old",
+            playlist: { path: "/repo/playlist.json", hash: "old" },
+          },
+          release: { status: "validated" },
+        },
+        componentName: "youtube",
+        outputPath,
+        summary: { unmatched: 1 },
+        preserveApplied: true,
+      });
+
+      expect(state.status).toBe("applied");
+      expect(state.release).toEqual({ status: "validated" });
+      expect(state.applied.playlist).toEqual({
+        path: "/repo/playlist.json",
+        hash: "old",
+      });
+      expect(state.applied.componentsFingerprint).toBe(
+        computeComponentsFingerprint(state.components)
+      );
+    }
+  );
 });

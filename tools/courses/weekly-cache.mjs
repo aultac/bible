@@ -256,25 +256,33 @@ export async function recordCacheComponent({
   outputPath,
   summary = null,
   updatedAt = new Date().toISOString(),
+  preserveApplied = false,
 }) {
   const outputBytes = await readFile(outputPath);
+  const keepApplied = preserveApplied && state.status === "applied";
+  const components = {
+    ...(state.components || {}),
+    [componentName]: {
+      updatedAt,
+      outputPath: toPosixPath(path.relative(cacheRoot, outputPath)),
+      fingerprint: hashContent(outputBytes),
+      summary,
+    },
+  };
   const nextState = {
     ...state,
     updatedAt,
-    status: "draft",
+    status: keepApplied ? "applied" : "draft",
     legacy: false,
-    components: {
-      ...(state.components || {}),
-      [componentName]: {
-        updatedAt,
-        outputPath: toPosixPath(path.relative(cacheRoot, outputPath)),
-        fingerprint: hashContent(outputBytes),
-        summary,
-      },
-    },
+    components,
     latestAudit: null,
-    applied: null,
-    release: null,
+    applied: keepApplied
+      ? {
+          ...state.applied,
+          componentsFingerprint: computeComponentsFingerprint(components),
+        }
+      : null,
+    release: keepApplied ? state.release : null,
   };
   await writeCacheState(cacheRoot, nextState);
   await rm(path.join(cacheRoot, CACHE_AUDIT_FILENAME), { force: true });

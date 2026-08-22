@@ -130,6 +130,57 @@ function buildDiscoveredFileRecord(canonicalBase, absolutePath) {
   };
 }
 
+export async function syncGeneratedLessonYoutubeMatches(
+  playlistSnapshot,
+  { contentRoot = CONTENT_ROOT } = {}
+) {
+  const playlistVideoMatchMap = buildPlaylistVideoMatchMap(playlistSnapshot);
+  const publishedRoot = path.join(contentRoot, "sections");
+  const unpublishedRoot = path.join(contentRoot, "unpublished");
+  let updatedLessonCount = 0;
+
+  for (const [root, published] of [
+    [publishedRoot, true],
+    [unpublishedRoot, false],
+  ]) {
+    if (!(await pathExists(root))) {
+      continue;
+    }
+    for (const sectionSlug of await listDirectories(root)) {
+      const lessonsRoot = path.join(root, sectionSlug, "lessons");
+      if (!(await pathExists(lessonsRoot))) {
+        continue;
+      }
+      for (const lessonSlug of await listDirectories(lessonsRoot)) {
+        const manifestPath = path.join(lessonsRoot, lessonSlug, "lesson.json");
+        const manifest = await readJsonIfExists(manifestPath);
+        if (!manifest) {
+          continue;
+        }
+        const matchedVideo = published
+          ? playlistVideoMatchMap.get(manifest.sequenceNumber) || null
+          : null;
+        if (JSON.stringify(manifest.youtube || null) === JSON.stringify(matchedVideo)) {
+          continue;
+        }
+        await writeJson(manifestPath, {
+          ...manifest,
+          youtube: matchedVideo,
+        });
+        updatedLessonCount += 1;
+      }
+    }
+  }
+
+  const playlistSnapshotPath = path.join(contentRoot, "playlist.json");
+  await writeJson(playlistSnapshotPath, playlistSnapshot);
+  return {
+    updatedLessonCount,
+    matchedYoutubeLessons: playlistVideoMatchMap.size,
+    playlistSnapshotPath,
+  };
+}
+
 export async function syncLessonMaps() {
   const coursesEnv = await loadCoursesEnv();
   const mapRecords = [];

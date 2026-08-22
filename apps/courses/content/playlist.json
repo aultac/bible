@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-08-17T02:40:22.537Z",
+  "fetchedAt": "2026-08-22T12:02:09.545Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 36,
+  "videoCount": 37,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -547,10 +547,25 @@
       "matchMethod": "passage-title",
       "durationText": "55:09",
       "thumbnailUrl": "https://i.ytimg.com/vi/1-oWtDm4vvU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCd5z6z66DYuC8jkE6Hg-FZwZPC-g"
+    },
+    {
+      "videoId": "ZYWffrz0YvE",
+      "title": "Exodus 12:21-51",
+      "url": "https://www.youtube.com/watch?v=ZYWffrz0YvE&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 37,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 36,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 12:21-51",
+      "matchMethod": "special",
+      "durationText": "51:29",
+      "thumbnailUrl": "https://i.ytimg.com/vi/ZYWffrz0YvE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCcA5hfmugACwHruBQsSdDELT5w8A"
     }
   ],
   "matching": {
-    "specialMatchesFingerprint": "7ce0b27aa3472d4a0ac2c2c656f87c56f5a5b64a4efd578e1682ee251719920e",
+    "specialMatchesFingerprint": "f17cdfb96c6b72bb015a63a7bd8993527c32013c0010087ae44d7df135dadf49",
     "specialMatches": [
       {
         "videoId": "kwcLuB_3FAM",
@@ -560,11 +575,20 @@
         "status": "active",
         "currentVideoTitle": "Exodus 2:16-3:13",
         "currentLessonTitle": "Exodus 2:16-3:12"
+      },
+      {
+        "videoId": "ZYWffrz0YvE",
+        "lessonSequenceNumber": 36,
+        "videoTitle": "Exodus 12:21-51",
+        "lessonTitle": "Exodus 12:21-12:51",
+        "status": "active",
+        "currentVideoTitle": "Exodus 12:21-51",
+        "currentLessonTitle": "Exodus 12:21-12:51"
       }
     ],
     "diagnostics": [],
     "automaticMatchCount": 35,
-    "specialMatchCount": 1,
+    "specialMatchCount": 2,
     "unmatchedCount": 0
   }
 }

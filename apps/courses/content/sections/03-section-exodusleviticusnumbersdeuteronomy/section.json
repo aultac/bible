@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-17T02:40:39.203Z",
+  "generatedAt": "2026-08-22T12:08:33.463Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 10,
+  "lessonCount": 11,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -401,6 +401,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/035_Exodus12_1-12_20",
         "folderName": "035_Exodus12_1-12_20"
+      }
+    },
+    {
+      "id": "036-exodus12-21-12-51",
+      "slug": "036-exodus12-21-12-51",
+      "sequenceNumber": 36,
+      "title": "Exodus 12:21-12:51",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 12:21",
+      "endVerse": "Exodus 12:51",
+      "passage": {
+        "display": "Exodus 12:21-12:51",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 12,
+          "verse": 21,
+          "raw": "Exodus12_21",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 12,
+          "verse": 51,
+          "raw": "12_51",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 12:21",
+        "endVerse": "Exodus 12:51",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+12:21-12:51/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/036-exodus12-21-12-51/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-12_51",
+        "folderName": "036_Exodus12_21-12_51"
       }
     }
   ],
