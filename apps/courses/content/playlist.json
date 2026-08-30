@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-08-22T12:02:09.545Z",
+  "fetchedAt": "2026-08-30T11:35:15.515Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 37,
+  "videoCount": 38,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -562,6 +562,21 @@
       "matchMethod": "special",
       "durationText": "51:29",
       "thumbnailUrl": "https://i.ytimg.com/vi/ZYWffrz0YvE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCcA5hfmugACwHruBQsSdDELT5w8A"
+    },
+    {
+      "videoId": "flUIWeN9pxc",
+      "title": "Review Week 8-23-2026",
+      "url": "https://www.youtube.com/watch?v=flUIWeN9pxc&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 38,
+      "videoKind": "ignored",
+      "weekNumber": null,
+      "lessonSequenceNumber": null,
+      "titleFormat": "review",
+      "passageTitle": null,
+      "matchMethod": "review-title",
+      "durationText": "32:35",
+      "thumbnailUrl": "https://i.ytimg.com/vi/flUIWeN9pxc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLASQ6wMTxgvCSXjE3gzVo1y4FCenA"
     }
   ],
   "matching": {
@@ -589,6 +604,7 @@
     "diagnostics": [],
     "automaticMatchCount": 35,
     "specialMatchCount": 2,
-    "unmatchedCount": 0
+    "unmatchedCount": 0,
+    "ignoredCount": 1
   }
 }

@@ -290,6 +290,51 @@ describe("weekly cache readiness audit", () => {
     );
   });
 
+  it("does not warn when ignored Review videos have no lesson match", async () => {
+    const fixture = await createAuditableCache();
+    const playlistPath = path.join(fixture.cacheRoot, "playlist.json");
+    await writeJsonAtomic(
+      playlistPath,
+      resolvePlaylistVideoMatches(
+        {
+          schemaVersion: 3,
+          videos: [
+            {
+              videoId: "week-one",
+              title: "Know Your Bible - Week 1",
+            },
+            {
+              videoId: "review",
+              title: "Review 8/24/2026",
+            },
+          ],
+        },
+        {
+          lessons: [{ sequenceNumber: 1, displayTitle: "Lesson One" }],
+          specialMatches: { schemaVersion: 1, matches: [] },
+        }
+      )
+    );
+    const state = await loadCacheState(fixture.cacheRoot);
+    await recordCacheComponent({
+      cacheRoot: fixture.cacheRoot,
+      state,
+      componentName: "youtube",
+      outputPath: playlistPath,
+    });
+
+    const result = await auditWeeklyCache({
+      cacheRoot: fixture.cacheRoot,
+      canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
+    });
+
+    expect(result.audit.ready).toBe(true);
+    expect(result.audit.findings.map((finding) => finding.code)).not.toContain(
+      "video-lesson-unmatched"
+    );
+  });
+
   it("rejects malformed directives in staged Apple Notes candidates", async () => {
     const fixture = await createAuditableCache();
     const stagedNotesPath = path.join(fixture.cacheRoot, "staged", "notes.md");

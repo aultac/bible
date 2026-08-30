@@ -424,14 +424,16 @@ async function auditPlaylist({
       !Number.isInteger(lessonSequenceNumber) ||
       lessonSequenceNumber < 0
     ) {
-      addFinding(
-        findings,
-        "warning",
-        "youtube",
-        "video-lesson-unmatched",
-        `${video.title || video.videoId || "A playlist video"} has no automatic or special lesson match.`,
-        { videoId: video.videoId || null, title: video.title || null }
-      );
+      if (video.videoKind !== "ignored") {
+        addFinding(
+          findings,
+          "warning",
+          "youtube",
+          "video-lesson-unmatched",
+          `${video.title || video.videoId || "A playlist video"} has no automatic or special lesson match.`,
+          { videoId: video.videoId || null, title: video.title || null }
+        );
+      }
       continue;
     }
     const existingVideoId = lessonSequenceOwners.get(lessonSequenceNumber);

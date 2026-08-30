@@ -332,6 +332,19 @@ export function resolvePlaylistVideoMatches(
           }
         )
       );
+    } else if (video.videoKind === "ignored") {
+      status = "ignored";
+      diagnostics.push(
+        makeDiagnostic(
+          "warning",
+          "special-match-ignored",
+          `${video.title} is ignored and cannot use a special match.`,
+          {
+            videoId: specialMatch.videoId,
+            lessonSequenceNumber: specialMatch.lessonSequenceNumber,
+          }
+        )
+      );
     } else if (!lesson) {
       status = "invalid";
       diagnostics.push(
@@ -420,8 +433,13 @@ export function resolvePlaylistVideoMatches(
   const specialMatchCount = videos.filter(
     (video) => video.matchMethod === "special"
   ).length;
+  const ignoredCount = videos.filter(
+    (video) => video.videoKind === "ignored"
+  ).length;
   const unmatchedCount = videos.filter(
-    (video) => !Number.isInteger(video.lessonSequenceNumber)
+    (video) =>
+      !Number.isInteger(video.lessonSequenceNumber) &&
+      video.videoKind !== "ignored"
   ).length;
 
   return {
@@ -435,6 +453,7 @@ export function resolvePlaylistVideoMatches(
       automaticMatchCount,
       specialMatchCount,
       unmatchedCount,
+      ignoredCount,
     },
   };
 }
@@ -444,7 +463,9 @@ export function formatYoutubeMatchReview(playlistSnapshot) {
   const lines = [
     `YouTube matches: ${matching.automaticMatchCount || 0} automatic, ${
       matching.specialMatchCount || 0
-    } special, ${matching.unmatchedCount || 0} unmatched`,
+    } special, ${matching.unmatchedCount || 0} unmatched, ${
+      matching.ignoredCount || 0
+    } ignored`,
   ];
 
   for (const specialMatch of matching.specialMatches || []) {
@@ -457,7 +478,9 @@ export function formatYoutubeMatchReview(playlistSnapshot) {
     );
   }
   for (const video of playlistSnapshot?.videos || []) {
-    if (!Number.isInteger(video.lessonSequenceNumber)) {
+    if (video.videoKind === "ignored") {
+      lines.push(`- ignored: ${video.title} (${video.videoId})`);
+    } else if (!Number.isInteger(video.lessonSequenceNumber)) {
       lines.push(`- unmatched: ${video.title} (${video.videoId})`);
     }
   }

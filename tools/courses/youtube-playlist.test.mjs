@@ -258,6 +258,34 @@ describe("YouTube playlist parsing", () => {
     });
   });
 
+  it("ignores Review titles instead of treating dates as weeks or passages", () => {
+    expect(classifyVideoLesson("Review 8/24/2026")).toMatchObject({
+      videoKind: "ignored",
+      weekNumber: null,
+      lessonSequenceNumber: null,
+      titleFormat: "review",
+      matchMethod: "review-title",
+    });
+    expect(classifyVideoLesson("Review 8-24")).toMatchObject({
+      videoKind: "ignored",
+      weekNumber: null,
+      lessonSequenceNumber: null,
+      titleFormat: "review",
+      matchMethod: "review-title",
+    });
+    expect(classifyVideoLesson("review: 8/24")).toMatchObject({
+      videoKind: "ignored",
+      titleFormat: "review",
+      matchMethod: "review-title",
+    });
+    expect(classifyVideoLesson("Know Your Bible - Week 8")).toMatchObject({
+      videoKind: "lesson",
+      weekNumber: 8,
+      lessonSequenceNumber: 8,
+      matchMethod: "week-number",
+    });
+  });
+
   it("rejects duplicate lesson sequence matches", () => {
     expect(() =>
       buildPlaylistVideoMatchMap({

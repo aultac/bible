@@ -154,6 +154,66 @@ describe("YouTube special matches", () => {
     });
   });
 
+  it("ignores Review videos instead of matching or counting them unmatched", () => {
+    const resolved = resolvePlaylistVideoMatches(
+      playlist([
+        { videoId: "genesis", title: "Genesis 1-2" },
+        { videoId: "review", title: "Review 8/24/2026" },
+        { videoId: "review-passage", title: "Review 8-24" },
+        { videoId: "typo", title: "Exodus 2:16-3-:13" },
+      ]),
+      {
+        lessons,
+        specialMatches: {
+          schemaVersion: 1,
+          matches: [
+            {
+              videoId: "review",
+              lessonSequenceNumber: 8,
+              videoTitle: "Review 8/24/2026",
+              lessonTitle: "Genesis 15-16",
+            },
+          ],
+        },
+      }
+    );
+
+    expect(resolved.matching).toMatchObject({
+      automaticMatchCount: 1,
+      specialMatchCount: 0,
+      unmatchedCount: 1,
+      ignoredCount: 2,
+    });
+    expect(resolved.matching.specialMatches).toEqual([
+      expect.objectContaining({
+        videoId: "review",
+        status: "ignored",
+      }),
+    ]);
+    expect(
+      resolved.matching.diagnostics.map((finding) => finding.code)
+    ).toContain("special-match-ignored");
+    expect(
+      resolved.videos.find((video) => video.videoId === "review")
+    ).toMatchObject({
+      videoKind: "ignored",
+      lessonSequenceNumber: null,
+      matchMethod: "review-title",
+    });
+    expect(
+      resolved.videos.find((video) => video.videoId === "review-passage")
+    ).toMatchObject({
+      videoKind: "ignored",
+      lessonSequenceNumber: null,
+    });
+    expect(
+      resolved.videos.find((video) => video.videoId === "typo")
+    ).toMatchObject({
+      lessonSequenceNumber: null,
+      videoKind: "unmatched",
+    });
+  });
+
   it("rejects duplicate video and lesson identities", () => {
     const findings = validateYoutubeSpecialMatches({
       schemaVersion: 1,

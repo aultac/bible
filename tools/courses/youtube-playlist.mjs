@@ -11,6 +11,7 @@ const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36";
 const WEEK_NUMBER_PATTERN = /\bweek\s+(\d+)\b/iu;
 const PROMO_PATTERN = /\bpromo\b/iu;
+const REVIEW_TITLE_PATTERN = /^review\b/iu;
 const PASSAGE_TITLE_PATTERN =
   /^(?:[1-3]\s*)?[A-Za-z]+(?:\s+[A-Za-z]+)*\s+\d+(?::\d+)?-(?:\d+(?::\d+)?|(?:[1-3]\s*)?[A-Za-z]+(?:\s+[A-Za-z]+)*\s+\d+(?::\d+)?)$/u;
 const DEFAULT_RETRY_DELAYS_MS = [250, 1000];
@@ -115,6 +116,17 @@ export function classifyVideoLesson(title) {
       titleFormat: "promo",
       passageTitle: null,
       matchMethod: "promo-title",
+    };
+  }
+
+  if (REVIEW_TITLE_PATTERN.test(trimmedTitle)) {
+    return {
+      videoKind: "ignored",
+      weekNumber: null,
+      lessonSequenceNumber: null,
+      titleFormat: "review",
+      passageTitle: null,
+      matchMethod: "review-title",
     };
   }
 

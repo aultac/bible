@@ -129,13 +129,17 @@ For example, both `000-Promo_summary.docx` and `000_Promo_summary.docx` match
 Playlist schema version 3 resolves titles in this order:
 
 1. `Promo` or `Why Know Your Bible?` maps to lesson sequence `0`.
-2. `Know Your Bible - Week N` and
+2. A title that starts with `Review` is ignored. These non-scripture videos stay
+   in the cached playlist but never match a lesson, never appear on the website,
+   and do not produce unmatched warnings.
+3. `Know Your Bible - Week N` and
    `Know Your Bible - Week N - <lesson page title>` map to sequence `N`.
-3. `Intro` or `Intro to Know Your Bible` maps to sequence `1`.
-4. A passage-only title such as `Genesis 5-6:10` or `Exodus 9:13-11` maps by
+4. `Intro` or `Intro to Know Your Bible` maps to sequence `1`.
+5. A passage-only title such as `Genesis 5-6:10` or `Exodus 9:13-11` maps by
    conservative equality to a unique published local lesson title.
-5. A tracked special mapping may match an otherwise unmatched video ID to an
-   unassigned published lesson.
+6. A tracked special mapping may match an otherwise unmatched video ID to an
+   unassigned published lesson. Ignored Review videos cannot receive a special
+   match.
 
 Playlist position controls display order only and is never used as a lesson
 match fallback. Matching never uses fuzzy title similarity. Unmatched titles

@@ -362,6 +362,62 @@ describe("weekly workflow CLI", () => {
     }
   );
 
+  it("does not offer ignored Review videos as unmatched special matches", async () => {
+    const root = await mkdtemp(path.join(os.tmpdir(), "weekly-youtube-match-"));
+    temporaryRoots.push(root);
+    const cacheRoot = path.join(root, "cache", "snapshots", "one");
+    const playlistPath = path.join(cacheRoot, "playlist.json");
+    await mkdir(cacheRoot, { recursive: true });
+    await writeFile(
+      playlistPath,
+      `${JSON.stringify({
+        schemaVersion: 3,
+        videoCount: 1,
+        videos: [
+          {
+            videoId: "review-video",
+            title: "Review 8/24/2026",
+            position: 1,
+          },
+        ],
+      })}\n`
+    );
+    const output = outputBuffer();
+    const selections = ["add", "back"];
+
+    await runWeeklyCommand(
+      {
+        mode: "manage-youtube",
+        cacheRoot: "one",
+        coursesEnv: {
+          canonicalBase: "/canonical",
+          notesCacheRoot: path.join(root, "cache"),
+          youtubeSpecialMatchesPath: path.join(root, "special-matches.json"),
+        },
+      },
+      {
+        output: output.stream,
+        resolveWeeklyCache: async () => cacheRoot,
+        loadCacheState: async () => ({ status: "draft" }),
+        buildCanonicalPublishedLessonCatalog: async () => [
+          {
+            sequenceNumber: 2,
+            displayTitle: "Genesis 1-2",
+            relativeLessonDirectory: "01-Bucket/002-Genesis1-2",
+          },
+        ],
+        loadYoutubeSpecialMatches: async () => ({
+          schemaVersion: 1,
+          matches: [],
+        }),
+        selectPrompt: async () => selections.shift(),
+      }
+    );
+
+    expect(output.content).toContain("There are no unmatched playlist videos.");
+    expect(output.content).toContain("1 ignored");
+  });
+
   it("manages special matches on an applied cache without wiping applied state",
     async () => {
       const root = await mkdtemp(path.join(os.tmpdir(), "weekly-youtube-match-"));

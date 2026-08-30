@@ -308,7 +308,9 @@ function youtubeMatchingIdentity(playlistSnapshot) {
 
 function unmatchedPlaylistVideos(playlistSnapshot) {
   return (playlistSnapshot?.videos || []).filter(
-    (video) => !Number.isInteger(video.lessonSequenceNumber)
+    (video) =>
+      !Number.isInteger(video.lessonSequenceNumber) &&
+      video.videoKind !== "ignored"
   );
 }
 
