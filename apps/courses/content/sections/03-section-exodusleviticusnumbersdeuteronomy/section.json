@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T11:46:28.259Z",
+  "generatedAt": "2026-09-07T23:34:07.212Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 11,
+  "lessonCount": 12,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -439,6 +439,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/036_Exodus12_21-12_51",
         "folderName": "036_Exodus12_21-12_51"
+      }
+    },
+    {
+      "id": "037-exodus13-15-18",
+      "slug": "037-exodus13-15-18",
+      "sequenceNumber": 37,
+      "title": "Exodus 13-15:18",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 13",
+      "endVerse": "Exodus 15:18",
+      "passage": {
+        "display": "Exodus 13-15:18",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 13,
+          "verse": null,
+          "raw": "Exodus13",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 15,
+          "verse": 18,
+          "raw": "15_18",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 13",
+        "endVerse": "Exodus 15:18",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+13-15:18/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/037-exodus13-15-18/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": false,
+      "resourceCount": 6,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18",
+        "folderName": "037_Exodus13-15_18"
       }
     }
   ],

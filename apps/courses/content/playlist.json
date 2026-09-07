@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-08-30T11:35:15.515Z",
+  "fetchedAt": "2026-09-07T11:02:40.419Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
@@ -410,7 +410,7 @@
       "titleFormat": "passage",
       "passageTitle": "Exodus 1:1-1:16",
       "matchMethod": "passage-title",
-      "durationText": "46:28",
+      "durationText": "46:29",
       "thumbnailUrl": "https://i.ytimg.com/vi/qd4Dmd4nR8E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAzg2p0mzzDCSRTzyYLZrRHtPCjZw"
     },
     {

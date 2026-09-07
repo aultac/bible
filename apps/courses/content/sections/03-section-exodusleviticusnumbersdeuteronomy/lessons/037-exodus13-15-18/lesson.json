@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T23:34:07.212Z",
+  "id": "037-exodus13-15-18",
+  "slug": "037-exodus13-15-18",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 37,
+  "lessonKind": "passage",
+  "title": "Exodus 13-15:18",
+  "description": "",
+  "videoSummary": null,
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 13",
+  "endVerse": "Exodus 15:18",
+  "passage": {
+    "display": "Exodus 13-15:18",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 13,
+      "verse": null,
+      "raw": "Exodus13",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 15,
+      "verse": 18,
+      "raw": "15_18",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 13",
+    "endVerse": "Exodus 15:18",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+13-15:18/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/037-exodus13-15-18/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/037_Exodus13-15_18.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/037_Exodus13-15_18.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/037_Exodus13-15_18.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/037_Exodus13-15_18.geojson",
+    "available": true,
+    "featureCount": 18,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "01_tefillin_scroll.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources/01_tefillin_scroll.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/01_tefillin_scroll.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/01_tefillin_scroll.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/59/Tefillin_shel_yad_klaf.jpg"
+    },
+    {
+      "name": "02_tefillin_soldier.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources/02_tefillin_soldier.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/02_tefillin_soldier.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/02_tefillin_soldier.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/IDF_soldier_put_on_tefillin.jpg"
+    },
+    {
+      "name": "03_tefillin_youngman.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources/03_tefillin_youngman.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/03_tefillin_youngman.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/03_tefillin_youngman.jpg",
+      "sourceUrl": "https://www.flickr.com/photos/shankbone/3380910130"
+    },
+    {
+      "name": "04_still_sea.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources/04_still_sea.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/04_still_sea.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/04_still_sea.jpg"
+    },
+    {
+      "name": "exodus_inclusios.jpg",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources/exodus_inclusios.jpg",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/exodus_inclusios.jpg",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/exodus_inclusios.jpg"
+    },
+    {
+      "name": "song_of_moses.mp3",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources/song_of_moses.mp3",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/song_of_moses.mp3",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/song_of_moses.mp3"
+    }
+  ],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18",
+    "folderName": "037_Exodus13-15_18",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources",
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/037_Exodus13-15_18.kmz"
+  }
+}

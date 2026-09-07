@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T23:34:07.212Z",
+  "id": "038-exodus15-19-18",
+  "slug": "038-exodus15-19-18",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 38,
+  "lessonKind": "passage",
+  "title": "Exodus 15:19-18",
+  "description": "",
+  "videoSummary": null,
+  "status": "NOPUBLISH",
+  "publishReasons": [
+    {
+      "type": "notes-content",
+      "path": "notes.md"
+    }
+  ],
+  "startVerse": "Exodus 15:19",
+  "endVerse": "Exodus 18",
+  "passage": {
+    "display": "Exodus 15:19-18",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 15,
+      "verse": 19,
+      "raw": "Exodus15_19",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 18,
+      "verse": null,
+      "raw": "18",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 15:19",
+    "endVerse": "Exodus 18",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+15:19-18/"
+  },
+  "notes": {
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/038-exodus15-19-18/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-18/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-18",
+    "folderName": "038_Exodus15_19-18",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-18/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": null,
+    "mapPath": null
+  }
+}

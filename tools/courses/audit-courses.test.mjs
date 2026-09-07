@@ -99,6 +99,29 @@ async function auditFixture({ lessons }) {
   return { repoRoot, contentRoot, publicRoot };
 }
 
+async function auditPublishedJpeg(bytes) {
+  const relativePath =
+    "apps/courses/public/resources/01-section-genesis1-11/001-genesis1-2/photo.jpg";
+  const fixture = await auditFixture({
+    lessons: [
+      lessonManifest({
+        resources: [
+          {
+            name: "photo.jpg",
+            path: relativePath,
+            publicUrl:
+              "/courses/resources/01-section-genesis1-11/001-genesis1-2/photo.jpg",
+          },
+        ],
+      }),
+    ],
+  });
+  const imagePath = path.join(fixture.repoRoot, relativePath);
+  await mkdir(path.dirname(imagePath), { recursive: true });
+  await writeFile(imagePath, bytes);
+  return auditCourses(fixture);
+}
+
 describe("course audit", () => {
   it("treats optional content gaps as warnings unless strict mode is requested", async () => {
     const fixture = await auditFixture({ lessons: [lessonManifest()] });
@@ -211,6 +234,31 @@ describe("course audit", () => {
       ])
     );
     expect(getAuditExitCode(result)).toBe(1);
+  });
+
+  it("accepts jpegs that have trailing bytes after the end marker", async () => {
+    const result = await auditPublishedJpeg(
+      Buffer.concat([
+        Buffer.from([0xff, 0xd8, 0xff, 0xd9]),
+        Buffer.from(
+          '\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">\r\n'
+        ),
+      ])
+    );
+
+    expect(
+      result.findings.some((finding) => finding.code === "image-invalid")
+    ).toBe(false);
+  });
+
+  it("rejects jpegs that never include an end marker", async () => {
+    const result = await auditPublishedJpeg(
+      Buffer.from([0xff, 0xd8, 0xff, 0xda, 0x00, 0x00])
+    );
+
+    expect(
+      result.findings.some((finding) => finding.code === "image-invalid")
+    ).toBe(true);
   });
 
   it("rejects generated maps with invalid layer-tree references", async () => {

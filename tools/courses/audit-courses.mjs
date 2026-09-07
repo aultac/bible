@@ -126,6 +126,9 @@ function resolvedDeploymentUrls(publicUrl) {
   };
 }
 
+const JPEG_START_MARKER = Buffer.from([0xff, 0xd8]);
+const JPEG_END_MARKER = Buffer.from([0xff, 0xd9]);
+
 function isValidImage(filePath, bytes) {
   const extension = path.extname(filePath).toLowerCase();
   if (extension === ".png") {
@@ -134,11 +137,12 @@ function isValidImage(filePath, bytes) {
     );
   }
   if (extension === ".jpg" || extension === ".jpeg") {
+    // Decoders stop at the first EOI marker and ignore trailing bytes. Some
+    // public JPEGs, including Wikimedia originals, append extra data after it.
     return (
-      bytes[0] === 0xff &&
-      bytes[1] === 0xd8 &&
-      bytes.at(-2) === 0xff &&
-      bytes.at(-1) === 0xd9
+      bytes.length >= JPEG_START_MARKER.length + JPEG_END_MARKER.length &&
+      bytes.subarray(0, JPEG_START_MARKER.length).equals(JPEG_START_MARKER) &&
+      bytes.indexOf(JPEG_END_MARKER, JPEG_START_MARKER.length) !== -1
     );
   }
   if (extension === ".gif") {
