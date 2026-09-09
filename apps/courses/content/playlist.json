@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-09-07T11:02:40.419Z",
+  "fetchedAt": "2026-09-09T01:17:47.058Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 38,
+  "videoCount": 39,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -577,10 +577,25 @@
       "matchMethod": "review-title",
       "durationText": "32:35",
       "thumbnailUrl": "https://i.ytimg.com/vi/flUIWeN9pxc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLASQ6wMTxgvCSXjE3gzVo1y4FCenA"
+    },
+    {
+      "videoId": "i2_my-JlHfw",
+      "title": "Exodus 13:1-15:18",
+      "url": "https://www.youtube.com/watch?v=i2_my-JlHfw&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 39,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 37,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 13:1-15:18",
+      "matchMethod": "special",
+      "durationText": "56:00",
+      "thumbnailUrl": "https://i.ytimg.com/vi/i2_my-JlHfw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_Z_6OoCarBhDWME0zQO1-vW06DA"
     }
   ],
   "matching": {
-    "specialMatchesFingerprint": "f17cdfb96c6b72bb015a63a7bd8993527c32013c0010087ae44d7df135dadf49",
+    "specialMatchesFingerprint": "e68c7e0f2a58eadd8780406be40f9d695d0badd33e371b05848e293894a0266f",
     "specialMatches": [
       {
         "videoId": "kwcLuB_3FAM",
@@ -599,11 +614,20 @@
         "status": "active",
         "currentVideoTitle": "Exodus 12:21-51",
         "currentLessonTitle": "Exodus 12:21-12:51"
+      },
+      {
+        "videoId": "i2_my-JlHfw",
+        "lessonSequenceNumber": 37,
+        "videoTitle": "Exodus 13:1-15:18",
+        "lessonTitle": "Exodus 13-15:18",
+        "status": "active",
+        "currentVideoTitle": "Exodus 13:1-15:18",
+        "currentLessonTitle": "Exodus 13-15:18"
       }
     ],
     "diagnostics": [],
     "automaticMatchCount": 35,
-    "specialMatchCount": 2,
+    "specialMatchCount": 3,
     "unmatchedCount": 0,
     "ignoredCount": 1
   }

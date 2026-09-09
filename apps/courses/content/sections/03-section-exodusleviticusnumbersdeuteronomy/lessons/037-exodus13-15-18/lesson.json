@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-07T23:34:07.212Z",
+  "generatedAt": "2026-09-09T01:18:55.000Z",
   "id": "037-exodus13-15-18",
   "slug": "037-exodus13-15-18",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -102,7 +102,21 @@
       "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/037-exodus13-15-18/song_of_moses.mp3"
     }
   ],
-  "youtube": null,
+  "youtube": {
+    "videoId": "i2_my-JlHfw",
+    "title": "Exodus 13:1-15:18",
+    "url": "https://www.youtube.com/watch?v=i2_my-JlHfw&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 39,
+    "videoKind": "lesson",
+    "weekNumber": null,
+    "lessonSequenceNumber": 37,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 13:1-15:18",
+    "matchMethod": "special",
+    "durationText": "56:00",
+    "thumbnailUrl": "https://i.ytimg.com/vi/i2_my-JlHfw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_Z_6OoCarBhDWME0zQO1-vW06DA"
+  },
   "tags": [],
   "topicTags": [],
   "peopleTags": [],

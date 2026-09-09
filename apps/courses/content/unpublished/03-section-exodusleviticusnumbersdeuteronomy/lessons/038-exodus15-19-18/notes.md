@@ -2,6 +2,14 @@
 
 NOPUBLISH
 
+Add in place:
+
+- Reading everything in the Bible, as if it was intended to apply to you personally, is the self-centered Bible reader
+- When God told Moses to walk before the people on strike to Rock, it had two potential meanings. Colon one is to prove to me this they wouldn’t stone him, and two is to prove to the people that God is taking care of them.
+- God told Moses to strike the rock with the same staff. He struck denial. Opposite effects in each case: first time turns drinkable water into undrinkable blood, second time, creates drinkable water from a rock
+- David Guzik pointed out that the very people asking if God was really with them or not when they didn’t have water had full bellies of manna from the morning and were staring right at the pillar of cloud and fire.
+- 1 Corinthians 10:4. Paul writes that Israel “drank from the spiritual Rock that followed them, and that Rock was Christ.” Look up the ESV translation for this.. Jesus was the pillar of cloud fire, he was the rock and followed them, and when his side was struck with a staff, water came out.
+
 - Baptism symbolism coming through the Red Sea. Chased by the army of sin, washed away by water. Fractal. Verse where it says they were baptized into Moses. Baptism into Jesus walks through the water and comes out the other side. We should feel like singing the song of Moses when we’ve been saved. Reality is after baptism comes the desert, which is full of Marah’s and Elim’s.
 
 - YAHWEH GETS GLORY WHEN EVIL PEOPLE DIE: Dennis Prager made this point. Yahweh says he will get glory over Pharaoh and his host. We are to glorify him when justice is done and evil people die. Do we? **Do we glorify him when evil dies?**
@@ -9,6 +17,7 @@ NOPUBLISH
   - THOU SHALT NOT JUDGE: and why are they angry at Yahweh when he punishes evil? Because they believe it is morally wrong to judge someone. They think they got that idea from Jesus, but what Jesus said was it is morally wrong to judge someone HYPOCRITICALLY. First stop the behavior yourself, then you darn well better judge the other person who is doing the evil. Ironically, these people claiming to be following Jesus are doing precisely what Jesus commanded not be done: they are judging someone else for judging, which by definition is judging hypocritically.
   - BUT ISN’T PHARAOH A SINNER LIKE US? But isn’t the reason we shouldn’t judge because we are sinners too? And we don’t want Yahweh to judge sinners because then he’d judge us too? Doesn’t the Lord’s prayer say “and please forgive us our sins, as we forgive those who sin against us”? Isn’t that what I mean when I say to read the Bible as the perpetrator, to read it as Cain not as Abel? Not quite. Yes we are all sinners. Yes we all should want salvation. But not by discounting sin in order to avoid judging. We don’t say well I’m bad and Cain was bad too, and I want to avoid punishment so we should let both me and Cain off the hook. Discounting sin to be less than it is discounting what Jesus did for us. No, we have to stare it straight in the face and recognize that the only thing that pays for sin is blood. We should look at our fellow sinners and wish for their salvation through repentance, through the end of our sinning, not through avoiding judging sin for what it is. It is in fact evil to avoid calling evil what it is.
   - SHOULD WE PITY PHARAOH? Maybe. We should wish that he had not done the evil in the first place. But once he has done the evil, we should glorify Yahweh when Pharaoh is defeated. We must remember the pain of Pharaoh’s victims when Yahweh punishes his evil. Too often people cry foul when murders are put to death or rapists go to long prison sentences, feeling pity for the perpetrator instead of their victims. They do not remember the pain of the victims. When Yahweh washes the sea over Pharaoh’s army, the only thing you should be thinking about is all the evil Pharaoh and Egypt did to the Hebrews. Tearing baby boys from their mother to throw them in the river. Beating them, enslaving them, killing them as the slave master was doing to the Hebrew, breaking their spirit.
+  - SOMETIMES WAR IS THE LOVING THING: in our modern secular foolishness, we have been trained by our movies to think that the good guys don’t kill people and the bad guys do and that’s what distinguishes them. But here this Yahweh we’re learning about, Yahweh is a man of war because the right and loving things to do sometimes is to Wayne’s war on the evil. When the evil survive, they commit more evil. This is seen no more starkly than in Europe, who after the carnage of World War I in the hell of World War II, instead of learning that they needed to fight in evil like Hitler in the early stages before they acquire too much power, they learned that’s fighting itself was evil. And so now they’re being taken over by the evil forces of the world because they have no will to do the loving thing and Wage War on the evil in their midst. God does not revel in the death of the wicked, but God gets glory when he dies. The lament is that the evil person did the evil, not that the righteous has vanquishing them.
 
 - Things we’ve learned about Yahweh in Exodus from the text thus far only:
   - UNIVERSAL MORALITY: Yahweh hates evil and wants us to be kind to each other
@@ -95,7 +104,7 @@ NOPUBLISH
   - But I realized there is a second way to read this, and I think both are intended. There is a prediction: “You will know that I am Yahweh your Elohim.” And there is a time period when that will be true: “then”. It leaves out how long it will last. So it can also be read as “Only right after I do that and not long after, you will know that I am Yahweh your Elohim.” This reading has the advantage of being both true and instructive. I’ll do this miracle for you, and only “then” at that time will you know. After that, they will forget.
   - And that is indeed what they do. There was nobody in that camp by the 8th day of manna falling, rotting on all days except the Sabbath, that did not know Yahweh was taking are of them. But it doesn’t last. Just as the plagues didn’t last. The Red Sea didn’t last.
 - IS YAHWEH TEACHING US TO WAIT PATIENTLY FOR MANNA? Does knowing that Yahweh is my God mean that I am supposed to just expect that he will bread down from heaven whenever I need it? Doesn’t that seem like what he is trying to teach the Hebrews? He keeps leading them places where they have to depend on him, then they grumble and don’t trust him, and then he provides for them.
-  - Prior to the water, God did not promise them he would provide them water. Prior to the manner, God did not promise them that he would feed them. So what is he trying to teach us?
+  - Prior to the water, God did not promise them he would provide them water. Prior to the manna, God did not promise them that he would feed them. So what is he trying to teach us?
   - The Jews later are not supposed to wait for manna from heaven to feed them. Once they get to the promised land, God doesn’t stop it because they have no faith, he stops it because they are finally in the place where they can raise their own food once they overcome the locals. In the desert, they had no other choice. If he had not provided bread from heaven, they would have died. So does that mean that God always provides bread from heaven before anybody dies of hunger?
 
 **Exodus 16:22-30 > The First Sabbath**
@@ -103,8 +112,32 @@ NOPUBLISH
 **Exodus 16:31-end > Manna’s taste and jar for the Ark of the Covenant**
 
 - DONUTS: raw, it tastes like wafers with honey. Numbers 11:8 tells us that when it is ground up and cooked, it tastes like cakes made with oil. What is a sweet cake fried in oil? Yep. A donut. God fed his people donuts from the sky, every day.
-- MEMORY AGAIN: why the jar in the Ark? Why do we need to remember the Manna. **Read John 6:25-58**
+- MEMORY AGAIN: why the jar in the Ark? Why do we need to remember the Manna? To remind us God is about more than just miraculous breakfast. **Read John 6:25-58**
 - MANNA ENDS AT CANAAN: the manna starts here 1 month into their journey, and ends 40 years later the day they first eat the produce of the promised land, never to happen again.
+
+**Exodus 17:1-4 > Complaining at Moses**
+
+- PEOPLE CANNOT DISTINGUISH MOSES FROM GOD: Dennis Prager made the point that the people seem unable to distinguish Moses from God. And this should not be surprising: he seems to have the power to just put up his hands and win a war, raise a stick and part the sea, strike a rock and get water. These are the visual things that people actually see when God‘s miracles are done. Because they can’t see God‘s hand because if you saw it, part of God, you would die. So it makes perfect sense that the people who left a land whose king was parked God, would expect that now their leader, who was doing greater miracles than any human had ever witnessed on earth, is also at least part God. But Moses is the anti-Pharaoh: Moses constantly responds with the admonition that he is not God, and it is not by his power that these things are done except the numbers with the strikes the rock one time and does not give God the credit. And that keeps him out of the promised land.
+
+**Exodus 17:5-7 > Water from Rock**
+
+**Exodus 17:8-end > Amalekites attack**
+
+- SITTING DUCKS CARRYING GOLD: why did the Malachi attack? One reason could be as there is this massive state of recently free slaves, were terrified to fight anybody, but carrying wealth of Egypt and gold with them. They have no fortifications, they have no defenses. And the Amalekites know the territory. Easy pickings.
+- A MEMORIAL TO FORGET: this seems like a contradiction. Write a memorial that I will utterly blot out the memory of Amalek. And yet, we, 3500 years later, I remember remembering him when we read this now. I think God is doing a few things here: first, the Amalekites need to know how bad this was. Second, Israel needs to know that God takes this seriously. Third, the surrounding nations need to know that if they try what Amalek tried, they will be exterminated. And finally, he is instructing us to remember the evil that the Amalekites did, but not the Amalekites themselves. We don’t know the names of any of them, and you can’t go find any today no matter how hard you look. The only thing left of them is the memorial that Yahweh command commanded be written down.
+- AMALEKITE HISTORY REVIEW:
+
+**Exodus 18:1-12 > Jethro and Zipporah visit Moses**
+
+- NOT ALL FOREIGNERS ARE EVIL: the medieval Jewish commentator Ibn Ezra makes the point that the reintroduction of Jethro, the foreigner Midnite pagan priest, right after the Malachi attacked. Israel may have been intentional as a reminder that not all foreigners are evil. In fact, Jethro is a bit of a hero in the story here.
+- ZIPPORAH WAS SENT AWAY: at some point, Zippora was sent away, because she and the boys came with Moses to Egypt on a donkey. The Torah does not tell us why she was sent away. It could be because it was too dangerous, or because Moses was too busy. Or it could be because she and Moses were not getting along. There is some reason to believe it’s the last one, and therefore Moses did not relate, sending her away in the narrative to save her dignity. But later he does marry a Cushite woman and this makes Miriam and Aaron mad. If I had to guess, they did not have a great marriage, and that fact is not overly clear in the text because Moses did not want to air the family, dirty laundry for all eternity. But it is purely a guess.
+- JETHRO BRINGS THEM BACK: if they had a great relationship, this was a happy reunion. If they did not, this was Jethro trying to get them out of his house. He is successful, if Moses’ excuse was he’s just too busy, Jethro is about to solve that for him.
+
+**Exodus 18:13-end > Hierarchical judiciary**
+
+- BASIS OF JEWISH LAW AND WESTERN JUDICIARY: an ancient pagan Midianite, priest. Yet more proof this story was not made up. If the Jews or Moses had made it up, it would’ve been Moses‘s genius idea.
+- HOW TO TAKE CRITICISM: Moses does stand out here though, and how he takes Jethro’s criticism. How many of us, when honestly criticized with a good idea and just say you know what that’s a good idea you are right.
+- JUSTICE VERSUS COMPASSION: one glaring omission in the properties of a good judge here is compassion. In our day, our Justice system has been completely the neutered because we have forgotten that most often, Justice and compassion are opposites. Justice is inclusive: when Justice is done, both parties receive Justice. The perpetrator is punished and he receives Justice, and the victim is acknowledged and also receives Justice. The compassion is not sell. Compassion to one can be cruelty to another. You cannot be compassionate to both sides in a dispute to Moses and Jethro far more morally, intelligent than the judges of our day, know that rendering Justice does not include men who are compassionate. There is a place for compassion, but it is not the courtroom.
 
 # Later:
 
