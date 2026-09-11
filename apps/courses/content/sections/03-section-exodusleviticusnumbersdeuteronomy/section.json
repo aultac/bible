@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-09T01:18:55.000Z",
+  "generatedAt": "2026-09-11T01:49:37.520Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -472,7 +472,7 @@
       },
       "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/037-exodus13-15-18/lesson.json",
       "notesAvailable": true,
-      "summaryAvailable": false,
+      "summaryAvailable": true,
       "resourceCount": 6,
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18",

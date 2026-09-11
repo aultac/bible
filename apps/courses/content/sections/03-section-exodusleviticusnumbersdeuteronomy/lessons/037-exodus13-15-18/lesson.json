@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-09T01:18:55.000Z",
+  "generatedAt": "2026-09-11T01:49:37.520Z",
   "id": "037-exodus13-15-18",
   "slug": "037-exodus13-15-18",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -9,7 +9,7 @@
   "lessonKind": "passage",
   "title": "Exodus 13-15:18",
   "description": "",
-  "videoSummary": null,
+  "videoSummary": "The Lord commands the consecration of the firstborn and feast of unleavened bread. The Lord went with them by the pillar both day and night. Pharaoh pursued after the Israelites which led to their destruction during their attempt at crossing the Red Sea, then they sang a song praising the Lord for his faithfulness.",
   "status": "published",
   "publishReasons": [],
   "startVerse": "Exodus 13",
@@ -41,10 +41,10 @@
     "available": true
   },
   "summary": {
-    "path": null,
-    "sourcePath": null,
-    "sourceFormat": null,
-    "available": false,
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/037-exodus13-15-18/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/037_Exodus13-15_18_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
     "error": null
   },
   "map": {
@@ -125,7 +125,7 @@
     "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18",
     "folderName": "037_Exodus13-15_18",
     "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/notes.md",
-    "summaryDocxPath": null,
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/037_Exodus13-15_18_summary.docx",
     "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/resources",
     "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18/037_Exodus13-15_18.kmz"
   }

@@ -5,12 +5,18 @@ NOPUBLISH
 Add in place:
 
 - Reading everything in the Bible, as if it was intended to apply to you personally, is the self-centered Bible reader
+- God doesn’t actually get angry at the Israelites until the golden calf. Moses says they tested God, but God doesn’t actually get angry about the complaining. He gets angry about the following other gods. PLACE THIS ONE AT THE PAET ABOUT WHY GOD KEEPS LEADING THEM PLACES WHERE THEY NEED THINGS.
 - When God told Moses to walk before the people on strike to Rock, it had two potential meanings. Colon one is to prove to me this they wouldn’t stone him, and two is to prove to the people that God is taking care of them.
 - God told Moses to strike the rock with the same staff. He struck denial. Opposite effects in each case: first time turns drinkable water into undrinkable blood, second time, creates drinkable water from a rock
 - David Guzik pointed out that the very people asking if God was really with them or not when they didn’t have water had full bellies of manna from the morning and were staring right at the pillar of cloud and fire.
 - 1 Corinthians 10:4. Paul writes that Israel “drank from the spiritual Rock that followed them, and that Rock was Christ.” Look up the ESV translation for this.. Jesus was the pillar of cloud fire, he was the rock and followed them, and when his side was struck with a staff, water came out.
 
-- Baptism symbolism coming through the Red Sea. Chased by the army of sin, washed away by water. Fractal. Verse where it says they were baptized into Moses. Baptism into Jesus walks through the water and comes out the other side. We should feel like singing the song of Moses when we’ve been saved. Reality is after baptism comes the desert, which is full of Marah’s and Elim’s.
+- BAPTISM INTO MOSES: There is an important point that Paul makes about this story of crossing the Red Sea that I was debating whether to cover or not. I decided since Paul covers it, I will cover it. And a few things happened this week that kept bringing this back into focus and it tipped the scales in favor of covering it.
+  - NARCIGESIS: first, a word of caution. The reason I debated covering this is I reject Narcigesis: the self-centered Bible reading that is common in our Western culture where we read the Bible looking for ourselves in it. How does this apply to me? What is the take-away for my life? What life principle comes from this? **This is self-centered Bible reading: narcigesis.** The story isn’t about you. It’s about Jesus. Your part in the story is you sinned. You are the villain at best. This is actual history that happened to actual people intended to teach the world about Yahweh, the condition of man in relation to Yahweh, and ultimately Jesus. Jesus is the point. You don't need to find yourself in it, you need to learn it. The text doesn't have a duty to you, you have a duty to learn the text.
+    - As Matt Chandler put it, “The Bible is not primarily about you… this is not the Lord stroking your hair going, ‘Man, you are so amazing.’”
+    - Or along the lines of a sermon by the late Tim Keller, David didn’t slay Goliath so you could slay your giants. David slayed Goliath because God did a miracle.
+    - This doesn’t mean God isn’t trying to teach you things about yourself in the text. It doesn’t mean the text is never about you. It doesn’t mean the text can’t have two meanings: one in the moment and one for later generations. God likes to use one event to have multiple applications all the time. But it does mean that you have to put yourself in right relation to the text and don’t read it with the self-centered Western mindset that everything has to be about you in some way.
+  - 1 CORINTHIANS 10: Read 1 Corinthians Baptism symbolism coming through the Red Sea. Chased by the army of sin, washed away by water. Fractal. Verse where it says they were baptized into Moses. Baptism into Jesus walks through the water and comes out the other side. We should feel like singing the song of Moses when we’ve been saved. Reality is after baptism comes the desert, which is full of Marah’s and Elim’s.
 
 - YAHWEH GETS GLORY WHEN EVIL PEOPLE DIE: Dennis Prager made this point. Yahweh says he will get glory over Pharaoh and his host. We are to glorify him when justice is done and evil people die. Do we? **Do we glorify him when evil dies?**
   - DISBELIEF IN GOD BECAUSE OF EVIL: many unbelievers point to evil in the world as a reason to not believe in the existence of Yahweh. Implicit in their claim is that Yahweh should be either not allowing evil at all, or at least punishing it in this world directly. So they see evil as a reason not to give glory to Yahweh. And yet these same people claim the Yahweh of the Old Testament is a judgmental moral monster precisely when he does act to punish evil. So they also disbelieve in Yahweh when he does punish evil, like killing Pharaoh.
@@ -124,8 +130,21 @@ Add in place:
 **Exodus 17:8-end > Amalekites attack**
 
 - SITTING DUCKS CARRYING GOLD: why did the Malachi attack? One reason could be as there is this massive state of recently free slaves, were terrified to fight anybody, but carrying wealth of Egypt and gold with them. They have no fortifications, they have no defenses. And the Amalekites know the territory. Easy pickings.
+- HUR: Josephus tells us Hur was brother-in-law of Moses, the husband of Miriam
 - A MEMORIAL TO FORGET: this seems like a contradiction. Write a memorial that I will utterly blot out the memory of Amalek. And yet, we, 3500 years later, I remember remembering him when we read this now. I think God is doing a few things here: first, the Amalekites need to know how bad this was. Second, Israel needs to know that God takes this seriously. Third, the surrounding nations need to know that if they try what Amalek tried, they will be exterminated. And finally, he is instructing us to remember the evil that the Amalekites did, but not the Amalekites themselves. We don’t know the names of any of them, and you can’t go find any today no matter how hard you look. The only thing left of them is the memorial that Yahweh command commanded be written down.
-- AMALEKITE HISTORY REVIEW:
+- AMALEK ATTACKED THE STRAGGLERS: **Read Deuteronomy 25:17-19.**
+- AMELEK: Genesis 26: **Grandson of Esau**
+  - Exodus 17: **Red Sea Attack**: Attack right after Red Sea.
+  - Deuteronomy 25: **God mad at Amalekites**: , orders future Amalekite destruction.
+  - Numbers 14: **Amalekites beat rogue Israelites**: rogue Israelites enter Canaan without God after spies report, Amalekites beat them.
+  - Judges 3: **Amalek + Moab -> Ehud**: Judge Ehud stabs fat Moabite King Eglon and locks the door
+  - Judges 6: **Amelek + Midian-> Gideon**: Judge Gideon beats them.
+  - 1 Samuel 15: **Saul spares Agag**: God orders Saul to wipe out Amelekites, Saul spares Agag. Tradition says he fathered a child day before being killed.
+  - 1 Samuel 27: **David raids Amalek from Ziklag**: David secretly raids Amalekites from Ziklag working for Philistine king Achish
+  - 1 Samuel 30: **Amalekites burn Ziklag**: and steal families, David and his men catch and crush them.
+  - 2 Samuel 1: **Amalekite report of Saul’s death**: brings crown of Saul to David, claims to have killed him, David kills him.
+  - 1 Chronicles 4: **Hezekiah “utterly destroyed” Amalekites**
+  - Esther 3: **Haman the Agagite**: the first Hitler, “Haman”, is Agagite, descended from Agag because Saul did not do what God commanded.
 
 **Exodus 18:1-12 > Jethro and Zipporah visit Moses**
 
