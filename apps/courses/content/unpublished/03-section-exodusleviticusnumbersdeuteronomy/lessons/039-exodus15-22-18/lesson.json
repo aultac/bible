@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T01:49:37.520Z",
-  "id": "038-exodus15-19-18",
-  "slug": "038-exodus15-19-18",
+  "generatedAt": "2026-09-14T01:36:39.512Z",
+  "id": "039-exodus15-22-18",
+  "slug": "039-exodus15-22-18",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
-  "sequenceNumber": 38,
+  "sequenceNumber": 39,
   "lessonKind": "passage",
-  "title": "Exodus 15:19-18",
+  "title": "Exodus 15:22-18",
   "description": "",
   "videoSummary": null,
   "status": "NOPUBLISH",
@@ -17,15 +17,15 @@
       "path": "notes.md"
     }
   ],
-  "startVerse": "Exodus 15:19",
+  "startVerse": "Exodus 15:22",
   "endVerse": "Exodus 18",
   "passage": {
-    "display": "Exodus 15:19-18",
+    "display": "Exodus 15:22-18",
     "start": {
       "bookId": "Exodus",
       "chapter": 15,
-      "verse": 19,
-      "raw": "Exodus15_19",
+      "verse": 22,
+      "raw": "Exodus15_22",
       "bookName": "Exodus"
     },
     "end": {
@@ -35,14 +35,14 @@
       "raw": "18",
       "bookName": "Exodus"
     },
-    "startVerse": "Exodus 15:19",
+    "startVerse": "Exodus 15:22",
     "endVerse": "Exodus 18",
     "spansMultipleBooks": false,
-    "esvUrl": "https://www.esv.org/Exodus+15:19-18/"
+    "esvUrl": "https://www.esv.org/Exodus+15:22-18/"
   },
   "notes": {
-    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/038-exodus15-19-18/notes.md",
-    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-18/notes.md",
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/039-exodus15-22-18/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-18/notes.md",
     "available": true
   },
   "summary": {
@@ -60,9 +60,9 @@
   "peopleTags": [],
   "placeTags": [],
   "source": {
-    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-18",
-    "folderName": "038_Exodus15_19-18",
-    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-18/notes.md",
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-18",
+    "folderName": "039_Exodus15_22-18",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-18/notes.md",
     "summaryDocxPath": null,
     "resourcesDirectory": null,
     "mapPath": null

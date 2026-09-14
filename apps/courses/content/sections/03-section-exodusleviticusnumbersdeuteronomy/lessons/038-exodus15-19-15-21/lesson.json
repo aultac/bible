@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-14T01:36:39.512Z",
+  "id": "038-exodus15-19-15-21",
+  "slug": "038-exodus15-19-15-21",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 38,
+  "lessonKind": "passage",
+  "title": "Exodus 15:19-15:21",
+  "description": "",
+  "videoSummary": "Miriam and the other women sing the Song of Moses and Yahweh got glory over Pharaoh",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 15:19",
+  "endVerse": "Exodus 15:21",
+  "passage": {
+    "display": "Exodus 15:19-15:21",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 15,
+      "verse": 19,
+      "raw": "Exodus15_19",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 15,
+      "verse": 21,
+      "raw": "15_21",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 15:19",
+    "endVerse": "Exodus 15:21",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+15:19-15:21/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/038-exodus15-19-15-21/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/038-exodus15-19-15-21/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21/038_Exodus15_19-15_21_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21/038_Exodus15_19-15_21.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/038-exodus15-19-15-21/038_Exodus15_19-15_21.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/038-exodus15-19-15-21/038_Exodus15_19-15_21.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/038-exodus15-19-15-21/038_Exodus15_19-15_21.geojson",
+    "available": true,
+    "featureCount": 32,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21",
+    "folderName": "038_Exodus15_19-15_21",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21/038_Exodus15_19-15_21_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21/038_Exodus15_19-15_21.kmz"
+  }
+}

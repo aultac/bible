@@ -1,20 +1,28 @@
 {
   "schemaVersion": 1,
   "kind": "apple-notes-applied-checkpoint",
-  "appliedAt": "2026-09-11T01:49:38.584Z",
+  "appliedAt": "2026-09-14T01:36:40.704Z",
   "source": {
     "accountName": "iCloud",
     "folderName": "FBT Sunday School"
   },
-  "noteCount": 39,
+  "noteCount": 40,
   "notes": [
     {
       "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p537",
       "title": "038_Exodus15:19-18",
       "createdAt": "2026-09-06T15:53:46.000Z",
-      "updatedAt": "2026-09-10T00:52:53.000Z",
-      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-18",
-      "sourceMarkdownHash": "205510cc5b5fc2a1966ce95770fa0e9d"
+      "updatedAt": "2026-09-14T01:35:48.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21",
+      "sourceMarkdownHash": "01c5def980bc52eea70c43f6089d6bde"
+    },
+    {
+      "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p538",
+      "title": "039_Exodus 15:22-18",
+      "createdAt": "2026-09-14T01:34:42.000Z",
+      "updatedAt": "2026-09-14T01:35:23.000Z",
+      "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-18",
+      "sourceMarkdownHash": "6eada49eb9ab928ba9aad1928e0a6560"
     },
     {
       "id": "x-coredata://2A1595F3-82A3-48B7-B27F-88C849B4AE10/ICNote/p534",

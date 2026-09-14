@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T01:49:37.520Z",
+  "generatedAt": "2026-09-14T01:36:39.512Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 12,
+  "lessonCount": 13,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -477,6 +477,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/037_Exodus13-15_18",
         "folderName": "037_Exodus13-15_18"
+      }
+    },
+    {
+      "id": "038-exodus15-19-15-21",
+      "slug": "038-exodus15-19-15-21",
+      "sequenceNumber": 38,
+      "title": "Exodus 15:19-15:21",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 15:19",
+      "endVerse": "Exodus 15:21",
+      "passage": {
+        "display": "Exodus 15:19-15:21",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 15,
+          "verse": 19,
+          "raw": "Exodus15_19",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 15,
+          "verse": 21,
+          "raw": "15_21",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 15:19",
+        "endVerse": "Exodus 15:21",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+15:19-15:21/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/038-exodus15-19-15-21/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21",
+        "folderName": "038_Exodus15_19-15_21"
       }
     }
   ],
