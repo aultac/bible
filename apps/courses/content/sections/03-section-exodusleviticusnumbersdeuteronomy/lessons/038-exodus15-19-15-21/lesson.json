@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-14T01:36:39.512Z",
+  "generatedAt": "2026-09-20T19:34:27.072Z",
   "id": "038-exodus15-19-15-21",
   "slug": "038-exodus15-19-15-21",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
@@ -62,7 +62,21 @@
     ]
   },
   "resources": [],
-  "youtube": null,
+  "youtube": {
+    "videoId": "W7gSFUpl48E",
+    "title": "Exodus 15:19-15:21",
+    "url": "https://www.youtube.com/watch?v=W7gSFUpl48E&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 40,
+    "videoKind": "lesson",
+    "weekNumber": null,
+    "lessonSequenceNumber": 38,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 15:19-15:21",
+    "matchMethod": "passage-title",
+    "durationText": "48:56",
+    "thumbnailUrl": "https://i.ytimg.com/vi/W7gSFUpl48E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAjLcgpVH_i7ctpcwftSEvjVt_Zng"
+  },
   "tags": [],
   "topicTags": [],
   "peopleTags": [],

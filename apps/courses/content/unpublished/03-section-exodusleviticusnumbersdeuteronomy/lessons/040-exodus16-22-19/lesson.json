@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-20T19:34:27.072Z",
+  "id": "040-exodus16-22-19",
+  "slug": "040-exodus16-22-19",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 40,
+  "lessonKind": "passage",
+  "title": "Exodus 16:22-19",
+  "description": "",
+  "videoSummary": null,
+  "status": "NOPUBLISH",
+  "publishReasons": [
+    {
+      "type": "notes-content",
+      "path": "notes.md"
+    }
+  ],
+  "startVerse": "Exodus 16:22",
+  "endVerse": "Exodus 19",
+  "passage": {
+    "display": "Exodus 16:22-19",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 16,
+      "verse": 22,
+      "raw": "Exodus16_22",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 19,
+      "verse": null,
+      "raw": "19",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 16:22",
+    "endVerse": "Exodus 19",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+16:22-19/"
+  },
+  "notes": {
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/040-exodus16-22-19/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-19/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-19",
+    "folderName": "040_Exodus16_22-19",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-19/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-19/040_Exodus16_21-19.kmz"
+  }
+}

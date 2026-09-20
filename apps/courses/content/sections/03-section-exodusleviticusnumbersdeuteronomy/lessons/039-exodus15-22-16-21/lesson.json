@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-20T19:34:27.072Z",
+  "id": "039-exodus15-22-16-21",
+  "slug": "039-exodus15-22-16-21",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 39,
+  "lessonKind": "passage",
+  "title": "Exodus 15:22-16:21",
+  "description": "",
+  "videoSummary": null,
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 15:22",
+  "endVerse": "Exodus 16:21",
+  "passage": {
+    "display": "Exodus 15:22-16:21",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 15,
+      "verse": 22,
+      "raw": "Exodus15_22",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 16,
+      "verse": 21,
+      "raw": "16_21",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 15:22",
+    "endVerse": "Exodus 16:21",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+15:22-16:21/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/039-exodus15-22-16-21/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/039-exodus15-22-16-21/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21/039_Exodus15_22-16_21_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21/039_Exodus15_22-16_21.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/039-exodus15-22-16-21/039_Exodus15_22-16_21.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/039-exodus15-22-16-21/039_Exodus15_22-16_21.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/039-exodus15-22-16-21/039_Exodus15_22-16_21.geojson",
+    "available": true,
+    "featureCount": 15,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21",
+    "folderName": "039_Exodus15_22-16_21",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21/039_Exodus15_22-16_21_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21/039_Exodus15_22-16_21.kmz"
+  }
+}

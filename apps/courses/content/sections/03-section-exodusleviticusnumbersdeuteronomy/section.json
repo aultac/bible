@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-14T01:36:39.512Z",
+  "generatedAt": "2026-09-20T19:34:27.072Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 13,
+  "lessonCount": 14,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -515,6 +515,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/038_Exodus15_19-15_21",
         "folderName": "038_Exodus15_19-15_21"
+      }
+    },
+    {
+      "id": "039-exodus15-22-16-21",
+      "slug": "039-exodus15-22-16-21",
+      "sequenceNumber": 39,
+      "title": "Exodus 15:22-16:21",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 15:22",
+      "endVerse": "Exodus 16:21",
+      "passage": {
+        "display": "Exodus 15:22-16:21",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 15,
+          "verse": 22,
+          "raw": "Exodus15_22",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 16,
+          "verse": 21,
+          "raw": "16_21",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 15:22",
+        "endVerse": "Exodus 16:21",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+15:22-16:21/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/039-exodus15-22-16-21/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 0,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/039_Exodus15_22-16_21",
+        "folderName": "039_Exodus15_22-16_21"
       }
     }
   ],
