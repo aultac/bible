@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-09-20T19:32:42.557Z",
+  "fetchedAt": "2026-09-22T17:09:02.668Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 40,
+  "videoCount": 41,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -607,6 +607,21 @@
       "matchMethod": "passage-title",
       "durationText": "48:56",
       "thumbnailUrl": "https://i.ytimg.com/vi/W7gSFUpl48E/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAjLcgpVH_i7ctpcwftSEvjVt_Zng"
+    },
+    {
+      "videoId": "IRUyOHWH-yo",
+      "title": "Exodus 15:22-16:21",
+      "url": "https://www.youtube.com/watch?v=IRUyOHWH-yo&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 41,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 39,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 15:22-16:21",
+      "matchMethod": "passage-title",
+      "durationText": "52:59",
+      "thumbnailUrl": "https://i.ytimg.com/vi/IRUyOHWH-yo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDMhjTPVN-0OrTUZHvkqoiIpzrCsQ"
     }
   ],
   "matching": {
@@ -641,7 +656,7 @@
       }
     ],
     "diagnostics": [],
-    "automaticMatchCount": 36,
+    "automaticMatchCount": 37,
     "specialMatchCount": 3,
     "unmatchedCount": 0,
     "ignoredCount": 1
