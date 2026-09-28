@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-09-22T17:09:02.668Z",
+  "fetchedAt": "2026-09-28T23:35:46.147Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 41,
+  "videoCount": 42,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -622,10 +622,25 @@
       "matchMethod": "passage-title",
       "durationText": "52:59",
       "thumbnailUrl": "https://i.ytimg.com/vi/IRUyOHWH-yo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDMhjTPVN-0OrTUZHvkqoiIpzrCsQ"
+    },
+    {
+      "videoId": "932Ube3EOlg",
+      "title": "Exodus 16:22 - 17:16",
+      "url": "https://www.youtube.com/watch?v=932Ube3EOlg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 42,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 40,
+      "titleFormat": "unmatched",
+      "passageTitle": null,
+      "matchMethod": "special",
+      "durationText": "45:41",
+      "thumbnailUrl": "https://i.ytimg.com/vi/932Ube3EOlg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDbvDT_UKd92J4L9t0Icdy9oedh4A"
     }
   ],
   "matching": {
-    "specialMatchesFingerprint": "e68c7e0f2a58eadd8780406be40f9d695d0badd33e371b05848e293894a0266f",
+    "specialMatchesFingerprint": "463656b0a41d16e2cd84f1a37b4ec75d27ece9d424f8e4b5df17e8c1c658aae4",
     "specialMatches": [
       {
         "videoId": "kwcLuB_3FAM",
@@ -653,11 +668,20 @@
         "status": "active",
         "currentVideoTitle": "Exodus 13:1-15:18",
         "currentLessonTitle": "Exodus 13-15:18"
+      },
+      {
+        "videoId": "932Ube3EOlg",
+        "lessonSequenceNumber": 40,
+        "videoTitle": "Exodus 16:22 - 17:16",
+        "lessonTitle": "Exodus 16:22-17",
+        "status": "active",
+        "currentVideoTitle": "Exodus 16:22 - 17:16",
+        "currentLessonTitle": "Exodus 16:22-17"
       }
     ],
     "diagnostics": [],
     "automaticMatchCount": 37,
-    "specialMatchCount": 3,
+    "specialMatchCount": 4,
     "unmatchedCount": 0,
     "ignoredCount": 1
   }

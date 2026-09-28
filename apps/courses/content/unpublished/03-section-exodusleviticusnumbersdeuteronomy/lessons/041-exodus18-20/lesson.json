@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-28T23:37:00.427Z",
+  "id": "041-exodus18-20",
+  "slug": "041-exodus18-20",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 41,
+  "lessonKind": "passage",
+  "title": "Exodus 18-20",
+  "description": "",
+  "videoSummary": null,
+  "status": "NOPUBLISH",
+  "publishReasons": [
+    {
+      "type": "notes-content",
+      "path": "notes.md"
+    }
+  ],
+  "startVerse": "Exodus 18",
+  "endVerse": "Exodus 20",
+  "passage": {
+    "display": "Exodus 18-20",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 18,
+      "verse": null,
+      "raw": "Exodus18",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 20,
+      "verse": null,
+      "raw": "20",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 18",
+    "endVerse": "Exodus 20",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+18-20/"
+  },
+  "notes": {
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/041-exodus18-20/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-20/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": null,
+    "sourcePath": null,
+    "sourceFormat": null,
+    "available": false,
+    "error": null
+  },
+  "map": null,
+  "resources": [],
+  "youtube": null,
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-20",
+    "folderName": "041_Exodus18-20",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-20/notes.md",
+    "summaryDocxPath": null,
+    "resourcesDirectory": null,
+    "mapPath": null
+  }
+}

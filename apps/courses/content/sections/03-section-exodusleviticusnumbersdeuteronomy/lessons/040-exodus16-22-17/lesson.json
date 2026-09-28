@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-28T23:37:00.427Z",
+  "id": "040-exodus16-22-17",
+  "slug": "040-exodus16-22-17",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 40,
+  "lessonKind": "passage",
+  "title": "Exodus 16:22-17",
+  "description": "",
+  "videoSummary": "The Israelites gather a double portion of manna on the 6th day and a jar of manna was kept for future generations. They complain of thirst and Moses strikes the rock and Yahweh gives them water. Then Israel defeats Amalek with Yahweh’s help by Moses holding the staff of God over his head during the battle.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 16:22",
+  "endVerse": "Exodus 17",
+  "passage": {
+    "display": "Exodus 16:22-17",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 16,
+      "verse": 22,
+      "raw": "Exodus16_22",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 17,
+      "verse": null,
+      "raw": "17",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 16:22",
+    "endVerse": "Exodus 17",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+16:22-17/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/040-exodus16-22-17/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-17/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/040-exodus16-22-17/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-17/040_Exodus16_22-17_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-17/040_Exodus16_21-17.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/040-exodus16-22-17/040_Exodus16_21-17.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/040-exodus16-22-17/040_Exodus16_21-17.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/040-exodus16-22-17/040_Exodus16_21-17.geojson",
+    "available": true,
+    "featureCount": 15,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "932Ube3EOlg",
+    "title": "Exodus 16:22 - 17:16",
+    "url": "https://www.youtube.com/watch?v=932Ube3EOlg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 42,
+    "videoKind": "lesson",
+    "weekNumber": null,
+    "lessonSequenceNumber": 40,
+    "titleFormat": "unmatched",
+    "passageTitle": null,
+    "matchMethod": "special",
+    "durationText": "45:41",
+    "thumbnailUrl": "https://i.ytimg.com/vi/932Ube3EOlg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDbvDT_UKd92J4L9t0Icdy9oedh4A"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-17",
+    "folderName": "040_Exodus16_22-17",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-17/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-17/040_Exodus16_22-17_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/040_Exodus16_22-17/040_Exodus16_21-17.kmz"
+  }
+}
