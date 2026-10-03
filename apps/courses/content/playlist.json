@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-09-28T23:35:46.147Z",
+  "fetchedAt": "2026-10-03T11:50:43.845Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
@@ -20,7 +20,7 @@
       "titleFormat": "promo",
       "passageTitle": null,
       "matchMethod": "promo-title",
-      "durationText": "23:12",
+      "durationText": "23:13",
       "thumbnailUrl": "https://i.ytimg.com/vi/_RL2-0FTPnY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDMwXrve6eFKGXXmBmv45bDx-CFKQ"
     },
     {
