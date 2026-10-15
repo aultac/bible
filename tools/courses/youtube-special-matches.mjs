@@ -21,6 +21,17 @@ export const EMPTY_YOUTUBE_SPECIAL_MATCHES = Object.freeze({
   matches: [],
 });
 
+export function playlistLessonAssignmentIdentity(playlistSnapshot) {
+  return (playlistSnapshot?.videos || [])
+    .map(
+      (video) =>
+        `${video.videoId}:${video.lessonSequenceNumber ?? ""}:${
+          video.matchMethod || ""
+        }`
+    )
+    .join("|");
+}
+
 function compareMatches(left, right) {
   return (
     left.lessonSequenceNumber - right.lessonSequenceNumber ||

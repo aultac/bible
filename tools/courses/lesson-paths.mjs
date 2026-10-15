@@ -1,4 +1,4 @@
-import { readdir, stat } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { classifyLessonPublication } from "./lesson-publication.mjs";
 
@@ -12,6 +12,7 @@ const SPECIAL_LESSON_TITLES = {
   promo: "Why Know Your Bible?",
   intro: "Intro",
 };
+const NOTES_REPORT_FILENAME = "canonical-note-backup-report.json";
 
 export function isSectionDirectory(name) {
   return BUCKET_DIRECTORY_PATTERN.test(name);
@@ -204,7 +205,44 @@ async function pathExists(targetPath) {
   }
 }
 
-export async function buildCanonicalPublishedLessonCatalog(canonicalBase) {
+async function loadStagedNotesByRelativeDirectory(cacheRoot) {
+  if (!cacheRoot) {
+    return new Map();
+  }
+
+  const reportPath = path.join(cacheRoot, NOTES_REPORT_FILENAME);
+  if (!(await pathExists(reportPath))) {
+    return new Map();
+  }
+
+  let report;
+  try {
+    report = JSON.parse(await readFile(reportPath, "utf8"));
+  } catch {
+    return new Map();
+  }
+
+  const stagedNotes = new Map();
+  const updates = Array.isArray(report?.updates) ? report.updates : [];
+  for (const update of updates) {
+    if (!update?.relativeLessonDirectory || !update.stagedNotesPath) {
+      continue;
+    }
+    if (!(await pathExists(update.stagedNotesPath))) {
+      continue;
+    }
+    stagedNotes.set(
+      toPosixPath(update.relativeLessonDirectory),
+      update.stagedNotesPath
+    );
+  }
+  return stagedNotes;
+}
+
+async function collectPublishedLessons(
+  canonicalBase,
+  stagedNotesByRelativeDirectory
+) {
   const sectionEntries = await readdir(canonicalBase, { withFileTypes: true });
   const lessons = [];
 
@@ -219,10 +257,21 @@ export async function buildCanonicalPublishedLessonCatalog(canonicalBase) {
       .sort((left, right) => left.name.localeCompare(right.name))) {
       const parsedLesson = parseLessonDirectoryName(lessonEntry.name);
       const lessonPath = path.join(sectionPath, lessonEntry.name);
-      const notesPath = path.join(lessonPath, "notes.md");
+      const relativeLessonDirectory = toPosixPath(
+        path.relative(canonicalBase, lessonPath)
+      );
+      const stagedNotesPath = stagedNotesByRelativeDirectory.get(
+        relativeLessonDirectory
+      );
+      const canonicalNotesPath = path.join(lessonPath, "notes.md");
+      const notesSourcePath = stagedNotesPath
+        ? stagedNotesPath
+        : (await pathExists(canonicalNotesPath))
+          ? canonicalNotesPath
+          : null;
       const publication = await classifyLessonPublication(
         lessonPath,
-        (await pathExists(notesPath)) ? notesPath : null
+        notesSourcePath
       );
 
       if (!publication.published) {
@@ -236,16 +285,27 @@ export async function buildCanonicalPublishedLessonCatalog(canonicalBase) {
         displayTitle: parsedLesson.displayTitle,
         passage: parsedLesson.passage,
         folderName: parsedLesson.folderName,
-        relativeLessonDirectory: path
-          .relative(canonicalBase, lessonPath)
-          .split(path.sep)
-          .join("/"),
+        relativeLessonDirectory,
       });
     }
   }
 
   return lessons.sort(
     (left, right) => left.sequenceNumber - right.sequenceNumber
+  );
+}
+
+export async function buildCanonicalPublishedLessonCatalog(canonicalBase) {
+  return collectPublishedLessons(canonicalBase, new Map());
+}
+
+export async function buildCachePublishedLessonCatalog(
+  canonicalBase,
+  cacheRoot
+) {
+  return collectPublishedLessons(
+    canonicalBase,
+    await loadStagedNotesByRelativeDirectory(cacheRoot)
   );
 }
 

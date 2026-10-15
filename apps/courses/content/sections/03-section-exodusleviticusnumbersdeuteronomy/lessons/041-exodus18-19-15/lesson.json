@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-15T11:05:13.843Z",
+  "id": "041-exodus18-19-15",
+  "slug": "041-exodus18-19-15",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 41,
+  "lessonKind": "passage",
+  "title": "Exodus 18-19:15",
+  "description": "",
+  "videoSummary": "Jethro, Moses’ father in law visits and gives Moses the idea to select good men to help administer minor judgements for God's people. God asks the people to obey Him, they agree and then God begins the introduction of His law.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 18",
+  "endVerse": "Exodus 19:15",
+  "passage": {
+    "display": "Exodus 18-19:15",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 18,
+      "verse": null,
+      "raw": "Exodus18",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 19,
+      "verse": 15,
+      "raw": "19_15",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 18",
+    "endVerse": "Exodus 19:15",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+18-19:15/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/041-exodus18-19-15/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/041-exodus18-19-15/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15/041_Exodus18-19_15_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15/041_Exodus18-19_15.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/041-exodus18-19-15/041_Exodus18-19_15.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/041-exodus18-19-15/041_Exodus18-19_15.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/041-exodus18-19-15/041_Exodus18-19_15.geojson",
+    "available": true,
+    "featureCount": 14,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [],
+  "youtube": {
+    "videoId": "iBqmOg8QfRg",
+    "title": "Exodus 18-19:15",
+    "url": "https://www.youtube.com/watch?v=iBqmOg8QfRg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 43,
+    "videoKind": "lesson",
+    "weekNumber": null,
+    "lessonSequenceNumber": 41,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 18-19:15",
+    "matchMethod": "passage-title",
+    "durationText": "47:59",
+    "thumbnailUrl": "https://i.ytimg.com/vi/iBqmOg8QfRg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBvhL7A9oY1NeIecZ4VBqj-nkFOvA"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15",
+    "folderName": "041_Exodus18-19_15",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15/041_Exodus18-19_15_summary.docx",
+    "resourcesDirectory": null,
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15/041_Exodus18-19_15.kmz"
+  }
+}

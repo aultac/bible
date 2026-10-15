@@ -9,7 +9,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadCoursesEnv } from "./config.mjs";
 import { exportLessonTitles } from "./lesson-title-export.mjs";
-import { buildCanonicalPublishedLessonCatalog } from "./lesson-paths.mjs";
+import { buildCachePublishedLessonCatalog } from "./lesson-paths.mjs";
 import { syncGeneratedLessonYoutubeMatches } from "./repo-content.mjs";
 import {
   CACHED_PLAYLIST_FILENAME,
@@ -45,6 +45,7 @@ import {
   addYoutubeSpecialMatch,
   formatYoutubeMatchReview,
   loadYoutubeSpecialMatches,
+  playlistLessonAssignmentIdentity,
   removeYoutubeSpecialMatch,
   resolvePlaylistVideoMatches,
   saveYoutubeSpecialMatches,
@@ -297,15 +298,6 @@ async function runPrepare(
   return result;
 }
 
-function youtubeMatchingIdentity(playlistSnapshot) {
-  return (playlistSnapshot?.videos || [])
-    .map(
-      (video) =>
-        `${video.videoId}:${video.lessonSequenceNumber ?? ""}:${video.matchMethod || ""}`
-    )
-    .join("|");
-}
-
 function unmatchedPlaylistVideos(playlistSnapshot) {
   return (playlistSnapshot?.videos || []).filter(
     (video) =>
@@ -343,8 +335,9 @@ async function loadYoutubeMatchContext(
     throw error;
   }
   const [lessons, specialMatches] = await Promise.all([
-    dependencies.buildCanonicalPublishedLessonCatalog(
-      coursesEnv.canonicalBase
+    dependencies.buildCachePublishedLessonCatalog(
+      coursesEnv.canonicalBase,
+      cacheRoot
     ),
     dependencies.loadYoutubeSpecialMatches(
       coursesEnv.youtubeSpecialMatchesPath
@@ -361,8 +354,8 @@ async function loadYoutubeMatchContext(
     specialMatches,
     playlistSnapshot: resolvedPlaylist,
     matchingChanged:
-      youtubeMatchingIdentity(playlistSnapshot) !==
-      youtubeMatchingIdentity(resolvedPlaylist),
+      playlistLessonAssignmentIdentity(playlistSnapshot) !==
+      playlistLessonAssignmentIdentity(resolvedPlaylist),
   };
 }
 
@@ -1087,7 +1080,7 @@ function buildDependencies(dependencies) {
     loadCacheState,
     recordCacheComponent,
     resolveWeeklyCache,
-    buildCanonicalPublishedLessonCatalog,
+    buildCachePublishedLessonCatalog,
     runWeeklyRefresh,
     formatWeeklyRefreshResult,
     auditWeeklyCache,

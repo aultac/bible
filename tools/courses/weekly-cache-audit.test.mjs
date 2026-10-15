@@ -389,4 +389,124 @@ describe("weekly cache readiness audit", () => {
       ])
     );
   });
+
+  it("requires a YouTube refresh when staged notes would match an unmatched video", async () => {
+    const fixture = await createAuditableCache();
+    const section = "03-Bucket-ExodusLeviticusNumbersDeuteronomy";
+    const lesson041 = "041_Exodus18-19_15";
+    const lesson042 = "042_Exodus19_16-20";
+    const lesson041Directory = path.join(
+      fixture.canonicalBase,
+      section,
+      lesson041
+    );
+    await mkdir(lesson041Directory, { recursive: true });
+    await mkdir(
+      path.join(fixture.canonicalBase, section, lesson042),
+      { recursive: true }
+    );
+    await writeFile(
+      path.join(lesson041Directory, "notes.md"),
+      "# 041_Exodus18-20\n\nNOPUBLISH\n",
+      "utf8"
+    );
+    const staged041 = path.join(
+      fixture.cacheRoot,
+      "canonical-note-backup-candidates",
+      section,
+      lesson041,
+      "notes.md"
+    );
+    const staged042 = path.join(
+      fixture.cacheRoot,
+      "canonical-note-backup-candidates",
+      section,
+      lesson042,
+      "notes.md"
+    );
+    await mkdir(path.dirname(staged041), { recursive: true });
+    await mkdir(path.dirname(staged042), { recursive: true });
+    await writeFile(staged041, "# 041_Exodus18-19_15\n", "utf8");
+    await writeFile(staged042, "# 042_Exodus19_16-20\n\nNOPUBLISH\n", "utf8");
+    const reportPath = path.join(
+      fixture.cacheRoot,
+      "canonical-note-backup-report.json"
+    );
+    await writeJsonAtomic(reportPath, {
+      totals: { processed: 2 },
+      updates: [
+        {
+          title: lesson041,
+          relativeLessonDirectory: `${section}/${lesson041}`,
+          stagedNotesPath: staged041,
+          canonicalLessonDirectoryPath: lesson041Directory,
+          sourceMarkdownHash: createHash("md5")
+            .update("# 041_Exodus18-19_15\n")
+            .digest("hex"),
+        },
+        {
+          title: lesson042,
+          relativeLessonDirectory: `${section}/${lesson042}`,
+          stagedNotesPath: staged042,
+          canonicalLessonDirectoryPath: path.join(
+            fixture.canonicalBase,
+            section,
+            lesson042
+          ),
+          sourceMarkdownHash: createHash("md5")
+            .update("# 042_Exodus19_16-20\n\nNOPUBLISH\n")
+            .digest("hex"),
+        },
+      ],
+      missingCanonicalLessonFolders: [],
+    });
+    const playlistPath = path.join(fixture.cacheRoot, "playlist.json");
+    await writeJsonAtomic(
+      playlistPath,
+      resolvePlaylistVideoMatches(
+        {
+          schemaVersion: 3,
+          videos: [
+            { videoId: "week-one", title: "Know Your Bible - Week 1" },
+            { videoId: "iBqmOg8QfRg", title: "Exodus 18-19:15" },
+          ],
+        },
+        {
+          lessons: [{ sequenceNumber: 1, displayTitle: "Genesis 1:1-2:3" }],
+          specialMatches: { schemaVersion: 1, matches: [] },
+        }
+      )
+    );
+    let state = await loadCacheState(fixture.cacheRoot);
+    state = await recordCacheComponent({
+      cacheRoot: fixture.cacheRoot,
+      state,
+      componentName: "notes",
+      outputPath: reportPath,
+    });
+    await recordCacheComponent({
+      cacheRoot: fixture.cacheRoot,
+      state,
+      componentName: "youtube",
+      outputPath: playlistPath,
+    });
+
+    const result = await auditWeeklyCache({
+      cacheRoot: fixture.cacheRoot,
+      canonicalBase: fixture.canonicalBase,
+      youtubeSpecialMatchesPath: fixture.youtubeSpecialMatchesPath,
+    });
+
+    expect(result.audit.ready).toBe(false);
+    expect(result.audit.findings).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          component: "youtube",
+          code: "youtube-matches-stale",
+          message:
+            "YouTube lesson matches are stale relative to staged notes. Refresh the YouTube component.",
+        }),
+      ])
+    );
+  });
 });

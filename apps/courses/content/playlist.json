@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-10-03T11:50:43.845Z",
+  "fetchedAt": "2026-10-15T11:04:42.344Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 42,
+  "videoCount": 43,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -637,6 +637,21 @@
       "matchMethod": "special",
       "durationText": "45:41",
       "thumbnailUrl": "https://i.ytimg.com/vi/932Ube3EOlg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDbvDT_UKd92J4L9t0Icdy9oedh4A"
+    },
+    {
+      "videoId": "iBqmOg8QfRg",
+      "title": "Exodus 18-19:15",
+      "url": "https://www.youtube.com/watch?v=iBqmOg8QfRg&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 43,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 41,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 18-19:15",
+      "matchMethod": "passage-title",
+      "durationText": "47:59",
+      "thumbnailUrl": "https://i.ytimg.com/vi/iBqmOg8QfRg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBvhL7A9oY1NeIecZ4VBqj-nkFOvA"
     }
   ],
   "matching": {
@@ -680,7 +695,7 @@
       }
     ],
     "diagnostics": [],
-    "automaticMatchCount": 37,
+    "automaticMatchCount": 38,
     "specialMatchCount": 4,
     "unmatchedCount": 0,
     "ignoredCount": 1

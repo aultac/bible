@@ -141,6 +141,15 @@ Playlist schema version 3 resolves titles in this order:
    unassigned published lesson. Ignored Review videos cannot receive a special
    match.
 
+Publication for that matching follows the selected cache. When the cache has a
+staged Apple Notes candidate for a lesson, `NOPUBLISH` is read from the staged
+note. Otherwise it is read from the canonical `notes.md`. A filename containing
+`NOPUBLISH` still unpublishes the lesson. A lesson whose staged notes remove
+`NOPUBLISH` can match in that same cache. A lesson whose staged notes add
+`NOPUBLISH` is not offered for a special match. If those staged notes change
+the resolved lesson assignments, the audit fails until the YouTube component
+is refreshed.
+
 Playlist position controls display order only and is never used as a lesson
 match fallback. Matching never uses fuzzy title similarity. Unmatched titles
 produce an audit warning, while duplicate or conflicting matches are errors.
@@ -161,6 +170,10 @@ The manager can run against draft, ready, or applied caches. It can:
 - choose an unmatched playlist video and assign it to a published local lesson
   that has no video; or
 - remove an existing special match.
+
+A lesson is published for this picker when the staged-note rule above says it
+is published.
+
 An unmatched playlist video is always shown, even when every published lesson
 already has a video. In that case the manager lists the unmatched titles and
 explains that a published lesson must be freed or chosen before a special match
@@ -202,7 +215,9 @@ The audit verifies:
   lesson folders;
 - staged `TOOL_LINK:` and `RESOURCE_LINK:` declarations are valid and resolve
   to authored tool documents and exact lesson resource filenames;
-- the cached YouTube playlist is non-empty and has valid, unique video IDs; and
+- the cached YouTube playlist is non-empty and has valid, unique video IDs;
+- cached YouTube lesson assignments still match a fresh resolution against
+  staged note publication; and
 - canonical source files still match the cached inventory.
 
 Errors keep the cache in `draft`. Warnings are shown for review but do not block

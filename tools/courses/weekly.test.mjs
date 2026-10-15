@@ -251,7 +251,7 @@ describe("weekly workflow CLI", () => {
         output: output.stream,
         resolveWeeklyCache: async () => cacheRoot,
         loadCacheState: async () => ({ status: "draft" }),
-        buildCanonicalPublishedLessonCatalog: async () => [
+        buildCachePublishedLessonCatalog: async () => [
           {
             sequenceNumber: 2,
             displayTitle: "Genesis 1-2",
@@ -338,7 +338,7 @@ describe("weekly workflow CLI", () => {
           output: output.stream,
           resolveWeeklyCache: async () => cacheRoot,
           loadCacheState: async () => ({ status: "ready" }),
-          buildCanonicalPublishedLessonCatalog: async () => [
+          buildCachePublishedLessonCatalog: async () => [
             {
               sequenceNumber: 2,
               displayTitle: "Genesis 1-2",
@@ -399,7 +399,7 @@ describe("weekly workflow CLI", () => {
         output: output.stream,
         resolveWeeklyCache: async () => cacheRoot,
         loadCacheState: async () => ({ status: "draft" }),
-        buildCanonicalPublishedLessonCatalog: async () => [
+        buildCachePublishedLessonCatalog: async () => [
           {
             sequenceNumber: 2,
             displayTitle: "Genesis 1-2",
@@ -494,7 +494,7 @@ describe("weekly workflow CLI", () => {
           resolveWeeklyCache: async () => cacheRoot,
           loadCacheState: async () => cacheState,
           writeCacheState,
-          buildCanonicalPublishedLessonCatalog: async () => [
+          buildCachePublishedLessonCatalog: async () => [
             {
               sequenceNumber: 36,
               displayTitle: "Exodus 12:21-12:51",

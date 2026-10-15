@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import { buildCachePublishedLessonCatalog } from "./lesson-paths.mjs";
 import { buildPlaylistVideoMatchMap } from "./youtube-playlist.mjs";
 import {
   CACHE_AUDIT_FILENAME,
@@ -19,6 +20,8 @@ import {
   YOUTUBE_SPECIAL_MATCHES_PATH,
   fingerprintYoutubeSpecialMatches,
   loadYoutubeSpecialMatches,
+  playlistLessonAssignmentIdentity,
+  resolvePlaylistVideoMatches,
 } from "./youtube-special-matches.mjs";
 
 const NOTES_REPORT_FILENAME = "canonical-note-backup-report.json";
@@ -301,8 +304,28 @@ async function auditNotes({ cacheRoot, findings }) {
   }
 }
 
+function lessonAssignmentsDiffer(cachedPlaylist, resolvedPlaylist, lessons) {
+  if (
+    playlistLessonAssignmentIdentity(cachedPlaylist) !==
+    playlistLessonAssignmentIdentity(resolvedPlaylist)
+  ) {
+    return true;
+  }
+
+  const publishedSequences = new Set(
+    lessons.map((lesson) => lesson.sequenceNumber)
+  );
+  return (cachedPlaylist.videos || []).some(
+    (video) =>
+      Number.isInteger(video.lessonSequenceNumber) &&
+      video.lessonSequenceNumber >= 0 &&
+      !publishedSequences.has(video.lessonSequenceNumber)
+  );
+}
+
 async function auditPlaylist({
   cacheRoot,
+  canonicalBase,
   findings,
   youtubeSpecialMatchesPath,
 }) {
@@ -359,6 +382,7 @@ async function auditPlaylist({
 
   const cachedSpecialMatchesFingerprint =
     playlist.matching?.specialMatchesFingerprint;
+  let currentSpecialMatches = null;
   if (!cachedSpecialMatchesFingerprint) {
     addFinding(
       findings,
@@ -368,32 +392,54 @@ async function auditPlaylist({
       "Cached YouTube playlist has no special-match manifest fingerprint.",
       { path: playlistPath }
     );
-  } else {
-    try {
-      const currentSpecialMatches = await loadYoutubeSpecialMatches(
-        youtubeSpecialMatchesPath
-      );
-      if (
-        fingerprintYoutubeSpecialMatches(currentSpecialMatches) !==
+  }
+  try {
+    currentSpecialMatches = await loadYoutubeSpecialMatches(
+      youtubeSpecialMatchesPath
+    );
+    if (
+      cachedSpecialMatchesFingerprint &&
+      fingerprintYoutubeSpecialMatches(currentSpecialMatches) !==
         cachedSpecialMatchesFingerprint
-      ) {
-        addFinding(
-          findings,
-          "error",
-          "youtube",
-          "special-matches-stale",
-          "YouTube special matches changed after this cache was resolved; re-resolve the YouTube component.",
-          { path: youtubeSpecialMatchesPath }
-        );
-      }
-    } catch (error) {
+    ) {
       addFinding(
         findings,
         "error",
         "youtube",
-        "special-matches-invalid",
-        `YouTube special matches are invalid: ${error.message}`,
+        "special-matches-stale",
+        "YouTube special matches changed after this cache was resolved; re-resolve the YouTube component.",
         { path: youtubeSpecialMatchesPath }
+      );
+    }
+  } catch (error) {
+    currentSpecialMatches = null;
+    addFinding(
+      findings,
+      "error",
+      "youtube",
+      "special-matches-invalid",
+      `YouTube special matches are invalid: ${error.message}`,
+      { path: youtubeSpecialMatchesPath }
+    );
+  }
+
+  if (currentSpecialMatches && canonicalBase) {
+    const lessons = await buildCachePublishedLessonCatalog(
+      canonicalBase,
+      cacheRoot
+    );
+    const resolvedPlaylist = resolvePlaylistVideoMatches(playlist, {
+      lessons,
+      specialMatches: currentSpecialMatches,
+    });
+    if (lessonAssignmentsDiffer(playlist, resolvedPlaylist, lessons)) {
+      addFinding(
+        findings,
+        "error",
+        "youtube",
+        "youtube-matches-stale",
+        "YouTube lesson matches are stale relative to staged notes. Refresh the YouTube component.",
+        { path: playlistPath }
       );
     }
   }
@@ -553,6 +599,7 @@ export async function auditWeeklyCache({
   await auditNotes({ cacheRoot, findings });
   await auditPlaylist({
     cacheRoot,
+    canonicalBase,
     findings,
     youtubeSpecialMatchesPath,
   });

@@ -17,7 +17,7 @@ import {
   loadDocumentSummaries,
   prepareDocumentSummaries,
 } from "./document-summaries.mjs";
-import { buildCanonicalPublishedLessonCatalog } from "./lesson-paths.mjs";
+import { buildCachePublishedLessonCatalog } from "./lesson-paths.mjs";
 import {
   applyCanonicalNoteBackups,
   getCanonicalNoteBackupReportPath,
@@ -317,8 +317,9 @@ async function prepareWeeklyCache(options, coursesEnv, dependencies) {
       dependencies.fetchPlaylistSnapshot(coursesEnv.youtubePlaylistUrl, {
         onRetry: (message) => progress(message),
       }),
-      dependencies.buildCanonicalPublishedLessonCatalog(
-        coursesEnv.canonicalBase
+      dependencies.buildCachePublishedLessonCatalog(
+        coursesEnv.canonicalBase,
+        cacheRoot
       ),
       dependencies.loadYoutubeSpecialMatches(
         coursesEnv.youtubeSpecialMatchesPath
@@ -588,7 +589,7 @@ export async function runWeeklyRefresh(
     createNotesSnapshot,
     prepareCanonicalNoteBackups,
     fetchPlaylistSnapshot,
-    buildCanonicalPublishedLessonCatalog,
+    buildCachePublishedLessonCatalog,
     loadYoutubeSpecialMatches,
     fingerprintYoutubeSpecialMatches,
     resolvePlaylistVideoMatches,
