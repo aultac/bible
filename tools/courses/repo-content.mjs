@@ -122,6 +122,103 @@ async function readJsonIfExists(targetPath) {
   return JSON.parse(await readFile(targetPath, "utf8"));
 }
 
+function sortJsonValue(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => sortJsonValue(item));
+  }
+  if (!value || typeof value !== "object") {
+    return value;
+  }
+
+  const sorted = {};
+  for (const key of Object.keys(value).sort()) {
+    sorted[key] = sortJsonValue(value[key]);
+  }
+  return sorted;
+}
+
+function omitTopLevelFields(value, fieldNames) {
+  const omitted = {};
+  for (const [key, child] of Object.entries(value)) {
+    if (!fieldNames.includes(key)) {
+      omitted[key] = child;
+    }
+  }
+  return omitted;
+}
+
+export function preserveVolatileFields(previous, next, fieldNames) {
+  if (
+    !previous ||
+    typeof previous !== "object" ||
+    Array.isArray(previous) ||
+    !next ||
+    typeof next !== "object" ||
+    Array.isArray(next)
+  ) {
+    return next;
+  }
+
+  const sameDocument =
+    JSON.stringify(sortJsonValue(omitTopLevelFields(previous, fieldNames))) ===
+    JSON.stringify(sortJsonValue(omitTopLevelFields(next, fieldNames)));
+  if (!sameDocument) {
+    return next;
+  }
+
+  const preservedFields = fieldNames.filter(
+    (fieldName) =>
+      previous[fieldName] !== undefined && previous[fieldName] !== next[fieldName]
+  );
+  if (preservedFields.length === 0) {
+    return next;
+  }
+
+  return {
+    ...next,
+    ...Object.fromEntries(
+      preservedFields.map((fieldName) => [fieldName, previous[fieldName]])
+    ),
+  };
+}
+
+const MANIFEST_FILENAMES = new Set(["lesson.json", "section.json"]);
+
+async function rememberJson(snapshot, targetPath) {
+  const value = await readJsonIfExists(targetPath);
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    snapshot.set(targetPath, value);
+  }
+}
+
+async function rememberManifestTree(snapshot, rootPath) {
+  if (!(await pathExists(rootPath))) {
+    return;
+  }
+
+  const entries = await readdir(rootPath, { withFileTypes: true });
+  for (const entry of entries) {
+    const absolutePath = path.join(rootPath, entry.name);
+    if (entry.isDirectory()) {
+      await rememberManifestTree(snapshot, absolutePath);
+    } else if (entry.isFile() && MANIFEST_FILENAMES.has(entry.name)) {
+      await rememberJson(snapshot, absolutePath);
+    }
+  }
+}
+
+async function loadGeneratedManifestSnapshot() {
+  const snapshot = new Map();
+  await rememberJson(snapshot, path.join(CONTENT_ROOT, "sections.json"));
+  await rememberManifestTree(snapshot, BUCKETS_ROOT);
+  await rememberManifestTree(snapshot, UNPUBLISHED_ROOT);
+  return snapshot;
+}
+
+function stabilizeGeneratedManifest(snapshot, targetPath, value) {
+  return preserveVolatileFields(snapshot.get(targetPath), value, ["generatedAt"]);
+}
+
 function buildDiscoveredFileRecord(canonicalBase, absolutePath) {
   return {
     absolutePath,
@@ -173,7 +270,14 @@ export async function syncGeneratedLessonYoutubeMatches(
   }
 
   const playlistSnapshotPath = path.join(contentRoot, "playlist.json");
-  await writeJson(playlistSnapshotPath, playlistSnapshot);
+  await writeJson(
+    playlistSnapshotPath,
+    preserveVolatileFields(
+      await readJsonIfExists(playlistSnapshotPath),
+      playlistSnapshot,
+      ["fetchedAt"]
+    )
+  );
   return {
     updatedLessonCount,
     matchedYoutubeLessons: playlistVideoMatchMap.size,
@@ -329,6 +433,17 @@ export function resolveLessonTitle(lesson, manualFields = {}) {
 async function writeJson(targetPath, value) {
   await mkdir(path.dirname(targetPath), { recursive: true });
   await writeFile(targetPath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+async function writePlaylistSnapshot(playlistSnapshot) {
+  await writeJson(
+    PLAYLIST_SNAPSHOT_PATH,
+    preserveVolatileFields(
+      await readJsonIfExists(PLAYLIST_SNAPSHOT_PATH),
+      playlistSnapshot,
+      ["fetchedAt"]
+    )
+  );
 }
 
 async function writeText(targetPath, value) {
@@ -696,6 +811,7 @@ async function writeSectionManifests({
   outlineBySectionNumber,
   generatedAt,
   sectionSummaryOutputs = new Map(),
+  previousManifests = new Map(),
 }) {
   const sectionList = [];
 
@@ -739,7 +855,15 @@ async function writeSectionManifests({
       generatedAt,
     });
 
-    await writeJson(path.join(sectionDirectory, "section.json"), sectionManifest);
+    const sectionManifestPath = path.join(sectionDirectory, "section.json");
+    await writeJson(
+      sectionManifestPath,
+      stabilizeGeneratedManifest(
+        previousManifests,
+        sectionManifestPath,
+        sectionManifest
+      )
+    );
     sectionList.push(buildSectionListEntry(sectionManifest));
   }
 
@@ -749,8 +873,16 @@ async function writeSectionManifests({
     sectionCount: sectionList.length,
     sections: sectionList,
   };
+  const sectionsManifestPath = path.join(CONTENT_ROOT, "sections.json");
 
-  await writeJson(path.join(CONTENT_ROOT, "sections.json"), sectionsManifest);
+  await writeJson(
+    sectionsManifestPath,
+    stabilizeGeneratedManifest(
+      previousManifests,
+      sectionsManifestPath,
+      sectionsManifest
+    )
+  );
   return sectionsManifest;
 }
 
@@ -762,11 +894,13 @@ export async function syncSectionManifests() {
   const outlineBySectionNumber = await loadCourseOutlineMap();
 
   await mkdir(BUCKETS_ROOT, { recursive: true });
+  const previousManifests = await loadGeneratedManifestSnapshot();
   const sectionsManifest = await writeSectionManifests({
     sections,
     sectionManualMap,
     outlineBySectionNumber,
     generatedAt,
+    previousManifests,
   });
 
   return {
@@ -836,7 +970,7 @@ export async function syncCoursesContent(options = {}) {
       : "not-configured";
 
   if (options.playlistSnapshot) {
-    await writeJson(PLAYLIST_SNAPSHOT_PATH, playlistSnapshot);
+    await writePlaylistSnapshot(playlistSnapshot);
   } else if (coursesEnv.youtubePlaylistUrl) {
     try {
       const [rawPlaylist, specialMatches] = await Promise.all([
@@ -849,7 +983,7 @@ export async function syncCoursesContent(options = {}) {
           .filter((lesson) => lesson.published),
         specialMatches,
       });
-      await writeJson(PLAYLIST_SNAPSHOT_PATH, playlistSnapshot);
+      await writePlaylistSnapshot(playlistSnapshot);
       playlistRefreshStatus = "refreshed";
     } catch (error) {
       conversionErrors.push({
@@ -863,6 +997,7 @@ export async function syncCoursesContent(options = {}) {
   }
 
   const playlistVideoMatchMap = buildPlaylistVideoMatchMap(playlistSnapshot);
+  const previousManifests = await loadGeneratedManifestSnapshot();
 
   await rm(BUCKETS_ROOT, { recursive: true, force: true });
   await rm(UNPUBLISHED_ROOT, { recursive: true, force: true });
@@ -1085,7 +1220,15 @@ export async function syncCoursesContent(options = {}) {
         },
       };
 
-      await writeJson(path.join(lessonDirectory, "lesson.json"), lessonManifest);
+      const lessonManifestPath = path.join(lessonDirectory, "lesson.json");
+      await writeJson(
+        lessonManifestPath,
+        stabilizeGeneratedManifest(
+          previousManifests,
+          lessonManifestPath,
+          lessonManifest
+        )
+      );
     }
   }
 
@@ -1095,6 +1238,7 @@ export async function syncCoursesContent(options = {}) {
     outlineBySectionNumber,
     generatedAt,
     sectionSummaryOutputs,
+    previousManifests,
   });
   await writeToolsData(toolsData, TOOLS_DATA_PATH);
   const searchIndex = await generateLessonSearchIndex();

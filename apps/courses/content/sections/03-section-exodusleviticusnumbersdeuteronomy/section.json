@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-15T11:05:13.843Z",
+  "generatedAt": "2026-10-24T12:10:45.411Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 16,
+  "lessonCount": 17,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -629,6 +629,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/041_Exodus18-19_15",
         "folderName": "041_Exodus18-19_15"
+      }
+    },
+    {
+      "id": "042-exodus19-16-20-2",
+      "slug": "042-exodus19-16-20-2",
+      "sequenceNumber": 42,
+      "title": "Exodus 19:16-20:2",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 19:16",
+      "endVerse": "Exodus 20:2",
+      "passage": {
+        "display": "Exodus 19:16-20:2",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 19,
+          "verse": 16,
+          "raw": "Exodus19_16",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 20,
+          "verse": 2,
+          "raw": "20_2",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 19:16",
+        "endVerse": "Exodus 20:2",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+19:16-20:2/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/042-exodus19-16-20-2/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 1,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2",
+        "folderName": "042_Exodus19_16-20_2"
       }
     }
   ],

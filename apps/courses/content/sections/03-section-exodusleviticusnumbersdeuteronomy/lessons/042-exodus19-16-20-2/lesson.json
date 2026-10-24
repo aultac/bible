@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-24T12:10:45.411Z",
+  "id": "042-exodus19-16-20-2",
+  "slug": "042-exodus19-16-20-2",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 42,
+  "lessonKind": "passage",
+  "title": "Exodus 19:16-20:2",
+  "description": "",
+  "videoSummary": "God begins the 10 Commandments.",
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 19:16",
+  "endVerse": "Exodus 20:2",
+  "passage": {
+    "display": "Exodus 19:16-20:2",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 19,
+      "verse": 16,
+      "raw": "Exodus19_16",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 20,
+      "verse": 2,
+      "raw": "20_2",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 19:16",
+    "endVerse": "Exodus 20:2",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+19:16-20:2/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/042-exodus19-16-20-2/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/042-exodus19-16-20-2/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/042_Exodus19_16-20_2_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": {
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/042_Exodus19_15-20_2.kmz",
+    "sourceFormat": "kmz",
+    "sourcePublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/042-exodus19-16-20-2/042_Exodus19_15-20_2.kmz",
+    "geoJsonPath": "apps/courses/public/maps/03-section-exodusleviticusnumbersdeuteronomy/042-exodus19-16-20-2/042_Exodus19_15-20_2.geojson",
+    "geoJsonPublicUrl": "/courses/maps/03-section-exodusleviticusnumbersdeuteronomy/042-exodus19-16-20-2/042_Exodus19_15-20_2.geojson",
+    "available": true,
+    "featureCount": 12,
+    "geometryTypes": [
+      "LineString",
+      "Point",
+      "Polygon"
+    ]
+  },
+  "resources": [
+    {
+      "name": "ten_commandments_delineation.docx",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/resources/ten_commandments_delineation.docx",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/042-exodus19-16-20-2/ten_commandments_delineation.docx",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/042-exodus19-16-20-2/ten_commandments_delineation.docx"
+    }
+  ],
+  "youtube": {
+    "videoId": "vTFBDo4PIFA",
+    "title": "19:16-20:2",
+    "url": "https://www.youtube.com/watch?v=vTFBDo4PIFA&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 44,
+    "videoKind": "lesson",
+    "weekNumber": null,
+    "lessonSequenceNumber": 42,
+    "titleFormat": "unmatched",
+    "passageTitle": null,
+    "matchMethod": "special",
+    "durationText": "50:22",
+    "thumbnailUrl": "https://i.ytimg.com/vi/vTFBDo4PIFA/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvtBv6bYhs2wrZrP81F1RQvJ_pgQ"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2",
+    "folderName": "042_Exodus19_16-20_2",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/042_Exodus19_16-20_2_summary.docx",
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/resources",
+    "mapPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2/042_Exodus19_15-20_2.kmz"
+  }
+}
