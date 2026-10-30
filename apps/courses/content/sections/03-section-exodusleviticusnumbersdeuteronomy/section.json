@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-24T12:10:45.411Z",
+  "generatedAt": "2026-10-30T18:07:00.553Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 17,
+  "lessonCount": 18,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -667,6 +667,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/042_Exodus19_16-20_2",
         "folderName": "042_Exodus19_16-20_2"
+      }
+    },
+    {
+      "id": "043-exodus20-3-20-6",
+      "slug": "043-exodus20-3-20-6",
+      "sequenceNumber": 43,
+      "title": "Exodus 20:3-20:6",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 20:3",
+      "endVerse": "Exodus 20:6",
+      "passage": {
+        "display": "Exodus 20:3-20:6",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 20,
+          "verse": 3,
+          "raw": "Exodus20_3",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 20,
+          "verse": 6,
+          "raw": "20_6",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 20:3",
+        "endVerse": "Exodus 20:6",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+20:3-20:6/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/043-exodus20-3-20-6/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 7,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/043_Exodus20_3-20_6",
+        "folderName": "043_Exodus20_3-20_6"
       }
     }
   ],

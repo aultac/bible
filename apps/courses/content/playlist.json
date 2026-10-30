@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-10-24T12:10:02.879Z",
+  "fetchedAt": "2026-10-30T18:06:24.189Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 44,
+  "videoCount": 45,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -667,10 +667,25 @@
       "matchMethod": "special",
       "durationText": "50:22",
       "thumbnailUrl": "https://i.ytimg.com/vi/vTFBDo4PIFA/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvtBv6bYhs2wrZrP81F1RQvJ_pgQ"
+    },
+    {
+      "videoId": "S9ny2XSyeKs",
+      "title": "Exodus 20:3-6",
+      "url": "https://www.youtube.com/watch?v=S9ny2XSyeKs&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 45,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 43,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 20:3-6",
+      "matchMethod": "special",
+      "durationText": "50:51",
+      "thumbnailUrl": "https://i.ytimg.com/vi/S9ny2XSyeKs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC99N8Ap2p_kXX2HDZFj4DhJtyNzw"
     }
   ],
   "matching": {
-    "specialMatchesFingerprint": "91c27f9ee92480d54cc42d68436dd00c04b07d288a93277094e56800af664807",
+    "specialMatchesFingerprint": "86b0241f3ad12dc249bd0b869d7d3628b17b04e5baa8c3f8ece071fbe7f38a24",
     "specialMatches": [
       {
         "videoId": "kwcLuB_3FAM",
@@ -716,11 +731,20 @@
         "status": "active",
         "currentVideoTitle": "19:16-20:2",
         "currentLessonTitle": "Exodus 19:16-20:2"
+      },
+      {
+        "videoId": "S9ny2XSyeKs",
+        "lessonSequenceNumber": 43,
+        "videoTitle": "Exodus 20:3-6",
+        "lessonTitle": "Exodus 20:3-20:6",
+        "status": "active",
+        "currentVideoTitle": "Exodus 20:3-6",
+        "currentLessonTitle": "Exodus 20:3-20:6"
       }
     ],
     "diagnostics": [],
     "automaticMatchCount": 38,
-    "specialMatchCount": 5,
+    "specialMatchCount": 6,
     "unmatchedCount": 0,
     "ignoredCount": 1
   }
