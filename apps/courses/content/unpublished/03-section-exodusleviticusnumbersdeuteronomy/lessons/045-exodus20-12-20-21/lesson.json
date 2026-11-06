@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-30T18:07:00.553Z",
-  "id": "044-exodus20-7-20-21",
-  "slug": "044-exodus20-7-20-21",
+  "generatedAt": "2026-11-06T02:24:01.760Z",
+  "id": "045-exodus20-12-20-21",
+  "slug": "045-exodus20-12-20-21",
   "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
-  "sequenceNumber": 44,
+  "sequenceNumber": 45,
   "lessonKind": "passage",
-  "title": "Exodus 20:7-20:21",
+  "title": "Exodus 20:12-20:21",
   "description": "",
   "videoSummary": null,
   "status": "NOPUBLISH",
@@ -17,15 +17,15 @@
       "path": "notes.md"
     }
   ],
-  "startVerse": "Exodus 20:7",
+  "startVerse": "Exodus 20:12",
   "endVerse": "Exodus 20:21",
   "passage": {
-    "display": "Exodus 20:7-20:21",
+    "display": "Exodus 20:12-20:21",
     "start": {
       "bookId": "Exodus",
       "chapter": 20,
-      "verse": 7,
-      "raw": "Exodus20_7",
+      "verse": 12,
+      "raw": "Exodus20_12",
       "bookName": "Exodus"
     },
     "end": {
@@ -35,14 +35,14 @@
       "raw": "20_21",
       "bookName": "Exodus"
     },
-    "startVerse": "Exodus 20:7",
+    "startVerse": "Exodus 20:12",
     "endVerse": "Exodus 20:21",
     "spansMultipleBooks": false,
-    "esvUrl": "https://www.esv.org/Exodus+20:7-20:21/"
+    "esvUrl": "https://www.esv.org/Exodus+20:12-20:21/"
   },
   "notes": {
-    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/044-exodus20-7-20-21/notes.md",
-    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_21/notes.md",
+    "path": "apps/courses/content/unpublished/03-section-exodusleviticusnumbersdeuteronomy/lessons/045-exodus20-12-20-21/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/045_Exodus20_12-20_21/notes.md",
     "available": true
   },
   "summary": {
@@ -60,11 +60,11 @@
   "peopleTags": [],
   "placeTags": [],
   "source": {
-    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_21",
-    "folderName": "044_Exodus20_7-20_21",
-    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_21/notes.md",
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/045_Exodus20_12-20_21",
+    "folderName": "045_Exodus20_12-20_21",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/045_Exodus20_12-20_21/notes.md",
     "summaryDocxPath": null,
-    "resourcesDirectory": null,
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/045_Exodus20_12-20_21/resources",
     "mapPath": null
   }
 }

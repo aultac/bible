@@ -1,12 +1,12 @@
 {
   "schemaVersion": 3,
-  "fetchedAt": "2026-10-30T18:06:24.189Z",
+  "fetchedAt": "2026-11-06T02:23:00.894Z",
   "source": "youtube-playlist-page",
   "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
   "title": "Know Your Bible",
   "channelName": null,
-  "videoCount": 45,
+  "videoCount": 46,
   "videos": [
     {
       "videoId": "_RL2-0FTPnY",
@@ -682,10 +682,25 @@
       "matchMethod": "special",
       "durationText": "50:51",
       "thumbnailUrl": "https://i.ytimg.com/vi/S9ny2XSyeKs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC99N8Ap2p_kXX2HDZFj4DhJtyNzw"
+    },
+    {
+      "videoId": "G9cjuQV-P20",
+      "title": "Exodus 20:7-11",
+      "url": "https://www.youtube.com/watch?v=G9cjuQV-P20&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+      "position": 46,
+      "videoKind": "lesson",
+      "weekNumber": null,
+      "lessonSequenceNumber": 44,
+      "titleFormat": "passage",
+      "passageTitle": "Exodus 20:7-11",
+      "matchMethod": "special",
+      "durationText": "47:03",
+      "thumbnailUrl": "https://i.ytimg.com/vi/G9cjuQV-P20/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA0Qjvd2veKKTx5-pmnRqAPvrNjMQ"
     }
   ],
   "matching": {
-    "specialMatchesFingerprint": "86b0241f3ad12dc249bd0b869d7d3628b17b04e5baa8c3f8ece071fbe7f38a24",
+    "specialMatchesFingerprint": "e4fc452f4b9f16f9f34f1688209748ef635dc1285b9a6c6ffa7bf72dc87f1631",
     "specialMatches": [
       {
         "videoId": "kwcLuB_3FAM",
@@ -740,11 +755,20 @@
         "status": "active",
         "currentVideoTitle": "Exodus 20:3-6",
         "currentLessonTitle": "Exodus 20:3-20:6"
+      },
+      {
+        "videoId": "G9cjuQV-P20",
+        "lessonSequenceNumber": 44,
+        "videoTitle": "Exodus 20:7-11",
+        "lessonTitle": "Exodus 20:7-20:11",
+        "status": "active",
+        "currentVideoTitle": "Exodus 20:7-11",
+        "currentLessonTitle": "Exodus 20:7-20:11"
       }
     ],
     "diagnostics": [],
     "automaticMatchCount": 38,
-    "specialMatchCount": 6,
+    "specialMatchCount": 7,
     "unmatchedCount": 0,
     "ignoredCount": 1
   }

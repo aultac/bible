@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-30T18:07:00.553Z",
+  "generatedAt": "2026-11-06T02:24:01.760Z",
   "id": "03-section-exodusleviticusnumbersdeuteronomy",
   "slug": "03-section-exodusleviticusnumbersdeuteronomy",
   "sectionnum": 3,
@@ -21,7 +21,7 @@
     "Conquest",
     "Judges"
   ],
-  "lessonCount": 18,
+  "lessonCount": 19,
   "lessons": [
     {
       "id": "026-exodus1-1-1-16",
@@ -705,6 +705,44 @@
       "source": {
         "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/043_Exodus20_3-20_6",
         "folderName": "043_Exodus20_3-20_6"
+      }
+    },
+    {
+      "id": "044-exodus20-7-20-11",
+      "slug": "044-exodus20-7-20-11",
+      "sequenceNumber": 44,
+      "title": "Exodus 20:7-20:11",
+      "lessonKind": "passage",
+      "startVerse": "Exodus 20:7",
+      "endVerse": "Exodus 20:11",
+      "passage": {
+        "display": "Exodus 20:7-20:11",
+        "start": {
+          "bookId": "Exodus",
+          "chapter": 20,
+          "verse": 7,
+          "raw": "Exodus20_7",
+          "bookName": "Exodus"
+        },
+        "end": {
+          "bookId": "Exodus",
+          "chapter": 20,
+          "verse": 11,
+          "raw": "20_11",
+          "bookName": "Exodus"
+        },
+        "startVerse": "Exodus 20:7",
+        "endVerse": "Exodus 20:11",
+        "spansMultipleBooks": false,
+        "esvUrl": "https://www.esv.org/Exodus+20:7-20:11/"
+      },
+      "lessonPath": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/044-exodus20-7-20-11/lesson.json",
+      "notesAvailable": true,
+      "summaryAvailable": true,
+      "resourceCount": 2,
+      "source": {
+        "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11",
+        "folderName": "044_Exodus20_7-20_11"
       }
     }
   ],

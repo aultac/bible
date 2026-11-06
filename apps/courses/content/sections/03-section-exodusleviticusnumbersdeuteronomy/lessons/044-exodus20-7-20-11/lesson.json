@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-06T02:24:01.760Z",
+  "id": "044-exodus20-7-20-11",
+  "slug": "044-exodus20-7-20-11",
+  "sectionId": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sectionSlug": "03-section-exodusleviticusnumbersdeuteronomy",
+  "sequenceNumber": 44,
+  "lessonKind": "passage",
+  "title": "Exodus 20:7-20:11",
+  "description": "",
+  "videoSummary": null,
+  "status": "published",
+  "publishReasons": [],
+  "startVerse": "Exodus 20:7",
+  "endVerse": "Exodus 20:11",
+  "passage": {
+    "display": "Exodus 20:7-20:11",
+    "start": {
+      "bookId": "Exodus",
+      "chapter": 20,
+      "verse": 7,
+      "raw": "Exodus20_7",
+      "bookName": "Exodus"
+    },
+    "end": {
+      "bookId": "Exodus",
+      "chapter": 20,
+      "verse": 11,
+      "raw": "20_11",
+      "bookName": "Exodus"
+    },
+    "startVerse": "Exodus 20:7",
+    "endVerse": "Exodus 20:11",
+    "spansMultipleBooks": false,
+    "esvUrl": "https://www.esv.org/Exodus+20:7-20:11/"
+  },
+  "notes": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/044-exodus20-7-20-11/notes.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11/notes.md",
+    "available": true
+  },
+  "summary": {
+    "path": "apps/courses/content/sections/03-section-exodusleviticusnumbersdeuteronomy/lessons/044-exodus20-7-20-11/summary.md",
+    "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11/044_Exodus20_7-20_11_summary.docx",
+    "sourceFormat": "docx",
+    "available": true,
+    "error": null
+  },
+  "map": null,
+  "resources": [
+    {
+      "name": "Quotes from Abraham Joshua Heschel.docx",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11/resources/Quotes from Abraham Joshua Heschel.docx",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/044-exodus20-7-20-11/Quotes from Abraham Joshua Heschel.docx",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/044-exodus20-7-20-11/Quotes%20from%20Abraham%20Joshua%20Heschel.docx"
+    },
+    {
+      "name": "ten_commandments_delineation.docx",
+      "sourcePath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11/resources/ten_commandments_delineation.docx",
+      "path": "apps/courses/public/resources/03-section-exodusleviticusnumbersdeuteronomy/044-exodus20-7-20-11/ten_commandments_delineation.docx",
+      "publicUrl": "/courses/resources/03-section-exodusleviticusnumbersdeuteronomy/044-exodus20-7-20-11/ten_commandments_delineation.docx"
+    }
+  ],
+  "youtube": {
+    "videoId": "G9cjuQV-P20",
+    "title": "Exodus 20:7-11",
+    "url": "https://www.youtube.com/watch?v=G9cjuQV-P20&list=PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "playlistId": "PLhEOtft6GPkCh5d27mIMwF8rJHsl6M6fz",
+    "position": 46,
+    "videoKind": "lesson",
+    "weekNumber": null,
+    "lessonSequenceNumber": 44,
+    "titleFormat": "passage",
+    "passageTitle": "Exodus 20:7-11",
+    "matchMethod": "special",
+    "durationText": "47:03",
+    "thumbnailUrl": "https://i.ytimg.com/vi/G9cjuQV-P20/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA0Qjvd2veKKTx5-pmnRqAPvrNjMQ"
+  },
+  "tags": [],
+  "topicTags": [],
+  "peopleTags": [],
+  "placeTags": [],
+  "source": {
+    "relativeLessonDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11",
+    "folderName": "044_Exodus20_7-20_11",
+    "notesPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11/notes.md",
+    "summaryDocxPath": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11/044_Exodus20_7-20_11_summary.docx",
+    "resourcesDirectory": "03-Bucket-ExodusLeviticusNumbersDeuteronomy/044_Exodus20_7-20_11/resources",
+    "mapPath": null
+  }
+}
